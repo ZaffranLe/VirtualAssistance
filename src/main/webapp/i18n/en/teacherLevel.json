@@ -1,0 +1,10 @@
+{
+    "virtualAssistantApp": {
+        "TeacherLevel" : {
+            "null": "",
+            "TEACHER": "TEACHER",
+            "DEAN": "DEAN",
+            "HIGHLEVEL": "HIGHLEVEL"
+        }
+    }
+}

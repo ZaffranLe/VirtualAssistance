@@ -1,0 +1,9 @@
+{
+    "virtualAssistantApp": {
+        "Status" : {
+            "null": "",
+            "EXIST": "EXIST",
+            "DELETED": "DELETED"
+        }
+    }
+}

@@ -1,0 +1,98 @@
+entity Teacher {
+	IdentityNumber String,
+    FullName String,
+    Phone String,
+    DoB ZonedDateTime,
+    Address String,
+    Email String,
+    Password String,
+    DataStorage Integer,
+    UsedStorage Integer,
+    Level TeacherLevel,
+    Status Status,
+	Avatar String
+}
+entity TeacherDocument {
+	Role Role,
+}
+enum Role {
+	OWNER, SHARED
+}
+enum TeacherLevel {
+	TEACHER, DEAN, HIGHLEVEL
+}
+
+enum Status {
+	EXIST, DELETED
+}
+
+entity Document{
+	Name String,
+    Description String,
+    URL String,
+    Size Integer,
+    Tag String,
+    Status Status
+}
+
+entity DocumentType{
+	Content String
+}
+
+entity Notification{
+	Name String,
+    Description String,
+    URL String,
+    Status Status
+}
+
+entity NotificationType{
+	Content String
+}
+
+entity HeadQuater{
+	Name String
+}
+
+entity CriteriaType{
+	Content String,
+    Level Integer
+}
+
+entity Answer{
+	ScoreLadder ScoreLadder,
+	Proof String
+}
+
+enum ScoreLadder{
+	FAIL, PASS, GOOD, EXCELLENT
+}
+
+entity CritetiaEvaluate{
+	Content String,
+    Level Integer
+}
+
+entity FullEvaluate{
+	Description String
+}
+
+relationship ManyToMany {
+	Document{DocumentType} to DocumentType{Document},
+}
+
+relationship OneToMany {
+	Teacher{Teacher} to TeacherDocument{Teacher}
+    Document{Document} to TeacherDocument{Document}
+}
+
+relationship ManyToOne {
+    Notification{HeadQuater} to HeadQuater,
+    Notification{NotificationType} to NotificationType,
+    FullEvaluate{Teacher} to Teacher,
+    Answer{FullEvaluate} to FullEvaluate,
+    Answer{CritetiaEvaluate} to CritetiaEvaluate,
+    CritetiaEvaluate{CriteriaType} to CriteriaType
+}
+
+service all with serviceImpl

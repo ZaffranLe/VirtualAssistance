@@ -1,0 +1,24 @@
+
+{
+    "virtualAssistantApp": {
+        "critetiaEvaluate" : {
+            "home": {
+                "title": "Critetia Evaluates",
+                "createLabel": "Create a new Critetia Evaluate",
+                "createOrEditLabel": "Create or edit a Critetia Evaluate"
+            },
+            "created": "A new Critetia Evaluate is created with identifier {{ param }}",
+            "updated": "A Critetia Evaluate is updated with identifier {{ param }}",
+            "deleted": "A Critetia Evaluate is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Critetia Evaluate {{ id }}?"
+            },
+            "detail": {
+                "title": "Critetia Evaluate"
+            },
+            "content": "Content",
+            "level": "Level",
+            "criteriaType": "Criteria Type"
+        }
+    }
+}

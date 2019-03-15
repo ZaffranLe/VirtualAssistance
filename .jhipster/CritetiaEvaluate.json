@@ -1,0 +1,30 @@
+{
+    "name": "CritetiaEvaluate",
+    "fields": [
+        {
+            "fieldName": "content",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "level",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "criteriaType",
+            "otherEntityName": "criteriaType",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190313134950",
+    "entityTableName": "critetia_evaluate",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

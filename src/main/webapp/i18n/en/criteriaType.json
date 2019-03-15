@@ -1,0 +1,23 @@
+
+{
+    "virtualAssistantApp": {
+        "criteriaType" : {
+            "home": {
+                "title": "Criteria Types",
+                "createLabel": "Create a new Criteria Type",
+                "createOrEditLabel": "Create or edit a Criteria Type"
+            },
+            "created": "A new Criteria Type is created with identifier {{ param }}",
+            "updated": "A Criteria Type is updated with identifier {{ param }}",
+            "deleted": "A Criteria Type is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Criteria Type {{ id }}?"
+            },
+            "detail": {
+                "title": "Criteria Type"
+            },
+            "content": "Content",
+            "level": "Level"
+        }
+    }
+}

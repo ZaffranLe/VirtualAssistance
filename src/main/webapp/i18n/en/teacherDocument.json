@@ -1,0 +1,24 @@
+
+{
+    "virtualAssistantApp": {
+        "teacherDocument" : {
+            "home": {
+                "title": "Teacher Documents",
+                "createLabel": "Create a new Teacher Document",
+                "createOrEditLabel": "Create or edit a Teacher Document"
+            },
+            "created": "A new Teacher Document is created with identifier {{ param }}",
+            "updated": "A Teacher Document is updated with identifier {{ param }}",
+            "deleted": "A Teacher Document is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Teacher Document {{ id }}?"
+            },
+            "detail": {
+                "title": "Teacher Document"
+            },
+            "role": "Role",
+            "teacher": "Teacher",
+            "document": "Document"
+        }
+    }
+}

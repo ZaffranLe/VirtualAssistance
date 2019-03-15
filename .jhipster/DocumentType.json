@@ -1,0 +1,27 @@
+{
+    "name": "DocumentType",
+    "fields": [
+        {
+            "fieldName": "content",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "document",
+            "otherEntityName": "document",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "documentType"
+        }
+    ],
+    "changelogDate": "20190313134944",
+    "entityTableName": "document_type",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

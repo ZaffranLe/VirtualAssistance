@@ -1,0 +1,72 @@
+{
+    "name": "Teacher",
+    "fields": [
+        {
+            "fieldName": "identityNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fullName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "phone",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "doB",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "password",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dataStorage",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "usedStorage",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "level",
+            "fieldType": "TeacherLevel",
+            "fieldValues": "TEACHER,DEAN,HIGHLEVEL"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Status",
+            "fieldValues": "EXIST,DELETED"
+        },
+        {
+            "fieldName": "avatar",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "teacher",
+            "otherEntityName": "teacherDocument",
+            "otherEntityRelationshipName": "teacher"
+        }
+    ],
+    "changelogDate": "20190313134941",
+    "entityTableName": "teacher",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

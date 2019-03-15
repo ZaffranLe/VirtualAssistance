@@ -1,0 +1,22 @@
+
+{
+    "virtualAssistantApp": {
+        "headQuater" : {
+            "home": {
+                "title": "Head Quaters",
+                "createLabel": "Create a new Head Quater",
+                "createOrEditLabel": "Create or edit a Head Quater"
+            },
+            "created": "A new Head Quater is created with identifier {{ param }}",
+            "updated": "A Head Quater is updated with identifier {{ param }}",
+            "deleted": "A Head Quater is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Head Quater {{ id }}?"
+            },
+            "detail": {
+                "title": "Head Quater"
+            },
+            "name": "Name"
+        }
+    }
+}

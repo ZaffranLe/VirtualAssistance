@@ -1,0 +1,31 @@
+const usersData = [
+  {id: 0, name: 'John Doe', address: 'Ha Noi', phone: '0123456789', email: 'Pending', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 1, name: 'Samppa Nori', address: 'Ha Noi', phone: '0123456789', email: 'Active', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 30, result: 'Khá'},
+  {id: 2, name: 'Estavan Lykos', address: 'Ha Noi', phone: '0123456789', email: 'Banned', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 40, result: 'Chưa đạt'},
+  {id: 3, name: 'Chetan Mohamed', address: 'Ha Noi', phone: '0123456789', email: 'Inactive', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 50, result: 'Tốt'},
+  {id: 4, name: 'Derick Maximinus', address: 'Ha Noi', phone: '0123456789', email: 'Pending', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 60, result: 'Đạt'},
+  {id: 5, name: 'Friderik Dávid', address: 'Ha Noi', phone: '0123456789', email: 'Active', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 70, result: 'Đạt'},
+  {id: 6, name: 'Yiorgos Avraamu', address: 'Ha Noi', phone: '0123456789', email: 'Active', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 80, result: 'Đạt'},
+  {id: 7, name: 'Avram Tarasios', address: 'Ha Noi', phone: '0123456789', email: 'Banned', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 8, name: 'Quintin Ed', address: 'Ha Noi', phone: '0123456789', email: 'Inactive', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 9, name: 'Enéas Kwadwo', address: 'Ha Noi', phone: '0123456789', email: 'Pending', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 10, name: 'Agapetus Tadeáš', address: 'Ha Noi', phone: '0123456789', email: 'Active', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 11, name: 'Carwyn Fachtna', address: 'Ha Noi', phone: '0123456789', email: 'Active', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 12, name: 'Nehemiah Tatius', address: 'Ha Noi', phone: '0123456789', email: 'Banned', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 13, name: 'Ebbe Gemariah', address: 'Ha Noi', phone: '0123456789', email: 'Inactive', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 14, name: 'Eustorgios Amulius', address: 'Ha Noi', phone: '0123456789', email: 'Pending', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 15, name: 'Leopold Gáspár', address: 'Ha Noi', phone: '0123456789', email: 'Active', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 16, name: 'Pompeius René', address: 'Ha Noi', phone: '0123456789', email: 'Active', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 17, name: 'Paĉjo Jadon', address: 'Ha Noi', phone: '0123456789', email: 'Banned', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 18, name: 'Micheal Mercurius', address: 'Ha Noi', phone: '0123456789', email: 'Inactive', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 19, name: 'Ganesha Dubhghall', address: 'Ha Noi', phone: '0123456789', email: 'Pending', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 20, name: 'Hiroto Šimun', address: 'Ha Noi', phone: '0123456789', email: 'Active', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 21, name: 'Vishnu Serghei', address: 'Ha Noi', phone: '0123456789', email: 'Active', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 22, name: 'Zbyněk Phoibos', address: 'Ha Noi', phone: '0123456789', email: 'Banned', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 23, name: 'Einar Randall', address: 'Ha Noi', phone: '0123456789', email: 'Inactive', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 24, name: 'Félix Troels', address: 'Ha Noi', phone: '0123456789', email: 'Active', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 25, name: 'Aulus Agmundr', address: 'Ha Noi', phone: '0123456789', email: 'Pending', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram', progress: 25, result: 'Đạt'},
+  {id: 42, name: 'Ford Prefex', address: '2001/05/21', phone: 'Alien', email: 'Don\'t panic!', facebook: 'facebook', twitter: 'twitter', instagram: 'instagram'}
+]
+
+export default usersData

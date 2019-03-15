@@ -1,0 +1,37 @@
+{
+    "name": "Answer",
+    "fields": [
+        {
+            "fieldName": "scoreLadder",
+            "fieldType": "ScoreLadder",
+            "fieldValues": "FAIL,PASS,GOOD,EXCELLENT"
+        },
+        {
+            "fieldName": "proof",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "fullEvaluate",
+            "otherEntityName": "fullEvaluate",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "critetiaEvaluate",
+            "otherEntityName": "critetiaEvaluate",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190313134949",
+    "entityTableName": "answer",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
