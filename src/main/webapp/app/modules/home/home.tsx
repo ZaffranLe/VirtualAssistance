@@ -11,7 +11,7 @@ import { getSession } from 'app/shared/reducers/authentication';
 
 export interface IHomeProp extends StateProps, DispatchProps {}
 
-export class Home extends React.Component<IHomeProp> {
+export class UserUi extends React.Component<IHomeProp> {
   componentDidMount() {
     this.props.getSession();
   }
@@ -117,4 +117,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(UserUi);
