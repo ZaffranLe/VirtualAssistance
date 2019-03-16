@@ -28,7 +28,7 @@ const getTsLoaderRule = env => {
         transpileOnly: true,
         happyPackMode: true
       }
-    }
+    },
   ];
   if (env === 'development') {
     rules.unshift({

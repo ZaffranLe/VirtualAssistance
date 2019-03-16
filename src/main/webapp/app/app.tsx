@@ -61,6 +61,7 @@ const mapStateToProps = ({ authentication, applicationProfile, locale }: IRootSt
   currentLocale: locale.currentLocale,
   isAuthenticated: authentication.isAuthenticated,
   isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
+  isUser: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.USER]),
   ribbonEnv: applicationProfile.ribbonEnv,
   isInProduction: applicationProfile.inProduction,
   isSwaggerEnabled: applicationProfile.isSwaggerEnabled
