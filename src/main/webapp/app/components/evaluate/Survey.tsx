@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 import { Row, Col, Table, Form, Button, Alert } from 'reactstrap';
 import surveyQuestionsData from './SurveyQuestionsData';
-import groupsQuestionData from './GroupsQuestionData';
 import QuestionRow from './QuestionRow';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getCriteriaTypeEntities } from '../../entities/criteria-type/criteria-type.reducer';
+import { getCriteriaEvaluateEntities } from '../../entities/critetia-evaluate/critetia-evaluate.reducer';
+import { IRootState } from 'app/shared/reducers';
+export interface ICriteriaTypeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface ICriteriaEvaluateProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+
 function QuestionGroupHeader(props) {
-  const group = props.group;
+  const criteriaType = props.criteriaType;
   return (
-    <tr key={group.id.toString()}>
+    <tr key={criteriaType.id.toString()}>
       <td colSpan={5} className="text-left bg-light">
         <strong>
           <h4>
-            Tiêu chuẩn {group.id + 1}. {group.name}
+            Tiêu chuẩn {criteriaType.id}. {criteriaType.content}
           </h4>
         </strong>
       </td>
@@ -32,6 +39,11 @@ const getAlertColor = result => {
 };
 
 class Survey extends React.Component<any, any> {
+  componentDidMount() {
+    this.props.getCriteriaTypeEntities();
+    this.props.getCriteriaEvaluateEntities();
+  }
+
   constructor(props) {
     super(props);
 
@@ -57,14 +69,14 @@ class Survey extends React.Component<any, any> {
     let tot = 0;
     for (i = 0; i < resultList.length; i++) {
       // eslint-disable-next-line
-      if (resultList[i] == 1) return 'Chưa đạt';
+      if (resultList[i] === 1) return 'Chưa đạt';
       // eslint-disable-next-line
-      resultList[i] == 3 ? kha++ : resultList[i] == 4 && tot++;
+      resultList[i] === 3 ? kha++ : resultList[i] === 4 && tot++;
     }
 
     for (i = 2; i < 7; i++) {
       // eslint-disable-next-line
-      if (resultList[i] == 2) return 'Đạt';
+      if (resultList[i] === 2) return 'Đạt';
     }
 
     if (kha + tot < 10) return 'Đạt';
@@ -73,7 +85,7 @@ class Survey extends React.Component<any, any> {
       // eslint-disable-next-line
       for (i = 2; i < 7; i++) {
         // eslint-disable-next-line
-        if (resultList[i] == 3) return 'Khá';
+        if (resultList[i] === 3) return 'Khá';
       }
       return 'Tốt';
     }
@@ -81,8 +93,8 @@ class Survey extends React.Component<any, any> {
   }
 
   render() {
-    const groupQuestionList = groupsQuestionData;
-    const questionList = surveyQuestionsData;
+    const { criteriaTypeList, matchType } = this.props;
+    const { criteriaEvaluateList, matchEvaluate } = this.props;
     return (
       <div className="animated fadeIn">
         <Form>
@@ -97,18 +109,20 @@ class Survey extends React.Component<any, any> {
                   <th className="align-middle">Tốt</th>
                 </thead>
                 <tbody>
-                  {groupQuestionList.map((group, index) => [
-                    <QuestionGroupHeader key={index} group={group} />,
-                    questionList.map(
-                      (question, index) =>
-                        question.group === group.id && <QuestionRow key={index} onChange={e => this.handleChange(e)} question={question} />
+                  {criteriaTypeList.map((criteriaType, index) => [
+                    <QuestionGroupHeader key={index} criteriaType={criteriaType} />,
+                    criteriaEvaluateList.map(
+                      (criteriaEvaluate, index) =>
+                        criteriaEvaluate.criteriaType.id === criteriaType.id && (
+                          <QuestionRow key={index} onChange={e => this.handleChange(e)} criteriaEvaluate={criteriaEvaluate} />
+                        )
                     )
                   ])}
                   <tr>
                     <td className="align-middle">
-                      <Alert color={getAlertColor(this.state.result)}>
+                      {/* <Alert color={getAlertColor(this.state.result)}>
                         Xếp loại hiện tại: <strong>{this.state.result}</strong>
-                      </Alert>
+                      </Alert> */}
                     </td>
                     <td colSpan={4} className="align-middle">
                       <Button className="btn-pill" color="primary">
@@ -126,4 +140,20 @@ class Survey extends React.Component<any, any> {
   }
 }
 
-export default Survey;
+const mapStateToProps = ({ criteriaType, critetiaEvaluate }: IRootState) => ({
+  criteriaTypeList: criteriaType.entities,
+  criteriaEvaluateList: critetiaEvaluate.entities
+});
+
+const mapDispatchToProps = {
+  getCriteriaTypeEntities,
+  getCriteriaEvaluateEntities
+};
+
+type StateProps = ReturnType<typeof mapStateToProps>;
+type DispatchProps = typeof mapDispatchToProps;
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Survey);

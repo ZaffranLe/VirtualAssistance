@@ -7,7 +7,7 @@ class QuestionRow extends React.Component<any, any> {
     this.toggle = this.toggle.bind(this);
     this.state = {
       collapse: false,
-      question: props.question
+      criteriaEvaluate: props.criteriaEvaluate
     };
   }
 
@@ -17,21 +17,21 @@ class QuestionRow extends React.Component<any, any> {
 
   render() {
     return (
-      <tr key={this.state.question.id.toString()}>
+      <tr key={this.state.criteriaEvaluate.id.toString()}>
         <td className="text-left">
           <Card>
             <CardHeader>
               <strong>
-                Tiêu chí {this.state.question.id + 1}: {this.state.question.name}
+                Tiêu chí {this.state.criteriaEvaluate.id}: {this.state.criteriaEvaluate.content}
               </strong>
-              <Button color="link" onClick={this.toggle} className="float-right" id={'toggleCollapse' + this.state.question.id}>
+              <Button color="link" onClick={this.toggle} className="float-right" id={'toggleCollapse' + this.state.criteriaEvaluate.id}>
                 Xem tiêu chí đánh giá
               </Button>
             </CardHeader>
             <Collapse isOpen={this.state.collapse}>
               <CardBody>
-                - <strong>Mức Đạt:</strong> {this.state.question.pass} <br />- <strong>Mức Khá:</strong> {this.state.question.good} <br />-{' '}
-                <strong>Mức Tốt:</strong> {this.state.question.veryGood}
+                {/* - <strong>Mức Đạt:</strong> {this.state.question.pass} <br />- <strong>Mức Khá:</strong> {this.state.question.good} <br />-{' '}
+                <strong>Mức Tốt:</strong> {this.state.question.veryGood} */}
               </CardBody>
             </Collapse>
           </Card>
@@ -39,8 +39,8 @@ class QuestionRow extends React.Component<any, any> {
         <td className="align-middle">
           <CustomInput
             type="radio"
-            id={this.state.question.id + 'CD'}
-            name={this.state.question.id}
+            id={this.state.criteriaEvaluate.id + 'CD'}
+            name={this.state.criteriaEvaluate.id}
             value={1}
             onChange={this.props.onChange}
           />
@@ -48,8 +48,8 @@ class QuestionRow extends React.Component<any, any> {
         <td className="align-middle">
           <CustomInput
             type="radio"
-            id={this.state.question.id + 'D'}
-            name={this.state.question.id}
+            id={this.state.criteriaEvaluate.id + 'D'}
+            name={this.state.criteriaEvaluate.id}
             value={2}
             onChange={this.props.onChange}
           />
@@ -57,8 +57,8 @@ class QuestionRow extends React.Component<any, any> {
         <td className="align-middle">
           <CustomInput
             type="radio"
-            id={this.state.question.id + 'K'}
-            name={this.state.question.id}
+            id={this.state.criteriaEvaluate.id + 'K'}
+            name={this.state.criteriaEvaluate.id}
             value={3}
             onChange={this.props.onChange}
           />
@@ -66,8 +66,8 @@ class QuestionRow extends React.Component<any, any> {
         <td className="align-middle">
           <CustomInput
             type="radio"
-            id={this.state.question.id + 'T'}
-            name={this.state.question.id}
+            id={this.state.criteriaEvaluate.id + 'T'}
+            name={this.state.criteriaEvaluate.id}
             value={4}
             onChange={this.props.onChange}
           />

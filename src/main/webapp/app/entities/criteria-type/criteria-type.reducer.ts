@@ -99,7 +99,7 @@ const apiUrl = 'api/criteria-types';
 
 // Actions
 
-export const getEntities: ICrudGetAllAction<ICriteriaType> = (page, size, sort) => ({
+export const getCriteriaTypeEntities: ICrudGetAllAction<ICriteriaType> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_CRITERIATYPE_LIST,
   payload: axios.get<ICriteriaType>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
@@ -117,7 +117,7 @@ export const createEntity: ICrudPutAction<ICriteriaType> = entity => async dispa
     type: ACTION_TYPES.CREATE_CRITERIATYPE,
     payload: axios.post(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getCriteriaTypeEntities());
   return result;
 };
 
@@ -126,7 +126,7 @@ export const updateEntity: ICrudPutAction<ICriteriaType> = entity => async dispa
     type: ACTION_TYPES.UPDATE_CRITERIATYPE,
     payload: axios.put(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getCriteriaTypeEntities());
   return result;
 };
 
@@ -136,7 +136,7 @@ export const deleteEntity: ICrudDeleteAction<ICriteriaType> = id => async dispat
     type: ACTION_TYPES.DELETE_CRITERIATYPE,
     payload: axios.delete(requestUrl)
   });
-  dispatch(getEntities());
+  dispatch(getCriteriaTypeEntities());
   return result;
 };
 

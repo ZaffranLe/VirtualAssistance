@@ -7,7 +7,7 @@ import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities } from './critetia-evaluate.reducer';
+import { getCriteriaEvaluateEntities } from './critetia-evaluate.reducer';
 import { ICritetiaEvaluate } from 'app/shared/model/critetia-evaluate.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -16,7 +16,7 @@ export interface ICritetiaEvaluateProps extends StateProps, DispatchProps, Route
 
 export class CritetiaEvaluate extends React.Component<ICritetiaEvaluateProps> {
   componentDidMount() {
-    this.props.getEntities();
+    this.props.getCriteriaEvaluateEntities();
   }
 
   render() {
@@ -103,7 +103,7 @@ const mapStateToProps = ({ critetiaEvaluate }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getEntities
+  getCriteriaEvaluateEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
