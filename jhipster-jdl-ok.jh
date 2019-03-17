@@ -68,9 +68,12 @@ enum ScoreLadder{
 	FAIL, PASS, GOOD, EXCELLENT
 }
 
-entity CritetiaEvaluate{
+entity CriteriaEvaluate{
 	Content String,
-    Level Integer
+    Level Integer,
+	Pass String,
+	Good String,
+	Excellent String
 }
 
 entity FullEvaluate{
