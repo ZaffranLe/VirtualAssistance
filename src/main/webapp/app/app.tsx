@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { Card } from 'reactstrap';
 import { HashRouter as Router } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import { getProfile } from 'app/shared/reducers/application-profile';

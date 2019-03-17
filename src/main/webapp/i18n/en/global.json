@@ -9,9 +9,9 @@
                 "main": "Entities",
                 "teacher": "Teacher",
                 "teacherDocument": "Teacher Document",
-                "document": "Document",
+                "document": "Documents",
                 "documentType": "Document Type",
-                "notification": "Notification",
+                "notification": "Notifications",
                 "notificationType": "Notification Type",
                 "headQuater": "Head Quater",
                 "criteriaType": "Criteria Type",
@@ -19,6 +19,10 @@
                 "critetiaEvaluate": "Critetia Evaluate",
                 "fullEvaluate": "Full Evaluate",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+            },
+            "components": {
+                "survey": "Evaluate",
+                "documents": "Documents"
             },
             "account": {
                 "main": "Account",

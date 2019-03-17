@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CustomInput, Card, CardHeader, CardBody, Button, Alert, Collapse } from 'reactstrap';
+import { CustomInput, Card, CardHeader, CardBody, Button, Collapse } from 'reactstrap';
 
 class QuestionRow extends React.Component<any, any> {
   constructor(props) {
@@ -41,7 +41,7 @@ class QuestionRow extends React.Component<any, any> {
             type="radio"
             id={this.state.question.id + 'CD'}
             name={this.state.question.id}
-            value="1"
+            value={1}
             onChange={this.props.onChange}
           />
         </td>
@@ -50,7 +50,7 @@ class QuestionRow extends React.Component<any, any> {
             type="radio"
             id={this.state.question.id + 'D'}
             name={this.state.question.id}
-            value="2"
+            value={2}
             onChange={this.props.onChange}
           />
         </td>
@@ -59,7 +59,7 @@ class QuestionRow extends React.Component<any, any> {
             type="radio"
             id={this.state.question.id + 'K'}
             name={this.state.question.id}
-            value="3"
+            value={3}
             onChange={this.props.onChange}
           />
         </td>
@@ -68,7 +68,7 @@ class QuestionRow extends React.Component<any, any> {
             type="radio"
             id={this.state.question.id + 'T'}
             name={this.state.question.id}
-            value="4"
+            value={4}
             onChange={this.props.onChange}
           />
         </td>

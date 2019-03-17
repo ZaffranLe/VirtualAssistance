@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Table, Form, Button, Alert, Collapse } from 'reactstrap';
+import { Row, Col, Table, Form, Button, Alert } from 'reactstrap';
 import surveyQuestionsData from './SurveyQuestionsData';
 import groupsQuestionData from './GroupsQuestionData';
 import QuestionRow from './QuestionRow';
@@ -7,7 +7,7 @@ function QuestionGroupHeader(props) {
   const group = props.group;
   return (
     <tr key={group.id.toString()}>
-      <td colspan="5" className="text-left bg-light">
+      <td colSpan={5} className="text-left bg-light">
         <strong>
           <h4>
             Tiêu chuẩn {group.id + 1}. {group.name}
@@ -110,7 +110,7 @@ class Survey extends React.Component<any, any> {
                         Xếp loại hiện tại: <strong>{this.state.result}</strong>
                       </Alert>
                     </td>
-                    <td colspan="4" className="align-middle">
+                    <td colSpan={4} className="align-middle">
                       <Button className="btn-pill" color="primary">
                         Lưu bản đánh giá
                       </Button>
