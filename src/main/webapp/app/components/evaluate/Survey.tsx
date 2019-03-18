@@ -54,11 +54,11 @@ class Survey extends React.Component<any, any> {
 
   handleChange(e) {
     const resultList = this.state.questionResult.slice();
-    resultList[e.target.name] = e.target.value;
-    const result = this.calculateResult(resultList);
+    resultList[e.target.name - 1] = e.target.value;
+    const resultExpect = this.calculateResult(resultList);
     this.setState({
       questionResult: resultList,
-      result: result
+      result: resultExpect
     });
   }
 
@@ -67,24 +67,23 @@ class Survey extends React.Component<any, any> {
     let kha = 0;
     let tot = 0;
     for (i = 0; i < resultList.length; i++) {
-      // eslint-disable-next-line
-      if (resultList[i] === 1) return 'Chưa đạt';
-      // eslint-disable-next-line
-      resultList[i] === 3 ? kha++ : resultList[i] === 4 && tot++;
+      // tslint:disable-next-line:triple-equals
+      if (resultList[i] == 1) return 'Chưa đạt';
+      // tslint:disable-next-line:triple-equals
+      resultList[i] == 3 ? kha++ : resultList[i] == 4 && tot++;
     }
 
     for (i = 2; i < 7; i++) {
-      // eslint-disable-next-line
-      if (resultList[i] === 2) return 'Đạt';
+      // tslint:disable-next-line:triple-equals
+      if (resultList[i] == 2) return 'Đạt';
     }
 
     if (kha + tot < 10) return 'Đạt';
 
     if (tot >= 10) {
-      // eslint-disable-next-line
       for (i = 2; i < 7; i++) {
-        // eslint-disable-next-line
-        if (resultList[i] === 3) return 'Khá';
+        // tslint:disable-next-line:triple-equals
+        if (resultList[i] == 3) return 'Khá';
       }
       return 'Tốt';
     }
@@ -111,17 +110,17 @@ class Survey extends React.Component<any, any> {
                   {criteriaTypeList.map((criteriaType, index) => [
                     <QuestionGroupHeader key={index} criteriaType={criteriaType} />,
                     criteriaEvaluateList.map(
-                      (criteriaEvaluate, index) =>
+                      (criteriaEvaluate, indexEvaluate) =>
                         criteriaEvaluate.criteriaType.id === criteriaType.id && (
-                          <QuestionRow key={index} onChange={e => this.handleChange(e)} criteriaEvaluate={criteriaEvaluate} />
+                          <QuestionRow key={indexEvaluate} onChange={e => this.handleChange(e)} criteriaEvaluate={criteriaEvaluate} />
                         )
                     )
                   ])}
                   <tr>
                     <td className="align-middle">
-                      {/* <Alert color={getAlertColor(this.state.result)}>
+                      <Alert color={getAlertColor(this.state.result)}>
                         Xếp loại hiện tại: <strong>{this.state.result}</strong>
-                      </Alert> */}
+                      </Alert>
                     </td>
                     <td colSpan={4} className="align-middle">
                       <Button className="btn-pill" color="primary">

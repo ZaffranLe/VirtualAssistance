@@ -29,10 +29,10 @@ function NotificationRow(props) {
 }
 
 function TypeOption(props) {
-  const type = props.type;
+  const typeOption = props.type;
   return (
-    <option key={type.id.toString()} value={type.name} onSelect={props.onSelect}>
-      {type.name}
+    <option key={typeOption.id.toString()} value={typeOption.name} onSelect={props.onSelect}>
+      {typeOption.name}
     </option>
   );
 }
@@ -95,10 +95,8 @@ class FindNotification extends React.Component<any, any> {
                   </Col>
                   <Col lg={4}>
                     <Input onChange={e => this.handleSearchType(e)} type="select" name="select" id="select">
-                      <option value="" default>
-                        Tìm theo thể loại văn bản (Tất cả)
-                      </option>
-                      {typeList.map((type, index) => <TypeOption key={index} type={type} />)}
+                      <option value="">Tìm theo thể loại văn bản (Tất cả)</option>
+                      {typeList.map((typeDetail, index) => <TypeOption key={index} type={typeDetail} />)}
                     </Input>
                   </Col>
                   <Col lg={4}>

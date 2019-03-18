@@ -30,8 +30,8 @@ export class NotificationUpdate extends React.Component<INotificationUpdateProps
   constructor(props) {
     super(props);
     this.state = {
-      headQuaterId: "",
-      notificationTypeId: "",
+      headQuaterId: '',
+      notificationTypeId: '',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }

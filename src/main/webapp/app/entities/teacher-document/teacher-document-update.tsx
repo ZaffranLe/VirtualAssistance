@@ -30,8 +30,8 @@ export class TeacherDocumentUpdate extends React.Component<ITeacherDocumentUpdat
   constructor(props) {
     super(props);
     this.state = {
-      teacherId: "",
-      documentId: "",
+      teacherId: '',
+      documentId: '',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }

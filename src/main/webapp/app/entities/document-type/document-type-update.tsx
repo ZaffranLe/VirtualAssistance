@@ -27,7 +27,7 @@ export class DocumentTypeUpdate extends React.Component<IDocumentTypeUpdateProps
   constructor(props) {
     super(props);
     this.state = {
-      documentId: "",
+      documentId: '',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }

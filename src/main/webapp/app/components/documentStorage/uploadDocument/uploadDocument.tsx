@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, FormGroup, Label, Row, FormText, Input, Button } from 'reactstrap';
 import { FilePond } from 'react-filepond';
+// tslint:disable-next-line:no-submodule-imports
 import 'filepond/dist/filepond.min.css';
 import type from '../../notification/TheLoaiVanBanData';
 
 function TypeOption(props) {
-  const type = props.type;
+  const typeOption = props.type;
   return (
-    <option key={type.id.toString()} value={type.name}>
-      {type.name}
+    <option key={typeOption.id.toString()} value={typeOption.name}>
+      {typeOption.name}
     </option>
   );
 }
@@ -46,7 +47,7 @@ class UploadDocument extends React.Component<any, any> {
                   <Col lg={3}>
                     <FormGroup>
                       <Label>Upload</Label>
-                      <FilePond allowMultiple={true} />
+                      <FilePond allowMultiple />
                     </FormGroup>
                   </Col>
                   <Col lg={9}>
@@ -63,10 +64,8 @@ class UploadDocument extends React.Component<any, any> {
                         <FormGroup>
                           <Label>Loại tài liệu</Label>
                           <Input type="select" name="select" id="select">
-                            <option value="" default>
-                              Lựa chọn
-                            </option>
-                            {typeList.map((type, index) => <TypeOption key={index} type={type} />)}
+                            <option value="">Lựa chọn</option>
+                            {typeList.map((typeDetail, index) => <TypeOption key={index} type={typeDetail} />)}
                           </Input>
                         </FormGroup>
                       </Col>

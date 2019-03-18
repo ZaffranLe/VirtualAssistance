@@ -27,7 +27,7 @@ export class FullEvaluateUpdate extends React.Component<IFullEvaluateUpdateProps
   constructor(props) {
     super(props);
     this.state = {
-      teacherId: "",
+      teacherId: '',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }

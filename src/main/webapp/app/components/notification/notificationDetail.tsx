@@ -52,7 +52,7 @@ class NotificationDetail extends React.Component<any, any> {
 
   render() {
     const { activeIndex } = this.state;
-    const vanBan = vanBansData.find(vanBan => vanBan.id.toString() === this.props.match.params.id);
+    const vanBan = vanBansData.find(vanBanDetail => vanBanDetail.id.toString() === this.props.match.params.id);
     const itemList = items;
     const vanBanDetails = vanBan;
     // const slides = items.map((item) => {

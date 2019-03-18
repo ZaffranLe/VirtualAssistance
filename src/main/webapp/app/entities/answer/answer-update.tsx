@@ -11,7 +11,7 @@ import { IRootState } from 'app/shared/reducers';
 import { IFullEvaluate } from 'app/shared/model/full-evaluate.model';
 import { getEntities as getFullEvaluates } from 'app/entities/full-evaluate/full-evaluate.reducer';
 import { ICriteriaEvaluate } from 'app/shared/model/criteria-evaluate.model';
-import { getEntities as getCriteriaEvaluates } from 'app/entities/criteria-evaluate/criteria-evaluate.reducer';
+import { getCriteriaEvaluateEntities as getCriteriaEvaluates } from 'app/entities/criteria-evaluate/criteria-evaluate.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './answer.reducer';
 import { IAnswer } from 'app/shared/model/answer.model';
 // tslint:disable-next-line:no-unused-variable
