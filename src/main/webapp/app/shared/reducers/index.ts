@@ -45,17 +45,18 @@ import criteriaType, {
   CriteriaTypeState
 } from 'app/entities/criteria-type/criteria-type.reducer';
 // prettier-ignore
-import answer, {
-  AnswerState
-} from 'app/entities/answer/answer.reducer';
-// prettier-ignore
-import critetiaEvaluate, {
-  CritetiaEvaluateState
-} from 'app/entities/critetia-evaluate/critetia-evaluate.reducer';
 // prettier-ignore
 import fullEvaluate, {
   FullEvaluateState
 } from 'app/entities/full-evaluate/full-evaluate.reducer';
+// prettier-ignore
+import answer, {
+  AnswerState
+} from 'app/entities/answer/answer.reducer';
+// prettier-ignore
+import criteriaEvaluate, {
+  CriteriaEvaluateState
+} from 'app/entities/criteria-evaluate/criteria-evaluate.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -78,8 +79,8 @@ export interface IRootState {
   readonly headQuater: HeadQuaterState;
   readonly criteriaType: CriteriaTypeState;
   readonly answer: AnswerState;
-  readonly critetiaEvaluate: CritetiaEvaluateState;
   readonly fullEvaluate: FullEvaluateState;
+  readonly criteriaEvaluate: CriteriaEvaluateState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -104,8 +105,8 @@ const rootReducer = combineReducers<IRootState>({
   headQuater,
   criteriaType,
   answer,
-  critetiaEvaluate,
   fullEvaluate,
+  criteriaEvaluate,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });

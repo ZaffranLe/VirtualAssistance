@@ -1,0 +1,42 @@
+{
+    "name": "CriteriaEvaluate",
+    "fields": [
+        {
+            "fieldName": "content",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "level",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "pass",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "good",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "excellent",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "criteriaType",
+            "otherEntityName": "criteriaType",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190317231208",
+    "entityTableName": "criteria_evaluate",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

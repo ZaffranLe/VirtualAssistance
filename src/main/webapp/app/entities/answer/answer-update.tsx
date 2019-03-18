@@ -10,8 +10,8 @@ import { IRootState } from 'app/shared/reducers';
 
 import { IFullEvaluate } from 'app/shared/model/full-evaluate.model';
 import { getEntities as getFullEvaluates } from 'app/entities/full-evaluate/full-evaluate.reducer';
-import { ICritetiaEvaluate } from 'app/shared/model/critetia-evaluate.model';
-import { getEntities as getCritetiaEvaluates } from 'app/entities/critetia-evaluate/critetia-evaluate.reducer';
+import { ICriteriaEvaluate } from 'app/shared/model/criteria-evaluate.model';
+import { getEntities as getCriteriaEvaluates } from 'app/entities/criteria-evaluate/criteria-evaluate.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './answer.reducer';
 import { IAnswer } from 'app/shared/model/answer.model';
 // tslint:disable-next-line:no-unused-variable
@@ -23,7 +23,7 @@ export interface IAnswerUpdateProps extends StateProps, DispatchProps, RouteComp
 export interface IAnswerUpdateState {
   isNew: boolean;
   fullEvaluateId: number;
-  critetiaEvaluateId: number;
+  criteriaEvaluateId: number;
 }
 
 export class AnswerUpdate extends React.Component<IAnswerUpdateProps, IAnswerUpdateState> {
@@ -31,7 +31,7 @@ export class AnswerUpdate extends React.Component<IAnswerUpdateProps, IAnswerUpd
     super(props);
     this.state = {
       fullEvaluateId: 0,
-      critetiaEvaluateId: 0,
+      criteriaEvaluateId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -44,7 +44,7 @@ export class AnswerUpdate extends React.Component<IAnswerUpdateProps, IAnswerUpd
     }
 
     this.props.getFullEvaluates();
-    this.props.getCritetiaEvaluates();
+    this.props.getCriteriaEvaluates();
   }
 
   saveEntity = (event, errors, values) => {
@@ -69,7 +69,7 @@ export class AnswerUpdate extends React.Component<IAnswerUpdateProps, IAnswerUpd
   };
 
   render() {
-    const { answerEntity, fullEvaluates, critetiaEvaluates, loading, updating } = this.props;
+    const { answerEntity, fullEvaluates, criteriaEvaluates, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -142,13 +142,13 @@ export class AnswerUpdate extends React.Component<IAnswerUpdateProps, IAnswerUpd
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
-                  <Label for="critetiaEvaluate.id">
-                    <Translate contentKey="virtualAssistantApp.answer.critetiaEvaluate">Critetia Evaluate</Translate>
+                  <Label for="criteriaEvaluate.id">
+                    <Translate contentKey="virtualAssistantApp.answer.criteriaEvaluate">Criteria Evaluate</Translate>
                   </Label>
-                  <AvInput id="answer-critetiaEvaluate" type="select" className="form-control" name="critetiaEvaluate.id">
+                  <AvInput id="answer-criteriaEvaluate" type="select" className="form-control" name="criteriaEvaluate.id">
                     <option value="" key="0" />
-                    {critetiaEvaluates
-                      ? critetiaEvaluates.map(otherEntity => (
+                    {criteriaEvaluates
+                      ? criteriaEvaluates.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
                             {otherEntity.id}
                           </option>
@@ -178,7 +178,7 @@ export class AnswerUpdate extends React.Component<IAnswerUpdateProps, IAnswerUpd
 
 const mapStateToProps = (storeState: IRootState) => ({
   fullEvaluates: storeState.fullEvaluate.entities,
-  critetiaEvaluates: storeState.critetiaEvaluate.entities,
+  criteriaEvaluates: storeState.criteriaEvaluate.entities,
   answerEntity: storeState.answer.entity,
   loading: storeState.answer.loading,
   updating: storeState.answer.updating
@@ -186,7 +186,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 
 const mapDispatchToProps = {
   getFullEvaluates,
-  getCritetiaEvaluates,
+  getCriteriaEvaluates,
   getEntity,
   updateEntity,
   createEntity,

@@ -1,7 +1,0 @@
-{
-    "name": "Maintest",
-    "version": "0.0.0",
-    "private": true,
-    "main": "./maintest.js"
-  }
-  

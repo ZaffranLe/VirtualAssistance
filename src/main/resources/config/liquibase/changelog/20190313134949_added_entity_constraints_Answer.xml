@@ -14,11 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="full_evaluate"/>
 
-        <addForeignKeyConstraint baseColumnNames="critetia_evaluate_id"
+        <addForeignKeyConstraint baseColumnNames="criteria_evaluate_id"
                                  baseTableName="answer"
-                                 constraintName="fk_answer_critetia_evaluate_id"
+                                 constraintName="fk_answer_criteria_evaluate_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="critetia_evaluate"/>
+                                 referencedTableName="criteria_evaluate"/>
 
     </changeSet>
 </databaseChangeLog>

@@ -1,5 +1,5 @@
 import { IFullEvaluate } from 'app/shared/model//full-evaluate.model';
-import { ICritetiaEvaluate } from 'app/shared/model//critetia-evaluate.model';
+import { ICriteriaEvaluate } from 'app/shared/model//criteria-evaluate.model';
 
 export const enum ScoreLadder {
   FAIL = 'FAIL',
@@ -9,11 +9,11 @@ export const enum ScoreLadder {
 }
 
 export interface IAnswer {
-  id?: string;
+  id?: number;
   scoreLadder?: ScoreLadder;
   proof?: string;
   fullEvaluate?: IFullEvaluate;
-  critetiaEvaluate?: ICritetiaEvaluate;
+  criteriaEvaluate?: ICriteriaEvaluate;
 }
 
 export const defaultValue: Readonly<IAnswer> = {};

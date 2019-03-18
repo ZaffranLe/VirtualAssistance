@@ -47,7 +47,7 @@ export class Answer extends React.Component<IAnswerProps> {
                   <Translate contentKey="virtualAssistantApp.answer.fullEvaluate">Full Evaluate</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="virtualAssistantApp.answer.critetiaEvaluate">Critetia Evaluate</Translate>
+                  <Translate contentKey="virtualAssistantApp.answer.criteriaEvaluate">Criteria Evaluate</Translate>
                 </th>
                 <th />
               </tr>
@@ -66,8 +66,8 @@ export class Answer extends React.Component<IAnswerProps> {
                   <td>{answer.proof}</td>
                   <td>{answer.fullEvaluate ? <Link to={`full-evaluate/${answer.fullEvaluate.id}`}>{answer.fullEvaluate.id}</Link> : ''}</td>
                   <td>
-                    {answer.critetiaEvaluate ? (
-                      <Link to={`critetia-evaluate/${answer.critetiaEvaluate.id}`}>{answer.critetiaEvaluate.id}</Link>
+                    {answer.criteriaEvaluate ? (
+                      <Link to={`criteria-evaluate/${answer.criteriaEvaluate.id}`}>{answer.criteriaEvaluate.id}</Link>
                     ) : (
                       ''
                     )}

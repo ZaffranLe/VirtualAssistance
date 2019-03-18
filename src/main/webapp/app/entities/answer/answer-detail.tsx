@@ -45,9 +45,9 @@ export class AnswerDetail extends React.Component<IAnswerDetailProps> {
             </dt>
             <dd>{answerEntity.fullEvaluate ? answerEntity.fullEvaluate.id : ''}</dd>
             <dt>
-              <Translate contentKey="virtualAssistantApp.answer.critetiaEvaluate">Critetia Evaluate</Translate>
+              <Translate contentKey="virtualAssistantApp.answer.criteriaEvaluate">Criteria Evaluate</Translate>
             </dt>
-            <dd>{answerEntity.critetiaEvaluate ? answerEntity.critetiaEvaluate.id : ''}</dd>
+            <dd>{answerEntity.criteriaEvaluate ? answerEntity.criteriaEvaluate.id : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/answer" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

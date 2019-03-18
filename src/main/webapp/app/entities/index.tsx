@@ -13,8 +13,8 @@ import NotificationType from './notification-type';
 import HeadQuater from './head-quater';
 import CriteriaType from './criteria-type';
 import Answer from './answer';
-import CritetiaEvaluate from './critetia-evaluate';
 import FullEvaluate from './full-evaluate';
+import CriteriaEvaluate from './criteria-evaluate';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -30,8 +30,8 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}/head-quater`} component={HeadQuater} />
       <ErrorBoundaryRoute path={`${match.url}/criteria-type`} component={CriteriaType} />
       <ErrorBoundaryRoute path={`${match.url}/answer`} component={Answer} />
-      <ErrorBoundaryRoute path={`${match.url}/critetia-evaluate`} component={CritetiaEvaluate} />
       <ErrorBoundaryRoute path={`${match.url}/full-evaluate`} component={FullEvaluate} />
+      <ErrorBoundaryRoute path={`${match.url}/criteria-evaluate`} component={CriteriaEvaluate} />
       {/* jhipster-needle-add-route-path - JHipster will routes here */}
     </Switch>
   </div>

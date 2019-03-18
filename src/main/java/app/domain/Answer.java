@@ -38,7 +38,7 @@ public class Answer implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("")
-    private CritetiaEvaluate critetiaEvaluate;
+    private CriteriaEvaluate criteriaEvaluate;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -88,17 +88,17 @@ public class Answer implements Serializable {
         this.fullEvaluate = fullEvaluate;
     }
 
-    public CritetiaEvaluate getCritetiaEvaluate() {
-        return critetiaEvaluate;
+    public CriteriaEvaluate getCriteriaEvaluate() {
+        return criteriaEvaluate;
     }
 
-    public Answer critetiaEvaluate(CritetiaEvaluate critetiaEvaluate) {
-        this.critetiaEvaluate = critetiaEvaluate;
+    public Answer criteriaEvaluate(CriteriaEvaluate criteriaEvaluate) {
+        this.criteriaEvaluate = criteriaEvaluate;
         return this;
     }
 
-    public void setCritetiaEvaluate(CritetiaEvaluate critetiaEvaluate) {
-        this.critetiaEvaluate = critetiaEvaluate;
+    public void setCriteriaEvaluate(CriteriaEvaluate criteriaEvaluate) {
+        this.criteriaEvaluate = criteriaEvaluate;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

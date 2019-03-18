@@ -20,8 +20,8 @@
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "critetiaEvaluate",
-            "otherEntityName": "critetiaEvaluate",
+            "relationshipName": "criteriaEvaluate",
+            "otherEntityName": "criteriaEvaluate",
             "otherEntityField": "id"
         }
     ],

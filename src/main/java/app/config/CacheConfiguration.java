@@ -51,8 +51,8 @@ public class CacheConfiguration {
             cm.createCache(app.domain.HeadQuater.class.getName(), jcacheConfiguration);
             cm.createCache(app.domain.CriteriaType.class.getName(), jcacheConfiguration);
             cm.createCache(app.domain.Answer.class.getName(), jcacheConfiguration);
-            cm.createCache(app.domain.CritetiaEvaluate.class.getName(), jcacheConfiguration);
             cm.createCache(app.domain.FullEvaluate.class.getName(), jcacheConfiguration);
+            cm.createCache(app.domain.CriteriaEvaluate.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

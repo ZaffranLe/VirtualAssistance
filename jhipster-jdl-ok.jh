@@ -68,9 +68,12 @@ enum ScoreLadder{
 	FAIL, PASS, GOOD, EXCELLENT
 }
 
-entity CritetiaEvaluate{
+entity CriteriaEvaluate{
 	Content String,
-    Level Integer
+    Level Integer,
+	Pass String,
+	Good String,
+	Excellent String
 }
 
 entity FullEvaluate{
@@ -91,8 +94,8 @@ relationship ManyToOne {
     Notification{NotificationType} to NotificationType,
     FullEvaluate{Teacher} to Teacher,
     Answer{FullEvaluate} to FullEvaluate,
-    Answer{CritetiaEvaluate} to CritetiaEvaluate,
-    CritetiaEvaluate{CriteriaType} to CriteriaType
+    Answer{CriteriaEvaluate} to CriteriaEvaluate,
+    CriteriaEvaluate{CriteriaType} to CriteriaType
 }
 
 service all with serviceImpl

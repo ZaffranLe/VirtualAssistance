@@ -7,7 +7,7 @@ import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities } from './criteria-type.reducer';
+import { getCriteriaTypeEntities } from './criteria-type.reducer';
 import { ICriteriaType } from 'app/shared/model/criteria-type.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -16,7 +16,7 @@ export interface ICriteriaTypeProps extends StateProps, DispatchProps, RouteComp
 
 export class CriteriaType extends React.Component<ICriteriaTypeProps> {
   componentDidMount() {
-    this.props.getEntities();
+    this.props.getCriteriaTypeEntities();
   }
 
   render() {
@@ -93,7 +93,7 @@ const mapStateToProps = ({ criteriaType }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getEntities
+  getCriteriaTypeEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
