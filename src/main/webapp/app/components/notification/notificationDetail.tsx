@@ -11,9 +11,9 @@ import {
   Col,
   Row
 } from 'reactstrap';
-import vanBansData from '../VanBanData';
+import vanBansData from './VanBanData';
 import items from './ImageData';
-class ChiTietVanBan extends React.Component<any, any> {
+class NotificationDetail extends React.Component<any, any> {
   animating: boolean;
   constructor(props) {
     super(props);
@@ -100,4 +100,4 @@ class ChiTietVanBan extends React.Component<any, any> {
   }
 }
 
-export default ChiTietVanBan;
+export default NotificationDetail;
