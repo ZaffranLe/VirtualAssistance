@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Row, Col, Table, Form, Button, Alert } from 'reactstrap';
-import surveyQuestionsData from './SurveyQuestionsData';
 import QuestionRow from './QuestionRow';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCriteriaTypeEntities } from '../../entities/criteria-type/criteria-type.reducer';
-import { getEntities } from '../../entities/criteria-evaluate/criteria-evaluate.reducer';
+import { getCriteriaEvaluateEntities } from '../../entities/criteria-evaluate/criteria-evaluate.reducer';
 import { IRootState } from 'app/shared/reducers';
 export interface ICriteriaTypeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 export interface ICriteriaEvaluateProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
@@ -147,7 +146,7 @@ const mapStateToProps = ({ criteriaType, criteriaEvaluate }: IRootState) => ({
 
 const mapDispatchToProps = {
   getCriteriaTypeEntities,
-  getEntities
+  getCriteriaEvaluateEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

@@ -99,7 +99,7 @@ const apiUrl = 'api/criteria-evaluates';
 
 // Actions
 
-export const getEntities: ICrudGetAllAction<ICriteriaEvaluate> = (page, size, sort) => ({
+export const getCriteriaEvaluateEntities: ICrudGetAllAction<ICriteriaEvaluate> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_CRITERIAEVALUATE_LIST,
   payload: axios.get<ICriteriaEvaluate>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
@@ -117,7 +117,7 @@ export const createEntity: ICrudPutAction<ICriteriaEvaluate> = entity => async d
     type: ACTION_TYPES.CREATE_CRITERIAEVALUATE,
     payload: axios.post(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getCriteriaEvaluateEntities());
   return result;
 };
 
@@ -126,7 +126,7 @@ export const updateEntity: ICrudPutAction<ICriteriaEvaluate> = entity => async d
     type: ACTION_TYPES.UPDATE_CRITERIAEVALUATE,
     payload: axios.put(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getCriteriaEvaluateEntities());
   return result;
 };
 
@@ -136,7 +136,7 @@ export const deleteEntity: ICrudDeleteAction<ICriteriaEvaluate> = id => async di
     type: ACTION_TYPES.DELETE_CRITERIAEVALUATE,
     payload: axios.delete(requestUrl)
   });
-  dispatch(getEntities());
+  dispatch(getCriteriaEvaluateEntities());
   return result;
 };
 

@@ -30,8 +30,8 @@ class QuestionRow extends React.Component<any, any> {
             </CardHeader>
             <Collapse isOpen={this.state.collapse}>
               <CardBody>
-                {/* - <strong>Mức Đạt:</strong> {this.state.question.pass} <br />- <strong>Mức Khá:</strong> {this.state.question.good} <br />-{' '}
-                <strong>Mức Tốt:</strong> {this.state.question.veryGood} */}
+                - <strong>Mức Đạt:</strong> {this.state.criteriaEvaluate.pass} <br />- <strong>Mức Khá:</strong>{' '}
+                {this.state.criteriaEvaluate.good} <br />- <strong>Mức Tốt:</strong> {this.state.criteriaEvaluate.excellent}
               </CardBody>
             </Collapse>
           </Card>

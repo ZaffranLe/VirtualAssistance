@@ -7,7 +7,7 @@ import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities } from './criteria-evaluate.reducer';
+import { getCriteriaEvaluateEntities } from './criteria-evaluate.reducer';
 import { ICriteriaEvaluate } from 'app/shared/model/criteria-evaluate.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -16,7 +16,7 @@ export interface ICriteriaEvaluateProps extends StateProps, DispatchProps, Route
 
 export class CriteriaEvaluate extends React.Component<ICriteriaEvaluateProps> {
   componentDidMount() {
-    this.props.getEntities();
+    this.props.getCriteriaEvaluateEntities();
   }
 
   render() {
@@ -115,7 +115,7 @@ const mapStateToProps = ({ criteriaEvaluate }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getEntities
+  getCriteriaEvaluateEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
