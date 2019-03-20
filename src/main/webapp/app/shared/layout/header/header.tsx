@@ -2,7 +2,7 @@ import './header.css';
 
 import React from 'react';
 import { Translate } from 'react-jhipster';
-import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse } from 'reactstrap';
+import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse, NavItem, NavLink } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { NavLink as Link } from 'react-router-dom';
@@ -64,7 +64,16 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
             <Nav id="header-tabs" className="ml-auto" navbar>
               <Home />
               {isAuthenticated && <EntitiesMenu isAdmin={isAdmin} />}
-              {isAuthenticated && <ComponentsMenu />}
+              {isAuthenticated && (
+                <NavItem>
+                  <NavLink tag={Link} to="/component/survey" className="d-flex align-items-center">
+                    <FontAwesomeIcon icon="file" />
+                    <span>
+                      <Translate contentKey="global.menu.components.survey">Evaluate</Translate>
+                    </span>
+                  </NavLink>
+                </NavItem>
+              )}
               {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} />}
               <LocaleMenu currentLocale={currentLocale} onClick={this.handleLocaleChange} />
               <AccountMenu isAuthenticated={isAuthenticated} />

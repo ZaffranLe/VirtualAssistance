@@ -119,7 +119,7 @@ export class Notification extends React.Component<INotificationProps, any> {
                       </td>
                       <td>
                         {notification.notificationType ? (
-                          <Link to={`notification-type/${notification.notificationType.id}`}>{notification.notificationType.id}</Link>
+                          <Link to={`notification-type/${notification.notificationType.id}`}>{notification.notificationType.content}</Link>
                         ) : (
                           ''
                         )}
