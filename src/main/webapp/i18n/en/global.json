@@ -1,98 +1,97 @@
 {
     "global": {
-        "title": "VirtualAssistant",
-        "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
+        "title": "Trợ lý giáo viên ảo",
+        "browsehappy": "Bạn đang sử dụng trình duyệt <strong>cũ</strong>. Vui lòng truy cập <a href=\"http://browsehappy.com/?locale=en\">địa chỉ này</a> để nâng cao khả năng trải nghiệm.",
         "menu": {
-            "home": "Home",
+            "home": "Trang chủ",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
-                "teacher": "Teacher",
-                "teacherDocument": "Teacher Document",
-                "document": "Documents",
-                "documentType": "Document Type",
-                "notification": "Notifications",
-                "notificationType": "Notification Type",
-                "headQuater": "Head Quater",
-                "criteriaType": "Criteria Type",
-                "answer": "Answer",
-                "critetiaEvaluate": "Critetia Evaluate",
-                "fullEvaluate": "Full Evaluate",
-                "criteriaEvaluate": "Criteria Evaluate",
+                "teacher": "Giáo viên",
+                "teacherDocument": "Giáo viên - Tài liệu",
+                "document": "Kho tài liệu",
+                "documentType": "Thể loại tài liệu",
+                "notification": "Văn bản",
+                "notificationType": "Thể loại văn bản",
+                "headQuater": "Cơ quan ban hành",
+                "criteriaType": "Thể loại tiêu chí",
+                "answer": "Câu trả lời",
+                "fullEvaluate": "Bản đánh giá",
+                "criteriaEvaluate": "Tiêu chí đánh giá",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "components": {
-                "survey": "Evaluate",
-                "documents": "Documents"
+                "survey": "Đánh giá giáo viên theo TT20",
+                "documents": "Kho tài liệu"
             },
             "account": {
-                "main": "Account",
-                "settings": "Settings",
-                "password": "Password",
+                "main": "Tài khoản",
+                "settings": "Cài đặt",
+                "password": "Mật khẩu",
                 "sessions": "Sessions",
-                "login": "Sign in",
-                "logout": "Sign out",
-                "register": "Register"
+                "login": "Đăng nhập",
+                "logout": "Đăng xuất",
+                "register": "Đăng ký"
             },
             "admin": {
-                "main": "Administration",
-                "userManagement": "User management",
-                "tracker": "User tracker",
+                "main": "Quản trị",
+                "userManagement": "Quản lý người dùng",
+                "tracker": "Theo dõi người dùng",
                 "metrics": "Metrics",
-                "health": "Health",
-                "configuration": "Configuration",
-                "logs": "Logs",
+                "health": "Sức khỏe",
+                "configuration": "Tùy chỉnh",
+                "logs": "Nhật ký",
                 "audits": "Audits",
                 "apidocs": "API",
-                "database": "Database",
+                "database": "Cơ sở dữ liệu",
                 "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
             },
-            "language": "Language"
+            "language": "Ngôn ngữ"
         },
         "form": {
-            "username": "Username",
-            "username.placeholder": "Your username",
-            "currentpassword": "Current password",
-            "currentpassword.placeholder": "Current password",
-            "newpassword": "New password",
-            "newpassword.placeholder": "New password",
-            "confirmpassword": "New password confirmation",
-            "confirmpassword.placeholder": "Confirm the new password",
+            "username": "Tên tài khoản",
+            "username.placeholder": "Tên tài khoản của bạn",
+            "currentpassword": "Mật khẩu hiện tại",
+            "currentpassword.placeholder": "Mật khẩu hiện tại",
+            "newpassword": "Mật khẩu mới",
+            "newpassword.placeholder": "Mật khẩu mới",
+            "confirmpassword": "Xác nhận mật khẩu mới",
+            "confirmpassword.placeholder": "Xác nhận mật khẩu mới",
             "email": "Email",
-            "email.placeholder": "Your email"
+            "email.placeholder": "Email của bạn"
         },
         "messages": {
             "info": {
                 "authenticated": {
-                    "prefix": "If you want to ",
-                    "link": "sign in",
-                    "suffix": ", you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\")."
+                    "prefix": "Nếu bạn muốn ",
+                    "link": "đăng nhập",
+                    "suffix": ", Bạn có thể thử tài khoản mặc định:<br/>- Quản trị viên (login=\"admin\" and password=\"admin\") <br/>- Người dùng (login=\"user\" and password=\"user\")."
                 },
                 "register": {
-                    "noaccount": "You don't have an account yet?",
-                    "link": "Register a new account"
+                    "noaccount": "Bạn chưa có tài khoản?",
+                    "link": "Đăng ký tài khoản mới"
                 }
             },
             "error": {
-                "dontmatch": "The password and its confirmation do not match!"
+                "dontmatch": "Mật khẩu không khớp!"
             },
             "validate": {
                 "newpassword": {
-                    "required": "Your password is required.",
-                    "minlength": "Your password is required to be at least 4 characters.",
-                    "maxlength": "Your password cannot be longer than 50 characters.",
-                    "strength": "Password strength:"
+                    "required": "Mật khẩu là bắt buộc.",
+                    "minlength": "Mật khẩu phải có ít nhất 4 ký tự.",
+                    "maxlength": "Mật khẩu không thể dài hơn 50 ký tự.",
+                    "strength": "Độ mạnh:"
                 },
                 "confirmpassword": {
-                    "required": "Your confirmation password is required.",
-                    "minlength": "Your confirmation password is required to be at least 4 characters.",
-                    "maxlength": "Your confirmation password cannot be longer than 50 characters."
+                    "required": "Cần xác nhận mật khẩu.",
+                    "minlength": "Mật khẩu xác nhận cần có ít nhất 4 ký tự.",
+                    "maxlength": "Mật khẩu xác nhận không thể dài hơn 50 ký tự."
                 },
                 "email": {
-                    "required": "Your email is required.",
-                    "invalid": "Your email is invalid.",
-                    "minlength": "Your email is required to be at least 5 characters.",
-                    "maxlength": "Your email cannot be longer than 50 characters."
+                    "required": "Email là bắt buộc.",
+                    "invalid": "Email không khả dụng.",
+                    "minlength": "Email cần có ít nhất 5 ký tự.",
+                    "maxlength": "Email không thể dài hơn 50 ký tự."
                 }
             }
         },
@@ -100,41 +99,41 @@
             "id": "ID"
         },
         "ribbon": {
-            "dev":"Development"
+            "dev":"Phát triển"
         },
-        "item-count": "Showing {{first}} - {{second}} of {{total}} items."
+        "item-count": "Hiển thị {{first}} - {{second}} trong {{total}} phần tử."
     },
     "entity": {
         "action": {
             "addblob": "Add blob",
-            "addimage": "Add image",
-            "back": "Back",
-            "cancel": "Cancel",
-            "delete": "Delete",
-            "edit": "Edit",
-            "open": "Open",
-            "save": "Save",
-            "view": "View"
+            "addimage": "Thêm ảnh",
+            "back": "Quay lại",
+            "cancel": "Hủy",
+            "delete": "Xóa",
+            "edit": "Chỉnh sửa",
+            "open": "Mở",
+            "save": "Lưu",
+            "view": "Xem"
         },
         "detail": {
-            "field": "Field",
-            "value": "Value"
+            "field": "Trường",
+            "value": "Giá trị"
         },
         "delete": {
-            "title": "Confirm delete operation"
+            "title": "Xác nhận xóa"
         },
         "validation": {
-            "required": "This field is required.",
-            "minlength": "This field is required to be at least {{ min }} characters.",
-            "maxlength": "This field cannot be longer than {{ max }} characters.",
-            "min": "This field should be at least {{ min }}.",
-            "max": "This field cannot be more than {{ max }}.",
-            "minbytes": "This field should be at least {{ min }} bytes.",
-            "maxbytes": "This field cannot be more than {{ max }} bytes.",
-            "pattern": "This field should follow pattern for {{ pattern }}.",
-            "number": "This field should be a number.",
-            "datetimelocal": "This field should be a date and time.",
-            "patternLogin": "This field can only contain letters, digits and e-mail addresses."
+            "required": "Trường này là bắt buộc.",
+            "minlength": "Trường này cần có ít nhất {{ min }} ký tự.",
+            "maxlength": "Trường này không thể vượt quá {{ max }} ký tự.",
+            "min": "Trường này cần có ít nhất {{ min }}.",
+            "max": "Trường này không thể vượt quá {{ max }}.",
+            "minbytes": "Trường này nên có ít nhất {{ min }} bytes.",
+            "maxbytes": "Trường này không thể vượt quá {{ max }} bytes.",
+            "pattern": "Trường này nên tuân theo mẫu {{ pattern }}.",
+            "number": "Trường này cần nhập số.",
+            "datetimelocal": "Trường này cần nhập thời gian.",
+            "patternLogin": "Trường này chỉ có thể chứa ký tự, chữ số và email."
         }
     },
     "error": {

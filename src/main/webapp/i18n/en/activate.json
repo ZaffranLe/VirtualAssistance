@@ -1,9 +1,9 @@
 {
     "activate": {
-        "title": "Activation",
+        "title": "Kích hoạt",
         "messages": {
-            "success": "<strong>Your user account has been activated.</strong> Please ",
-            "error": "<strong>Your user could not be activated.</strong> Please use the registration form to sign up."
+            "success": "<strong>Tài khoản của bạn đã được kích hoạt.</strong>",
+            "error": "<strong>Tài khoản của bạn không thể kích hoạt.</strong> Vui lòng đăng ký."
         }
     }
 }

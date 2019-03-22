@@ -2,10 +2,10 @@
     "virtualAssistantApp": {
         "ScoreLadder" : {
             "null": "",
-            "FAIL": "FAIL",
-            "PASS": "PASS",
-            "GOOD": "GOOD",
-            "EXCELLENT": "EXCELLENT"
+            "FAIL": "TRƯỢT",
+            "PASS": "ĐẠT",
+            "GOOD": "KHÁ",
+            "EXCELLENT": "TỐT"
         }
     }
 }

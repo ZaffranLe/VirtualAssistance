@@ -1,30 +1,30 @@
 {
     "settings": {
-        "title": "User settings for [<b>{{username}}</b>]",
+        "title": "Chỉnh sửa tài khoản [<b>{{username}}</b>]",
         "form": {
-            "firstname": "First Name",
-            "firstname.placeholder": "Your first name",
-            "lastname": "Last Name",
-            "lastname.placeholder": "Your last name",
-            "language": "Language",
-            "button": "Save"
+            "firstname": "Tên",
+            "firstname.placeholder": "Tên của bạn",
+            "lastname": "Họ",
+            "lastname.placeholder": "Họ của bạn",
+            "language": "Ngôn ngữ",
+            "button": "Lưu"
         },
         "messages": {
             "error": {
-                "fail": "<strong>An error has occurred!</strong> Settings could not be saved.",
-                "emailexists": "<strong>Email is already in use!</strong> Please choose another one."
+                "fail": "<strong>Xảy ra lỗi!</strong> Tùy chỉnh không thể lưu.",
+                "emailexists": "<strong>Email đã tồn tại!</strong> Vui lòng chọn email khác."
             },
-            "success": "<strong>Settings saved!</strong>",
+            "success": "<strong>Tùy chỉnh đã lưu!</strong>",
             "validate": {
                 "firstname": {
-                    "required": "Your first name is required.",
-                    "minlength": "Your first name is required to be at least 1 character",
-                    "maxlength": "Your first name cannot be longer than 50 characters"
+                    "required": "Tên của bạn là bắt buộc.",
+                    "minlength": "Tên của bạn cần có ít nhất 1 ký tự",
+                    "maxlength": "Tên của bạn không thể vượt quá 50 ký tự"
                 },
                 "lastname": {
-                    "required": "Your last name is required.",
-                    "minlength": "Your last name is required to be at least 1 character",
-                    "maxlength": "Your last name cannot be longer than 50 characters"
+                    "required": "Họ của bạn là bắt buộc.",
+                    "minlength": "Họ của bạn cần có ít nhất 1 ký tự",
+                    "maxlength": "Họ của bạn không thể vượt quá 50 ký tự"
                 }
             }
         }

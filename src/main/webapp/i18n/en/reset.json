@@ -1,26 +1,26 @@
 {
     "reset": {
         "request": {
-            "title": "Reset your password",
+            "title": "Làm mới mật khẩu",
             "form": {
-                "button": "Reset password"
+                "button": "Làm mới mật khẩu"
             },
             "messages": {
-                "info": "Enter the email address you used to register",
-                "success": "Check your emails for details on how to reset your password.",
-                "notfound": "<strong>Email address isn't registered!</strong> Please check and try again"
+                "info": "Điền email bạn đã sử dụng để đăng ký",
+                "success": "Kiểm tra email để biết thêm thông tin.",
+                "notfound": "<strong>Email không tồn tại trong hệ thống!</strong> Vui lòng kiểm tra và thử lại sau"
             }
         },
         "finish" : {
-            "title": "Reset password",
+            "title": "Làm mới mật khẩu",
             "form": {
-                "button": "Validate new password"
+                "button": "Xác nhận mật khẩu mới"
             },
             "messages": {
-                "info": "Choose a new password",
-                "success": "<strong>Your password has been reset.</strong> Please ",
-                "keymissing": "The reset key is missing.",
-                "error": "Your password couldn't be reset. Remember a password request is only valid for 24 hours."
+                "info": "Chọn mật khẩu mới",
+                "success": "<strong>Mật khẩu của bạn đã được cập nhật.</strong> Vui lòng ",
+                "keymissing": "Khóa tái tạo đang thiếu.",
+                "error": "Mật khẩu của bạn không thể làm mới. Yêu cầu lưu mật khẩu chỉ tồn tại trong 24 tiếng."
             }
         }
     }

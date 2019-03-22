@@ -3,21 +3,21 @@
         "title": "Audits",
         "filter": {
             "title": "Filter per date",
-            "from": "from",
-            "to": "to",
+            "from": "từ",
+            "to": "tới",
             "button": {
-                "weeks": "Weeks",
-                "today": "today",
+                "weeks": "Tuần",
+                "today": "hôm nay",
                 "clear": "clear",
                 "close": "close"
             }
         },
         "table": {
             "header": {
-                "principal": "User",
-                "date": "Date",
-                "status": "State",
-                "data": "Extra data"
+                "principal": "Người dùng",
+                "date": "Thời gian",
+                "status": "Trạng thái",
+                "data": "Dữ liệu bổ sung"
             },
             "data": {
                 "remoteAddress": "Remote Address:"

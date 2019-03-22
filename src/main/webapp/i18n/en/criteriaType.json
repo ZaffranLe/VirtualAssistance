@@ -3,21 +3,21 @@
     "virtualAssistantApp": {
         "criteriaType" : {
             "home": {
-                "title": "Criteria Types",
-                "createLabel": "Create a new Criteria Type",
-                "createOrEditLabel": "Create or edit a Criteria Type"
+                "title": "Các thể loại tiêu chí",
+                "createLabel": "Tạo thể loại tiêu chí mới",
+                "createOrEditLabel": "Tạo mới hoặc chỉnh sửa thể loại tiêu chí"
             },
-            "created": "A new Criteria Type is created with identifier {{ param }}",
-            "updated": "A Criteria Type is updated with identifier {{ param }}",
-            "deleted": "A Criteria Type is deleted with identifier {{ param }}",
+            "created": "Một thể loại tiêu chí mới vừa được tạo với ID {{ param }}",
+            "updated": "Một thể loại tiêu chí vừa được chỉnh sửa với ID {{ param }}",
+            "deleted": "Một thể loại tiêu chí vừa bị xóa với ID {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Criteria Type {{ id }}?"
+                "question": "Bạn có chắc chắn muốn xóa thể loại tiêu chí với ID {{ id }}?"
             },
             "detail": {
-                "title": "Criteria Type"
+                "title": "Thể loại tiêu chí"
             },
-            "content": "Content",
-            "level": "Level"
+            "content": "Nội dung",
+            "level": "Cấp độ"
         }
     }
 }

@@ -3,20 +3,20 @@
     "virtualAssistantApp": {
         "headQuater" : {
             "home": {
-                "title": "Head Quaters",
-                "createLabel": "Create a new Head Quater",
-                "createOrEditLabel": "Create or edit a Head Quater"
+                "title": "Cơ quan ban hành",
+                "createLabel": "Tạo cơ quan ban hành mới",
+                "createOrEditLabel": "Tạo mới hoặc chỉnh sẳ cơ quan ban hành"
             },
-            "created": "A new Head Quater is created with identifier {{ param }}",
-            "updated": "A Head Quater is updated with identifier {{ param }}",
-            "deleted": "A Head Quater is deleted with identifier {{ param }}",
+            "created": "Một cơ quan ban hành vừa được tạo mới với ID {{ param }}",
+            "updated": "Một cơ quan ban hành vừa được chỉnh sửa với ID {{ param }}",
+            "deleted": "Một cơ quan ban hành vừa bị xóa với ID {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Head Quater {{ id }}?"
+                "question": "Bạn có chắc chắn muốn xóa cơ quan ban hành với ID {{ id }}?"
             },
             "detail": {
-                "title": "Head Quater"
+                "title": "Cơ quan ban hành"
             },
-            "name": "Name"
+            "name": "Tên cơ quan"
         }
     }
 }

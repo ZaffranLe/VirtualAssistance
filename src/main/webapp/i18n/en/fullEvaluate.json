@@ -3,21 +3,21 @@
     "virtualAssistantApp": {
         "fullEvaluate" : {
             "home": {
-                "title": "Full Evaluates",
-                "createLabel": "Create a new Full Evaluate",
-                "createOrEditLabel": "Create or edit a Full Evaluate"
+                "title": "Bản đánh giá",
+                "createLabel": "Tạo bản đánh giá mới",
+                "createOrEditLabel": "Tạo mới hoặc chỉnh sửa bản đánh giá"
             },
-            "created": "A new Full Evaluate is created with identifier {{ param }}",
-            "updated": "A Full Evaluate is updated with identifier {{ param }}",
-            "deleted": "A Full Evaluate is deleted with identifier {{ param }}",
+            "created": "Một bản đánh giá mới vừa được tạo với ID {{ param }}",
+            "updated": "Một bản đánh giá mới vừa được chỉnh sửa với ID {{ param }}",
+            "deleted": "Một bản đánh giá mới vừa bị xóa với ID {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Full Evaluate {{ id }}?"
+                "question": "Bạn có chắc chắn muốn xóa bản đánh giá với ID {{ id }}?"
             },
             "detail": {
-                "title": "Full Evaluate"
+                "title": "Bản đánh gúa"
             },
-            "description": "Description",
-            "teacher": "Teacher"
+            "description": "Mô tả",
+            "teacher": "Giáo viên"
         }
     }
 }
