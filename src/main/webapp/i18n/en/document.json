@@ -1,29 +1,30 @@
+
 {
   "virtualAssistantApp": {
-    "document": {
-      "home": {
-        "title": "Documents",
-        "createLabel": "Create a new Document",
-        "createOrEditLabel": "Create or edit a Document"
-      },
-      "created": "A new Document is created with identifier {{ param }}",
-      "updated": "A Document is updated with identifier {{ param }}",
-      "deleted": "A Document is deleted with identifier {{ param }}",
-      "delete": {
-        "question": "Are you sure you want to delete Document {{ id }}?"
-      },
-      "detail": {
-        "title": "Document"
-      },
-      "name": "Name",
-      "description": "Description",
-      "uRL": "U RL",
-      "size": "Size",
-      "tag": "Tag",
-      "status": "Status",
-      "isShared": "Is Shared",
-      "document": "Document",
-      "documentType": "Document Type"
-    }
+      "document" : {
+          "home": {
+              "title": "Kho tài liệu",
+              "createLabel": "Tạo tài liệu mới",
+              "createOrEditLabel": "Tạo mới hoặc chỉnh sửa tài liệu"
+          },
+          "created": "Một tài liệu mới vừa được tạo với ID {{ param }}",
+          "updated": "Một tài liệu vừa được chỉnh sửa với ID {{ param }}",
+          "deleted": "Một tài liệu vừa bị xóa với ID {{ param }}",
+          "delete": {
+              "question": "Bạn có chắc chắn muốn xóa tài liệu với ID {{ id }}?"
+          },
+          "detail": {
+              "title": "Tài liệu"
+          },
+          "name": "Tên tài liệu",
+          "description": "Mô tả",
+          "uRL": "Đường dẫn",
+          "size": "Kích thước",
+          "tag": "Tag",
+          "status": "Trạng thái",
+          "document": "Tài liệu",
+          "isShared": "Trạng thái chia sẻ",
+          "documentType": "Thể loại tài liệu"
+      }
   }
 }

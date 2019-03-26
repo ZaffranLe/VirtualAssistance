@@ -1,24 +1,24 @@
-
+    
 {
     "virtualAssistantApp": {
         "teacherDocument" : {
             "home": {
-                "title": "Teacher Documents",
-                "createLabel": "Create a new Teacher Document",
-                "createOrEditLabel": "Create or edit a Teacher Document"
+                "title": "Giáo viên - Tài liệu",
+                "createLabel": "Tạo liên kết mới giữa giáo viên và tài liệu",
+                "createOrEditLabel": "Tạo mới hoặc chỉnh sửa liên kết"
             },
-            "created": "A new Teacher Document is created with identifier {{ param }}",
-            "updated": "A Teacher Document is updated with identifier {{ param }}",
-            "deleted": "A Teacher Document is deleted with identifier {{ param }}",
+            "created": "Một liên kết mới vừa được tạo với ID {{ param }}",
+            "updated": "Một liên kết vừa được chỉnh sửa với ID {{ param }}",
+            "deleted": "Một liên kết vừa bị xóa với ID {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Teacher Document {{ id }}?"
+                "question": "Bạn có chắc chắn muốn xóa liên kết với ID {{ id }}?"
             },
             "detail": {
-                "title": "Teacher Document"
+                "title": "Giáo viên - Tài liệu"
             },
-            "role": "Role",
-            "teacher": "Teacher",
-            "document": "Document"
+            "role": "Quyền hạn",
+            "teacher": "Giáo viên",
+            "document": "Tài liệu"
         }
     }
 }

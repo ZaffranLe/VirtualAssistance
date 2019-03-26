@@ -1,10 +1,10 @@
 {
   "virtualAssistantApp": {
-    "TeacherLevel": {
-      "null": "",
-      "TEACHER": "TEACHER",
-      "DEAN": "DEAN",
-      "HIGHLEVEL": "HIGHLEVEL"
-    }
+      "TeacherLevel" : {
+          "null": "",
+          "TEACHER": "Giáo viên",
+          "DEAN": "Trưởng khoa",
+          "HIGHLEVEL": "Cấp độ cao"
+      }
   }
 }

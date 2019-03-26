@@ -19,14 +19,6 @@
         "answer": "Câu trả lời",
         "fullEvaluate": "Bản đánh giá",
         "criteriaEvaluate": "Tiêu chí đánh giá",
-        "teacher": "Teacher",
-        "teacherDocument": "Teacher Document",
-        "document": "Document",
-        "documentType": "Document Type",
-        "notification": "Notification",
-        "answer": "Answer",
-        "criteriaEvaluate": "Criteria Evaluate",
-        "fullEvaluate": "Full Evaluate",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "components": {

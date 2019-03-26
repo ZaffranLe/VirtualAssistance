@@ -2,8 +2,8 @@
     "virtualAssistantApp": {
         "Role" : {
             "null": "",
-            "OWNER": "OWNER",
-            "SHARED": "SHARED"
+            "OWNER": "CHỦ SỞ HỮU",
+            "SHARED": "ĐƯỢC CHIA SẺ"
         }
     }
 }

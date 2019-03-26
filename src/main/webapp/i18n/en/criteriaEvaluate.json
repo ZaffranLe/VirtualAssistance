@@ -3,25 +3,25 @@
     "virtualAssistantApp": {
         "criteriaEvaluate" : {
             "home": {
-                "title": "Criteria Evaluates",
-                "createLabel": "Create a new Criteria Evaluate",
-                "createOrEditLabel": "Create or edit a Criteria Evaluate"
+                "title": "Các tiêu chí đánh giá",
+                "createLabel": "Tạo tiêu chí đánh giá mới",
+                "createOrEditLabel": "Tạo mới hoặc chỉnh sửa tiêu chí đánh giá"
             },
-            "created": "A new Criteria Evaluate is created with identifier {{ param }}",
-            "updated": "A Criteria Evaluate is updated with identifier {{ param }}",
-            "deleted": "A Criteria Evaluate is deleted with identifier {{ param }}",
+            "created": "Một tiêu chí đánh giá mới vừa được tạo với ID {{ param }}",
+            "updated": "Một tiêu chí đánh giá vừa được chỉnh sửa với ID {{ param }}",
+            "deleted": "Một tiêu chí đánh giá vừa bị xóa với ID {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Criteria Evaluate {{ id }}?"
+                "question": "Bạn có chắc chắn muốn xóa tiêu chí đánh giá với ID {{ id }}?"
             },
             "detail": {
-                "title": "Criteria Evaluate"
+                "title": "Tiêu chí đánh giá"
             },
-            "content": "Content",
-            "level": "Level",
-            "pass": "Pass",
-            "good": "Good",
-            "excellent": "Excellent",
-            "criteriaType": "Criteria Type"
+            "content": "Nội dung",
+            "level": "Cấp độ",
+            "pass": "Mức đạt",
+            "good": "Mức khá",
+            "excellent": "Mức tốt",
+            "criteriaType": "Loại tiêu chí"
         }
     }
 }
