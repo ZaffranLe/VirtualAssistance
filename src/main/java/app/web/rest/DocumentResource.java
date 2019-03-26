@@ -1,6 +1,4 @@
 package app.web.rest;
-
-import com.codahale.metrics.annotation.Timed;
 import app.domain.Document;
 import app.service.DocumentService;
 import app.web.rest.errors.BadRequestAlertException;
@@ -42,7 +40,6 @@ public class DocumentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/documents")
-    @Timed
     public ResponseEntity<Document> createDocument(@RequestBody Document document) throws URISyntaxException {
         log.debug("REST request to save Document : {}", document);
         if (document.getId() != null) {
@@ -64,7 +61,6 @@ public class DocumentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/documents")
-    @Timed
     public ResponseEntity<Document> updateDocument(@RequestBody Document document) throws URISyntaxException {
         log.debug("REST request to update Document : {}", document);
         if (document.getId() == null) {
@@ -83,7 +79,6 @@ public class DocumentResource {
      * @return the ResponseEntity with status 200 (OK) and the list of documents in body
      */
     @GetMapping("/documents")
-    @Timed
     public List<Document> getAllDocuments(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Documents");
         return documentService.findAll();
@@ -96,7 +91,6 @@ public class DocumentResource {
      * @return the ResponseEntity with status 200 (OK) and with body the document, or with status 404 (Not Found)
      */
     @GetMapping("/documents/{id}")
-    @Timed
     public ResponseEntity<Document> getDocument(@PathVariable Long id) {
         log.debug("REST request to get Document : {}", id);
         Optional<Document> document = documentService.findOne(id);
@@ -110,7 +104,6 @@ public class DocumentResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/documents/{id}")
-    @Timed
     public ResponseEntity<Void> deleteDocument(@PathVariable Long id) {
         log.debug("REST request to delete Document : {}", id);
         documentService.delete(id);

@@ -41,6 +41,9 @@ export class FullEvaluate extends React.Component<IFullEvaluateProps> {
                   <Translate contentKey="virtualAssistantApp.fullEvaluate.description">Description</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="virtualAssistantApp.fullEvaluate.result">Result</Translate>
+                </th>
+                <th>
                   <Translate contentKey="virtualAssistantApp.fullEvaluate.teacher">Teacher</Translate>
                 </th>
                 <th />
@@ -55,6 +58,9 @@ export class FullEvaluate extends React.Component<IFullEvaluateProps> {
                     </Button>
                   </td>
                   <td>{fullEvaluate.description}</td>
+                  <td>
+                    <Translate contentKey={`virtualAssistantApp.ScoreLadder.${fullEvaluate.result}`} />
+                  </td>
                   <td>{fullEvaluate.teacher ? <Link to={`teacher/${fullEvaluate.teacher.id}`}>{fullEvaluate.teacher.id}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">

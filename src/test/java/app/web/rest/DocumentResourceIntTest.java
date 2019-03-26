@@ -23,6 +23,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -64,11 +65,15 @@ public class DocumentResourceIntTest {
     private static final Status DEFAULT_STATUS = Status.EXIST;
     private static final Status UPDATED_STATUS = Status.DELETED;
 
+    private static final Boolean DEFAULT_IS_SHARED = false;
+    private static final Boolean UPDATED_IS_SHARED = true;
+
     @Autowired
     private DocumentRepository documentRepository;
+
     @Mock
     private DocumentRepository documentRepositoryMock;
-    
+
     @Mock
     private DocumentService documentServiceMock;
 
@@ -87,6 +92,9 @@ public class DocumentResourceIntTest {
     @Autowired
     private EntityManager em;
 
+    @Autowired
+    private Validator validator;
+
     private MockMvc restDocumentMockMvc;
 
     private Document document;
@@ -99,7 +107,8 @@ public class DocumentResourceIntTest {
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+            .setMessageConverters(jacksonMessageConverter)
+            .setValidator(validator).build();
     }
 
     /**
@@ -115,7 +124,8 @@ public class DocumentResourceIntTest {
             .uRL(DEFAULT_U_RL)
             .size(DEFAULT_SIZE)
             .tag(DEFAULT_TAG)
-            .status(DEFAULT_STATUS);
+            .status(DEFAULT_STATUS)
+            .isShared(DEFAULT_IS_SHARED);
         return document;
     }
 
@@ -145,6 +155,7 @@ public class DocumentResourceIntTest {
         assertThat(testDocument.getSize()).isEqualTo(DEFAULT_SIZE);
         assertThat(testDocument.getTag()).isEqualTo(DEFAULT_TAG);
         assertThat(testDocument.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testDocument.isIsShared()).isEqualTo(DEFAULT_IS_SHARED);
     }
 
     @Test
@@ -182,9 +193,11 @@ public class DocumentResourceIntTest {
             .andExpect(jsonPath("$.[*].uRL").value(hasItem(DEFAULT_U_RL.toString())))
             .andExpect(jsonPath("$.[*].size").value(hasItem(DEFAULT_SIZE)))
             .andExpect(jsonPath("$.[*].tag").value(hasItem(DEFAULT_TAG.toString())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].isShared").value(hasItem(DEFAULT_IS_SHARED.booleanValue())));
     }
     
+    @SuppressWarnings({"unchecked"})
     public void getAllDocumentsWithEagerRelationshipsIsEnabled() throws Exception {
         DocumentResource documentResource = new DocumentResource(documentServiceMock);
         when(documentServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -201,6 +214,7 @@ public class DocumentResourceIntTest {
         verify(documentServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
+    @SuppressWarnings({"unchecked"})
     public void getAllDocumentsWithEagerRelationshipsIsNotEnabled() throws Exception {
         DocumentResource documentResource = new DocumentResource(documentServiceMock);
             when(documentServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -232,8 +246,10 @@ public class DocumentResourceIntTest {
             .andExpect(jsonPath("$.uRL").value(DEFAULT_U_RL.toString()))
             .andExpect(jsonPath("$.size").value(DEFAULT_SIZE))
             .andExpect(jsonPath("$.tag").value(DEFAULT_TAG.toString()))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.isShared").value(DEFAULT_IS_SHARED.booleanValue()));
     }
+
     @Test
     @Transactional
     public void getNonExistingDocument() throws Exception {
@@ -260,7 +276,8 @@ public class DocumentResourceIntTest {
             .uRL(UPDATED_U_RL)
             .size(UPDATED_SIZE)
             .tag(UPDATED_TAG)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .isShared(UPDATED_IS_SHARED);
 
         restDocumentMockMvc.perform(put("/api/documents")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -277,6 +294,7 @@ public class DocumentResourceIntTest {
         assertThat(testDocument.getSize()).isEqualTo(UPDATED_SIZE);
         assertThat(testDocument.getTag()).isEqualTo(UPDATED_TAG);
         assertThat(testDocument.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testDocument.isIsShared()).isEqualTo(UPDATED_IS_SHARED);
     }
 
     @Test
@@ -286,7 +304,7 @@ public class DocumentResourceIntTest {
 
         // Create the Document
 
-        // If the entity doesn't have an ID, it will throw BadRequestAlertException 
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restDocumentMockMvc.perform(put("/api/documents")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(document)))
@@ -305,7 +323,7 @@ public class DocumentResourceIntTest {
 
         int databaseSizeBeforeDelete = documentRepository.findAll().size();
 
-        // Get the document
+        // Delete the document
         restDocumentMockMvc.perform(delete("/api/documents/{id}", document.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());

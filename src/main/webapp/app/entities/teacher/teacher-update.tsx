@@ -28,6 +28,12 @@ export class TeacherUpdate extends React.Component<ITeacherUpdateProps, ITeacher
     };
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    if (nextProps.updateSuccess !== this.props.updateSuccess && nextProps.updateSuccess) {
+      this.handleClose();
+    }
+  }
+
   componentDidMount() {
     if (this.state.isNew) {
       this.props.reset();
@@ -51,7 +57,6 @@ export class TeacherUpdate extends React.Component<ITeacherUpdateProps, ITeacher
       } else {
         this.props.updateEntity(entity);
       }
-      this.handleClose();
     }
   };
 
@@ -113,6 +118,7 @@ export class TeacherUpdate extends React.Component<ITeacherUpdateProps, ITeacher
                     type="datetime-local"
                     className="form-control"
                     name="doB"
+                    placeholder={'YYYY-MM-DD HH:mm'}
                     value={isNew ? null : convertDateTimeFromServer(this.props.teacherEntity.doB)}
                   />
                 </AvGroup>
@@ -129,22 +135,16 @@ export class TeacherUpdate extends React.Component<ITeacherUpdateProps, ITeacher
                   <AvField id="teacher-email" type="text" name="email" />
                 </AvGroup>
                 <AvGroup>
-                  <Label id="passwordLabel" for="password">
-                    <Translate contentKey="virtualAssistantApp.teacher.password">Password</Translate>
-                  </Label>
-                  <AvField id="teacher-password" type="text" name="password" />
-                </AvGroup>
-                <AvGroup>
                   <Label id="dataStorageLabel" for="dataStorage">
                     <Translate contentKey="virtualAssistantApp.teacher.dataStorage">Data Storage</Translate>
                   </Label>
-                  <AvField id="teacher-dataStorage" type="number" className="form-control" name="dataStorage" />
+                  <AvField id="teacher-dataStorage" type="string" className="form-control" name="dataStorage" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="usedStorageLabel" for="usedStorage">
                     <Translate contentKey="virtualAssistantApp.teacher.usedStorage">Used Storage</Translate>
                   </Label>
-                  <AvField id="teacher-usedStorage" type="number" className="form-control" name="usedStorage" />
+                  <AvField id="teacher-usedStorage" type="string" className="form-control" name="usedStorage" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="levelLabel">
@@ -216,7 +216,8 @@ export class TeacherUpdate extends React.Component<ITeacherUpdateProps, ITeacher
 const mapStateToProps = (storeState: IRootState) => ({
   teacherEntity: storeState.teacher.entity,
   loading: storeState.teacher.loading,
-  updating: storeState.teacher.updating
+  updating: storeState.teacher.updating,
+  updateSuccess: storeState.teacher.updateSuccess
 });
 
 const mapDispatchToProps = {

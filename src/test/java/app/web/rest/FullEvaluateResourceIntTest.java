@@ -31,6 +31,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import app.domain.enumeration.ScoreLadder;
 /**
  * Test class for the FullEvaluateResource REST controller.
  *
@@ -42,6 +43,9 @@ public class FullEvaluateResourceIntTest {
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
+    private static final ScoreLadder DEFAULT_RESULT = ScoreLadder.FAIL;
+    private static final ScoreLadder UPDATED_RESULT = ScoreLadder.PASS;
 
     @Autowired
     private FullEvaluateRepository fullEvaluateRepository;
@@ -86,7 +90,8 @@ public class FullEvaluateResourceIntTest {
      */
     public static FullEvaluate createEntity(EntityManager em) {
         FullEvaluate fullEvaluate = new FullEvaluate()
-            .description(DEFAULT_DESCRIPTION);
+            .description(DEFAULT_DESCRIPTION)
+            .result(DEFAULT_RESULT);
         return fullEvaluate;
     }
 
@@ -111,6 +116,7 @@ public class FullEvaluateResourceIntTest {
         assertThat(fullEvaluateList).hasSize(databaseSizeBeforeCreate + 1);
         FullEvaluate testFullEvaluate = fullEvaluateList.get(fullEvaluateList.size() - 1);
         assertThat(testFullEvaluate.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testFullEvaluate.getResult()).isEqualTo(DEFAULT_RESULT);
     }
 
     @Test
@@ -143,7 +149,8 @@ public class FullEvaluateResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(fullEvaluate.getId().intValue())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].result").value(hasItem(DEFAULT_RESULT.toString())));
     }
     
 
@@ -158,7 +165,8 @@ public class FullEvaluateResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(fullEvaluate.getId().intValue()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.result").value(DEFAULT_RESULT.toString()));
     }
     @Test
     @Transactional
@@ -181,7 +189,8 @@ public class FullEvaluateResourceIntTest {
         // Disconnect from session so that the updates on updatedFullEvaluate are not directly saved in db
         em.detach(updatedFullEvaluate);
         updatedFullEvaluate
-            .description(UPDATED_DESCRIPTION);
+            .description(UPDATED_DESCRIPTION)
+            .result(UPDATED_RESULT);
 
         restFullEvaluateMockMvc.perform(put("/api/full-evaluates")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -193,6 +202,7 @@ public class FullEvaluateResourceIntTest {
         assertThat(fullEvaluateList).hasSize(databaseSizeBeforeUpdate);
         FullEvaluate testFullEvaluate = fullEvaluateList.get(fullEvaluateList.size() - 1);
         assertThat(testFullEvaluate.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testFullEvaluate.getResult()).isEqualTo(UPDATED_RESULT);
     }
 
     @Test

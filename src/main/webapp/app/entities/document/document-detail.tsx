@@ -65,6 +65,12 @@ export class DocumentDetail extends React.Component<IDocumentDetailProps> {
             </dt>
             <dd>{documentEntity.status}</dd>
             <dt>
+              <span id="isShared">
+                <Translate contentKey="virtualAssistantApp.document.isShared">Is Shared</Translate>
+              </span>
+            </dt>
+            <dd>{documentEntity.isShared ? 'true' : 'false'}</dd>
+            <dt>
               <Translate contentKey="virtualAssistantApp.document.documentType">Document Type</Translate>
             </dt>
             <dd>

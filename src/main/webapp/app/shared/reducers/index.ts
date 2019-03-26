@@ -25,10 +25,6 @@ import document, {
   DocumentState
 } from 'app/entities/document/document.reducer';
 // prettier-ignore
-import documentType, {
-  DocumentTypeState
-} from 'app/entities/document-type/document-type.reducer';
-// prettier-ignore
 import notification, {
   NotificationState
 } from 'app/entities/notification/notification.reducer';
@@ -57,6 +53,10 @@ import answer, {
 import criteriaEvaluate, {
   CriteriaEvaluateState
 } from 'app/entities/criteria-evaluate/criteria-evaluate.reducer';
+// prettier-ignore
+import documentType, {
+  DocumentTypeState
+} from 'app/entities/document-type/document-type.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {

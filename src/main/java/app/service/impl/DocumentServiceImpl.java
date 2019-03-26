@@ -11,9 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.List;
 import java.util.Optional;
+
 /**
  * Service Implementation for managing Document.
  */
@@ -37,7 +37,8 @@ public class DocumentServiceImpl implements DocumentService {
      */
     @Override
     public Document save(Document document) {
-        log.debug("Request to save Document : {}", document);        return documentRepository.save(document);
+        log.debug("Request to save Document : {}", document);
+        return documentRepository.save(document);
     }
 
     /**

@@ -3,21 +3,21 @@
     "virtualAssistantApp": {
         "documentType" : {
             "home": {
-                "title": "Thể loại tài liệu",
-                "createLabel": "Tạo thể loại tài liệu mới",
-                "createOrEditLabel": "Tạo mới hoặc chỉnh sửa thể loại tài liệu"
+                "title": "Document Types",
+                "createLabel": "Create a new Document Type",
+                "createOrEditLabel": "Create or edit a Document Type"
             },
-            "created": "Một thể loại tài liệu mới vừa được tạo với ID {{ param }}",
-            "updated": "Một thể loại tài liệu vừa được chỉnh sửa với ID {{ param }}",
-            "deleted": "Một thể loại tài liệu vừa bị xóa với ID {{ param }}",
+            "created": "A new Document Type is created with identifier {{ param }}",
+            "updated": "A Document Type is updated with identifier {{ param }}",
+            "deleted": "A Document Type is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Bạn có chắc chắn muốn xóa thể loại tài liệu với ID {{ id }}?"
+                "question": "Are you sure you want to delete Document Type {{ id }}?"
             },
             "detail": {
-                "title": "Thể loại tài liệu"
+                "title": "Document Type"
             },
-            "content": "Nội dung",
-            "document": "Tài liệu"
+            "content": "Content",
+            "document": "Document"
         }
     }
 }

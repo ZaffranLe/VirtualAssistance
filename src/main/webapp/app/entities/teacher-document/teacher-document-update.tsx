@@ -22,16 +22,16 @@ export interface ITeacherDocumentUpdateProps extends StateProps, DispatchProps, 
 
 export interface ITeacherDocumentUpdateState {
   isNew: boolean;
-  teacherId: string;
-  documentId: string;
+  teacherId: number;
+  documentId: number;
 }
 
 export class TeacherDocumentUpdate extends React.Component<ITeacherDocumentUpdateProps, ITeacherDocumentUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      teacherId: '',
-      documentId: '',
+      teacherId: 0,
+      documentId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }

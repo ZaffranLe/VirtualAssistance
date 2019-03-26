@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
@@ -65,9 +66,6 @@ public class TeacherResourceIntTest {
     private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
     private static final String UPDATED_EMAIL = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PASSWORD = "AAAAAAAAAA";
-    private static final String UPDATED_PASSWORD = "BBBBBBBBBB";
-
     private static final Integer DEFAULT_DATA_STORAGE = 1;
     private static final Integer UPDATED_DATA_STORAGE = 2;
 
@@ -86,8 +84,6 @@ public class TeacherResourceIntTest {
     @Autowired
     private TeacherRepository teacherRepository;
 
-    
-
     @Autowired
     private TeacherService teacherService;
 
@@ -103,6 +99,9 @@ public class TeacherResourceIntTest {
     @Autowired
     private EntityManager em;
 
+    @Autowired
+    private Validator validator;
+
     private MockMvc restTeacherMockMvc;
 
     private Teacher teacher;
@@ -115,7 +114,8 @@ public class TeacherResourceIntTest {
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
+            .setMessageConverters(jacksonMessageConverter)
+            .setValidator(validator).build();
     }
 
     /**
@@ -132,7 +132,6 @@ public class TeacherResourceIntTest {
             .doB(DEFAULT_DO_B)
             .address(DEFAULT_ADDRESS)
             .email(DEFAULT_EMAIL)
-            .password(DEFAULT_PASSWORD)
             .dataStorage(DEFAULT_DATA_STORAGE)
             .usedStorage(DEFAULT_USED_STORAGE)
             .level(DEFAULT_LEVEL)
@@ -167,7 +166,6 @@ public class TeacherResourceIntTest {
         assertThat(testTeacher.getDoB()).isEqualTo(DEFAULT_DO_B);
         assertThat(testTeacher.getAddress()).isEqualTo(DEFAULT_ADDRESS);
         assertThat(testTeacher.getEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(testTeacher.getPassword()).isEqualTo(DEFAULT_PASSWORD);
         assertThat(testTeacher.getDataStorage()).isEqualTo(DEFAULT_DATA_STORAGE);
         assertThat(testTeacher.getUsedStorage()).isEqualTo(DEFAULT_USED_STORAGE);
         assertThat(testTeacher.getLevel()).isEqualTo(DEFAULT_LEVEL);
@@ -211,7 +209,6 @@ public class TeacherResourceIntTest {
             .andExpect(jsonPath("$.[*].doB").value(hasItem(sameInstant(DEFAULT_DO_B))))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
-            .andExpect(jsonPath("$.[*].password").value(hasItem(DEFAULT_PASSWORD.toString())))
             .andExpect(jsonPath("$.[*].dataStorage").value(hasItem(DEFAULT_DATA_STORAGE)))
             .andExpect(jsonPath("$.[*].usedStorage").value(hasItem(DEFAULT_USED_STORAGE)))
             .andExpect(jsonPath("$.[*].level").value(hasItem(DEFAULT_LEVEL.toString())))
@@ -219,7 +216,6 @@ public class TeacherResourceIntTest {
             .andExpect(jsonPath("$.[*].avatar").value(hasItem(DEFAULT_AVATAR.toString())));
     }
     
-
     @Test
     @Transactional
     public void getTeacher() throws Exception {
@@ -237,13 +233,13 @@ public class TeacherResourceIntTest {
             .andExpect(jsonPath("$.doB").value(sameInstant(DEFAULT_DO_B)))
             .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
-            .andExpect(jsonPath("$.password").value(DEFAULT_PASSWORD.toString()))
             .andExpect(jsonPath("$.dataStorage").value(DEFAULT_DATA_STORAGE))
             .andExpect(jsonPath("$.usedStorage").value(DEFAULT_USED_STORAGE))
             .andExpect(jsonPath("$.level").value(DEFAULT_LEVEL.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.avatar").value(DEFAULT_AVATAR.toString()));
     }
+
     @Test
     @Transactional
     public void getNonExistingTeacher() throws Exception {
@@ -271,7 +267,6 @@ public class TeacherResourceIntTest {
             .doB(UPDATED_DO_B)
             .address(UPDATED_ADDRESS)
             .email(UPDATED_EMAIL)
-            .password(UPDATED_PASSWORD)
             .dataStorage(UPDATED_DATA_STORAGE)
             .usedStorage(UPDATED_USED_STORAGE)
             .level(UPDATED_LEVEL)
@@ -293,7 +288,6 @@ public class TeacherResourceIntTest {
         assertThat(testTeacher.getDoB()).isEqualTo(UPDATED_DO_B);
         assertThat(testTeacher.getAddress()).isEqualTo(UPDATED_ADDRESS);
         assertThat(testTeacher.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testTeacher.getPassword()).isEqualTo(UPDATED_PASSWORD);
         assertThat(testTeacher.getDataStorage()).isEqualTo(UPDATED_DATA_STORAGE);
         assertThat(testTeacher.getUsedStorage()).isEqualTo(UPDATED_USED_STORAGE);
         assertThat(testTeacher.getLevel()).isEqualTo(UPDATED_LEVEL);
@@ -308,7 +302,7 @@ public class TeacherResourceIntTest {
 
         // Create the Teacher
 
-        // If the entity doesn't have an ID, it will throw BadRequestAlertException 
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restTeacherMockMvc.perform(put("/api/teachers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(teacher)))
@@ -327,7 +321,7 @@ public class TeacherResourceIntTest {
 
         int databaseSizeBeforeDelete = teacherRepository.findAll().size();
 
-        // Get the teacher
+        // Delete the teacher
         restTeacherMockMvc.perform(delete("/api/teachers/{id}", teacher.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());

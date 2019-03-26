@@ -22,16 +22,16 @@ export interface INotificationUpdateProps extends StateProps, DispatchProps, Rou
 
 export interface INotificationUpdateState {
   isNew: boolean;
-  headQuaterId: string;
-  notificationTypeId: string;
+  headQuaterId: number;
+  notificationTypeId: number;
 }
 
 export class NotificationUpdate extends React.Component<INotificationUpdateProps, INotificationUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      headQuaterId: '',
-      notificationTypeId: '',
+      headQuaterId: 0,
+      notificationTypeId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }

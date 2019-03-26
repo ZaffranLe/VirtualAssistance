@@ -7,7 +7,7 @@ export const enum Role {
 }
 
 export interface ITeacherDocument {
-  id?: string;
+  id?: number;
   role?: Role;
   teacher?: ITeacher;
   document?: IDocument;

@@ -4,6 +4,11 @@
         {
             "fieldName": "description",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "result",
+            "fieldType": "ScoreLadder",
+            "fieldValues": "FAIL,PASS,GOOD,EXCELLENT"
         }
     ],
     "relationships": [

@@ -1,5 +1,6 @@
 package app.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -25,7 +26,7 @@ import app.domain.enumeration.Status;
 public class Teacher implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,9 +49,6 @@ public class Teacher implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "jhi_password")
-    private String password;
-
     @Column(name = "data_storage")
     private Integer dataStorage;
 
@@ -71,7 +69,6 @@ public class Teacher implements Serializable {
     @OneToMany(mappedBy = "teacher")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<TeacherDocument> teachers = new HashSet<>();
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -157,19 +154,6 @@ public class Teacher implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Teacher password(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Integer getDataStorage() {
@@ -293,7 +277,6 @@ public class Teacher implements Serializable {
             ", doB='" + getDoB() + "'" +
             ", address='" + getAddress() + "'" +
             ", email='" + getEmail() + "'" +
-            ", password='" + getPassword() + "'" +
             ", dataStorage=" + getDataStorage() +
             ", usedStorage=" + getUsedStorage() +
             ", level='" + getLevel() + "'" +

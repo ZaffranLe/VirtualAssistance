@@ -7,7 +7,7 @@ export const enum Status {
 }
 
 export interface INotification {
-  id?: string;
+  id?: number;
   name?: string;
   description?: string;
   uRL?: string;

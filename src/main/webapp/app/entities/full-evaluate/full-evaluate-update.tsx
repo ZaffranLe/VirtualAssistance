@@ -20,14 +20,14 @@ export interface IFullEvaluateUpdateProps extends StateProps, DispatchProps, Rou
 
 export interface IFullEvaluateUpdateState {
   isNew: boolean;
-  teacherId: string;
+  teacherId: number;
 }
 
 export class FullEvaluateUpdate extends React.Component<IFullEvaluateUpdateProps, IFullEvaluateUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      teacherId: '',
+      teacherId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -95,6 +95,31 @@ export class FullEvaluateUpdate extends React.Component<IFullEvaluateUpdateProps
                     <Translate contentKey="virtualAssistantApp.fullEvaluate.description">Description</Translate>
                   </Label>
                   <AvField id="full-evaluate-description" type="text" name="description" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="resultLabel">
+                    <Translate contentKey="virtualAssistantApp.fullEvaluate.result">Result</Translate>
+                  </Label>
+                  <AvInput
+                    id="full-evaluate-result"
+                    type="select"
+                    className="form-control"
+                    name="result"
+                    value={(!isNew && fullEvaluateEntity.result) || 'FAIL'}
+                  >
+                    <option value="FAIL">
+                      <Translate contentKey="virtualAssistantApp.ScoreLadder.FAIL" />
+                    </option>
+                    <option value="PASS">
+                      <Translate contentKey="virtualAssistantApp.ScoreLadder.PASS" />
+                    </option>
+                    <option value="GOOD">
+                      <Translate contentKey="virtualAssistantApp.ScoreLadder.GOOD" />
+                    </option>
+                    <option value="EXCELLENT">
+                      <Translate contentKey="virtualAssistantApp.ScoreLadder.EXCELLENT" />
+                    </option>
+                  </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label for="teacher.id">

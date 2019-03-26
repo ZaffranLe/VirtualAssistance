@@ -25,20 +25,24 @@
             "fieldName": "status",
             "fieldType": "Status",
             "fieldValues": "EXIST,DELETED"
+        },
+        {
+            "fieldName": "isShared",
+            "fieldType": "Boolean"
         }
     ],
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "document",
             "otherEntityName": "teacherDocument",
-            "otherEntityRelationshipName": "document"
+            "otherEntityRelationshipName": "document",
+            "relationshipName": "document"
         },
         {
             "relationshipType": "many-to-many",
+            "otherEntityName": "documentType",
             "otherEntityRelationshipName": "document",
             "relationshipName": "documentType",
-            "otherEntityName": "documentType",
             "otherEntityField": "id",
             "ownerSide": true
         }

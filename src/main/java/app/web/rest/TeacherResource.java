@@ -1,6 +1,4 @@
 package app.web.rest;
-
-import com.codahale.metrics.annotation.Timed;
 import app.domain.Teacher;
 import app.service.TeacherService;
 import app.web.rest.errors.BadRequestAlertException;
@@ -42,7 +40,6 @@ public class TeacherResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/teachers")
-    @Timed
     public ResponseEntity<Teacher> createTeacher(@RequestBody Teacher teacher) throws URISyntaxException {
         log.debug("REST request to save Teacher : {}", teacher);
         if (teacher.getId() != null) {
@@ -64,7 +61,6 @@ public class TeacherResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/teachers")
-    @Timed
     public ResponseEntity<Teacher> updateTeacher(@RequestBody Teacher teacher) throws URISyntaxException {
         log.debug("REST request to update Teacher : {}", teacher);
         if (teacher.getId() == null) {
@@ -82,7 +78,6 @@ public class TeacherResource {
      * @return the ResponseEntity with status 200 (OK) and the list of teachers in body
      */
     @GetMapping("/teachers")
-    @Timed
     public List<Teacher> getAllTeachers() {
         log.debug("REST request to get all Teachers");
         return teacherService.findAll();
@@ -95,7 +90,6 @@ public class TeacherResource {
      * @return the ResponseEntity with status 200 (OK) and with body the teacher, or with status 404 (Not Found)
      */
     @GetMapping("/teachers/{id}")
-    @Timed
     public ResponseEntity<Teacher> getTeacher(@PathVariable Long id) {
         log.debug("REST request to get Teacher : {}", id);
         Optional<Teacher> teacher = teacherService.findOne(id);
@@ -109,7 +103,6 @@ public class TeacherResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/teachers/{id}")
-    @Timed
     public ResponseEntity<Void> deleteTeacher(@PathVariable Long id) {
         log.debug("REST request to delete Teacher : {}", id);
         teacherService.delete(id);

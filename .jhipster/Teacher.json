@@ -26,10 +26,6 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "password",
-            "fieldType": "String"
-        },
-        {
             "fieldName": "dataStorage",
             "fieldType": "Integer"
         },
@@ -55,9 +51,9 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "teacher",
             "otherEntityName": "teacherDocument",
-            "otherEntityRelationshipName": "teacher"
+            "otherEntityRelationshipName": "teacher",
+            "relationshipName": "teacher"
         }
     ],
     "changelogDate": "20190313134941",

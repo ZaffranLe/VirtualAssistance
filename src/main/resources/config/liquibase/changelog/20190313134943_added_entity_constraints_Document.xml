@@ -8,14 +8,14 @@
     -->
     <changeSet id="20190313134943-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="documents_id"
+        <addForeignKeyConstraint baseColumnNames="document_id"
                                  baseTableName="document_document_type"
-                                 constraintName="fk_document_document_type_documents_id"
+                                 constraintName="fk_document_document_type_document_id"
                                  referencedColumnNames="id"
                                  referencedTableName="document"/>
-        <addForeignKeyConstraint baseColumnNames="document_types_id"
+        <addForeignKeyConstraint baseColumnNames="document_type_id"
                                  baseTableName="document_document_type"
-                                 constraintName="fk_document_document_type_document_types_id"
+                                 constraintName="fk_document_document_type_document_type_id"
                                  referencedColumnNames="id"
                                  referencedTableName="document_type"/>
         
