@@ -44,15 +44,6 @@ export class CriteriaEvaluate extends React.Component<ICriteriaEvaluateProps> {
                   <Translate contentKey="virtualAssistantApp.criteriaEvaluate.level">Level</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="virtualAssistantApp.criteriaEvaluate.pass">Pass</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="virtualAssistantApp.criteriaEvaluate.good">Good</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="virtualAssistantApp.criteriaEvaluate.excellent">Excellent</Translate>
-                </th>
-                <th>
                   <Translate contentKey="virtualAssistantApp.criteriaEvaluate.criteriaType">Criteria Type</Translate>
                 </th>
                 <th />
@@ -68,12 +59,9 @@ export class CriteriaEvaluate extends React.Component<ICriteriaEvaluateProps> {
                   </td>
                   <td>{criteriaEvaluate.content}</td>
                   <td>{criteriaEvaluate.level}</td>
-                  <td>{criteriaEvaluate.pass}</td>
-                  <td>{criteriaEvaluate.good}</td>
-                  <td>{criteriaEvaluate.excellent}</td>
                   <td>
                     {criteriaEvaluate.criteriaType ? (
-                      <Link to={`criteria-type/${criteriaEvaluate.criteriaType.id}`}>{criteriaEvaluate.criteriaType.id}</Link>
+                      <Link to={`criteria-type/${criteriaEvaluate.criteriaType.id}`}>{criteriaEvaluate.criteriaType.content}</Link>
                     ) : (
                       ''
                     )}

@@ -44,12 +44,6 @@ export class Notification extends React.Component<INotificationProps> {
                   <Translate contentKey="virtualAssistantApp.notification.description">Description</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="virtualAssistantApp.notification.uRL">U RL</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="virtualAssistantApp.notification.status">Status</Translate>
-                </th>
-                <th>
                   <Translate contentKey="virtualAssistantApp.notification.headQuater">Head Quater</Translate>
                 </th>
                 <th>
@@ -68,10 +62,6 @@ export class Notification extends React.Component<INotificationProps> {
                   </td>
                   <td>{notification.name}</td>
                   <td>{notification.description}</td>
-                  <td>{notification.uRL}</td>
-                  <td>
-                    <Translate contentKey={`virtualAssistantApp.Status.${notification.status}`} />
-                  </td>
                   <td>
                     {notification.headQuater ? (
                       <Link to={`head-quater/${notification.headQuater.id}`}>{notification.headQuater.id}</Link>
@@ -81,7 +71,7 @@ export class Notification extends React.Component<INotificationProps> {
                   </td>
                   <td>
                     {notification.notificationType ? (
-                      <Link to={`notification-type/${notification.notificationType.id}`}>{notification.notificationType.id}</Link>
+                      <Link to={`notification-type/${notification.notificationType.id}`}>{notification.notificationType.content}</Link>
                     ) : (
                       ''
                     )}

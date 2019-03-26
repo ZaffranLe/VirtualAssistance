@@ -44,16 +44,7 @@ export class Document extends React.Component<IDocumentProps> {
                   <Translate contentKey="virtualAssistantApp.document.description">Description</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="virtualAssistantApp.document.uRL">U RL</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="virtualAssistantApp.document.size">Size</Translate>
-                </th>
-                <th>
                   <Translate contentKey="virtualAssistantApp.document.tag">Tag</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="virtualAssistantApp.document.status">Status</Translate>
                 </th>
                 <th>
                   <Translate contentKey="virtualAssistantApp.document.isShared">Is Shared</Translate>
@@ -74,18 +65,13 @@ export class Document extends React.Component<IDocumentProps> {
                   </td>
                   <td>{document.name}</td>
                   <td>{document.description}</td>
-                  <td>{document.uRL}</td>
-                  <td>{document.size}</td>
                   <td>{document.tag}</td>
-                  <td>
-                    <Translate contentKey={`virtualAssistantApp.Status.${document.status}`} />
-                  </td>
-                  <td>{document.isShared ? 'true' : 'false'}</td>
+                  <td>{document.isShared ? 'Chia sẻ' : 'Riêng tư'}</td>
                   <td>
                     {document.documentTypes
                       ? document.documentTypes.map((val, j) => (
                           <span key={j}>
-                            <Link to={`document-type/${val.id}`}>{val.id}</Link>
+                            <Link to={`document-type/${val.id}`}>{val.content}</Link>
                             {j === document.documentTypes.length - 1 ? '' : ', '}
                           </span>
                         ))
