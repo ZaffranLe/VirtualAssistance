@@ -20,14 +20,14 @@ export interface IDocumentTypeUpdateProps extends StateProps, DispatchProps, Rou
 
 export interface IDocumentTypeUpdateState {
   isNew: boolean;
-  documentId: string;
+  documentId: number;
 }
 
 export class DocumentTypeUpdate extends React.Component<IDocumentTypeUpdateProps, IDocumentTypeUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      documentId: '',
+      documentId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }

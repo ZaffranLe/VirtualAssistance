@@ -8,6 +8,8 @@ import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
+import { IUser } from 'app/shared/model/user.model';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './teacher.reducer';
 import { ITeacher } from 'app/shared/model/teacher.model';
 // tslint:disable-next-line:no-unused-variable
@@ -18,12 +20,14 @@ export interface ITeacherUpdateProps extends StateProps, DispatchProps, RouteCom
 
 export interface ITeacherUpdateState {
   isNew: boolean;
+  userId: number;
 }
 
 export class TeacherUpdate extends React.Component<ITeacherUpdateProps, ITeacherUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
+      userId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -34,6 +38,8 @@ export class TeacherUpdate extends React.Component<ITeacherUpdateProps, ITeacher
     } else {
       this.props.getEntity(this.props.match.params.id);
     }
+
+    this.props.getUsers();
   }
 
   saveEntity = (event, errors, values) => {
@@ -60,7 +66,7 @@ export class TeacherUpdate extends React.Component<ITeacherUpdateProps, ITeacher
   };
 
   render() {
-    const { teacherEntity, loading, updating } = this.props;
+    const { teacherEntity, users, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -129,12 +135,6 @@ export class TeacherUpdate extends React.Component<ITeacherUpdateProps, ITeacher
                   <AvField id="teacher-email" type="text" name="email" />
                 </AvGroup>
                 <AvGroup>
-                  <Label id="passwordLabel" for="password">
-                    <Translate contentKey="virtualAssistantApp.teacher.password">Password</Translate>
-                  </Label>
-                  <AvField id="teacher-password" type="text" name="password" />
-                </AvGroup>
-                <AvGroup>
                   <Label id="dataStorageLabel" for="dataStorage">
                     <Translate contentKey="virtualAssistantApp.teacher.dataStorage">Data Storage</Translate>
                   </Label>
@@ -193,6 +193,21 @@ export class TeacherUpdate extends React.Component<ITeacherUpdateProps, ITeacher
                   </Label>
                   <AvField id="teacher-avatar" type="text" name="avatar" />
                 </AvGroup>
+                <AvGroup>
+                  <Label for="user.id">
+                    <Translate contentKey="virtualAssistantApp.teacher.user">User</Translate>
+                  </Label>
+                  <AvInput id="teacher-user" type="select" className="form-control" name="user.id">
+                    <option value="" key="0" />
+                    {users
+                      ? users.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/teacher" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
@@ -214,12 +229,14 @@ export class TeacherUpdate extends React.Component<ITeacherUpdateProps, ITeacher
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
+  users: storeState.userManagement.users,
   teacherEntity: storeState.teacher.entity,
   loading: storeState.teacher.loading,
   updating: storeState.teacher.updating
 });
 
 const mapDispatchToProps = {
+  getUsers,
   getEntity,
   updateEntity,
   createEntity,

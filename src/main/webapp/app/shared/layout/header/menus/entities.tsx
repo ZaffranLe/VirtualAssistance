@@ -55,6 +55,9 @@ export const EntitiesMenu = ({ isAdmin = false }) => (
     <DropdownItem tag={Link} to="/entity/criteria-evaluate">
       <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.criteriaEvaluate" />
     </DropdownItem>
+    <DropdownItem tag={Link} to="/entity/teacher">
+      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.teacher" />
+    </DropdownItem>
     {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}
   </NavDropdown>
 );

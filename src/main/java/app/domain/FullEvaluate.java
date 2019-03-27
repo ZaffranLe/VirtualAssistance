@@ -9,6 +9,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+import app.domain.enumeration.ScoreLadder;
+
 /**
  * A FullEvaluate.
  */
@@ -25,6 +27,10 @@ public class FullEvaluate implements Serializable {
 
     @Column(name = "description")
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "result")
+    private ScoreLadder result;
 
     @ManyToOne
     @JsonIgnoreProperties("")
@@ -50,6 +56,19 @@ public class FullEvaluate implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ScoreLadder getResult() {
+        return result;
+    }
+
+    public FullEvaluate result(ScoreLadder result) {
+        this.result = result;
+        return this;
+    }
+
+    public void setResult(ScoreLadder result) {
+        this.result = result;
     }
 
     public Teacher getTeacher() {
@@ -91,6 +110,7 @@ public class FullEvaluate implements Serializable {
         return "FullEvaluate{" +
             "id=" + getId() +
             ", description='" + getDescription() + "'" +
+            ", result='" + getResult() + "'" +
             "}";
     }
 }

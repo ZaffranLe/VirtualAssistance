@@ -7,7 +7,7 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <property name="now" value="now()" dbms="h2"/>
-
+    
     <property name="now" value="now()" dbms="mysql"/>
     <property name="autoIncrement" value="true"/>
 
@@ -46,19 +46,23 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="is_shared" type="boolean">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         
         <createTable tableName="document_document_type">
-            <column name="document_types_id" type="bigint">
+            <column name="document_type_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="documents_id" type="bigint">
+            <column name="document_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="documents_id, document_types_id" tableName="document_document_type"/>
+        <addPrimaryKey columnNames="document_id, document_type_id" tableName="document_document_type"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

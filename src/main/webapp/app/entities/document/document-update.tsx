@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label, FormGroup } from 'reactstrap';
+import { Button, Row, Col, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
@@ -15,15 +15,12 @@ import { IDocument } from 'app/shared/model/document.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
-import { FilePond } from 'react-filepond';
-// tslint:disable-next-line:no-submodule-imports
-import 'filepond/dist/filepond.min.css';
 
 export interface IDocumentUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export interface IDocumentUpdateState {
   isNew: boolean;
-  share: boolean;
+  isShare: boolean;
   idsdocumentType: any[];
 }
 
@@ -32,16 +29,22 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
     super(props);
     this.state = {
       idsdocumentType: [],
-      share: false,
+      isShare: false,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    if (nextProps.updateSuccess !== this.props.updateSuccess && nextProps.updateSuccess) {
+      this.handleClose();
+    }
+  }
+
   handleShare = () => {
-    if (this.state.share) {
-      this.setState({ share: false });
+    if (this.state.isShare) {
+      this.setState({ isShare: false });
     } else {
-      this.setState({ share: true });
+      this.setState({ isShare: true });
     }
   };
 
@@ -69,7 +72,6 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
       } else {
         this.props.updateEntity(entity);
       }
-      this.handleClose();
     }
   };
 
@@ -104,124 +106,98 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                     <AvInput id="document-id" type="text" className="form-control" name="id" required readOnly />
                   </AvGroup>
                 ) : null}
-                <Row>
-                  <Col md="5">
-                    <FormGroup>
-                      <Label>Upload</Label>
-                      <FilePond allowMultiple />
-                    </FormGroup>
-                  </Col>
-                  <Col md="7">
-                    <AvGroup>
-                      <Label id="nameLabel" for="name">
-                        <Translate contentKey="virtualAssistantApp.document.name">Name</Translate>
-                      </Label>
-                      <AvField id="document-name" type="text" name="name" />
-                    </AvGroup>
-                    <AvGroup>
-                      <Label id="descriptionLabel" for="description">
-                        <Translate contentKey="virtualAssistantApp.document.description">Description</Translate>
-                      </Label>
-                      <AvField id="document-description" type="text" name="description" />
-                    </AvGroup>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md="12">
-                    <AvGroup>
-                      <Label id="uRLLabel" for="uRL">
-                        <Translate contentKey="virtualAssistantApp.document.uRL">U RL</Translate>
-                      </Label>
-                      <AvField id="document-uRL" type="text" name="uRL" />
-                    </AvGroup>
-                    <AvGroup>
-                      <Label id="sizeLabel" for="size">
-                        <Translate contentKey="virtualAssistantApp.document.size">Size</Translate>
-                      </Label>
-                      <AvField id="document-size" type="string" className="form-control" name="size" />
-                    </AvGroup>
-                    <AvGroup>
-                      <Label id="tagLabel" for="tag">
-                        <Translate contentKey="virtualAssistantApp.document.tag">Tag</Translate>
-                      </Label>
-                      <AvField id="document-tag" type="text" name="tag" />
-                    </AvGroup>
-                    <AvGroup>
-                      <Label id="statusLabel">
-                        <Translate contentKey="virtualAssistantApp.document.status">Status</Translate>
-                      </Label>
-                      <AvInput
-                        id="document-status"
-                        type="select"
-                        className="form-control"
-                        name="status"
-                        value={(!isNew && documentEntity.status) || 'EXIST'}
-                      >
-                        <option value="EXIST">
-                          <Translate contentKey="virtualAssistantApp.Status.EXIST" />
-                        </option>
-                        <option value="DELETED">
-                          <Translate contentKey="virtualAssistantApp.Status.DELETED" />
-                        </option>
-                      </AvInput>
-                    </AvGroup>
-                    <AvGroup>
-                      <Row>
-                        <Col lg={2}>
-                          <FormGroup check className="checkbox">
-                            <AvField
-                              className="form-check-input"
-                              type="checkbox"
-                              id="checkbox1"
-                              name="checkbox1"
-                              onChange={this.handleShare}
-                            />
-                            <Label check className="form-check-label" htmlFor="checkbox1">
-                              Công khai
-                            </Label>
-                          </FormGroup>
-                        </Col>
-                        <Col lg={10}>
-                          <Label id="shareMembersLabel">Thành viên chia sẻ</Label>
-                          <AvField id="shareMembers" name="shareMembers" disabled={this.state.share} placeholder="Thành viên chia sẻ..." />
-                        </Col>
-                      </Row>
-                    </AvGroup>
-                    <AvGroup>
-                      <Label for="documentTypes">
-                        <Translate contentKey="virtualAssistantApp.document.documentType">Document Type</Translate>
-                      </Label>
-                      <AvInput
-                        id="document-documentType"
-                        type="select"
-                        multiple
-                        className="form-control"
-                        name="documentTypes"
-                        value={documentEntity.documentTypes && documentEntity.documentTypes.map(e => e.id)}
-                      >
-                        <option value="" key="0" />
-                        {documentTypes
-                          ? documentTypes.map(otherEntity => (
-                              <option value={otherEntity.id} key={otherEntity.id}>
-                                {otherEntity.content}
-                              </option>
-                            ))
-                          : null}
-                      </AvInput>
-                    </AvGroup>
-                    <Button tag={Link} id="cancel-save" to="/entity/document" replace color="info">
-                      <FontAwesomeIcon icon="arrow-left" />&nbsp;
-                      <span className="d-none d-md-inline">
-                        <Translate contentKey="entity.action.back">Back</Translate>
-                      </span>
-                    </Button>
-                    &nbsp;
-                    <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                      <FontAwesomeIcon icon="save" />&nbsp;
-                      <Translate contentKey="entity.action.save">Save</Translate>
-                    </Button>
-                  </Col>
-                </Row>
+                <AvGroup>
+                  <Label id="nameLabel" for="name">
+                    <Translate contentKey="virtualAssistantApp.document.name">Name</Translate>
+                  </Label>
+                  <AvField id="document-name" type="text" name="name" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="descriptionLabel" for="description">
+                    <Translate contentKey="virtualAssistantApp.document.description">Description</Translate>
+                  </Label>
+                  <AvField id="document-description" type="text" name="description" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="uRLLabel" for="uRL">
+                    <Translate contentKey="virtualAssistantApp.document.uRL">U RL</Translate>
+                  </Label>
+                  <AvField id="document-uRL" type="text" name="uRL" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="sizeLabel" for="size">
+                    <Translate contentKey="virtualAssistantApp.document.size">Size</Translate>
+                  </Label>
+                  <AvField id="document-size" type="string" className="form-control" name="size" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="tagLabel" for="tag">
+                    <Translate contentKey="virtualAssistantApp.document.tag">Tag</Translate>
+                  </Label>
+                  <AvField id="document-tag" type="text" name="tag" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="statusLabel">
+                    <Translate contentKey="virtualAssistantApp.document.status">Status</Translate>
+                  </Label>
+                  <AvInput
+                    id="document-status"
+                    type="select"
+                    className="form-control"
+                    name="status"
+                    value={(!isNew && documentEntity.status) || 'EXIST'}
+                  >
+                    <option value="EXIST">
+                      <Translate contentKey="virtualAssistantApp.Status.EXIST" />
+                    </option>
+                    <option value="DELETED">
+                      <Translate contentKey="virtualAssistantApp.Status.DELETED" />
+                    </option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="isSharedLabel" check>
+                    <AvInput id="document-isShared" type="checkbox" className="form-control" name="isShared" onChange={this.handleShare} />
+                    <Translate contentKey="virtualAssistantApp.document.isShared">Is Shared</Translate>
+                  </Label>
+                </AvGroup>
+                <AvGroup>
+                  <Label id="shareMembersLabel">Thành viên chia sẻ</Label>
+                  <AvField id="shareMembers" name="shareMembers" disabled={this.state.isShare} placeholder="Thành viên chia sẻ..." />
+                </AvGroup>
+                <AvGroup>
+                  <Label for="documentTypes">
+                    <Translate contentKey="virtualAssistantApp.document.documentType">Document Type</Translate>
+                  </Label>
+                  <AvInput
+                    id="document-documentType"
+                    type="select"
+                    multiple
+                    className="form-control"
+                    name="documentTypes"
+                    value={documentEntity.documentTypes && documentEntity.documentTypes.map(e => e.id)}
+                  >
+                    <option value="" key="0" />
+                    {documentTypes
+                      ? documentTypes.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </AvInput>
+                </AvGroup>
+                <Button tag={Link} id="cancel-save" to="/entity/document" replace color="info">
+                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                  <span className="d-none d-md-inline">
+                    <Translate contentKey="entity.action.back">Back</Translate>
+                  </span>
+                </Button>
+                &nbsp;
+                <Button color="primary" id="save-entity" type="submit" disabled={updating}>
+                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <Translate contentKey="entity.action.save">Save</Translate>
+                </Button>
               </AvForm>
             )}
           </Col>
@@ -235,7 +211,8 @@ const mapStateToProps = (storeState: IRootState) => ({
   documentTypes: storeState.documentType.entities,
   documentEntity: storeState.document.entity,
   loading: storeState.document.loading,
-  updating: storeState.document.updating
+  updating: storeState.document.updating,
+  updateSuccess: storeState.document.updateSuccess
 });
 
 const mapDispatchToProps = {

@@ -59,11 +59,11 @@ export class DocumentDetail extends React.Component<IDocumentDetailProps> {
             </dt>
             <dd>{documentEntity.tag}</dd>
             <dt>
-              <span id="status">
-                <Translate contentKey="virtualAssistantApp.document.status">Status</Translate>
+              <span id="isShared">
+                <Translate contentKey="virtualAssistantApp.document.isShared">Is Shared</Translate>
               </span>
             </dt>
-            <dd>{documentEntity.status}</dd>
+            <dd>{documentEntity.isShared ? 'Chia sẻ' : 'Riêng tư'}</dd>
             <dt>
               <Translate contentKey="virtualAssistantApp.document.documentType">Document Type</Translate>
             </dt>
@@ -71,7 +71,7 @@ export class DocumentDetail extends React.Component<IDocumentDetailProps> {
               {documentEntity.documentTypes
                 ? documentEntity.documentTypes.map((val, i) => (
                     <span key={val.id}>
-                      <a>{val.id}</a>
+                      <a>{val.content}</a>
                       {i === documentEntity.documentTypes.length - 1 ? '' : ', '}
                     </span>
                   ))

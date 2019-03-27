@@ -47,19 +47,13 @@ export class NotificationDetail extends React.Component<INotificationDetailProps
             </dt>
             <dd>{notificationEntity.uRL}</dd>
             <dt>
-              <span id="status">
-                <Translate contentKey="virtualAssistantApp.notification.status">Status</Translate>
-              </span>
-            </dt>
-            <dd>{notificationEntity.status}</dd>
-            <dt>
               <Translate contentKey="virtualAssistantApp.notification.headQuater">Head Quater</Translate>
             </dt>
-            <dd>{notificationEntity.headQuater ? notificationEntity.headQuater.id : ''}</dd>
+            <dd>{notificationEntity.headQuater ? notificationEntity.headQuater.name : ''}</dd>
             <dt>
               <Translate contentKey="virtualAssistantApp.notification.notificationType">Notification Type</Translate>
             </dt>
-            <dd>{notificationEntity.notificationType ? notificationEntity.notificationType.id : ''}</dd>
+            <dd>{notificationEntity.notificationType ? notificationEntity.notificationType.content : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/notification" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

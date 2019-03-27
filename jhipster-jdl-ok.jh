@@ -5,7 +5,6 @@ entity Teacher {
     DoB ZonedDateTime,
     Address String,
     Email String,
-    Password String,
     DataStorage Integer,
     UsedStorage Integer,
     Level TeacherLevel,
@@ -32,7 +31,8 @@ entity Document{
     URL String,
     Size Integer,
     Tag String,
-    Status Status
+    Status Status,
+	isShared Boolean
 }
 
 entity DocumentType{
@@ -77,7 +77,8 @@ entity CriteriaEvaluate{
 }
 
 entity FullEvaluate{
-	Description String
+	Description String,
+	Result ScoreLadder
 }
 
 relationship ManyToMany {
@@ -96,6 +97,10 @@ relationship ManyToOne {
     Answer{FullEvaluate} to FullEvaluate,
     Answer{CriteriaEvaluate} to CriteriaEvaluate,
     CriteriaEvaluate{CriteriaType} to CriteriaType
+}
+
+relationship OneToOne {
+    Teacher{user} to User
 }
 
 service all with serviceImpl

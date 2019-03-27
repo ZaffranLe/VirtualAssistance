@@ -1,5 +1,6 @@
 package app.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -22,7 +23,7 @@ import app.domain.enumeration.Status;
 public class Document implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -46,15 +47,17 @@ public class Document implements Serializable {
     @Column(name = "status")
     private Status status;
 
+    @Column(name = "is_shared")
+    private Boolean isShared;
+
     @OneToMany(mappedBy = "document")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<TeacherDocument> documents = new HashSet<>();
-
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "document_document_type",
-               joinColumns = @JoinColumn(name = "documents_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "document_types_id", referencedColumnName = "id"))
+               joinColumns = @JoinColumn(name = "document_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "document_type_id", referencedColumnName = "id"))
     private Set<DocumentType> documentTypes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -144,6 +147,19 @@ public class Document implements Serializable {
         this.status = status;
     }
 
+    public Boolean isIsShared() {
+        return isShared;
+    }
+
+    public Document isShared(Boolean isShared) {
+        this.isShared = isShared;
+        return this;
+    }
+
+    public void setIsShared(Boolean isShared) {
+        this.isShared = isShared;
+    }
+
     public Set<TeacherDocument> getDocuments() {
         return documents;
     }
@@ -225,6 +241,7 @@ public class Document implements Serializable {
             ", size=" + getSize() +
             ", tag='" + getTag() + "'" +
             ", status='" + getStatus() + "'" +
+            ", isShared='" + isIsShared() + "'" +
             "}";
     }
 }

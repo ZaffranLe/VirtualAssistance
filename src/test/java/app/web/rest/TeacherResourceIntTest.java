@@ -65,9 +65,6 @@ public class TeacherResourceIntTest {
     private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
     private static final String UPDATED_EMAIL = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PASSWORD = "AAAAAAAAAA";
-    private static final String UPDATED_PASSWORD = "BBBBBBBBBB";
-
     private static final Integer DEFAULT_DATA_STORAGE = 1;
     private static final Integer UPDATED_DATA_STORAGE = 2;
 
@@ -132,7 +129,6 @@ public class TeacherResourceIntTest {
             .doB(DEFAULT_DO_B)
             .address(DEFAULT_ADDRESS)
             .email(DEFAULT_EMAIL)
-            .password(DEFAULT_PASSWORD)
             .dataStorage(DEFAULT_DATA_STORAGE)
             .usedStorage(DEFAULT_USED_STORAGE)
             .level(DEFAULT_LEVEL)
@@ -167,7 +163,6 @@ public class TeacherResourceIntTest {
         assertThat(testTeacher.getDoB()).isEqualTo(DEFAULT_DO_B);
         assertThat(testTeacher.getAddress()).isEqualTo(DEFAULT_ADDRESS);
         assertThat(testTeacher.getEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(testTeacher.getPassword()).isEqualTo(DEFAULT_PASSWORD);
         assertThat(testTeacher.getDataStorage()).isEqualTo(DEFAULT_DATA_STORAGE);
         assertThat(testTeacher.getUsedStorage()).isEqualTo(DEFAULT_USED_STORAGE);
         assertThat(testTeacher.getLevel()).isEqualTo(DEFAULT_LEVEL);
@@ -211,7 +206,6 @@ public class TeacherResourceIntTest {
             .andExpect(jsonPath("$.[*].doB").value(hasItem(sameInstant(DEFAULT_DO_B))))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
-            .andExpect(jsonPath("$.[*].password").value(hasItem(DEFAULT_PASSWORD.toString())))
             .andExpect(jsonPath("$.[*].dataStorage").value(hasItem(DEFAULT_DATA_STORAGE)))
             .andExpect(jsonPath("$.[*].usedStorage").value(hasItem(DEFAULT_USED_STORAGE)))
             .andExpect(jsonPath("$.[*].level").value(hasItem(DEFAULT_LEVEL.toString())))
@@ -237,7 +231,6 @@ public class TeacherResourceIntTest {
             .andExpect(jsonPath("$.doB").value(sameInstant(DEFAULT_DO_B)))
             .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
-            .andExpect(jsonPath("$.password").value(DEFAULT_PASSWORD.toString()))
             .andExpect(jsonPath("$.dataStorage").value(DEFAULT_DATA_STORAGE))
             .andExpect(jsonPath("$.usedStorage").value(DEFAULT_USED_STORAGE))
             .andExpect(jsonPath("$.level").value(DEFAULT_LEVEL.toString()))
@@ -271,7 +264,6 @@ public class TeacherResourceIntTest {
             .doB(UPDATED_DO_B)
             .address(UPDATED_ADDRESS)
             .email(UPDATED_EMAIL)
-            .password(UPDATED_PASSWORD)
             .dataStorage(UPDATED_DATA_STORAGE)
             .usedStorage(UPDATED_USED_STORAGE)
             .level(UPDATED_LEVEL)
@@ -293,7 +285,6 @@ public class TeacherResourceIntTest {
         assertThat(testTeacher.getDoB()).isEqualTo(UPDATED_DO_B);
         assertThat(testTeacher.getAddress()).isEqualTo(UPDATED_ADDRESS);
         assertThat(testTeacher.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testTeacher.getPassword()).isEqualTo(UPDATED_PASSWORD);
         assertThat(testTeacher.getDataStorage()).isEqualTo(UPDATED_DATA_STORAGE);
         assertThat(testTeacher.getUsedStorage()).isEqualTo(UPDATED_USED_STORAGE);
         assertThat(testTeacher.getLevel()).isEqualTo(UPDATED_LEVEL);

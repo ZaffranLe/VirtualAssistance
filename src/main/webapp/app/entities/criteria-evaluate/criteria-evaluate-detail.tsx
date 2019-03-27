@@ -63,7 +63,7 @@ export class CriteriaEvaluateDetail extends React.Component<ICriteriaEvaluateDet
             <dt>
               <Translate contentKey="virtualAssistantApp.criteriaEvaluate.criteriaType">Criteria Type</Translate>
             </dt>
-            <dd>{criteriaEvaluateEntity.criteriaType ? criteriaEvaluateEntity.criteriaType.id : ''}</dd>
+            <dd>{criteriaEvaluateEntity.criteriaType ? criteriaEvaluateEntity.criteriaType.content : ''}</dd>
           </dl>
           <Button tag={Link} to="/entity/criteria-evaluate" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

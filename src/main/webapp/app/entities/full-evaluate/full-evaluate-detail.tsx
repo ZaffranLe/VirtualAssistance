@@ -35,6 +35,12 @@ export class FullEvaluateDetail extends React.Component<IFullEvaluateDetailProps
             </dt>
             <dd>{fullEvaluateEntity.description}</dd>
             <dt>
+              <span id="result">
+                <Translate contentKey="virtualAssistantApp.fullEvaluate.result">Result</Translate>
+              </span>
+            </dt>
+            <dd>{fullEvaluateEntity.result}</dd>
+            <dt>
               <Translate contentKey="virtualAssistantApp.fullEvaluate.teacher">Teacher</Translate>
             </dt>
             <dd>{fullEvaluateEntity.teacher ? fullEvaluateEntity.teacher.id : ''}</dd>

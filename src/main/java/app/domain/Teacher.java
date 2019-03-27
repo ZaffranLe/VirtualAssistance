@@ -48,9 +48,6 @@ public class Teacher implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "jhi_password")
-    private String password;
-
     @Column(name = "data_storage")
     private Integer dataStorage;
 
@@ -67,6 +64,10 @@ public class Teacher implements Serializable {
 
     @Column(name = "avatar")
     private String avatar;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private User user;
 
     @OneToMany(mappedBy = "teacher")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -159,19 +160,6 @@ public class Teacher implements Serializable {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public Teacher password(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Integer getDataStorage() {
         return dataStorage;
     }
@@ -237,6 +225,19 @@ public class Teacher implements Serializable {
         this.avatar = avatar;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public Teacher user(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Set<TeacherDocument> getTeachers() {
         return teachers;
     }
@@ -293,7 +294,6 @@ public class Teacher implements Serializable {
             ", doB='" + getDoB() + "'" +
             ", address='" + getAddress() + "'" +
             ", email='" + getEmail() + "'" +
-            ", password='" + getPassword() + "'" +
             ", dataStorage=" + getDataStorage() +
             ", usedStorage=" + getUsedStorage() +
             ", level='" + getLevel() + "'" +

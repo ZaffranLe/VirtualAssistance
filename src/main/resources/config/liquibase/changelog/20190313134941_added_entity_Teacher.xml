@@ -46,10 +46,6 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="jhi_password" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
             <column name="data_storage" type="integer">
                 <constraints nullable="true" />
             </column>
@@ -69,7 +65,9 @@
             <column name="avatar" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-
+            <column name="user_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_teacher_user_id" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="teacher" columnName="do_b" columnDataType="datetime"/>

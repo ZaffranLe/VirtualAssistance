@@ -1,151 +1,153 @@
 {
-    "global": {
-        "title": "Trợ lý giáo viên ảo",
-        "browsehappy": "Bạn đang sử dụng trình duyệt <strong>cũ</strong>. Vui lòng truy cập <a href=\"http://browsehappy.com/?locale=en\">địa chỉ này</a> để nâng cao khả năng trải nghiệm.",
-        "menu": {
-            "home": "Trang chủ",
-            "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
-            "entities": {
-                "main": "Entities",
-                "teacher": "Giáo viên",
-                "teacherDocument": "Giáo viên - Tài liệu",
-                "document": "Kho tài liệu",
-                "documentType": "Thể loại tài liệu",
-                "notification": "Văn bản",
-                "notificationType": "Thể loại văn bản",
-                "headQuater": "Cơ quan ban hành",
-                "criteriaType": "Thể loại tiêu chí",
-                "answer": "Câu trả lời",
-                "fullEvaluate": "Bản đánh giá",
-                "criteriaEvaluate": "Tiêu chí đánh giá",
-                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
-            },
-            "components": {
-                "survey": "Đánh giá giáo viên theo TT20",
-                "documents": "Kho tài liệu"
-            },
-            "account": {
-                "main": "Tài khoản",
-                "settings": "Cài đặt",
-                "password": "Mật khẩu",
-                "sessions": "Sessions",
-                "login": "Đăng nhập",
-                "logout": "Đăng xuất",
-                "register": "Đăng ký"
-            },
-            "admin": {
-                "main": "Quản trị",
-                "userManagement": "Quản lý người dùng",
-                "tracker": "Theo dõi người dùng",
-                "metrics": "Metrics",
-                "health": "Sức khỏe",
-                "configuration": "Tùy chỉnh",
-                "logs": "Nhật ký",
-                "audits": "Audits",
-                "apidocs": "API",
-                "database": "Cơ sở dữ liệu",
-                "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
-            },
-            "language": "Ngôn ngữ"
-        },
-        "form": {
-            "username": "Tên tài khoản",
-            "username.placeholder": "Tên tài khoản của bạn",
-            "currentpassword": "Mật khẩu hiện tại",
-            "currentpassword.placeholder": "Mật khẩu hiện tại",
-            "newpassword": "Mật khẩu mới",
-            "newpassword.placeholder": "Mật khẩu mới",
-            "confirmpassword": "Xác nhận mật khẩu mới",
-            "confirmpassword.placeholder": "Xác nhận mật khẩu mới",
-            "email": "Email",
-            "email.placeholder": "Email của bạn"
-        },
-        "messages": {
-            "info": {
-                "authenticated": {
-                    "prefix": "Nếu bạn muốn ",
-                    "link": "đăng nhập",
-                    "suffix": ", Bạn có thể thử tài khoản mặc định:<br/>- Quản trị viên (login=\"admin\" and password=\"admin\") <br/>- Người dùng (login=\"user\" and password=\"user\")."
-                },
-                "register": {
-                    "noaccount": "Bạn chưa có tài khoản?",
-                    "link": "Đăng ký tài khoản mới"
-                }
-            },
-            "error": {
-                "dontmatch": "Mật khẩu không khớp!"
-            },
-            "validate": {
-                "newpassword": {
-                    "required": "Mật khẩu là bắt buộc.",
-                    "minlength": "Mật khẩu phải có ít nhất 4 ký tự.",
-                    "maxlength": "Mật khẩu không thể dài hơn 50 ký tự.",
-                    "strength": "Độ mạnh:"
-                },
-                "confirmpassword": {
-                    "required": "Cần xác nhận mật khẩu.",
-                    "minlength": "Mật khẩu xác nhận cần có ít nhất 4 ký tự.",
-                    "maxlength": "Mật khẩu xác nhận không thể dài hơn 50 ký tự."
-                },
-                "email": {
-                    "required": "Email là bắt buộc.",
-                    "invalid": "Email không khả dụng.",
-                    "minlength": "Email cần có ít nhất 5 ký tự.",
-                    "maxlength": "Email không thể dài hơn 50 ký tự."
-                }
-            }
-        },
-        "field": {
-            "id": "ID"
-        },
-        "ribbon": {
-            "dev":"Phát triển"
-        },
-        "item-count": "Hiển thị {{first}} - {{second}} trong {{total}} phần tử."
+  "global": {
+    "title": "Trợ lý giáo viên ảo",
+    "browsehappy":
+      "Bạn đang sử dụng trình duyệt <strong>cũ</strong>. Vui lòng truy cập <a href=\"http://browsehappy.com/?locale=en\">địa chỉ này</a> để nâng cao khả năng trải nghiệm.",
+    "menu": {
+      "home": "Trang chủ",
+      "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+      "entities": {
+        "main": "Entities",
+        "teacher": "Giáo viên",
+        "teacherDocument": "Giáo viên - Tài liệu",
+        "document": "Kho tài liệu",
+        "documentType": "Thể loại tài liệu",
+        "notification": "Văn bản",
+        "notificationType": "Thể loại văn bản",
+        "headQuater": "Cơ quan ban hành",
+        "criteriaType": "Thể loại tiêu chí",
+        "answer": "Câu trả lời",
+        "fullEvaluate": "Bản đánh giá",
+        "criteriaEvaluate": "Tiêu chí đánh giá",
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+      },
+      "components": {
+        "survey": "Đánh giá giáo viên theo TT20",
+        "documents": "Kho tài liệu"
+      },
+      "account": {
+        "main": "Tài khoản",
+        "settings": "Cài đặt",
+        "password": "Mật khẩu",
+        "sessions": "Sessions",
+        "login": "Đăng nhập",
+        "logout": "Đăng xuất",
+        "register": "Đăng ký"
+      },
+      "admin": {
+        "main": "Quản trị",
+        "userManagement": "Quản lý người dùng",
+        "tracker": "Theo dõi người dùng",
+        "metrics": "Metrics",
+        "health": "Sức khỏe",
+        "configuration": "Tùy chỉnh",
+        "logs": "Nhật ký",
+        "audits": "Audits",
+        "apidocs": "API",
+        "database": "Cơ sở dữ liệu",
+        "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
+      },
+      "language": "Ngôn ngữ"
     },
-    "entity": {
-        "action": {
-            "addblob": "Add blob",
-            "addimage": "Thêm ảnh",
-            "back": "Quay lại",
-            "cancel": "Hủy",
-            "delete": "Xóa",
-            "edit": "Chỉnh sửa",
-            "open": "Mở",
-            "save": "Lưu",
-            "view": "Xem"
+    "form": {
+      "username": "Tên tài khoản",
+      "username.placeholder": "Tên tài khoản của bạn",
+      "currentpassword": "Mật khẩu hiện tại",
+      "currentpassword.placeholder": "Mật khẩu hiện tại",
+      "newpassword": "Mật khẩu mới",
+      "newpassword.placeholder": "Mật khẩu mới",
+      "confirmpassword": "Xác nhận mật khẩu mới",
+      "confirmpassword.placeholder": "Xác nhận mật khẩu mới",
+      "email": "Email",
+      "email.placeholder": "Email của bạn"
+    },
+    "messages": {
+      "info": {
+        "authenticated": {
+          "prefix": "Nếu bạn muốn ",
+          "link": "đăng nhập",
+          "suffix":
+            ", Bạn có thể thử tài khoản mặc định:<br/>- Quản trị viên (login=\"admin\" and password=\"admin\") <br/>- Người dùng (login=\"user\" and password=\"user\")."
         },
-        "detail": {
-            "field": "Trường",
-            "value": "Giá trị"
-        },
-        "delete": {
-            "title": "Xác nhận xóa"
-        },
-        "validation": {
-            "required": "Trường này là bắt buộc.",
-            "minlength": "Trường này cần có ít nhất {{ min }} ký tự.",
-            "maxlength": "Trường này không thể vượt quá {{ max }} ký tự.",
-            "min": "Trường này cần có ít nhất {{ min }}.",
-            "max": "Trường này không thể vượt quá {{ max }}.",
-            "minbytes": "Trường này nên có ít nhất {{ min }} bytes.",
-            "maxbytes": "Trường này không thể vượt quá {{ max }} bytes.",
-            "pattern": "Trường này nên tuân theo mẫu {{ pattern }}.",
-            "number": "Trường này cần nhập số.",
-            "datetimelocal": "Trường này cần nhập thời gian.",
-            "patternLogin": "Trường này chỉ có thể chứa ký tự, chữ số và email."
+        "register": {
+          "noaccount": "Bạn chưa có tài khoản?",
+          "link": "Đăng ký tài khoản mới"
         }
+      },
+      "error": {
+        "dontmatch": "Mật khẩu không khớp!"
+      },
+      "validate": {
+        "newpassword": {
+          "required": "Mật khẩu là bắt buộc.",
+          "minlength": "Mật khẩu phải có ít nhất 4 ký tự.",
+          "maxlength": "Mật khẩu không thể dài hơn 50 ký tự.",
+          "strength": "Độ mạnh:"
+        },
+        "confirmpassword": {
+          "required": "Cần xác nhận mật khẩu.",
+          "minlength": "Mật khẩu xác nhận cần có ít nhất 4 ký tự.",
+          "maxlength": "Mật khẩu xác nhận không thể dài hơn 50 ký tự."
+        },
+        "email": {
+          "required": "Email là bắt buộc.",
+          "invalid": "Email không khả dụng.",
+          "minlength": "Email cần có ít nhất 5 ký tự.",
+          "maxlength": "Email không thể dài hơn 50 ký tự."
+        }
+      }
     },
-    "error": {
-        "internalServerError": "Internal server error",
-        "server.not.reachable": "Server not reachable",
-        "url.not.found": "Not found",
-        "NotNull": "Field {{ fieldName }} cannot be empty!",
-        "Size": "Field {{ fieldName }} does not meet min/max size requirements!",
-        "userexists": "Login name already used!",
-        "emailexists": "Email is already in use!",
-        "idexists": "A new {{ entityName }} cannot already have an ID",
-        "idnull": "Invalid ID"
+    "field": {
+      "id": "ID"
     },
-    "footer": "This is your footer"
+    "ribbon": {
+      "dev": "Phát triển"
+    },
+    "item-count": "Hiển thị {{first}} - {{second}} trong {{total}} phần tử."
+  },
+  "entity": {
+    "action": {
+      "addblob": "Add blob",
+      "addimage": "Thêm ảnh",
+      "back": "Quay lại",
+      "cancel": "Hủy",
+      "delete": "Xóa",
+      "edit": "Chỉnh sửa",
+      "open": "Mở",
+      "save": "Lưu",
+      "view": "Xem"
+    },
+    "detail": {
+      "field": "Trường",
+      "value": "Giá trị"
+    },
+    "delete": {
+      "title": "Xác nhận xóa"
+    },
+    "validation": {
+      "required": "Trường này là bắt buộc.",
+      "minlength": "Trường này cần có ít nhất {{ min }} ký tự.",
+      "maxlength": "Trường này không thể vượt quá {{ max }} ký tự.",
+      "min": "Trường này cần có ít nhất {{ min }}.",
+      "max": "Trường này không thể vượt quá {{ max }}.",
+      "minbytes": "Trường này nên có ít nhất {{ min }} bytes.",
+      "maxbytes": "Trường này không thể vượt quá {{ max }} bytes.",
+      "pattern": "Trường này nên tuân theo mẫu {{ pattern }}.",
+      "number": "Trường này cần nhập số.",
+      "datetimelocal": "Trường này cần nhập thời gian.",
+      "patternLogin": "Trường này chỉ có thể chứa ký tự, chữ số và email."
+    }
+  },
+  "error": {
+    "internalServerError": "Internal server error",
+    "server.not.reachable": "Server not reachable",
+    "url.not.found": "Not found",
+    "NotNull": "Field {{ fieldName }} cannot be empty!",
+    "Size": "Field {{ fieldName }} does not meet min/max size requirements!",
+    "userexists": "Login name already used!",
+    "emailexists": "Email is already in use!",
+    "idexists": "A new {{ entityName }} cannot already have an ID",
+    "idnull": "Invalid ID"
+  },
+  "footer": "This is your footer"
 }

@@ -26,10 +26,6 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "password",
-            "fieldType": "String"
-        },
-        {
             "fieldName": "dataStorage",
             "fieldType": "Integer"
         },
@@ -53,6 +49,14 @@
         }
     ],
     "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "teacher"
+        },
         {
             "relationshipType": "one-to-many",
             "relationshipName": "teacher",
