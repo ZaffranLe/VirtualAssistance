@@ -8,7 +8,7 @@ import PasswordStrengthBar from 'app/shared/layout/password/password-strength-ba
 import { IRootState } from 'app/shared/reducers';
 import { handleRegister, reset } from './register.reducer';
 
-export interface IRegisterProps extends StateProps, DispatchProps {}
+export interface IRegisterProps extends StateProps, DispatchProps { }
 
 export interface IRegisterState {
   password: string;
@@ -24,7 +24,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
   }
 
   handleValidSubmit = (event, values) => {
-    this.props.handleRegister(values.username, values.email, values.firstPassword, this.props.currentLocale);
+    this.props.handleRegister(values.username, values.email, values.firstPassword, values.identityNumber, values.firstName, values.lastName, values.phone, values.address, values.doB, this.props.currentLocale);
     event.preventDefault();
   };
 
@@ -90,6 +90,85 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
                   minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
                   maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
                   match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
+                }}
+              />
+
+              <AvField
+                //them so chung minh thu cac truong khac tuong tu
+                name="identityNumber"
+                label="Identity Number"
+                placeholder="Identity Number"
+                type="number"
+                validate={{
+                  required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
+                  minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
+                  maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
+                  // match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
+                }}
+              />
+              <AvField
+                //them so chung minh thu cac truong khac tuong tu
+                name="firstName"
+                label="First Name"
+                placeholder="First Name"
+                type="text"
+                validate={{
+                  required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
+                  minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
+                  maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
+                  // match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
+                }}
+              />
+              <AvField
+                //them so chung minh thu cac truong khac tuong tu
+                name="lastName"
+                label="Last Name"
+                placeholder="Last Name"
+                type="text"
+                validate={{
+                  required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
+                  minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
+                  maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
+                  // match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
+                }}
+              />
+              <AvField
+                //them so chung minh thu cac truong khac tuong tu
+                name="phone"
+                label="Phone Number"
+                placeholder="Phone Number"
+                type="number"
+                validate={{
+                  required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
+                  minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
+                  maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
+                  // match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
+                }}
+              />
+              <AvField
+                //them so chung minh thu cac truong khac tuong tu
+                name="address"
+                label="Address"
+                placeholder="Address"
+                type="text"
+                validate={{
+                  required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
+                  minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
+                  maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
+                  // match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
+                }}
+              />
+              <AvField
+                //them so chung minh thu cac truong khac tuong tu
+                name="doB"
+                label="Birthday"
+                placeholder="Birthday"
+                type="datetime-local"
+                validate={{
+                  required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
+                  minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
+                  maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
+                  // match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
                 }}
               />
               <Button id="register-submit" color="primary" type="submit">
