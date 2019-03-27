@@ -1,32 +1,34 @@
+
 {
-  "virtualAssistantApp": {
-      "teacher" : {
-          "home": {
-              "title": "Giáo viên",
-              "createLabel": "Tạo giáo viên mới",
-              "createOrEditLabel": "Tạo mới hoặc chỉnh sửa giáo viên"
-          },
-          "created": "Một giáo viên mới vừa được tạo với ID {{ param }}",
-          "updated": "Một giáo viên vừa được chỉnh sửa với ID {{ param }}",
-          "deleted": "Một giáo viên vừa bị xóa với ID {{ param }}",
-          "delete": {
-              "question": "Bạn có chắc chắn muốn xóa giáo viên với ID {{ id }}?"
-          },
-          "detail": {
-              "title": "Giáo viên"
-          },
-          "identityNumber": "Số chứng minh thư",
-          "fullName": "Họ tên",
-          "phone": "SĐT",
-          "doB": "Ngày sinh",
-          "address": "Địa chỉ",
-          "email": "Email",
-          "dataStorage": "Dung lượng kho",
-          "usedStorage": "Đã sử dụng",
-          "level": "Cấp độ",
-          "status": "Trạng thái",
-          "avatar": "Ảnh đại diện",
-          "teacher": "Giáo viên"
-      }
-  }
+    "virtualAssistantApp": {
+        "teacher" : {
+            "home": {
+                "title": "Teachers",
+                "createLabel": "Create a new Teacher",
+                "createOrEditLabel": "Create or edit a Teacher"
+            },
+            "created": "A new Teacher is created with identifier {{ param }}",
+            "updated": "A Teacher is updated with identifier {{ param }}",
+            "deleted": "A Teacher is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Teacher {{ id }}?"
+            },
+            "detail": {
+                "title": "Teacher"
+            },
+            "identityNumber": "Identity Number",
+            "fullName": "Full Name",
+            "phone": "Phone",
+            "doB": "Do B",
+            "address": "Address",
+            "email": "Email",
+            "dataStorage": "Data Storage",
+            "usedStorage": "Used Storage",
+            "level": "Level",
+            "status": "Status",
+            "avatar": "Avatar",
+            "user": "User",
+            "teacher": "Teacher"
+        }
+    }
 }

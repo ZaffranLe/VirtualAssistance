@@ -50,10 +50,18 @@
     ],
     "relationships": [
         {
+            "relationshipType": "one-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "teacher"
+        },
+        {
             "relationshipType": "one-to-many",
+            "relationshipName": "teacher",
             "otherEntityName": "teacherDocument",
-            "otherEntityRelationshipName": "teacher",
-            "relationshipName": "teacher"
+            "otherEntityRelationshipName": "teacher"
         }
     ],
     "changelogDate": "20190313134941",

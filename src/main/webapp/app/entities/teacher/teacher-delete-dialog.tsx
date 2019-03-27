@@ -33,7 +33,7 @@ export class TeacherDeleteDialog extends React.Component<ITeacherDeleteDialogPro
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="virtualAssistantApp.teacher.delete.question">
+        <ModalBody>
           <Translate contentKey="virtualAssistantApp.teacher.delete.question" interpolate={{ id: teacherEntity.id }}>
             Are you sure you want to delete this Teacher?
           </Translate>
@@ -43,7 +43,7 @@ export class TeacherDeleteDialog extends React.Component<ITeacherDeleteDialogPro
             <FontAwesomeIcon icon="ban" />&nbsp;
             <Translate contentKey="entity.action.cancel">Cancel</Translate>
           </Button>
-          <Button id="jhi-confirm-delete-teacher" color="danger" onClick={this.confirmDelete}>
+          <Button color="danger" onClick={this.confirmDelete}>
             <FontAwesomeIcon icon="trash" />&nbsp;
             <Translate contentKey="entity.action.delete">Delete</Translate>
           </Button>

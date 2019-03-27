@@ -56,7 +56,22 @@ export class Teacher extends React.Component<ITeacherProps> {
                   <Translate contentKey="virtualAssistantApp.teacher.email">Email</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="virtualAssistantApp.teacher.dataStorage">Data Storage</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="virtualAssistantApp.teacher.usedStorage">Used Storage</Translate>
+                </th>
+                <th>
                   <Translate contentKey="virtualAssistantApp.teacher.level">Level</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="virtualAssistantApp.teacher.status">Status</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="virtualAssistantApp.teacher.avatar">Avatar</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="virtualAssistantApp.teacher.user">User</Translate>
                 </th>
                 <th />
               </tr>
@@ -77,9 +92,16 @@ export class Teacher extends React.Component<ITeacherProps> {
                   </td>
                   <td>{teacher.address}</td>
                   <td>{teacher.email}</td>
+                  <td>{teacher.dataStorage}</td>
+                  <td>{teacher.usedStorage}</td>
                   <td>
                     <Translate contentKey={`virtualAssistantApp.TeacherLevel.${teacher.level}`} />
                   </td>
+                  <td>
+                    <Translate contentKey={`virtualAssistantApp.Status.${teacher.status}`} />
+                  </td>
+                  <td>{teacher.avatar}</td>
+                  <td>{teacher.user ? teacher.user.id : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${teacher.id}`} color="info" size="sm">

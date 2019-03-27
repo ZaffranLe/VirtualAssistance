@@ -1,5 +1,6 @@
 import { Moment } from 'moment';
-import { ITeacherDocument } from 'app/shared/model/teacher-document.model';
+import { IUser } from './user.model';
+import { ITeacherDocument } from 'app/shared/model//teacher-document.model';
 
 export const enum TeacherLevel {
   TEACHER = 'TEACHER',
@@ -25,6 +26,7 @@ export interface ITeacher {
   level?: TeacherLevel;
   status?: Status;
   avatar?: string;
+  user?: IUser;
   teachers?: ITeacherDocument[];
 }
 

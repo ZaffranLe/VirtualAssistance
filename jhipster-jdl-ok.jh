@@ -99,4 +99,8 @@ relationship ManyToOne {
     CriteriaEvaluate{CriteriaType} to CriteriaType
 }
 
+relationship OneToOne {
+    Teacher{user} to User
+}
+
 service all with serviceImpl

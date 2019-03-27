@@ -20,7 +20,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
@@ -84,6 +83,8 @@ public class TeacherResourceIntTest {
     @Autowired
     private TeacherRepository teacherRepository;
 
+    
+
     @Autowired
     private TeacherService teacherService;
 
@@ -99,9 +100,6 @@ public class TeacherResourceIntTest {
     @Autowired
     private EntityManager em;
 
-    @Autowired
-    private Validator validator;
-
     private MockMvc restTeacherMockMvc;
 
     private Teacher teacher;
@@ -114,8 +112,7 @@ public class TeacherResourceIntTest {
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
+            .setMessageConverters(jacksonMessageConverter).build();
     }
 
     /**
@@ -216,6 +213,7 @@ public class TeacherResourceIntTest {
             .andExpect(jsonPath("$.[*].avatar").value(hasItem(DEFAULT_AVATAR.toString())));
     }
     
+
     @Test
     @Transactional
     public void getTeacher() throws Exception {
@@ -239,7 +237,6 @@ public class TeacherResourceIntTest {
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.avatar").value(DEFAULT_AVATAR.toString()));
     }
-
     @Test
     @Transactional
     public void getNonExistingTeacher() throws Exception {
@@ -302,7 +299,7 @@ public class TeacherResourceIntTest {
 
         // Create the Teacher
 
-        // If the entity doesn't have an ID, it will throw BadRequestAlertException
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException 
         restTeacherMockMvc.perform(put("/api/teachers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(teacher)))
@@ -321,7 +318,7 @@ public class TeacherResourceIntTest {
 
         int databaseSizeBeforeDelete = teacherRepository.findAll().size();
 
-        // Delete the teacher
+        // Get the teacher
         restTeacherMockMvc.perform(delete("/api/teachers/{id}", teacher.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
