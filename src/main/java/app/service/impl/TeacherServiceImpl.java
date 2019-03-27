@@ -3,15 +3,17 @@ package app.service.impl;
 import app.service.TeacherService;
 import app.domain.Teacher;
 import app.repository.TeacherRepository;
+import app.security.SecurityUtils;
+import app.web.rest.errors.InternalServerErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.List;
 import java.util.Optional;
+
 /**
  * Service Implementation for managing Teacher.
  */
@@ -35,7 +37,8 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     public Teacher save(Teacher teacher) {
-        log.debug("Request to save Teacher : {}", teacher);        return teacherRepository.save(teacher);
+        log.debug("Request to save Teacher : {}", teacher);
+        return teacherRepository.save(teacher);
     }
 
     /**
@@ -49,7 +52,6 @@ public class TeacherServiceImpl implements TeacherService {
         log.debug("Request to get all Teachers");
         return teacherRepository.findAll();
     }
-
 
     /**
      * Get one teacher by id.
@@ -73,5 +75,14 @@ public class TeacherServiceImpl implements TeacherService {
     public void delete(Long id) {
         log.debug("Request to delete Teacher : {}", id);
         teacherRepository.deleteById(id);
+    }
+
+    @Override
+    public Teacher findByUserLogin() {
+        String user = SecurityUtils.getCurrentUserLogin()
+                .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        log.debug("Request find Teacher by username : {}", user);
+        return teacherRepository.findOneByUser(user)
+                .orElseThrow(() -> new InternalServerErrorException("Can not find current teacher"));
     }
 }

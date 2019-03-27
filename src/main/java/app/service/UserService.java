@@ -5,6 +5,8 @@ import app.domain.User;
 import app.repository.AuthorityRepository;
 import app.config.Constants;
 import app.domain.Teacher;
+import app.domain.enumeration.Status;
+import app.domain.enumeration.TeacherLevel;
 import app.repository.TeacherRepository;
 import app.repository.UserRepository;
 import app.security.AuthoritiesConstants;
@@ -95,7 +97,7 @@ public class UserService {
             });
     }
 
-    public User registerUser(UserDTO userDTO, String password,Teacher teacher) {
+    public User registerUser(UserDTO userDTO, String password) {
         //create user
         User newUser = new User();
         String encryptedPassword = passwordEncoder.encode(password);
@@ -120,7 +122,16 @@ public class UserService {
         
         Teacher newTeacher = new Teacher();
         newTeacher.setId(newUser.getId());
+        newTeacher.setEmail(newUser.getEmail());
+        newTeacher.setDoB(userDTO.getDoB());
+        newTeacher.setIdentityNumber(userDTO.getIdentityNumber());
+        newTeacher.setPhone(userDTO.getPhone());
+        newTeacher.setDataStorage(5);
+        newTeacher.setLevel(TeacherLevel.TEACHER);
+        newTeacher.setStatus(Status.EXIST);
+        newTeacher.setUsedStorage(0);
         newTeacher.setUser(newUser);
+        newTeacher.setFullName(newUser.getFirstName()+" "+newUser.getLastName());
         teacherRepository.save(newTeacher);
         
         this.clearUserCaches(newUser);

@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 
 import javax.validation.constraints.*;
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -52,6 +53,56 @@ public class UserDTO {
     private Instant lastModifiedDate;
 
     private Set<String> authorities;
+
+    public String getIdentityNumber() {
+        return identityNumber;
+    }
+
+    public void setIdentityNumber(String identityNumber) {
+        this.identityNumber = identityNumber;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public ZonedDateTime getDoB() {
+        return doB;
+    }
+
+    public void setDoB(ZonedDateTime doB) {
+        this.doB = doB;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+    
+    private String identityNumber;
+
+    private String phone;
+
+    private ZonedDateTime doB;
+
+    private String address;
+
+    private String avatar;
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
