@@ -3,15 +3,18 @@ package app.service.impl;
 import app.service.NotificationService;
 import app.domain.Notification;
 import app.repository.NotificationRepository;
+import app.security.AuthoritiesConstants;
+import app.security.SecurityUtils;
+import app.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.List;
 import java.util.Optional;
+
 /**
  * Service Implementation for managing Notification.
  */
@@ -35,7 +38,12 @@ public class NotificationServiceImpl implements NotificationService {
      */
     @Override
     public Notification save(Notification notification) {
-        log.debug("Request to save Notification : {}", notification);        return notificationRepository.save(notification);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            log.debug("Request to save Notification : {}", notification);
+            return notificationRepository.save(notification);
+        } else {
+            throw new BadRequestAlertException("Dont have authorize create notification", null, null);
+        }
     }
 
     /**
@@ -49,7 +57,6 @@ public class NotificationServiceImpl implements NotificationService {
         log.debug("Request to get all Notifications");
         return notificationRepository.findAll();
     }
-
 
     /**
      * Get one notification by id.
@@ -71,7 +78,10 @@ public class NotificationServiceImpl implements NotificationService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete Notification : {}", id);
-        notificationRepository.deleteById(id);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            log.debug("Request to delete Notification : {}", id);
+            notificationRepository.deleteById(id);
+        }
+        throw new BadRequestAlertException("Dont have authorize delete notification", null, null);
     }
 }
