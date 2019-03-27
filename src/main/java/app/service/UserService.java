@@ -4,6 +4,8 @@ import app.domain.Authority;
 import app.domain.User;
 import app.repository.AuthorityRepository;
 import app.config.Constants;
+import app.domain.Teacher;
+import app.repository.TeacherRepository;
 import app.repository.UserRepository;
 import app.security.AuthoritiesConstants;
 import app.security.SecurityUtils;
@@ -42,13 +44,18 @@ public class UserService {
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
+    
+    private final TeacherRepository teacherRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager, TeacherRepository teacherRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.teacherRepository = teacherRepository;
     }
+
+
 
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
@@ -88,8 +95,8 @@ public class UserService {
             });
     }
 
-    public User registerUser(UserDTO userDTO, String password) {
-
+    public User registerUser(UserDTO userDTO, String password,Teacher teacher) {
+        //create user
         User newUser = new User();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(userDTO.getLogin());
@@ -101,13 +108,21 @@ public class UserService {
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
-        newUser.setActivated(false);
+        newUser.setActivated(true);
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         Set<Authority> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
+        
+        //create teacher
+        
+        Teacher newTeacher = new Teacher();
+        newTeacher.setId(newUser.getId());
+        newTeacher.setUser(newUser);
+        teacherRepository.save(newTeacher);
+        
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
