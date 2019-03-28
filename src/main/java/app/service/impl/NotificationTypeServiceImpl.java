@@ -41,8 +41,9 @@ public class NotificationTypeServiceImpl implements NotificationTypeService {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             log.debug("Request to save NotificationType : {}", notificationType);
             return notificationTypeRepository.save(notificationType);
-        }else
-        throw new BadRequestAlertException("Dont have authorize", null, null);
+        } else {
+            throw new BadRequestAlertException("Dont have authorize", null, null);
+        }
 
     }
 
@@ -78,7 +79,11 @@ public class NotificationTypeServiceImpl implements NotificationTypeService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete NotificationType : {}", id);
-        notificationTypeRepository.deleteById(id);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            log.debug("Request to delete NotificationType : {}", id);
+            notificationTypeRepository.deleteById(id);
+        } else {
+            throw new BadRequestAlertException("Dont have authorize", null, null);
+        }
     }
 }

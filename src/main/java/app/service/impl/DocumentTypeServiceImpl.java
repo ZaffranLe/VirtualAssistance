@@ -3,15 +3,18 @@ package app.service.impl;
 import app.service.DocumentTypeService;
 import app.domain.DocumentType;
 import app.repository.DocumentTypeRepository;
+import app.security.AuthoritiesConstants;
+import app.security.SecurityUtils;
+import app.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.List;
 import java.util.Optional;
+
 /**
  * Service Implementation for managing DocumentType.
  */
@@ -35,7 +38,12 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
      */
     @Override
     public DocumentType save(DocumentType documentType) {
-        log.debug("Request to save DocumentType : {}", documentType);        return documentTypeRepository.save(documentType);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            log.debug("Request to save DocumentType : {}", documentType);
+            return documentTypeRepository.save(documentType);
+        } else {
+            throw new BadRequestAlertException("Dont have authorize", null, null);
+        }
     }
 
     /**
@@ -49,7 +57,6 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
         log.debug("Request to get all DocumentTypes");
         return documentTypeRepository.findAll();
     }
-
 
     /**
      * Get one documentType by id.
@@ -71,7 +78,11 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete DocumentType : {}", id);
-        documentTypeRepository.deleteById(id);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            log.debug("Request to delete DocumentType : {}", id);
+            documentTypeRepository.deleteById(id);
+        } else {
+            throw new BadRequestAlertException("Dont have authorize", null, null);
+        }
     }
 }
