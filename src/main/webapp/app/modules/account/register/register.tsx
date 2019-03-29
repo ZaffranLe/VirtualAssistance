@@ -12,11 +12,13 @@ export interface IRegisterProps extends StateProps, DispatchProps { }
 
 export interface IRegisterState {
   password: string;
+  date: Date;
 }
 
 export class RegisterPage extends React.Component<IRegisterProps, IRegisterState> {
   state: IRegisterState = {
-    password: ''
+    password: '',
+    date: null
   };
 
   componentWillUnmount() {
@@ -24,6 +26,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
   }
 
   handleValidSubmit = (event, values) => {
+    values.doB = new Date(values.doB);
     this.props.handleRegister(values.username, values.email, values.firstPassword, values.identityNumber, values.firstName, values.lastName, values.phone, values.address, values.doB, this.props.currentLocale);
     event.preventDefault();
   };
@@ -31,7 +34,8 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
   updatePassword = event => {
     this.setState({ password: event.target.value });
   };
-
+  //
+  
   render() {
     return (
       <div>
@@ -163,9 +167,10 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
                 name="doB"
                 label="Birthday"
                 placeholder="Birthday"
-                type="datetime-local"
+                type="date"
+                
                 validate={{
-                  required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
+                  // required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
                   minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
                   maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
                   // match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }

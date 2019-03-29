@@ -2,6 +2,7 @@ import axios from 'axios';
 import { translate } from 'react-jhipster';
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 
 export const ACTION_TYPES = {
   CREATE_ACCOUNT: 'register/CREATE_ACCOUNT',
@@ -14,6 +15,7 @@ const initialState = {
   registrationFailure: false,
   errorMessage: null
 };
+
 
 export type RegisterState = Readonly<typeof initialState>;
 
