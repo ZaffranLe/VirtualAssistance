@@ -30,11 +30,11 @@ public class DocumentServiceImpl implements DocumentService {
     private final Logger log = LoggerFactory.getLogger(DocumentServiceImpl.class);
 
     private final DocumentRepository documentRepository;
-    
+
     private final TeacherService teacherService;
-    
+
     private final TeacherDocumentRepository teacherDocumentRepository;
-    
+
     private final TeacherRepository teacherRepository;
 
     public DocumentServiceImpl(DocumentRepository documentRepository, TeacherService teacherService, TeacherDocumentRepository teacherDocumentRepository, TeacherRepository teacherRepository) {
@@ -43,8 +43,6 @@ public class DocumentServiceImpl implements DocumentService {
         this.teacherDocumentRepository = teacherDocumentRepository;
         this.teacherRepository = teacherRepository;
     }
-
-
 
     /**
      * Save a document.
@@ -57,7 +55,7 @@ public class DocumentServiceImpl implements DocumentService {
         log.debug("Request to save Document : {}", document);
         //get teacher by account 
         Teacher teacher = teacherService.findByUserLogin();
-        
+
         // create teacher document
         TeacherDocument teacherDocument = new TeacherDocument();
         teacherDocument.setDocument(document);
@@ -92,7 +90,6 @@ public class DocumentServiceImpl implements DocumentService {
     public Page<Document> findAllWithEagerRelationships(Pageable pageable) {
         return documentRepository.findAllWithEagerRelationships(pageable);
     }
-    
 
     /**
      * Get one document by id.
@@ -120,6 +117,12 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public List<Document> findByCurrentAccount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Teacher teacher = teacherService.findByUserLogin();
+        return documentRepository.findByRole(teacher.getId());
+    }
+
+    @Override
+    public List<Document> finAllPublic() {
+        return documentRepository.findPublic();
     }
 }

@@ -1,4 +1,5 @@
 package app.web.rest;
+
 import app.domain.Document;
 import app.service.DocumentService;
 import app.web.rest.errors.BadRequestAlertException;
@@ -33,10 +34,12 @@ public class DocumentResource {
     }
 
     /**
-     * POST  /documents : Create a new document.
+     * POST /documents : Create a new document.
      *
      * @param document the document to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new document, or with status 400 (Bad Request) if the document has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     * new document, or with status 400 (Bad Request) if the document has
+     * already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/documents")
@@ -47,17 +50,18 @@ public class DocumentResource {
         }
         Document result = documentService.save(document);
         return ResponseEntity.created(new URI("/api/documents/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
-     * PUT  /documents : Updates an existing document.
+     * PUT /documents : Updates an existing document.
      *
      * @param document the document to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated document,
-     * or with status 400 (Bad Request) if the document is not valid,
-     * or with status 500 (Internal Server Error) if the document couldn't be updated
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     * document, or with status 400 (Bad Request) if the document is not valid,
+     * or with status 500 (Internal Server Error) if the document couldn't be
+     * updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/documents")
@@ -68,15 +72,17 @@ public class DocumentResource {
         }
         Document result = documentService.save(document);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, document.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, document.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /documents : get all the documents.
+     * GET /documents : get all the documents.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
-     * @return the ResponseEntity with status 200 (OK) and the list of documents in body
+     * @param eagerload flag to eager load entities from relationships (This is
+     * applicable for many-to-many)
+     * @return the ResponseEntity with status 200 (OK) and the list of documents
+     * in body
      */
     @GetMapping("/documents")
     public List<Document> getAllDocuments(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
@@ -85,10 +91,11 @@ public class DocumentResource {
     }
 
     /**
-     * GET  /documents/:id : get the "id" document.
+     * GET /documents/:id : get the "id" document.
      *
      * @param id the id of the document to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the document, or with status 404 (Not Found)
+     * @return the ResponseEntity with status 200 (OK) and with body the
+     * document, or with status 404 (Not Found)
      */
     @GetMapping("/documents/{id}")
     public ResponseEntity<Document> getDocument(@PathVariable Long id) {
@@ -98,7 +105,7 @@ public class DocumentResource {
     }
 
     /**
-     * DELETE  /documents/:id : delete the "id" document.
+     * DELETE /documents/:id : delete the "id" document.
      *
      * @param id the id of the document to delete
      * @return the ResponseEntity with status 200 (OK)
@@ -108,5 +115,17 @@ public class DocumentResource {
         log.debug("REST request to delete Document : {}", id);
         documentService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/documents-private")
+    public List<Document> getAllDocumentsOfCurrentAccount(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+        log.debug("REST request to get all Documents");
+        return documentService.findByCurrentAccount();
+    }
+
+    @GetMapping("/documents-public")
+    public List<Document> getAllDocumentsPublic(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+        log.debug("REST request to get all Documents");
+        return documentService.finAllPublic();
     }
 }

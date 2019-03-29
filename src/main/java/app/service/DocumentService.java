@@ -49,8 +49,14 @@ public interface DocumentService {
      * @param id the id of the entity
      */
     void delete(Long id);
-    
+    /**
+     * Find all document of current account
+     * @return 
+     */
     List<Document> findByCurrentAccount();
-    
-    
+    /**
+     * find all documents that have pubic state
+     * @return 
+     */
+    List<Document> finAllPublic();
 }
