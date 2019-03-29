@@ -16,7 +16,6 @@ const initialState = {
   errorMessage: null
 };
 
-
 export type RegisterState = Readonly<typeof initialState>;
 
 // Reducer
@@ -48,9 +47,9 @@ export default (state: RegisterState = initialState, action): RegisterState => {
 };
 
 // Actions
-export const handleRegister = (login, email, password,identityNumber,firstName,lastName,phone,address,doB, langKey = 'en') => ({
+export const handleRegister = (login, email, password, identityNumber, firstName, lastName, phone, address, doB, langKey = 'en') => ({
   type: ACTION_TYPES.CREATE_ACCOUNT,
-  payload: axios.post('api/register', { login, email, password,identityNumber,firstName,lastName,phone,address,doB, langKey }),
+  payload: axios.post('api/register', { login, email, password, identityNumber, firstName, lastName, phone, address, doB, langKey }),
   meta: {
     successMessage: translate('register.messages.success')
   }

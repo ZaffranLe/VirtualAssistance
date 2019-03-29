@@ -8,7 +8,7 @@ import PasswordStrengthBar from 'app/shared/layout/password/password-strength-ba
 import { IRootState } from 'app/shared/reducers';
 import { handleRegister, reset } from './register.reducer';
 
-export interface IRegisterProps extends StateProps, DispatchProps { }
+export interface IRegisterProps extends StateProps, DispatchProps {}
 
 export interface IRegisterState {
   password: string;
@@ -27,7 +27,18 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
 
   handleValidSubmit = (event, values) => {
     values.doB = new Date(values.doB);
-    this.props.handleRegister(values.username, values.email, values.firstPassword, values.identityNumber, values.firstName, values.lastName, values.phone, values.address, values.doB, this.props.currentLocale);
+    this.props.handleRegister(
+      values.username,
+      values.email,
+      values.firstPassword,
+      values.identityNumber,
+      values.firstName,
+      values.lastName,
+      values.phone,
+      values.address,
+      values.doB,
+      this.props.currentLocale
+    );
     event.preventDefault();
   };
 
@@ -35,7 +46,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
     this.setState({ password: event.target.value });
   };
   //
-  
+
   render() {
     return (
       <div>
@@ -98,104 +109,65 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
               />
 
               <AvField
-                //them so chung minh thu cac truong khac tuong tu
                 name="identityNumber"
-                label="Identity Number"
-                placeholder="Identity Number"
+                label={translate('virtualAssistantApp.teacher.identityNumber')}
+                placeholder={translate('virtualAssistantApp.teacher.identityNumber')}
                 type="number"
                 validate={{
-                  required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
-                  minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
-                  maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
-                  // match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
+                  required: { value: true, errorMessage: translate('global.messages.validate.required.id') },
+                  minLength: { value: 9, errorMessage: translate('global.messages.validate.required.idMinLength') },
+                  maxLength: { value: 12, errorMessage: translate('global.messages.validate.required.idMaxLength') }
                 }}
               />
               <AvField
-                //them so chung minh thu cac truong khac tuong tu
                 name="firstName"
-                label="First Name"
-                placeholder="First Name"
+                label="Tên riêng"
+                placeholder="Tên riêng"
                 type="text"
                 validate={{
-                  required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
-                  minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
-                  maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
-                  // match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
+                  required: { value: true, errorMessage: translate('global.messages.validate.required.firstName') }
                 }}
               />
               <AvField
-                //them so chung minh thu cac truong khac tuong tu
                 name="lastName"
-                label="Last Name"
-                placeholder="Last Name"
+                label="Tên họ"
+                placeholder="Tên họ"
                 type="text"
                 validate={{
-                  required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
-                  minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
-                  maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
-                  // match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
+                  required: { value: true, errorMessage: translate('global.messages.validate.required.látName') }
                 }}
               />
               <AvField
-                //them so chung minh thu cac truong khac tuong tu
                 name="phone"
-                label="Phone Number"
-                placeholder="Phone Number"
+                label={translate('virtualAssistantApp.teacher.phone')}
+                placeholder={translate('virtualAssistantApp.teacher.phone')}
                 type="number"
                 validate={{
-                  required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
-                  minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
-                  maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
-                  // match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
+                  required: { value: true, errorMessage: translate('global.messages.validate.required.phone') },
+                  minLength: { value: 10, errorMessage: translate('global.messages.validate.required.phoneLength') },
+                  maxLength: { value: 10, errorMessage: translate('global.messages.validate.required.phoneLength') }
                 }}
               />
               <AvField
-                //them so chung minh thu cac truong khac tuong tu
                 name="address"
-                label="Address"
-                placeholder="Address"
+                label={translate('virtualAssistantApp.teacher.address')}
+                placeholder={translate('virtualAssistantApp.teacher.address')}
                 type="text"
                 validate={{
-                  required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
-                  minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
-                  maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
-                  // match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
+                  required: { value: true, errorMessage: translate('global.messages.validate.required.address') }
                 }}
               />
               <AvField
-                //them so chung minh thu cac truong khac tuong tu
                 name="doB"
-                label="Birthday"
-                placeholder="Birthday"
-                type="date"
-                
-                validate={{
-                  // required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
-                  minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
-                  maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
-                  // match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
-                }}
+                label={translate('virtualAssistantApp.teacher.doB')}
+                placeholder={translate('virtualAssistantApp.teacher.doB')}
+                type="datetime"
+                value={null}
               />
               <Button id="register-submit" color="primary" type="submit">
                 <Translate contentKey="register.form.button">Register</Translate>
               </Button>
             </AvForm>
-            <p>&nbsp;</p>
-            <Alert color="warning">
-              <span>
-                <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
-              </span>
-              <a className="alert-link">
-                <Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate>
-              </a>
-              <span>
-                <Translate contentKey="global.messages.info.authenticated.suffix">
-                  , you can try the default accounts:
-                  <br />- Administrator (login="admin" and password="admin")
-                  <br />- User (login="user" and password="user").
-                </Translate>
-              </span>
-            </Alert>
           </Col>
         </Row>
       </div>

@@ -126,6 +126,7 @@ public class UserService {
         newTeacher.setDoB(userDTO.getDoB());
         newTeacher.setIdentityNumber(userDTO.getIdentityNumber());
         newTeacher.setPhone(userDTO.getPhone());
+        newTeacher.setAddress(userDTO.getAddress());
         newTeacher.setDataStorage(5);
         newTeacher.setLevel(TeacherLevel.TEACHER);
         newTeacher.setStatus(Status.EXIST);

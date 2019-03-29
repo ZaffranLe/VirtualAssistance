@@ -12,7 +12,7 @@ import { ITeacher } from 'app/shared/model/teacher.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-export interface ITeacherProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> { }
+export interface ITeacherProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export class Teacher extends React.Component<ITeacherProps> {
   componentDidMount() {
@@ -29,7 +29,6 @@ export class Teacher extends React.Component<ITeacherProps> {
             <FontAwesomeIcon icon="plus" />&nbsp;
             <Translate contentKey="virtualAssistantApp.teacher.home.createLabel">Create new Teacher</Translate>
           </Link>
-          
         </h2>
         <div className="table-responsive">
           <Table responsive>

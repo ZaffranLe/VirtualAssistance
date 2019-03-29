@@ -94,6 +94,16 @@
           "invalid": "Email không khả dụng.",
           "minlength": "Email cần có ít nhất 5 ký tự.",
           "maxlength": "Email không thể dài hơn 50 ký tự."
+        },
+        "required": {
+          "address": "Địa chỉ là bắt buộc",
+          "phone": "SĐT là bắt buộc",
+          "phoneLength": "SĐT chỉ chứa 10 ký tự",
+          "firstName": "Tên riêng là bắt buộc",
+          "lastName": "Tên họ là bắt buộc",
+          "idMinLength": "Số chứng minh thư tối thiểu 9 chữ số",
+          "idMaxLength": "Số chứng minh thư tối đa 12 chữ số",
+          "id": "Số chứng minh thư nhân dân là bắt buộc"
         }
       }
     },
