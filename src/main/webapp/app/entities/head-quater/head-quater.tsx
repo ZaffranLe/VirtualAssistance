@@ -31,7 +31,7 @@ export class HeadQuater extends React.Component<IHeadQuaterProps> {
           </Link>
         </h2>
         <div className="table-responsive">
-          <Table responsive>
+          <Table responsive striped hover>
             <thead>
               <tr>
                 <th>
@@ -54,12 +54,6 @@ export class HeadQuater extends React.Component<IHeadQuaterProps> {
                   <td>{headQuater.name}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${headQuater.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
                       <Button tag={Link} to={`${match.url}/${headQuater.id}/edit`} color="primary" size="sm">
                         <FontAwesomeIcon icon="pencil-alt" />{' '}
                         <span className="d-none d-md-inline">

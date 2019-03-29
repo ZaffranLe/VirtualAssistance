@@ -14,7 +14,7 @@
                 "question": "Bạn có chắc chắn muốn xóa bản đánh giá với ID {{ id }}?"
             },
             "detail": {
-                "title": "Bản đánh gúa"
+                "title": "Bản đánh giá"
             },
             "description": "Mô tả",
             "result": "Kết quả",

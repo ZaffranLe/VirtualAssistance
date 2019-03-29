@@ -8,16 +8,13 @@ import { NavDropdown } from '../header-components';
 const EntitiesMenuAdmin = (
   <>
     <DropdownItem tag={Link} to="/entity/document-type">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.documentType" /> {/* //FIXME:Admin */}
+      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.documentType" />
     </DropdownItem>
     <DropdownItem tag={Link} to="/entity/notification-type">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.notificationType" /> {/* //FIXME:Admin */}
+      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.notificationType" />
     </DropdownItem>
     <DropdownItem tag={Link} to="/entity/head-quater">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.headQuater" /> {/* //FIXME:Admin */}
-    </DropdownItem>
-    <DropdownItem tag={Link} to="/entity/criteria-type">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.criteriaType" /> {/* //FIXME:Admin */}
+      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.headQuater" />
     </DropdownItem>
   </>
 );
@@ -25,7 +22,10 @@ const EntitiesMenuAdmin = (
 const EntitiesMenuUser = (
   <>
     <DropdownItem tag={Link} to="/entity/full-evaluate">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.fullEvaluate" /> {/* //FIXME:User */}
+      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.fullEvaluate" />
+    </DropdownItem>
+    <DropdownItem tag={Link} to="/entity/document">
+      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.document" />
     </DropdownItem>
   </>
 );
@@ -36,27 +36,15 @@ export const EntitiesMenu = ({ isAdmin = false }) => (
     <DropdownItem tag={Link} to="/entity/teacher">
       <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.teacher" />
     </DropdownItem>
-    {/* <DropdownItem tag={Link} to="/entity/teacher-document">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.teacherDocument" />
-    </DropdownItem> */}
-    <DropdownItem tag={Link} to="/entity/document">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.document" />
-    </DropdownItem>
     <DropdownItem tag={Link} to="/entity/notification">
       <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.notification" />
     </DropdownItem>
-    {/* <DropdownItem tag={Link} to="/entity/answer">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.answer" />
-    </DropdownItem> */}
     {isAdmin ? EntitiesMenuAdmin : EntitiesMenuUser}
-    <DropdownItem tag={Link} to="/entity/answer">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.answer" />
-    </DropdownItem>
     <DropdownItem tag={Link} to="/entity/criteria-evaluate">
       <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.criteriaEvaluate" />
     </DropdownItem>
-    <DropdownItem tag={Link} to="/entity/teacher">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.teacher" />
+    <DropdownItem tag={Link} to="/entity/criteria-type">
+      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.criteriaType" />
     </DropdownItem>
     {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}
   </NavDropdown>
