@@ -35,7 +35,9 @@ public class FullEvaluateServiceImpl implements FullEvaluateService {
      */
     @Override
     public FullEvaluate save(FullEvaluate fullEvaluate) {
-        log.debug("Request to save FullEvaluate : {}", fullEvaluate);        return fullEvaluateRepository.save(fullEvaluate);
+        
+        log.debug("Request to save FullEvaluate : {}", fullEvaluate); 
+        return fullEvaluateRepository.save(fullEvaluate);
     }
 
     /**
