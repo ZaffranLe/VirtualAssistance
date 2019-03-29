@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { getCriteriaTypeEntities } from '../../entities/criteria-type/criteria-type.reducer';
 import { getCriteriaEvaluateEntities } from '../../entities/criteria-evaluate/criteria-evaluate.reducer';
 import { IRootState } from 'app/shared/reducers';
+import { handleCreate } from '../../entities/full-evaluate/full-evaluate.reducer';
 export interface ICriteriaTypeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 export interface ICriteriaEvaluateProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -61,7 +62,16 @@ class Survey extends React.Component<any, any> {
       result: resultExpect
     });
   }
-
+  handleValidSubmit = () => {
+    handleCreate(
+      1, // FIXME: Call current teacher id
+      this.state.questionResult,
+      this.state.result
+    );
+    // tslint:disable-next-line:no-console
+    console.log('submit thanh cong' + this.state.questionResult);
+    event.preventDefault();
+  };
   calculateResult(resultList) {
     let i;
     let kha = 0;
@@ -123,7 +133,7 @@ class Survey extends React.Component<any, any> {
                       </Alert>
                     </td>
                     <td colSpan={4} className="align-middle">
-                      <Button className="btn-pill" color="primary">
+                      <Button className="btn-pill" color="primary" onClick={this.handleValidSubmit}>
                         Lưu bản đánh giá
                       </Button>
                     </td>

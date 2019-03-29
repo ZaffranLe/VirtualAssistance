@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col } from 'reactstrap';
+import { Button, Row, Col, CardImg, Card } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,8 +22,8 @@ export class NotificationDetail extends React.Component<INotificationDetailProps
   render() {
     const { notificationEntity } = this.props;
     return (
-      <Row>
-        <Col md="8">
+      <Row className="justify-content-center">
+        <Col md="6">
           <h2>
             <Translate contentKey="virtualAssistantApp.notification.detail.title">Notification</Translate> [<b>{notificationEntity.id}</b>]
           </h2>
@@ -67,6 +67,11 @@ export class NotificationDetail extends React.Component<INotificationDetailProps
               <Translate contentKey="entity.action.edit">Edit</Translate>
             </span>
           </Button>
+        </Col>
+        <Col md="5">
+          <Card>
+            <CardImg src={notificationEntity.uRL} width="100%" />
+          </Card>
         </Col>
       </Row>
     );

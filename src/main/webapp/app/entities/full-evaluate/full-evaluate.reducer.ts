@@ -121,6 +121,14 @@ export const createEntity: ICrudPutAction<IFullEvaluate> = entity => async dispa
   return result;
 };
 
+// ham test tao ban danh gia co cau hoi
+export const handleCreate = (teacherId, listQuestion, questionResult) => ({
+  type: ACTION_TYPES.CREATE_FULLEVALUATE,
+  payload: axios.post(apiUrl, { teacherId, listQuestion, questionResult }),
+  meta: {
+    successMessage: 'success'
+  }
+});
 export const updateEntity: ICrudPutAction<IFullEvaluate> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_FULLEVALUATE,
