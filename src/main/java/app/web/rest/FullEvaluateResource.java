@@ -35,10 +35,12 @@ public class FullEvaluateResource {
     }
 
     /**
-     * POST  /full-evaluates : Create a new fullEvaluate.
+     * POST /full-evaluates : Create a new fullEvaluate.
      *
      * @param fullEvaluate the fullEvaluate to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new fullEvaluate, or with status 400 (Bad Request) if the fullEvaluate has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the
+     * new fullEvaluate, or with status 400 (Bad Request) if the fullEvaluate
+     * has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/full-evaluates")
@@ -50,17 +52,18 @@ public class FullEvaluateResource {
         }
         FullEvaluate result = fullEvaluateService.save(fullEvaluate);
         return ResponseEntity.created(new URI("/api/full-evaluates/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
     }
 
     /**
-     * PUT  /full-evaluates : Updates an existing fullEvaluate.
+     * PUT /full-evaluates : Updates an existing fullEvaluate.
      *
      * @param fullEvaluate the fullEvaluate to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated fullEvaluate,
-     * or with status 400 (Bad Request) if the fullEvaluate is not valid,
-     * or with status 500 (Internal Server Error) if the fullEvaluate couldn't be updated
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     * fullEvaluate, or with status 400 (Bad Request) if the fullEvaluate is not
+     * valid, or with status 500 (Internal Server Error) if the fullEvaluate
+     * couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/full-evaluates")
@@ -72,14 +75,15 @@ public class FullEvaluateResource {
         }
         FullEvaluate result = fullEvaluateService.save(fullEvaluate);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, fullEvaluate.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, fullEvaluate.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /full-evaluates : get all the fullEvaluates.
+     * GET /full-evaluates : get all the fullEvaluates.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of fullEvaluates in body
+     * @return the ResponseEntity with status 200 (OK) and the list of
+     * fullEvaluates in body
      */
     @GetMapping("/full-evaluates")
     @Timed
@@ -89,10 +93,11 @@ public class FullEvaluateResource {
     }
 
     /**
-     * GET  /full-evaluates/:id : get the "id" fullEvaluate.
+     * GET /full-evaluates/:id : get the "id" fullEvaluate.
      *
      * @param id the id of the fullEvaluate to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the fullEvaluate, or with status 404 (Not Found)
+     * @return the ResponseEntity with status 200 (OK) and with body the
+     * fullEvaluate, or with status 404 (Not Found)
      */
     @GetMapping("/full-evaluates/{id}")
     @Timed
@@ -103,7 +108,7 @@ public class FullEvaluateResource {
     }
 
     /**
-     * DELETE  /full-evaluates/:id : delete the "id" fullEvaluate.
+     * DELETE /full-evaluates/:id : delete the "id" fullEvaluate.
      *
      * @param id the id of the fullEvaluate to delete
      * @return the ResponseEntity with status 200 (OK)
@@ -115,4 +120,14 @@ public class FullEvaluateResource {
         fullEvaluateService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    @PostMapping("/full-evaluates/{result}/{quesitonresult}")
+    @Timed
+    public ResponseEntity<FullEvaluate> createEvaluate(@PathVariable(name = "id") Long id,@PathVariable(name="result") String finalresult,@PathVariable(name="questionresult") String[] questionresult) throws URISyntaxException {
+        FullEvaluate result = fullEvaluateService.create( finalresult, questionresult);
+        return ResponseEntity.created(new URI("/api/full-evaluates/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
+    }
+
 }

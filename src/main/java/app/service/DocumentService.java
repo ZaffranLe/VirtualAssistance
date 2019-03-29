@@ -49,4 +49,6 @@ public interface DocumentService {
      * @param id the id of the entity
      */
     void delete(Long id);
+    
+    List<Document> findByCurrentAccount();
 }

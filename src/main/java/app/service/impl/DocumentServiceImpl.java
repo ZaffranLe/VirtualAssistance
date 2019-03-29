@@ -117,4 +117,9 @@ public class DocumentServiceImpl implements DocumentService {
         log.debug("Request to delete Document : {}", id);
         documentRepository.deleteById(id);
     }
+
+    @Override
+    public List<Document> findByCurrentAccount() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

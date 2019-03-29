@@ -25,7 +25,6 @@ public interface FullEvaluateService {
      */
     List<FullEvaluate> findAll();
 
-
     /**
      * Get the "id" fullEvaluate.
      *
@@ -40,4 +39,9 @@ public interface FullEvaluateService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    FullEvaluate create(String result, String[] questionresult);
+    
+    
+
 }
