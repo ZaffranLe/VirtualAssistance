@@ -64,8 +64,8 @@ class Survey extends React.Component<any, any> {
   }
   handleValidSubmit = () => {
     handleCreate(
-      1, // FIXME: Call current teacher id
-      this.state.questionResult,
+      // FIXME: Call current teacher id
+      this.state.questionResult.toString(),
       this.state.result
     );
     // tslint:disable-next-line:no-console

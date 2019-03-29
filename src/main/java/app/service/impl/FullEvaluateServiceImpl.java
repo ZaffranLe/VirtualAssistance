@@ -41,8 +41,6 @@ public class FullEvaluateServiceImpl implements FullEvaluateService {
         this.answerRepository = answerRepository;
     }
 
-
-
     /**
      * Save a fullEvaluate.
      *
@@ -93,10 +91,25 @@ public class FullEvaluateServiceImpl implements FullEvaluateService {
 
     @Override
     public FullEvaluate create(String result, String[] questionresult) {
+        System.out.print("alo");
         FullEvaluate fullEvaluate = new FullEvaluate();
         fullEvaluate.setTeacher(teacherService.findByUserLogin());
         fullEvaluate.setDescription("Bản đánh giá " + ZonedDateTime.now());
-
+        switch (result) {
+            case "Chưa đạt":
+                fullEvaluate.setResult(ScoreLadder.FAIL);
+                break;
+            case "Đạt":
+                fullEvaluate.setResult(ScoreLadder.PASS);
+                break;
+            case "Khá":
+                fullEvaluate.setResult(ScoreLadder.GOOD);
+                break;
+            case "Tốt":
+                fullEvaluate.setResult(ScoreLadder.EXCELLENT);
+                break;
+        }
+        fullEvaluateRepository.save(fullEvaluate);
         for (int i = 1; i <= questionresult.length; i++) {
             Answer answer = new Answer();
             CriteriaEvaluate criteriaEvaluate = criteriavaluateRepository.findOneById(Integer.toUnsignedLong(i));
