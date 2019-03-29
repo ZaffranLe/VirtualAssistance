@@ -25,7 +25,6 @@ public interface TeacherService {
      */
     List<Teacher> findAll();
 
-
     /**
      * Get the "id" teacher.
      *
@@ -40,8 +39,10 @@ public interface TeacherService {
      * @param id the id of the entity
      */
     void delete(Long id);
-    
-   Teacher findByUserLogin();
-    
-    
+    /**
+     * find all document that current account can access
+     * @return 
+     */
+    Teacher findByUserLogin();
+
 }
