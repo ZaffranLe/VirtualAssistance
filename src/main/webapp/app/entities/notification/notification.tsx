@@ -64,7 +64,7 @@ export class Notification extends React.Component<INotificationProps> {
                   <td>{notification.description}</td>
                   <td>
                     {notification.headQuater ? (
-                      <Link to={`head-quater/${notification.headQuater.id}`}>{notification.headQuater.id}</Link>
+                      <Link to={`head-quater/${notification.headQuater.id}`}>{notification.headQuater.name}</Link>
                     ) : (
                       ''
                     )}
