@@ -34,7 +34,7 @@ export class Notification extends React.Component<INotificationProps> {
           )}
         </h2>
         <div className="table-responsive">
-          <Table responsive>
+          <Table responsive striped hover>
             <thead>
               <tr>
                 <th>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, Col, Row, Table, Badge } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,6 +14,18 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 export interface IFullEvaluateProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
+const getBadge = result => {
+  const foo = 0;
+  return result === 'EXCELLENT'
+    ? 'success'
+    : result === 'PASS'
+      ? 'secondary'
+      : result === 'GOOD'
+        ? 'primary'
+        : result === 'FAIL'
+          ? 'danger'
+          : 'primary';
+};
 export class FullEvaluate extends React.Component<IFullEvaluateProps> {
   componentDidMount() {
     this.props.getEntities();
@@ -25,10 +37,6 @@ export class FullEvaluate extends React.Component<IFullEvaluateProps> {
       <div>
         <h2 id="full-evaluate-heading">
           <Translate contentKey="virtualAssistantApp.fullEvaluate.home.title">Full Evaluates</Translate>
-          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="virtualAssistantApp.fullEvaluate.home.createLabel">Create new Full Evaluate</Translate>
-          </Link>
         </h2>
         <div className="table-responsive">
           <Table responsive>
@@ -59,27 +67,19 @@ export class FullEvaluate extends React.Component<IFullEvaluateProps> {
                   </td>
                   <td>{fullEvaluate.description}</td>
                   <td>
-                    <Translate contentKey={`virtualAssistantApp.ScoreLadder.${fullEvaluate.result}`} />
+                    <Badge color={getBadge(fullEvaluate.result)} pill>
+                      <Translate contentKey={`virtualAssistantApp.ScoreLadder.${fullEvaluate.result}`} />
+                    </Badge>
                   </td>
-                  <td>{fullEvaluate.teacher ? <Link to={`teacher/${fullEvaluate.teacher.id}`}>{fullEvaluate.teacher.id}</Link> : ''}</td>
+                  <td>
+                    {fullEvaluate.teacher ? <Link to={`teacher/${fullEvaluate.teacher.id}`}>{fullEvaluate.teacher.fullName}</Link> : ''}
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${fullEvaluate.id}`} color="info" size="sm">
                         <FontAwesomeIcon icon="eye" />{' '}
                         <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${fullEvaluate.id}/edit`} color="primary" size="sm">
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${fullEvaluate.id}/delete`} color="danger" size="sm">
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
                         </span>
                       </Button>
                     </div>

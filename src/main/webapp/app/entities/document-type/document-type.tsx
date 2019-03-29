@@ -31,7 +31,7 @@ export class DocumentType extends React.Component<IDocumentTypeProps> {
           </Link>
         </h2>
         <div className="table-responsive">
-          <Table responsive>
+          <Table responsive striped hover>
             <thead>
               <tr>
                 <th>

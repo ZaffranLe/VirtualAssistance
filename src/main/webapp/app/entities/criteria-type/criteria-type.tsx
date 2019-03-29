@@ -2,16 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
-// tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { IRootState } from 'app/shared/reducers';
 import { getCriteriaTypeEntities } from './criteria-type.reducer';
 import { ICriteriaType } from 'app/shared/model/criteria-type.model';
-// tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
-
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import { AUTHORITIES } from 'app/config/constants';
 export interface ICriteriaTypeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export class CriteriaType extends React.Component<ICriteriaTypeProps> {
@@ -21,17 +18,20 @@ export class CriteriaType extends React.Component<ICriteriaTypeProps> {
 
   render() {
     const { criteriaTypeList, match } = this.props;
+    const { isAdmin } = this.props;
     return (
       <div>
         <h2 id="criteria-type-heading">
           <Translate contentKey="virtualAssistantApp.criteriaType.home.title">Criteria Types</Translate>
-          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="virtualAssistantApp.criteriaType.home.createLabel">Create new Criteria Type</Translate>
-          </Link>
+          {isAdmin && (
+            <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+              <FontAwesomeIcon icon="plus" />&nbsp;
+              <Translate contentKey="virtualAssistantApp.criteriaType.home.createLabel">Create new Criteria Type</Translate>
+            </Link>
+          )}
         </h2>
         <div className="table-responsive">
-          <Table responsive>
+          <Table responsive striped hover>
             <thead>
               <tr>
                 <th>
@@ -64,18 +64,22 @@ export class CriteriaType extends React.Component<ICriteriaTypeProps> {
                           <Translate contentKey="entity.action.view">View</Translate>
                         </span>
                       </Button>
-                      <Button tag={Link} to={`${match.url}/${criteriaType.id}/edit`} color="primary" size="sm">
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${criteriaType.id}/delete`} color="danger" size="sm">
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
-                        </span>
-                      </Button>
+                      {isAdmin && (
+                        <>
+                          <Button tag={Link} to={`${match.url}/${criteriaType.id}/edit`} color="primary" size="sm">
+                            <FontAwesomeIcon icon="pencil-alt" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.edit">Edit</Translate>
+                            </span>
+                          </Button>
+                          <Button tag={Link} to={`${match.url}/${criteriaType.id}/delete`} color="danger" size="sm">
+                            <FontAwesomeIcon icon="trash" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.delete">Delete</Translate>
+                            </span>
+                          </Button>
+                        </>
+                      )}
                     </div>
                   </td>
                 </tr>
@@ -88,8 +92,9 @@ export class CriteriaType extends React.Component<ICriteriaTypeProps> {
   }
 }
 
-const mapStateToProps = ({ criteriaType }: IRootState) => ({
-  criteriaTypeList: criteriaType.entities
+const mapStateToProps = ({ criteriaType, authentication }: IRootState) => ({
+  criteriaTypeList: criteriaType.entities,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN])
 });
 
 const mapDispatchToProps = {

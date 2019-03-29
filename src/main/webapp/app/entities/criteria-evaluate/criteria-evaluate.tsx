@@ -10,7 +10,8 @@ import { IRootState } from 'app/shared/reducers';
 import { getCriteriaEvaluateEntities } from './criteria-evaluate.reducer';
 import { ICriteriaEvaluate } from 'app/shared/model/criteria-evaluate.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import { AUTHORITIES } from 'app/config/constants';
 
 export interface ICriteriaEvaluateProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -21,17 +22,20 @@ export class CriteriaEvaluate extends React.Component<ICriteriaEvaluateProps> {
 
   render() {
     const { criteriaEvaluateList, match } = this.props;
+    const { isAdmin } = this.props;
     return (
       <div>
         <h2 id="criteria-evaluate-heading">
           <Translate contentKey="virtualAssistantApp.criteriaEvaluate.home.title">Criteria Evaluates</Translate>
-          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="virtualAssistantApp.criteriaEvaluate.home.createLabel">Create new Criteria Evaluate</Translate>
-          </Link>
+          {isAdmin && (
+            <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+              <FontAwesomeIcon icon="plus" />&nbsp;
+              <Translate contentKey="virtualAssistantApp.criteriaEvaluate.home.createLabel">Create new Criteria Evaluate</Translate>
+            </Link>
+          )}
         </h2>
         <div className="table-responsive">
-          <Table responsive>
+          <Table responsive striped hover>
             <thead>
               <tr>
                 <th>
@@ -74,18 +78,22 @@ export class CriteriaEvaluate extends React.Component<ICriteriaEvaluateProps> {
                           <Translate contentKey="entity.action.view">View</Translate>
                         </span>
                       </Button>
-                      <Button tag={Link} to={`${match.url}/${criteriaEvaluate.id}/edit`} color="primary" size="sm">
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${criteriaEvaluate.id}/delete`} color="danger" size="sm">
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
-                        </span>
-                      </Button>
+                      {isAdmin && (
+                        <>
+                          <Button tag={Link} to={`${match.url}/${criteriaEvaluate.id}/edit`} color="primary" size="sm">
+                            <FontAwesomeIcon icon="pencil-alt" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.edit">Edit</Translate>
+                            </span>
+                          </Button>
+                          <Button tag={Link} to={`${match.url}/${criteriaEvaluate.id}/delete`} color="danger" size="sm">
+                            <FontAwesomeIcon icon="trash" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.delete">Delete</Translate>
+                            </span>
+                          </Button>
+                        </>
+                      )}
                     </div>
                   </td>
                 </tr>
@@ -98,8 +106,9 @@ export class CriteriaEvaluate extends React.Component<ICriteriaEvaluateProps> {
   }
 }
 
-const mapStateToProps = ({ criteriaEvaluate }: IRootState) => ({
-  criteriaEvaluateList: criteriaEvaluate.entities
+const mapStateToProps = ({ criteriaEvaluate, authentication }: IRootState) => ({
+  criteriaEvaluateList: criteriaEvaluate.entities,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN])
 });
 
 const mapDispatchToProps = {

@@ -5,12 +5,13 @@ import { Button, Row, Col } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import { AUTHORITIES } from 'app/config/constants';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './criteria-evaluate.reducer';
 import { ICriteriaEvaluate } from 'app/shared/model/criteria-evaluate.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 export interface ICriteriaEvaluateDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -21,6 +22,7 @@ export class CriteriaEvaluateDetail extends React.Component<ICriteriaEvaluateDet
 
   render() {
     const { criteriaEvaluateEntity } = this.props;
+    const { isAdmin } = this.props;
     return (
       <Row>
         <Col md="8">
@@ -71,20 +73,23 @@ export class CriteriaEvaluateDetail extends React.Component<ICriteriaEvaluateDet
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/criteria-evaluate/${criteriaEvaluateEntity.id}/edit`} replace color="primary">
-            <FontAwesomeIcon icon="pencil-alt" />{' '}
-            <span className="d-none d-md-inline">
-              <Translate contentKey="entity.action.edit">Edit</Translate>
-            </span>
-          </Button>
+          {isAdmin && (
+            <Button tag={Link} to={`/entity/criteria-evaluate/${criteriaEvaluateEntity.id}/edit`} replace color="primary">
+              <FontAwesomeIcon icon="pencil-alt" />{' '}
+              <span className="d-none d-md-inline">
+                <Translate contentKey="entity.action.edit">Edit</Translate>
+              </span>
+            </Button>
+          )}
         </Col>
       </Row>
     );
   }
 }
 
-const mapStateToProps = ({ criteriaEvaluate }: IRootState) => ({
-  criteriaEvaluateEntity: criteriaEvaluate.entity
+const mapStateToProps = ({ criteriaEvaluate, authentication }: IRootState) => ({
+  criteriaEvaluateEntity: criteriaEvaluate.entity,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN])
 });
 
 const mapDispatchToProps = { getEntity };
