@@ -122,6 +122,7 @@ public class UserService {
         
         Teacher newTeacher = new Teacher();
         newTeacher.setId(newUser.getId());
+        newTeacher.setAddress(userDTO.getAddress());
         newTeacher.setEmail(newUser.getEmail());
         newTeacher.setDoB(userDTO.getDoB());
         newTeacher.setIdentityNumber(userDTO.getIdentityNumber());

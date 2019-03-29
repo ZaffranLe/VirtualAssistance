@@ -35,7 +35,8 @@ public class CriteriaEvaluateServiceImpl implements CriteriaEvaluateService {
      */
     @Override
     public CriteriaEvaluate save(CriteriaEvaluate criteriaEvaluate) {
-        log.debug("Request to save CriteriaEvaluate : {}", criteriaEvaluate);        return criteriaEvaluateRepository.save(criteriaEvaluate);
+        log.debug("Request to save CriteriaEvaluate : {}", criteriaEvaluate);
+        return criteriaEvaluateRepository.save(criteriaEvaluate);
     }
 
     /**

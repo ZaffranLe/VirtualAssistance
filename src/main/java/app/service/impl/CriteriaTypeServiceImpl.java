@@ -3,15 +3,18 @@ package app.service.impl;
 import app.service.CriteriaTypeService;
 import app.domain.CriteriaType;
 import app.repository.CriteriaTypeRepository;
+import app.security.AuthoritiesConstants;
+import app.security.SecurityUtils;
+import app.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.List;
 import java.util.Optional;
+
 /**
  * Service Implementation for managing CriteriaType.
  */
@@ -35,7 +38,13 @@ public class CriteriaTypeServiceImpl implements CriteriaTypeService {
      */
     @Override
     public CriteriaType save(CriteriaType criteriaType) {
-        log.debug("Request to save CriteriaType : {}", criteriaType);        return criteriaTypeRepository.save(criteriaType);
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            log.debug("Request to save CriteriaType : {}", criteriaType);
+            return criteriaTypeRepository.save(criteriaType);
+
+        } else {
+            throw new BadRequestAlertException("Dont have authorize", null, null);
+        }
     }
 
     /**
@@ -50,7 +59,6 @@ public class CriteriaTypeServiceImpl implements CriteriaTypeService {
         return criteriaTypeRepository.findAll();
     }
 
-
     /**
      * Get one criteriaType by id.
      *
@@ -59,7 +67,8 @@ public class CriteriaTypeServiceImpl implements CriteriaTypeService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<CriteriaType> findOne(Long id) {
+    public Optional<CriteriaType> findOne(Long id
+    ) {
         log.debug("Request to get CriteriaType : {}", id);
         return criteriaTypeRepository.findById(id);
     }
@@ -70,8 +79,13 @@ public class CriteriaTypeServiceImpl implements CriteriaTypeService {
      * @param id the id of the entity
      */
     @Override
-    public void delete(Long id) {
-        log.debug("Request to delete CriteriaType : {}", id);
-        criteriaTypeRepository.deleteById(id);
+    public void delete(Long id
+    ) {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            log.debug("Request to delete CriteriaType : {}", id);
+            criteriaTypeRepository.deleteById(id);
+        } else {
+            throw new BadRequestAlertException("Dont have authorize", null, null);
+        }
     }
 }
