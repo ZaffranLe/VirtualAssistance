@@ -5,12 +5,12 @@ import { Button, Col, Row, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import { AUTHORITIES } from 'app/config/constants';
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './notification.reducer';
 import { INotification } from 'app/shared/model/notification.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 export interface INotificationProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -21,17 +21,20 @@ export class Notification extends React.Component<INotificationProps> {
 
   render() {
     const { notificationList, match } = this.props;
+    const { isAdmin } = this.props;
     return (
       <div>
         <h2 id="notification-heading">
           <Translate contentKey="virtualAssistantApp.notification.home.title">Notifications</Translate>
-          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="virtualAssistantApp.notification.home.createLabel">Create new Notification</Translate>
-          </Link>
+          {isAdmin && (
+            <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+              <FontAwesomeIcon icon="plus" />&nbsp;
+              <Translate contentKey="virtualAssistantApp.notification.home.createLabel">Create new Notification</Translate>
+            </Link>
+          )}
         </h2>
         <div className="table-responsive">
-          <Table responsive>
+          <Table responsive striped hover>
             <thead>
               <tr>
                 <th>
@@ -64,7 +67,7 @@ export class Notification extends React.Component<INotificationProps> {
                   <td>{notification.description}</td>
                   <td>
                     {notification.headQuater ? (
-                      <Link to={`head-quater/${notification.headQuater.id}`}>{notification.headQuater.id}</Link>
+                      <Link to={`head-quater/${notification.headQuater.id}`}>{notification.headQuater.name}</Link>
                     ) : (
                       ''
                     )}
@@ -84,18 +87,22 @@ export class Notification extends React.Component<INotificationProps> {
                           <Translate contentKey="entity.action.view">View</Translate>
                         </span>
                       </Button>
-                      <Button tag={Link} to={`${match.url}/${notification.id}/edit`} color="primary" size="sm">
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button tag={Link} to={`${match.url}/${notification.id}/delete`} color="danger" size="sm">
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
-                        </span>
-                      </Button>
+                      {isAdmin && (
+                        <div>
+                          <Button tag={Link} to={`${match.url}/${notification.id}/edit`} color="primary" size="sm">
+                            <FontAwesomeIcon icon="pencil-alt" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.edit">Edit</Translate>
+                            </span>
+                          </Button>
+                          <Button tag={Link} to={`${match.url}/${notification.id}/delete`} color="danger" size="sm">
+                            <FontAwesomeIcon icon="trash" />{' '}
+                            <span className="d-none d-md-inline">
+                              <Translate contentKey="entity.action.delete">Delete</Translate>
+                            </span>
+                          </Button>{' '}
+                        </div>
+                      )}
                     </div>
                   </td>
                 </tr>
@@ -108,8 +115,9 @@ export class Notification extends React.Component<INotificationProps> {
   }
 }
 
-const mapStateToProps = ({ notification }: IRootState) => ({
-  notificationList: notification.entities
+const mapStateToProps = ({ notification, authentication }: IRootState) => ({
+  notificationList: notification.entities,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN])
 });
 
 const mapDispatchToProps = {

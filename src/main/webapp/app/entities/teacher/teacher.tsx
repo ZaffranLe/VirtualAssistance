@@ -39,7 +39,7 @@ export class Teacher extends React.Component<ITeacherProps> {
           )}
         </h2>
         <div className="table-responsive">
-          <Table responsive>
+          <Table responsive hover>
             <thead>
               <tr>
                 <th>

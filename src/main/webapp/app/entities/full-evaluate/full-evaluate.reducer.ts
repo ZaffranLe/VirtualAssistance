@@ -10,6 +10,7 @@ export const ACTION_TYPES = {
   FETCH_FULLEVALUATE_LIST: 'fullEvaluate/FETCH_FULLEVALUATE_LIST',
   FETCH_FULLEVALUATE: 'fullEvaluate/FETCH_FULLEVALUATE',
   CREATE_FULLEVALUATE: 'fullEvaluate/CREATE_FULLEVALUATE',
+  CREATE_FULLEVALUATE2: 'fullEvaluate/CREATE_FULLEVALUATE2',
   UPDATE_FULLEVALUATE: 'fullEvaluate/UPDATE_FULLEVALUATE',
   DELETE_FULLEVALUATE: 'fullEvaluate/DELETE_FULLEVALUATE',
   RESET: 'fullEvaluate/RESET'
@@ -39,6 +40,7 @@ export default (state: FullEvaluateState = initialState, action): FullEvaluateSt
         loading: true
       };
     case REQUEST(ACTION_TYPES.CREATE_FULLEVALUATE):
+    case REQUEST(ACTION_TYPES.CREATE_FULLEVALUATE2):
     case REQUEST(ACTION_TYPES.UPDATE_FULLEVALUATE):
     case REQUEST(ACTION_TYPES.DELETE_FULLEVALUATE):
       return {
@@ -50,6 +52,7 @@ export default (state: FullEvaluateState = initialState, action): FullEvaluateSt
     case FAILURE(ACTION_TYPES.FETCH_FULLEVALUATE_LIST):
     case FAILURE(ACTION_TYPES.FETCH_FULLEVALUATE):
     case FAILURE(ACTION_TYPES.CREATE_FULLEVALUATE):
+    case FAILURE(ACTION_TYPES.CREATE_FULLEVALUATE2):
     case FAILURE(ACTION_TYPES.UPDATE_FULLEVALUATE):
     case FAILURE(ACTION_TYPES.DELETE_FULLEVALUATE):
       return {
@@ -72,6 +75,7 @@ export default (state: FullEvaluateState = initialState, action): FullEvaluateSt
         entity: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.CREATE_FULLEVALUATE):
+    case SUCCESS(ACTION_TYPES.CREATE_FULLEVALUATE2):
     case SUCCESS(ACTION_TYPES.UPDATE_FULLEVALUATE):
       return {
         ...state,
@@ -96,6 +100,7 @@ export default (state: FullEvaluateState = initialState, action): FullEvaluateSt
 };
 
 const apiUrl = 'api/full-evaluates';
+const apiUrl1 = 'api/create-full-evaluates';
 
 // Actions
 
@@ -122,13 +127,14 @@ export const createEntity: ICrudPutAction<IFullEvaluate> = entity => async dispa
 };
 
 // ham test tao ban danh gia co cau hoi
-export const handleCreate = (teacherId, listQuestion, questionResult) => ({
-  type: ACTION_TYPES.CREATE_FULLEVALUATE,
-  payload: axios.post(apiUrl, { teacherId, listQuestion, questionResult }),
+export const handleCreate = (listQuestion, questionResult) => ({
+  type: ACTION_TYPES.CREATE_FULLEVALUATE2,
+  payload: axios.post(`api/create-full-evaluates/${listQuestion}/${questionResult}`),
   meta: {
     successMessage: 'success'
   }
 });
+
 export const updateEntity: ICrudPutAction<IFullEvaluate> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_FULLEVALUATE,

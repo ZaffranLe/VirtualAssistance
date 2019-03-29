@@ -5,12 +5,12 @@ import { Button, Row, Col, CardImg, Card } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './notification.reducer';
 import { INotification } from 'app/shared/model/notification.model';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import { AUTHORITIES } from 'app/config/constants';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 export interface INotificationDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -21,6 +21,7 @@ export class NotificationDetail extends React.Component<INotificationDetailProps
 
   render() {
     const { notificationEntity } = this.props;
+    const { isAdmin } = this.props;
     return (
       <Row className="justify-content-center">
         <Col md="6">
@@ -41,12 +42,6 @@ export class NotificationDetail extends React.Component<INotificationDetailProps
             </dt>
             <dd>{notificationEntity.description}</dd>
             <dt>
-              <span id="uRL">
-                <Translate contentKey="virtualAssistantApp.notification.uRL">U RL</Translate>
-              </span>
-            </dt>
-            <dd>{notificationEntity.uRL}</dd>
-            <dt>
               <Translate contentKey="virtualAssistantApp.notification.headQuater">Head Quater</Translate>
             </dt>
             <dd>{notificationEntity.headQuater ? notificationEntity.headQuater.name : ''}</dd>
@@ -61,12 +56,14 @@ export class NotificationDetail extends React.Component<INotificationDetailProps
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/notification/${notificationEntity.id}/edit`} replace color="primary">
-            <FontAwesomeIcon icon="pencil-alt" />{' '}
-            <span className="d-none d-md-inline">
-              <Translate contentKey="entity.action.edit">Edit</Translate>
-            </span>
-          </Button>
+          {isAdmin && (
+            <Button tag={Link} to={`/entity/notification/${notificationEntity.id}/edit`} replace color="primary">
+              <FontAwesomeIcon icon="pencil-alt" />{' '}
+              <span className="d-none d-md-inline">
+                <Translate contentKey="entity.action.edit">Edit</Translate>
+              </span>
+            </Button>
+          )}
         </Col>
         <Col md="5">
           <Card>
@@ -78,8 +75,9 @@ export class NotificationDetail extends React.Component<INotificationDetailProps
   }
 }
 
-const mapStateToProps = ({ notification }: IRootState) => ({
-  notificationEntity: notification.entity
+const mapStateToProps = ({ authentication, notification }: IRootState) => ({
+  notificationEntity: notification.entity,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN])
 });
 
 const mapDispatchToProps = { getEntity };

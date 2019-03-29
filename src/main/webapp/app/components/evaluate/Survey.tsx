@@ -7,6 +7,7 @@ import { getCriteriaTypeEntities } from '../../entities/criteria-type/criteria-t
 import { getCriteriaEvaluateEntities } from '../../entities/criteria-evaluate/criteria-evaluate.reducer';
 import { IRootState } from 'app/shared/reducers';
 import { handleCreate } from '../../entities/full-evaluate/full-evaluate.reducer';
+import { getSession } from 'app/shared/reducers/authentication';
 export interface ICriteriaTypeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 export interface ICriteriaEvaluateProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -42,11 +43,11 @@ class Survey extends React.Component<any, any> {
   componentDidMount() {
     this.props.getCriteriaTypeEntities();
     this.props.getCriteriaEvaluateEntities();
+    this.props.getSession();
   }
 
   constructor(props) {
     super(props);
-
     this.state = {
       questionResult: Array(15).fill(1),
       result: ''
@@ -64,14 +65,13 @@ class Survey extends React.Component<any, any> {
   }
   handleValidSubmit = () => {
     handleCreate(
-      1, // FIXME: Call current teacher id
-      this.state.questionResult,
+      // FIXME: Call current teacher id
+      this.state.questionResult.toString(),
       this.state.result
     );
     // tslint:disable-next-line:no-console
-    console.log('submit thanh cong' + this.state.questionResult);
-    event.preventDefault();
   };
+
   calculateResult(resultList) {
     let i;
     let kha = 0;
@@ -103,6 +103,7 @@ class Survey extends React.Component<any, any> {
   render() {
     const { criteriaTypeList, matchType } = this.props;
     const { criteriaEvaluateList, matchEvaluate } = this.props;
+    const { account } = this.props;
     return (
       <div className="animated fadeIn">
         <Form>
@@ -148,14 +149,16 @@ class Survey extends React.Component<any, any> {
   }
 }
 
-const mapStateToProps = ({ criteriaType, criteriaEvaluate }: IRootState) => ({
+const mapStateToProps = ({ authentication, criteriaType, criteriaEvaluate }: IRootState) => ({
   criteriaTypeList: criteriaType.entities,
-  criteriaEvaluateList: criteriaEvaluate.entities
+  criteriaEvaluateList: criteriaEvaluate.entities,
+  account: authentication.account
 });
 
 const mapDispatchToProps = {
   getCriteriaTypeEntities,
-  getCriteriaEvaluateEntities
+  getCriteriaEvaluateEntities,
+  getSession
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

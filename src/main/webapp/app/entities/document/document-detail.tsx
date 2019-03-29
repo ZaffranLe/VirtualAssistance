@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col } from 'reactstrap';
+import { Button, Row, Col, Card, CardImg } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,8 +22,8 @@ export class DocumentDetail extends React.Component<IDocumentDetailProps> {
   render() {
     const { documentEntity } = this.props;
     return (
-      <Row>
-        <Col md="8">
+      <Row className="justify-content-center">
+        <Col md="6">
           <h2>
             <Translate contentKey="virtualAssistantApp.document.detail.title">Document</Translate> [<b>{documentEntity.id}</b>]
           </h2>
@@ -40,12 +40,6 @@ export class DocumentDetail extends React.Component<IDocumentDetailProps> {
               </span>
             </dt>
             <dd>{documentEntity.description}</dd>
-            <dt>
-              <span id="uRL">
-                <Translate contentKey="virtualAssistantApp.document.uRL">U RL</Translate>
-              </span>
-            </dt>
-            <dd>{documentEntity.uRL}</dd>
             <dt>
               <span id="size">
                 <Translate contentKey="virtualAssistantApp.document.size">Size</Translate>
@@ -71,7 +65,7 @@ export class DocumentDetail extends React.Component<IDocumentDetailProps> {
               {documentEntity.documentTypes
                 ? documentEntity.documentTypes.map((val, i) => (
                     <span key={val.id}>
-                      <a>{val.content}</a>
+                      {val.content}
                       {i === documentEntity.documentTypes.length - 1 ? '' : ', '}
                     </span>
                   ))
@@ -90,6 +84,11 @@ export class DocumentDetail extends React.Component<IDocumentDetailProps> {
               <Translate contentKey="entity.action.edit">Edit</Translate>
             </span>
           </Button>
+        </Col>
+        <Col md="5">
+          <Card>
+            <CardImg width="100%" src={documentEntity.uRL} />
+          </Card>
         </Col>
       </Row>
     );

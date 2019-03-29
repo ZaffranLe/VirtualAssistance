@@ -158,12 +158,6 @@ export class TeacherDetail extends React.Component<ITeacherDetailProps, any> {
                       </h2>
                     </Col>
                     <Col md="6">
-                      <Button tag={Link} to={`/entity/teacher/${teacherEntity.id}/edit`} replace color="primary" className="float-right">
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>&nbsp;
                       <Button tag={Link} to="/entity/teacher" replace color="info" className="float-right">
                         <FontAwesomeIcon icon="arrow-left" />{' '}
                         <span className="d-none d-md-inline">
@@ -246,16 +240,6 @@ export class TeacherDetail extends React.Component<ITeacherDetailProps, any> {
                         </td>
                         <td>
                           <strong>{teacherEntity.level}</strong>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <span id="avatar">
-                            <Translate contentKey="virtualAssistantApp.teacher.avatar">Avatar</Translate>
-                          </span>
-                        </td>
-                        <td>
-                          <strong>{teacherEntity.avatar}</strong>
                         </td>
                       </tr>
                     </tbody>

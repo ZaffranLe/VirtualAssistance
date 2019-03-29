@@ -64,16 +64,17 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
             <Nav id="header-tabs" className="ml-auto" navbar>
               <Home />
               {isAuthenticated && <EntitiesMenu isAdmin={isAdmin} />}
-              {isAuthenticated && (
-                <NavItem>
-                  <NavLink tag={Link} to="/component/survey" className="d-flex align-items-center">
-                    <FontAwesomeIcon icon="file" />
-                    <span>
-                      <Translate contentKey="global.menu.components.survey">Evaluate</Translate>
-                    </span>
-                  </NavLink>
-                </NavItem>
-              )}
+              {isAuthenticated &&
+                !isAdmin && (
+                  <NavItem>
+                    <NavLink tag={Link} to="/component/survey" className="d-flex align-items-center">
+                      <FontAwesomeIcon icon="file" />
+                      <span>
+                        <Translate contentKey="global.menu.components.survey">Evaluate</Translate>
+                      </span>
+                    </NavLink>
+                  </NavItem>
+                )}
               {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} />}
               <LocaleMenu currentLocale={currentLocale} onClick={this.handleLocaleChange} />
               <AccountMenu isAuthenticated={isAuthenticated} />
