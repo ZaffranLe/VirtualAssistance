@@ -15,6 +15,8 @@ import { ITeacher } from 'app/shared/model/teacher.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
+import { hasAnyAuthority } from 'app/shared/auth/private-route';
+import { AUTHORITIES } from 'app/config/constants';
 
 export interface ITeacherUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
@@ -68,7 +70,7 @@ export class TeacherUpdate extends React.Component<ITeacherUpdateProps, ITeacher
   render() {
     const { teacherEntity, users, loading, updating } = this.props;
     const { isNew } = this.state;
-
+    const { isAdmin } = this.props;
     return (
       <div>
         <Row className="justify-content-center">
@@ -134,80 +136,30 @@ export class TeacherUpdate extends React.Component<ITeacherUpdateProps, ITeacher
                   </Label>
                   <AvField id="teacher-email" type="text" name="email" />
                 </AvGroup>
-                <AvGroup>
-                  <Label id="dataStorageLabel" for="dataStorage">
-                    <Translate contentKey="virtualAssistantApp.teacher.dataStorage">Data Storage</Translate>
-                  </Label>
-                  <AvField id="teacher-dataStorage" type="number" className="form-control" name="dataStorage" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="usedStorageLabel" for="usedStorage">
-                    <Translate contentKey="virtualAssistantApp.teacher.usedStorage">Used Storage</Translate>
-                  </Label>
-                  <AvField id="teacher-usedStorage" type="number" className="form-control" name="usedStorage" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="levelLabel">
-                    <Translate contentKey="virtualAssistantApp.teacher.level">Level</Translate>
-                  </Label>
-                  <AvInput
-                    id="teacher-level"
-                    type="select"
-                    className="form-control"
-                    name="level"
-                    value={(!isNew && teacherEntity.level) || 'TEACHER'}
-                  >
-                    <option value="TEACHER">
-                      <Translate contentKey="virtualAssistantApp.TeacherLevel.TEACHER" />
-                    </option>
-                    <option value="DEAN">
-                      <Translate contentKey="virtualAssistantApp.TeacherLevel.DEAN" />
-                    </option>
-                    <option value="HIGHLEVEL">
-                      <Translate contentKey="virtualAssistantApp.TeacherLevel.HIGHLEVEL" />
-                    </option>
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label id="statusLabel">
-                    <Translate contentKey="virtualAssistantApp.teacher.status">Status</Translate>
-                  </Label>
-                  <AvInput
-                    id="teacher-status"
-                    type="select"
-                    className="form-control"
-                    name="status"
-                    value={(!isNew && teacherEntity.status) || 'EXIST'}
-                  >
-                    <option value="EXIST">
-                      <Translate contentKey="virtualAssistantApp.Status.EXIST" />
-                    </option>
-                    <option value="DELETED">
-                      <Translate contentKey="virtualAssistantApp.Status.DELETED" />
-                    </option>
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label id="avatarLabel" for="avatar">
-                    <Translate contentKey="virtualAssistantApp.teacher.avatar">Avatar</Translate>
-                  </Label>
-                  <AvField id="teacher-avatar" type="text" name="avatar" />
-                </AvGroup>
-                <AvGroup>
-                  <Label for="user.id">
-                    <Translate contentKey="virtualAssistantApp.teacher.user">User</Translate>
-                  </Label>
-                  <AvInput id="teacher-user" type="select" className="form-control" name="user.id">
-                    <option value="" key="0" />
-                    {users
-                      ? users.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
+                {isAdmin && (
+                  <AvGroup>
+                    <Label id="levelLabel">
+                      <Translate contentKey="virtualAssistantApp.teacher.level">Level</Translate>
+                    </Label>
+                    <AvInput
+                      id="teacher-level"
+                      type="select"
+                      className="form-control"
+                      name="level"
+                      value={(!isNew && teacherEntity.level) || 'TEACHER'}
+                    >
+                      <option value="TEACHER">
+                        <Translate contentKey="virtualAssistantApp.TeacherLevel.TEACHER" />
+                      </option>
+                      <option value="DEAN">
+                        <Translate contentKey="virtualAssistantApp.TeacherLevel.DEAN" />
+                      </option>
+                      <option value="HIGHLEVEL">
+                        <Translate contentKey="virtualAssistantApp.TeacherLevel.HIGHLEVEL" />
+                      </option>
+                    </AvInput>
+                  </AvGroup>
+                )}
                 <Button tag={Link} id="cancel-save" to="/entity/teacher" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
@@ -232,7 +184,8 @@ const mapStateToProps = (storeState: IRootState) => ({
   users: storeState.userManagement.users,
   teacherEntity: storeState.teacher.entity,
   loading: storeState.teacher.loading,
-  updating: storeState.teacher.updating
+  updating: storeState.teacher.updating,
+  isAdmin: hasAnyAuthority(storeState.authentication.account.authorities, [AUTHORITIES.ADMIN])
 });
 
 const mapDispatchToProps = {
