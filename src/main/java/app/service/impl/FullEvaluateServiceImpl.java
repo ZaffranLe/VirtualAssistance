@@ -110,9 +110,9 @@ public class FullEvaluateServiceImpl implements FullEvaluateService {
                 break;
         }
         fullEvaluateRepository.save(fullEvaluate);
-        for (int i = 1; i <= questionresult.length; i++) {
+        for (int i = 0; i < questionresult.length; i++) {
             Answer answer = new Answer();
-            CriteriaEvaluate criteriaEvaluate = criteriavaluateRepository.findOneById(Integer.toUnsignedLong(i));
+            CriteriaEvaluate criteriaEvaluate = criteriavaluateRepository.findOneById(Integer.toUnsignedLong(i+1));
             answer.setCriteriaEvaluate(criteriaEvaluate);
             answer.setFullEvaluate(fullEvaluate);
             switch (questionresult[i]) {

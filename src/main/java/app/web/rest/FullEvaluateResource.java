@@ -121,13 +121,12 @@ public class FullEvaluateResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
-    @PostMapping("/create-full-evaluates/{quesitonresult}/{result}")
+    @PostMapping("/create-full-evaluates/{questionresult}/{result}")
     @Timed
-    public ResponseEntity<FullEvaluate> createEvaluate(@PathVariable(name="questionresult") String[] questionresult,@PathVariable(name="result") String finalresult) throws URISyntaxException {
-        FullEvaluate result = fullEvaluateService.create( finalresult, questionresult);
-        return ResponseEntity.created(new URI("/api/create-full-evaluates/" + result.getId()))
-                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-                .body(result);
+    public ResponseEntity<Void> createEvaluate(@PathVariable(name="questionresult") String[] questionresult,@PathVariable(name="result") String finalresult) throws URISyntaxException {
+         fullEvaluateService.create( finalresult, questionresult);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).build();
+
     }
 
 }
