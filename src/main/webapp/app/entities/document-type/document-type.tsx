@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, Col, Row, Table, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,13 +14,32 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 export interface IDocumentTypeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export class DocumentType extends React.Component<IDocumentTypeProps> {
+export class DocumentType extends React.Component<any, any> {
+  pagesCount: number;
+  pageSize: number;
   componentDidMount() {
     this.props.getEntities();
   }
 
+  constructor(props) {
+    super(props);
+    this.pageSize = 10;
+    this.state = {
+      currentPage: 0
+    };
+  }
+
+  handleChangePage(e, index) {
+    e.preventDefault();
+
+    this.setState({
+      currentPage: index
+    });
+  }
+
   render() {
     const { documentTypeList, match } = this.props;
+    const { currentPage } = this.state;
     return (
       <div>
         <h2 id="document-type-heading">
@@ -44,7 +63,7 @@ export class DocumentType extends React.Component<IDocumentTypeProps> {
               </tr>
             </thead>
             <tbody>
-              {documentTypeList.map((documentType, i) => (
+              {documentTypeList.slice(currentPage * this.pageSize, (currentPage + 1) * this.pageSize).map((documentType, i) => (
                 <tr key={`entity-${i}`}>
                   <td>
                     <Button tag={Link} to={`${match.url}/${documentType.id}`} color="link" size="sm">
@@ -72,6 +91,19 @@ export class DocumentType extends React.Component<IDocumentTypeProps> {
               ))}
             </tbody>
           </Table>
+          <Pagination>
+            <PaginationItem disabled={currentPage <= 0}>
+              <PaginationLink previous tag="button" onClick={e => this.handleChangePage(e, currentPage - 1)} />
+            </PaginationItem>
+            {[...Array(this.pagesCount)].map((page, i) => (
+              <PaginationItem active={i === currentPage} key={i}>
+                <PaginationLink onClick={e => this.handleChangePage(e, i)}>{i + 1}</PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
+              <PaginationLink next tag="button" onClick={e => this.handleChangePage(e, currentPage + 1)} />
+            </PaginationItem>
+          </Pagination>
         </div>
       </div>
     );

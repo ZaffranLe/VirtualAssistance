@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
+import { Button, Col, Row, Table, Pagination, PaginationLink, PaginationItem } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,13 +14,32 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 export interface INotificationTypeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
-export class NotificationType extends React.Component<INotificationTypeProps> {
+export class NotificationType extends React.Component<any, any> {
+  pagesCount: number;
+  pageSize: number;
   componentDidMount() {
     this.props.getEntities();
   }
 
+  constructor(props) {
+    super(props);
+    this.pageSize = 10;
+    this.state = {
+      currentPage: 0
+    };
+  }
+
+  handleChangePage(e, index) {
+    e.preventDefault();
+
+    this.setState({
+      currentPage: index
+    });
+  }
+
   render() {
     const { notificationTypeList, match } = this.props;
+    const { currentPage } = this.state;
     return (
       <div>
         <h2 id="notification-type-heading">
@@ -44,7 +63,7 @@ export class NotificationType extends React.Component<INotificationTypeProps> {
               </tr>
             </thead>
             <tbody>
-              {notificationTypeList.map((notificationType, i) => (
+              {notificationTypeList.slice(currentPage * this.pageSize, (currentPage + 1) * this.pageSize).map((notificationType, i) => (
                 <tr key={`entity-${i}`}>
                   <td>
                     <Button tag={Link} to={`${match.url}/${notificationType.id}`} color="link" size="sm">
@@ -72,6 +91,19 @@ export class NotificationType extends React.Component<INotificationTypeProps> {
               ))}
             </tbody>
           </Table>
+          <Pagination>
+            <PaginationItem disabled={currentPage <= 0}>
+              <PaginationLink previous tag="button" onClick={e => this.handleChangePage(e, currentPage - 1)} />
+            </PaginationItem>
+            {[...Array(this.pagesCount)].map((page, i) => (
+              <PaginationItem active={i === currentPage} key={i}>
+                <PaginationLink onClick={e => this.handleChangePage(e, i)}>{i + 1}</PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
+              <PaginationLink next tag="button" onClick={e => this.handleChangePage(e, currentPage + 1)} />
+            </PaginationItem>
+          </Pagination>
         </div>
       </div>
     );
