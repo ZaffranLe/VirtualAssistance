@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Badge } from 'reactstrap';
+import { Button, Row, Col, Badge, Table } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { getAnswerEntities } from '../answer/answer.reducer';
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './full-evaluate.reducer';
 import { IFullEvaluate } from 'app/shared/model/full-evaluate.model';
@@ -26,18 +26,22 @@ const getBadge = result => {
           ? 'danger'
           : 'primary';
 };
-export class FullEvaluateDetail extends React.Component<IFullEvaluateDetailProps> {
+export class FullEvaluateDetail extends React.Component<any, any> {
   componentDidMount() {
     this.props.getEntity(this.props.match.params.id);
+    this.props.getAnswerEntities();
   }
 
   render() {
     const { fullEvaluateEntity } = this.props;
+    const { answerList } = this.props;
     return (
       <Row>
-        <Col md="8">
+        <Col md="12">
           <h2>
-            <Translate contentKey="virtualAssistantApp.fullEvaluate.detail.title">FullEvaluate</Translate> [<b>{fullEvaluateEntity.id}</b>]
+            <Translate contentKey="virtualAssistantApp.fullEvaluate.detail.title">FullEvaluate</Translate> của giáo viên [<b>
+              {fullEvaluateEntity.teacher ? fullEvaluateEntity.teacher.fullName : ''}
+            </b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
@@ -56,11 +60,30 @@ export class FullEvaluateDetail extends React.Component<IFullEvaluateDetailProps
                 <Translate contentKey={`virtualAssistantApp.ScoreLadder.${fullEvaluateEntity.result}`} />
               </Badge>
             </dd>
-            <dt>
-              <Translate contentKey="virtualAssistantApp.fullEvaluate.teacher">Teacher</Translate>
-            </dt>
-            <dd>{fullEvaluateEntity.teacher ? fullEvaluateEntity.teacher.id : ''}</dd>
           </dl>
+          <Table responsive hover bordered>
+            <thead>
+              <th>Tiêu chí</th>
+              <th>Mức điểm</th>
+            </thead>
+            <tbody>
+              {answerList
+                .filter(answer => {
+                  if (answer.fullEvaluate.id === fullEvaluateEntity.id) {
+                    return true;
+                  }
+                  return false;
+                })
+                .map((answer, i) => (
+                  <tr>
+                    <td>{answer.criteriaEvaluate ? answer.criteriaEvaluate.content : ''}</td>
+                    <td>
+                      <Translate contentKey={`virtualAssistantApp.ScoreLadder.${answer.scoreLadder}`} />
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
           <Button tag={Link} to="/entity/full-evaluate" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
             <span className="d-none d-md-inline">
@@ -73,11 +96,12 @@ export class FullEvaluateDetail extends React.Component<IFullEvaluateDetailProps
   }
 }
 
-const mapStateToProps = ({ fullEvaluate }: IRootState) => ({
-  fullEvaluateEntity: fullEvaluate.entity
+const mapStateToProps = ({ fullEvaluate, answer }: IRootState) => ({
+  fullEvaluateEntity: fullEvaluate.entity,
+  answerList: answer.entities
 });
 
-const mapDispatchToProps = { getEntity };
+const mapDispatchToProps = { getEntity, getAnswerEntities };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

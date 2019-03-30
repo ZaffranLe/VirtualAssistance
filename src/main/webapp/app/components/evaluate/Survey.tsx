@@ -50,7 +50,7 @@ class Survey extends React.Component<any, any> {
     super(props);
     this.state = {
       questionResult: Array(15).fill(1),
-      result: ''
+      result: 'Chưa đạt'
     };
   }
 
@@ -65,6 +65,8 @@ class Survey extends React.Component<any, any> {
   }
   handleValidSubmit = () => {
     handleCreate(this.state.questionResult.toString(), this.state.result);
+    alert('Đánh giá hoàn thành!');
+    window.location.reload();
   };
 
   calculateResult(resultList) {

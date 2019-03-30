@@ -99,7 +99,7 @@ const apiUrl = 'api/answers';
 
 // Actions
 
-export const getEntities: ICrudGetAllAction<IAnswer> = (page, size, sort) => ({
+export const getAnswerEntities: ICrudGetAllAction<IAnswer> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_ANSWER_LIST,
   payload: axios.get<IAnswer>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
@@ -117,7 +117,7 @@ export const createEntity: ICrudPutAction<IAnswer> = entity => async dispatch =>
     type: ACTION_TYPES.CREATE_ANSWER,
     payload: axios.post(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getAnswerEntities());
   return result;
 };
 
@@ -126,7 +126,7 @@ export const updateEntity: ICrudPutAction<IAnswer> = entity => async dispatch =>
     type: ACTION_TYPES.UPDATE_ANSWER,
     payload: axios.put(apiUrl, cleanEntity(entity))
   });
-  dispatch(getEntities());
+  dispatch(getAnswerEntities());
   return result;
 };
 
@@ -136,7 +136,7 @@ export const deleteEntity: ICrudDeleteAction<IAnswer> = id => async dispatch => 
     type: ACTION_TYPES.DELETE_ANSWER,
     payload: axios.delete(requestUrl)
   });
-  dispatch(getEntities());
+  dispatch(getAnswerEntities());
   return result;
 };
 
