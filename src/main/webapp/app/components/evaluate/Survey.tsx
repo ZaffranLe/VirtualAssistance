@@ -64,12 +64,7 @@ class Survey extends React.Component<any, any> {
     });
   }
   handleValidSubmit = () => {
-    handleCreate(
-      // FIXME: Call current teacher id
-      this.state.questionResult.toString(),
-      this.state.result
-    );
-    // tslint:disable-next-line:no-console
+    handleCreate(this.state.questionResult.toString(), this.state.result);
   };
 
   calculateResult(resultList) {

@@ -98,11 +98,21 @@ export default (state: DocumentState = initialState, action): DocumentState => {
 const apiUrl = 'api/documents';
 
 // Actions
-const apiUrl2= 'api/documents-private'//api nay lay danh sach document private
-const apiUrl3= 'api/documents-public'//api nay lay danh sach document public
-export const getEntities: ICrudGetAllAction<IDocument> = (page, size, sort) => ({
+const apiUrl2 = 'api/documents-private'; // api nay lay danh sach document private
+const apiUrl3 = 'api/documents-public'; // api nay lay danh sach document public
+export const getPrivateEntities: ICrudGetAllAction<IDocument> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_DOCUMENT_LIST,
   payload: axios.get<IDocument>(`${apiUrl2}?cacheBuster=${new Date().getTime()}`)
+});
+
+export const getPublicEntities: ICrudGetAllAction<IDocument> = (page, size, sort) => ({
+  type: ACTION_TYPES.FETCH_DOCUMENT_LIST,
+  payload: axios.get<IDocument>(`${apiUrl3}?cacheBuster=${new Date().getTime()}`)
+});
+
+export const getEntities: ICrudGetAllAction<IDocument> = (page, size, sort) => ({
+  type: ACTION_TYPES.FETCH_DOCUMENT_LIST,
+  payload: axios.get<IDocument>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
 
 export const getEntity: ICrudGetAction<IDocument> = id => {

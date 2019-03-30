@@ -4,6 +4,8 @@
       "document" : {
           "home": {
               "title": "Kho tài liệu",
+              "titlePrivate": "Kho tài liệu riêng tư",
+              "titlePublic": "Kho tài liệu công khai",
               "createLabel": "Tạo tài liệu mới",
               "createOrEditLabel": "Tạo mới hoặc chỉnh sửa tài liệu"
           },
