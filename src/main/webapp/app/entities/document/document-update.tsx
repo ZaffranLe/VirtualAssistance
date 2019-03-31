@@ -7,7 +7,6 @@ import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validatio
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
-
 import { IDocumentType } from 'app/shared/model/document-type.model';
 import { getEntities as getDocumentTypes } from 'app/entities/document-type/document-type.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './document.reducer';
@@ -15,9 +14,18 @@ import { IDocument } from 'app/shared/model/document.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
-
+// Import React FilePond
+import { FilePond, registerPlugin } from 'react-filepond';
+// Import FilePond styles
+import 'filepond/dist/filepond.min.css';
+// Import the Image EXIF Orientation and Image Preview plugins
+// Note: These need to be installed separately
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import { getBasePath, Storage } from 'react-jhipster';
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 export interface IDocumentUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
-
 export interface IDocumentUpdateState {
   isNew: boolean;
   isShare: boolean;
@@ -32,6 +40,16 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
       isShare: false,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
+    let tokenLocal = Storage.local.get('jhi-authenticationToken'); // || Storage.session.get('jhi-authenticationToken');
+    if (tokenLocal) {
+      tokenLocal = Storage.session.get('jhi-authenticationToken');
+    }
+
+    const token = 'Bearer ' + tokenLocal;
+
+    console.log('token: ' + token);
+
+    // this.setState({ token });
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -75,6 +93,8 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
     }
   };
 
+  componentDidUpdate() {}
+
   handleClose = () => {
     this.props.history.push('/entity/document');
   };
@@ -82,7 +102,15 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
   render() {
     const { documentEntity, documentTypes, loading, updating } = this.props;
     const { isNew } = this.state;
+    let tokenLocal = Storage.local.get('jhi-authenticationToken'); // || Storage.session.get('jhi-authenticationToken');
+    if (tokenLocal) {
+      tokenLocal = Storage.session.get('jhi-authenticationToken');
+    }
 
+    const token = 'Bearer ' + tokenLocal;
+
+    console.log('token: ' + token);
+    // token = `Bearer ${token}`;
     return (
       <div>
         <Row className="justify-content-center">
@@ -120,9 +148,24 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                 </AvGroup>
                 <AvGroup>
                   <Label id="uRLLabel" for="uRL">
-                    <Translate contentKey="virtualAssistantApp.document.uRL">U RL</Translate>
+                    <Translate contentKey="virtualAssistantApp.document.uRL">URL</Translate>
                   </Label>
-                  <AvField id="document-uRL" type="text" name="uRL" />
+                  {/* <AvField id="document-uRL" type="text" name="uRL" /> */}
+                  <FilePond
+                    allowMultiple={true}
+                    server={{
+                      url: '/api',
+                      process: {
+                        url: '/uploadStoreDocuments',
+                        method: 'POST',
+                        withCredentials: true,
+                        headers: {
+                          Authorization: token
+                        },
+                        timeout: 7000
+                      }
+                    }}
+                  />
                 </AvGroup>
                 <AvGroup>
                   <Label id="sizeLabel" for="size">
@@ -197,6 +240,10 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
                   <FontAwesomeIcon icon="save" />&nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
+                </Button>
+                <Button color="primary" id="save-entity22" tag={Link} to={'../../../api/downloadFile/jhipster-jdl.png'}>
+                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <Translate contentKey="entity.action.save">Link img</Translate>
                 </Button>
               </AvForm>
             )}

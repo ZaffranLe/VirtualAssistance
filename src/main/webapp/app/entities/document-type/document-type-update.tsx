@@ -107,6 +107,10 @@ export class DocumentTypeUpdate extends React.Component<IDocumentTypeUpdateProps
                   <FontAwesomeIcon icon="save" />&nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
+                <Button color="primary" id="save-entity22" tag={Link} to={`api/downloadFile/jhipster-jdl.png`}>
+                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <Translate contentKey="entity.action.save">Link img</Translate>
+                </Button>
               </AvForm>
             )}
           </Col>
