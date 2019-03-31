@@ -30,8 +30,10 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import app.security.SecurityUtils;
 import app.service.upload.FileStorageService;
 import app.web.rest.errors.BadRequestAlertException;
+import app.web.rest.errors.InternalServerErrorException;
 /**
  *
  * @author MIP
@@ -43,22 +45,27 @@ public class UploadStoreDocuments {
     private FileStorageService fileStorageService;
     @PostMapping("/uploadStoreDocuments")
     public ResponseEntity<String> uploadFile(@RequestParam("filepond") MultipartFile file) {
-        String fileName = fileStorageService.storeFile(file);
 
+        // getUser
+        String fileName = fileStorageService.storeDocumentUploadByUser(file);
+
+        String user = SecurityUtils.getCurrentUserLogin()
+                .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        String fileNameForDB = user+"/"+fileName;
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
+                .path("api/downloadFile/")
+                .path(fileNameForDB)
                 .toUriString();
-
         return  ResponseEntity.ok()
+                .contentType(MediaType.TEXT_PLAIN)
                 .header("url", fileDownloadUri)
-                .body(file.getName());
+                .body(fileNameForDB);
     }
 
-    @GetMapping("/downloadFile/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+    @GetMapping("/downloadFile/{user:.+}/{fileName:.+}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String user,@PathVariable String fileName, HttpServletRequest request) {
         // Load file as Resource
-        Resource resource = fileStorageService.loadFileAsResource(fileName);
+        Resource resource = fileStorageService.loadFileAsResourceByUser(user,fileName);
 
         // Try to determine file's content type
         String contentType = null;

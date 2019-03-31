@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 import { IDocumentType } from 'app/shared/model/document-type.model';
 import { getEntities as getDocumentTypes } from 'app/entities/document-type/document-type.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './document.reducer';
+import { getEntity, updateEntity, createEntity, reset, getUploadFile } from './document.reducer';
 import { IDocument } from 'app/shared/model/document.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
@@ -40,14 +40,11 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
       isShare: false,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
-    let tokenLocal = Storage.local.get('jhi-authenticationToken'); // || Storage.session.get('jhi-authenticationToken');
-    if (tokenLocal) {
-      tokenLocal = Storage.session.get('jhi-authenticationToken');
-    }
 
-    const token = 'Bearer ' + tokenLocal;
+    this.fileRef = React.createRef();
+    //  const token = 'Bearer ' + tokenLocal;
 
-    console.log('token: ' + token);
+    //  console.log('token: ' + token);
 
     // this.setState({ token });
   }
@@ -76,20 +73,41 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
     this.props.getDocumentTypes();
   }
 
+  handleUploadFile = (error, file) => {
+    if (error) {
+      console.log('Oh no');
+      return;
+    }
+    console.log('File processed', file.serverId);
+    this.props.getUploadFile(file.serverId);
+  };
+
   saveEntity = (event, errors, values) => {
+    console.log(this.fileRef.serverId);
     if (errors.length === 0) {
       const { documentEntity } = this.props;
       const entity = {
         ...documentEntity,
         ...values,
+        uRL: this.props.uploadFile,
         documentTypes: mapIdList(values.documentTypes)
       };
+      console.log('entity ok: ' + JSON.stringify(entity));
 
       if (this.state.isNew) {
         this.props.createEntity(entity);
       } else {
         this.props.updateEntity(entity);
       }
+    } else {
+      const { documentEntity } = this.props;
+      const entity = {
+        ...documentEntity,
+        ...values,
+        //uRL:this.props.uploadFile,
+        documentTypes: mapIdList(values.documentTypes)
+      };
+      console.log('entity: ' + JSON.stringify(entity));
     }
   };
 
@@ -103,7 +121,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
     const { documentEntity, documentTypes, loading, updating } = this.props;
     const { isNew } = this.state;
     let tokenLocal = Storage.local.get('jhi-authenticationToken'); // || Storage.session.get('jhi-authenticationToken');
-    if (tokenLocal) {
+    if (tokenLocal == undefined) {
       tokenLocal = Storage.session.get('jhi-authenticationToken');
     }
 
@@ -152,6 +170,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                   </Label>
                   {/* <AvField id="document-uRL" type="text" name="uRL" /> */}
                   <FilePond
+                    ref={this.fileRef}
                     allowMultiple={true}
                     server={{
                       url: '/api',
@@ -165,6 +184,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                         timeout: 7000
                       }
                     }}
+                    onprocessfile={this.handleUploadFile}
                   />
                 </AvGroup>
                 <AvGroup>
@@ -259,7 +279,8 @@ const mapStateToProps = (storeState: IRootState) => ({
   documentEntity: storeState.document.entity,
   loading: storeState.document.loading,
   updating: storeState.document.updating,
-  updateSuccess: storeState.document.updateSuccess
+  updateSuccess: storeState.document.updateSuccess,
+  uploadFile: storeState.document.uploadFile
 });
 
 const mapDispatchToProps = {
@@ -267,7 +288,8 @@ const mapDispatchToProps = {
   getEntity,
   updateEntity,
   createEntity,
-  reset
+  reset,
+  getUploadFile
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
