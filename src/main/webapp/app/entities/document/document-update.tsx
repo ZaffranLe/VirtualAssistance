@@ -17,11 +17,13 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 // Import React FilePond
 import { FilePond, registerPlugin } from 'react-filepond';
 // Import FilePond styles
+// tslint:disable-next-line:no-submodule-imports
 import 'filepond/dist/filepond.min.css';
 // Import the Image EXIF Orientation and Image Preview plugins
 // Note: These need to be installed separately
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+// tslint:disable-next-line:no-submodule-imports
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 export interface IDocumentUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
@@ -147,7 +149,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                   </Label>
                   {/* <AvField id="document-uRL" type="text" name="uRL" /> */}
                   <FilePond
-                    allowMultiple={true}
+                    allowMultiple
                     server={{
                       url: '/api',
                       process: {

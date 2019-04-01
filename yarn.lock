@@ -4214,9 +4214,17 @@ filenamify@^2.0.0:
     strip-outer "^1.0.0"
     trim-repeated "^1.0.0"
 
-filepond@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.2.0.tgz#93852e933cc8acd9a60efeb5ef93fbbff15d1fef"
+filepond-plugin-image-exif-orientation@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-image-exif-orientation/-/filepond-plugin-image-exif-orientation-1.0.6.tgz#75920935a5da298884718bfd454f03362ad783e8"
+
+filepond-plugin-image-preview@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-image-preview/-/filepond-plugin-image-preview-4.0.5.tgz#61585a1d1bef421b429e3c94e12d218019bfbe7b"
+
+filepond@^4.3.5:
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/filepond/-/filepond-4.3.5.tgz#3a454ab18e6bbba96b63009d6856a477bf3eee2c"
 
 fileset@^2.0.2:
   version "2.0.3"
