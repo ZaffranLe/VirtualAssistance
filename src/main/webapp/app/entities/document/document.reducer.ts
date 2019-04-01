@@ -85,6 +85,8 @@ export default (state: DocumentState = initialState, action): DocumentState => {
       return {
         ...state,
         uploadFile: action.uploadFile,
+        //updateSuccess: true,
+        updating: true,
         entity: {
           ...state.entity,
           uRL: action.uploadFile
@@ -126,7 +128,7 @@ export const getEntities: ICrudGetAllAction<IDocument> = (page, size, sort) => (
   payload: axios.get<IDocument>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
 export const getUploadFile = uploadFile => {
-  console.log('redux: ' + uploadFile);
+  // console.log('redux: ' + uploadFile);
   return {
     type: ACTION_TYPES.UPLOAD,
     uploadFile,

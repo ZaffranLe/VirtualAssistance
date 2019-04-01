@@ -4,7 +4,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, Storage } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 import { IDocumentType } from 'app/shared/model/document-type.model';
@@ -23,7 +23,7 @@ import 'filepond/dist/filepond.min.css';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-import { getBasePath, Storage } from 'react-jhipster';
+import { SERVER_API_URL } from 'app/config/constants';
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 export interface IDocumentUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 export interface IDocumentUpdateState {
@@ -41,7 +41,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
       isNew: !this.props.match.params || !this.props.match.params.id
     };
 
-    this.fileRef = React.createRef();
+    // this.fileRef = React.createRef();
     //  const token = 'Bearer ' + tokenLocal;
 
     //  console.log('token: ' + token);
@@ -64,9 +64,12 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
   };
 
   componentDidMount() {
-    if (this.state.isNew) {
-      this.props.reset();
-    } else {
+    // if (this.state.isNew) {
+    //   this.props.reset();
+    // } else {
+    //   this.props.getEntity(this.props.match.params.id);
+    // }
+    if (!this.state.isNew) {
       this.props.getEntity(this.props.match.params.id);
     }
 
@@ -78,12 +81,12 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
       console.log('Oh no');
       return;
     }
-    console.log('File processed', file.serverId);
+    //   console.log('File processed', file.serverId);
     this.props.getUploadFile(file.serverId);
   };
 
   saveEntity = (event, errors, values) => {
-    console.log(this.fileRef.serverId);
+    //  console.log(this.fileRef.serverId);
     if (errors.length === 0) {
       const { documentEntity } = this.props;
       const entity = {
@@ -118,7 +121,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
   };
 
   render() {
-    const { documentEntity, documentTypes, loading, updating } = this.props;
+    const { documentEntity, documentTypes, loading, updating, uploadFile } = this.props;
     const { isNew } = this.state;
     let tokenLocal = Storage.local.get('jhi-authenticationToken'); // || Storage.session.get('jhi-authenticationToken');
     if (tokenLocal == undefined) {
@@ -127,7 +130,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
 
     const token = 'Bearer ' + tokenLocal;
 
-    console.log('token: ' + token);
+    console.log('file: ' + uploadFile);
     // token = `Bearer ${token}`;
     return (
       <div>
@@ -170,10 +173,10 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                   </Label>
                   {/* <AvField id="document-uRL" type="text" name="uRL" /> */}
                   <FilePond
-                    ref={this.fileRef}
+                    //  ref={this.fileRef}
                     allowMultiple={true}
                     server={{
-                      url: '/api',
+                      url: `${SERVER_API_URL}api`,
                       process: {
                         url: '/uploadStoreDocuments',
                         method: 'POST',
@@ -274,14 +277,17 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
   }
 }
 
-const mapStateToProps = (storeState: IRootState) => ({
-  documentTypes: storeState.documentType.entities,
-  documentEntity: storeState.document.entity,
-  loading: storeState.document.loading,
-  updating: storeState.document.updating,
-  updateSuccess: storeState.document.updateSuccess,
-  uploadFile: storeState.document.uploadFile
-});
+const mapStateToProps = (storeState: IRootState) => {
+  console.log('mapToProds: ' + storeState.document.uploadFile);
+  return {
+    documentTypes: storeState.documentType.entities,
+    documentEntity: storeState.document.entity,
+    loading: storeState.document.loading,
+    updating: storeState.document.updating,
+    updateSuccess: storeState.document.updateSuccess,
+    uploadFile: storeState.document.uploadFile
+  };
+};
 
 const mapDispatchToProps = {
   getDocumentTypes,
