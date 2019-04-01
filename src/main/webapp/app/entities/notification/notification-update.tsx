@@ -141,7 +141,7 @@ export class NotificationUpdate extends React.Component<INotificationUpdateProps
                     {headQuaters
                       ? headQuaters.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.name}
                           </option>
                         ))
                       : null}
@@ -156,7 +156,7 @@ export class NotificationUpdate extends React.Component<INotificationUpdateProps
                     {notificationTypes
                       ? notificationTypes.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.content}
                           </option>
                         ))
                       : null}

@@ -4,7 +4,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, getBasePath, Storage } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 import { IDocumentType } from 'app/shared/model/document-type.model';
@@ -23,7 +23,6 @@ import 'filepond/dist/filepond.min.css';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-import { getBasePath, Storage } from 'react-jhipster';
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 export interface IDocumentUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 export interface IDocumentUpdateState {
@@ -46,8 +45,6 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
     }
 
     const token = 'Bearer ' + tokenLocal;
-
-    console.log('token: ' + token);
 
     // this.setState({ token });
   }
@@ -108,8 +105,6 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
     }
 
     const token = 'Bearer ' + tokenLocal;
-
-    console.log('token: ' + token);
     // token = `Bearer ${token}`;
     return (
       <div>
@@ -224,7 +219,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                     {documentTypes
                       ? documentTypes.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.content}
                           </option>
                         ))
                       : null}

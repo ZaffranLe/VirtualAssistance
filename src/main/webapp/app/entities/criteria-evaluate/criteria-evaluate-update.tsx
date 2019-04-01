@@ -131,7 +131,7 @@ export class CriteriaEvaluateUpdate extends React.Component<ICriteriaEvaluateUpd
                     {criteriaTypes
                       ? criteriaTypes.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
+                            {otherEntity.content}
                           </option>
                         ))
                       : null}
