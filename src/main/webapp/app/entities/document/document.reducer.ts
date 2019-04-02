@@ -12,7 +12,8 @@ export const ACTION_TYPES = {
   CREATE_DOCUMENT: 'document/CREATE_DOCUMENT',
   UPDATE_DOCUMENT: 'document/UPDATE_DOCUMENT',
   DELETE_DOCUMENT: 'document/DELETE_DOCUMENT',
-  RESET: 'document/RESET'
+  RESET: 'document/RESET',
+  UPLOAD: 'document/upload'
 };
 
 const initialState = {
@@ -21,7 +22,8 @@ const initialState = {
   entities: [] as ReadonlyArray<IDocument>,
   entity: defaultValue,
   updating: false,
-  updateSuccess: false
+  updateSuccess: false,
+  uploadFile: null
 };
 
 export type DocumentState = Readonly<typeof initialState>;
@@ -79,6 +81,15 @@ export default (state: DocumentState = initialState, action): DocumentState => {
         updateSuccess: true,
         entity: action.payload.data
       };
+    case ACTION_TYPES.UPLOAD:
+      return {
+        ...state,
+        uploadFile: action.uploadFile,
+        entity: {
+          ...state.entity,
+          uRL: action.uploadFile
+        }
+      };
     case SUCCESS(ACTION_TYPES.DELETE_DOCUMENT):
       return {
         ...state,
@@ -114,6 +125,16 @@ export const getEntities: ICrudGetAllAction<IDocument> = (page, size, sort) => (
   type: ACTION_TYPES.FETCH_DOCUMENT_LIST,
   payload: axios.get<IDocument>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
+export const getUploadFile = uploadFile => {
+  console.log('redux: ' + uploadFile);
+  return {
+    type: ACTION_TYPES.UPLOAD,
+    uploadFile,
+    payload: {
+      uRL: uploadFile
+    }
+  };
+};
 
 export const getEntity: ICrudGetAction<IDocument> = id => {
   const requestUrl = `${apiUrl}/${id}`;
