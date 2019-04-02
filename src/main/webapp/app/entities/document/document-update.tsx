@@ -107,7 +107,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
       const entity = {
         ...documentEntity,
         ...values,
-        //uRL:this.props.uploadFile,
+        uRL: this.props.uploadFile,
         documentTypes: mapIdList(values.documentTypes)
       };
       console.log('entity: ' + JSON.stringify(entity));

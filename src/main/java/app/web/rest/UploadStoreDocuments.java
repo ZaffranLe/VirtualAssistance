@@ -62,10 +62,11 @@ public class UploadStoreDocuments {
                 .body(fileNameForDB);
     }
 
-    @GetMapping("/downloadFile/{user:.+}/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String user,@PathVariable String fileName, HttpServletRequest request) {
+    @GetMapping("/downloadFile/{user:.+}/{fileName:.+}/{key:.+}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String user,@PathVariable String fileName,@PathVariable String key, HttpServletRequest request) {
         // Load file as Resource
         Resource resource = fileStorageService.loadFileAsResourceByUser(user,fileName);
+        
 
         // Try to determine file's content type
         String contentType = null;
