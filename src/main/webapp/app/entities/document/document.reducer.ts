@@ -83,8 +83,11 @@ export default (state: DocumentState = initialState, action): DocumentState => {
       };
     case ACTION_TYPES.UPLOAD:
       return {
+        //return lai state moi
         ...state,
         uploadFile: action.uploadFile,
+        //updateSuccess: true,
+        updating: true,
         entity: {
           ...state.entity,
           uRL: action.uploadFile
@@ -125,8 +128,9 @@ export const getEntities: ICrudGetAllAction<IDocument> = (page, size, sort) => (
   type: ACTION_TYPES.FETCH_DOCUMENT_LIST,
   payload: axios.get<IDocument>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
+
 export const getUploadFile = uploadFile => {
-  console.log('redux: ' + uploadFile);
+  // console.log('redux: ' + uploadFile);
   return {
     type: ACTION_TYPES.UPLOAD,
     uploadFile,
@@ -138,9 +142,19 @@ export const getUploadFile = uploadFile => {
 
 export const getEntity: ICrudGetAction<IDocument> = id => {
   const requestUrl = `${apiUrl}/${id}`;
+  const request = axios.get<IDocument>(requestUrl);
+  let data;
+  let authendoc;
+  request.then(response => {
+    data = response.data;
+    authendoc = response.headers.authendoc;
+    console.log('data:' + data);
+    console.log('authendoc:' + authendoc);
+  });
   return {
     type: ACTION_TYPES.FETCH_DOCUMENT,
-    payload: axios.get<IDocument>(requestUrl)
+    // payload: axios.get<IDocument>(requestUrl)
+    payload: request
   };
 };
 
