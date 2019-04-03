@@ -107,7 +107,7 @@ export const getEntities: ICrudGetAllAction<IDocumentType> = (page, size, sort) 
 export const getEntity: ICrudGetAction<IDocumentType> = id => {
   return {
     type: ACTION_TYPES.FETCH_DOCUMENTTYPE,
-    payload: axios.get<IDocumentType>(requestUrl)
+    payload: axios.get<IDocumentType>(apiUrl)
     // payload: data
   };
 };

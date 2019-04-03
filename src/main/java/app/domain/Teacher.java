@@ -65,7 +65,7 @@ public class Teacher implements Serializable {
     @Column(name = "avatar")
     private String avatar;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(unique = true)
     private User user;
 

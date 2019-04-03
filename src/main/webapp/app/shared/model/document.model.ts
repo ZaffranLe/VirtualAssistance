@@ -11,6 +11,7 @@ export interface IDocument {
   name?: string;
   description?: string;
   uRL?: string;
+  authenkey?: string;
   size?: number;
   tag?: string;
   status?: Status;

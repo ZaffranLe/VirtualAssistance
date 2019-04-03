@@ -9,9 +9,14 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import app.security.SecurityUtils;
+import app.security.jwt.TokenProvider;
 import app.service.upload.exceptions.FileStorageException;
 import app.service.upload.exceptions.MyFileNotFoundException;
+import app.web.rest.DocumentResource;
 import app.web.rest.errors.InternalServerErrorException;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
 
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -26,6 +31,10 @@ import java.util.Date;
 public class FileStorageService {
 
     private Path fileStorageLocation;
+
+    @Autowired
+    TokenProvider tokenprovider;
+
 
     @Autowired
     public FileStorageService() {
@@ -127,6 +136,28 @@ public class FileStorageService {
             }
         } catch (MalformedURLException ex) {
             throw new MyFileNotFoundException("File not found " + fileName, ex);
+        }
+    }
+
+   
+    public Resource loadFileByJWT(String key) {
+        boolean validatekey = tokenprovider.validateTokenBySign(DocumentResource.secretKey,key);
+        
+        try {
+            if(!validatekey)  throw new MyFileNotFoundException("key not validate: " + key);
+            Claims claims =   Jwts.parser().setSigningKey(DocumentResource.secretKey).parseClaimsJws(key).getBody();
+            String url = claims.get(DocumentResource.FILE_KEY).toString();
+          
+            Path filePath = this.fileStorageLocation.resolve(url).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+            if (resource.exists()) {
+                return resource;
+            } else {
+                throw new MyFileNotFoundException("File not found " + url);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new MyFileNotFoundException("File not found " + " jwt ", ex);
         }
     }
 }
