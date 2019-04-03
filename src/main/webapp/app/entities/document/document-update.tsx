@@ -25,6 +25,7 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import { SERVER_API_URL } from 'app/config/constants';
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
+
 export interface IDocumentUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 export interface IDocumentUpdateState {
   isNew: boolean;
@@ -92,25 +93,16 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
       const entity = {
         ...documentEntity,
         ...values,
-        uRL: this.props.uploadFile,
+        uRL: Storage.session.get('url'),
         documentTypes: mapIdList(values.documentTypes)
       };
-      console.log('entity ok: ' + JSON.stringify(entity));
+      console.log('entity ok: ' + JSON.stringify(this.props.uploadFile));
 
       if (this.state.isNew) {
         this.props.createEntity(entity);
       } else {
         this.props.updateEntity(entity);
       }
-    } else {
-      const { documentEntity } = this.props;
-      const entity = {
-        ...documentEntity,
-        ...values,
-        uRL: this.props.uploadFile,
-        documentTypes: mapIdList(values.documentTypes)
-      };
-      console.log('entity: ' + JSON.stringify(entity));
     }
   };
 
@@ -279,6 +271,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
 
 const mapStateToProps = (storeState: IRootState) => {
   console.log('mapToProds: ' + storeState.document.uploadFile);
+  Storage.session.set('url', storeState.document.uploadFile);
   return {
     documentTypes: storeState.documentType.entities,
     documentEntity: storeState.document.entity,

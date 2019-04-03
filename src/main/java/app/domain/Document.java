@@ -50,7 +50,7 @@ public class Document implements Serializable {
     @Column(name = "is_shared")
     private Boolean isShared;
 
-    @OneToMany(mappedBy = "document")
+    @OneToMany(mappedBy = "document",fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<TeacherDocument> documents = new HashSet<>();
     @ManyToMany
@@ -59,6 +59,7 @@ public class Document implements Serializable {
                joinColumns = @JoinColumn(name = "document_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "document_type_id", referencedColumnName = "id"))
     private Set<DocumentType> documentTypes = new HashSet<>();
+
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {

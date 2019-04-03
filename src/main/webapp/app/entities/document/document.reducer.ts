@@ -23,7 +23,8 @@ const initialState = {
   entity: defaultValue,
   updating: false,
   updateSuccess: false,
-  uploadFile: null
+  uploadFile: null,
+  authenkey: null
 };
 
 export type DocumentState = Readonly<typeof initialState>;
@@ -68,10 +69,12 @@ export default (state: DocumentState = initialState, action): DocumentState => {
         entities: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_DOCUMENT):
+      console.log('action: ' + JSON.stringify(action));
       return {
         ...state,
         loading: false,
-        entity: action.payload.data
+        entity: action.payload.data.doc,
+        authenkey: action.payload.data.authenkey
       };
     case SUCCESS(ACTION_TYPES.CREATE_DOCUMENT):
     case SUCCESS(ACTION_TYPES.UPDATE_DOCUMENT):
@@ -87,7 +90,7 @@ export default (state: DocumentState = initialState, action): DocumentState => {
         ...state,
         uploadFile: action.uploadFile,
         //updateSuccess: true,
-        updating: true,
+        // updating: true,
         entity: {
           ...state.entity,
           uRL: action.uploadFile
@@ -144,17 +147,18 @@ export const getEntity: ICrudGetAction<IDocument> = id => {
   const requestUrl = `${apiUrl}/${id}`;
   const request = axios.get<IDocument>(requestUrl);
   let data;
-  let authendoc;
+  let authenkey;
   request.then(response => {
     data = response.data;
-    authendoc = response.headers.authendoc;
-    console.log('data:' + data);
-    console.log('authendoc:' + authendoc);
+    authenkey = response.data.authenkey;
+    console.log('data:' + JSON.stringify(request));
+    console.log('authendoc:' + authenkey);
   });
   return {
     type: ACTION_TYPES.FETCH_DOCUMENT,
     // payload: axios.get<IDocument>(requestUrl)
-    payload: request
+    payload: request,
+    authenkey: authenkey
   };
 };
 

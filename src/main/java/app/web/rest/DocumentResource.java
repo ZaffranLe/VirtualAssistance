@@ -1,8 +1,15 @@
 package app.web.rest;
 
 import app.domain.Document;
+import app.domain.TeacherDocument;
+import app.domain.User;
+import app.domain.enumeration.Role;
+import app.repository.UserRepository;
+import app.web.rest.payload.*;
 import app.security.SecurityUtils;
 import app.service.DocumentService;
+import app.service.TeacherService;
+import app.service.UserService;
 import app.web.rest.errors.BadRequestAlertException;
 import app.web.rest.errors.InternalServerErrorException;
 import app.web.rest.util.HeaderUtil;
@@ -12,6 +19,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,10 +43,14 @@ public class DocumentResource {
 
     private final DocumentService documentService;
 
-    private static final String AUTHORITIES_KEY = "user";
-    private static final String FILE_KEY = "file";
-    private static final String secretKey = "authendoc";
+    public static final String AUTHORITIES_KEY = "user";
+    public static final String FILE_KEY = "file";
+    public static final String secretKey = "authendoc";
 
+    public static final String USER_KEY = "user_owner";
+
+    @Autowired
+    private UserService userService;
     // private final Base64.Encoder encoder = Base64.getEncoder();
 
     public DocumentResource(DocumentService documentService) {
@@ -108,23 +120,35 @@ public class DocumentResource {
      *         or with status 404 (Not Found)
      */
     @GetMapping("/documents/{id}")
-    public ResponseEntity<Document> getDocument(@PathVariable Long id) {
+    public ResponseEntity<DocumentDTO> getDocument(@PathVariable Long id) {
         log.debug("REST request to get Document : {}", id);
         Optional<Document> document = documentService.findOne(id);
         // Document doc = document.orElseThrow(new
         // InternalServerErrorException("Document not found"));
         Document doc = document.get();
+        DocumentDTO docdto = new DocumentDTO();
+        // document.of(value);
+        docdto.setDoc(doc);
         String userLogin = SecurityUtils.getCurrentUserLogin().get();
+        log.debug("user login {}", userLogin);
+        // log.debug("teacersss {}", doc.getDocuments().size());
+        TeacherDocument teacherDocument = doc.getDocuments().stream()
+        .filter(t -> t.getRole() == Role.OWNER).findFirst().orElseThrow(()-> new InternalServerErrorException("Khong thay tac gia"));;
+        User user =    userService.findOneByTeacher(teacherDocument.getTeacher().getId()).orElseThrow(()-> new InternalServerErrorException("Khong thay user tac gia"));
+        Date validity = new Date(new Date().getTime() + 3600 * 50);
 
-        Date validity = new Date(new Date().getTime() + 3600 * 5);
-
-        String headerValue = Jwts.builder().setSubject(doc.getId().toString()).claim(AUTHORITIES_KEY, userLogin)
-                .claim(FILE_KEY, doc.getuRL()).signWith(SignatureAlgorithm.HS512, secretKey).setExpiration(validity)
+        String headerValue = Jwts.builder().setSubject(doc.getId().toString())
+                .claim(AUTHORITIES_KEY, userLogin)
+                .claim(USER_KEY, user.getLogin())
+                .claim(FILE_KEY, doc.getuRL())
+                .signWith(SignatureAlgorithm.HS512, secretKey).setExpiration(validity)
                 .compact();
+        docdto.setAuthenkey(headerValue);
         // ResponseUtil.wrapOrNotFound(maybeResponse, header)
         HttpHeaders https = new HttpHeaders();
         https.add("authendoc", headerValue);
-        return ResponseUtil.wrapOrNotFound(document, https);
+        https.set("authendoc", headerValue);
+        return ResponseUtil.wrapOrNotFound(document.of(docdto), https);
 
     }
 

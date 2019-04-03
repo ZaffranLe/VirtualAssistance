@@ -88,6 +88,7 @@ export class DocumentDetail extends React.Component<IDocumentDetailProps> {
         <Col md="5">
           <Card>
             <CardImg width="100%" src={documentEntity.uRL} />
+            keydoc: {this.props.authenkey}
           </Card>
         </Col>
       </Row>
@@ -96,7 +97,8 @@ export class DocumentDetail extends React.Component<IDocumentDetailProps> {
 }
 
 const mapStateToProps = ({ document }: IRootState) => ({
-  documentEntity: document.entity
+  documentEntity: document.entity,
+  authenkey: document.authenkey
 });
 
 const mapDispatchToProps = { getEntity };
