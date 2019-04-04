@@ -81,7 +81,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
 
   handleUploadFile = (error, file) => {
     if (error) {
-      console.log('Oh no');
+      // console.log('Oh no');
       return;
     }
     //   console.log('File processed', file.serverId);
@@ -98,7 +98,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
         uRL: Storage.session.get('url'),
         documentTypes: mapIdList(values.documentTypes)
       };
-      console.log('entity ok: ' + JSON.stringify(this.props.uploadFile));
+      // console.log('entity ok: ' + JSON.stringify(this.props.uploadFile));
 
       if (this.state.isNew) {
         this.props.createEntity(entity);
@@ -118,13 +118,14 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
     const { documentEntity, documentTypes, loading, updating, uploadFile } = this.props;
     const { isNew } = this.state;
     let tokenLocal = Storage.local.get('jhi-authenticationToken'); // || Storage.session.get('jhi-authenticationToken');
+    // tslint:disable-next-line:triple-equals
     if (tokenLocal == undefined) {
       tokenLocal = Storage.session.get('jhi-authenticationToken');
     }
 
     const token = 'Bearer ' + tokenLocal;
 
-    console.log('file: ' + uploadFile);
+    // console.log('file: ' + uploadFile);
     // token = `Bearer ${token}`;
     return (
       <div>
@@ -168,7 +169,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                   {/* <AvField id="document-uRL" type="text" name="uRL" /> */}
                   <FilePond
                     //  ref={this.fileRef}
-                    allowMultiple={true}
+                    allowMultiple
                     server={{
                       url: `${SERVER_API_URL}api`,
                       process: {
@@ -272,7 +273,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
 }
 
 const mapStateToProps = (storeState: IRootState) => {
-  console.log('mapToProds: ' + storeState.document.uploadFile);
+  // console.log('mapToProds: ' + storeState.document.uploadFile);
   Storage.session.set('url', storeState.document.uploadFile);
   return {
     documentTypes: storeState.documentType.entities,

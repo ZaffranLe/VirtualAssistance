@@ -69,7 +69,7 @@ export default (state: DocumentState = initialState, action): DocumentState => {
         entities: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_DOCUMENT):
-      console.log('action: ' + JSON.stringify(action));
+      // console.log('action: ' + JSON.stringify(action));
       return {
         ...state,
         loading: false,
@@ -86,10 +86,10 @@ export default (state: DocumentState = initialState, action): DocumentState => {
       };
     case ACTION_TYPES.UPLOAD:
       return {
-        //return lai state moi
+        // return lai state moi
         ...state,
         uploadFile: action.uploadFile,
-        //updateSuccess: true,
+        // updateSuccess: true,
         // updating: true,
         entity: {
           ...state.entity,
@@ -132,8 +132,8 @@ export const getEntities: ICrudGetAllAction<IDocument> = (page, size, sort) => (
   payload: axios.get<IDocument>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
 
+// tslint:disable-next-line:ter-arrow-body-style
 export const getUploadFile = uploadFile => {
-  // console.log('redux: ' + uploadFile);
   return {
     type: ACTION_TYPES.UPLOAD,
     uploadFile,
@@ -151,13 +151,12 @@ export const getEntity: ICrudGetAction<IDocument> = id => {
   request.then(response => {
     data = response.data;
     authenkey = response.data.authenkey;
-    console.log('data:' + JSON.stringify(request));
-    console.log('authendoc:' + authenkey);
   });
   return {
     type: ACTION_TYPES.FETCH_DOCUMENT,
     // payload: axios.get<IDocument>(requestUrl)
     payload: request,
+    // tslint:disable-next-line:object-literal-shorthand
     authenkey: authenkey
   };
 };
