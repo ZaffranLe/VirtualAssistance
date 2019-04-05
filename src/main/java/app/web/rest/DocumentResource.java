@@ -135,7 +135,7 @@ public class DocumentResource {
         TeacherDocument teacherDocument = doc.getDocuments().stream()
         .filter(t -> t.getRole() == Role.OWNER).findFirst().orElseThrow(()-> new InternalServerErrorException("Khong thay tac gia"));;
         User user =    userService.findOneByTeacher(teacherDocument.getTeacher().getId()).orElseThrow(()-> new InternalServerErrorException("Khong thay user tac gia"));
-        Date validity = new Date(new Date().getTime() + 3600 * 50);
+        Date validity = new Date(new Date().getTime() + 3600 * 500);
 
         String headerValue = Jwts.builder().setSubject(doc.getId().toString())
                 .claim(AUTHORITIES_KEY, userLogin)

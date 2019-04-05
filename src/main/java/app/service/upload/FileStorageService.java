@@ -12,6 +12,7 @@ import app.security.SecurityUtils;
 import app.security.jwt.TokenProvider;
 import app.service.upload.exceptions.FileStorageException;
 import app.service.upload.exceptions.MyFileNotFoundException;
+import app.service.util.FileNameNormal;
 import app.web.rest.DocumentResource;
 import app.web.rest.errors.InternalServerErrorException;
 import io.jsonwebtoken.Claims;
@@ -69,15 +70,14 @@ public class FileStorageService {
 
     public String storeFile(MultipartFile file) {
         // Normalize file name
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
+        String fileName =  FileNameNormal.normal(file.getOriginalFilename());
+        // fileName = FileNameNormal.normal(fileName);
+        fileName = StringUtils.cleanPath(fileName);
         try {
             // Check if the file's name contains invalid characters
-
             if (fileName.contains("..") || !checkFileExt(fileName)) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
-
             // Copy file to the target location (Replacing existing file with the same name)
             // String.valueOf(new Date().getTime())
             fileName = new Date().getTime() + "_" + fileName;
@@ -141,13 +141,14 @@ public class FileStorageService {
 
    
     public Resource loadFileByJWT(String key) {
-        boolean validatekey = tokenprovider.validateTokenBySign(DocumentResource.secretKey,key);
+        // boolean validatekey = tokenprovider.validateTokenBySign(DocumentResource.secretKey,key);
         
+        // if(!validatekey)  throw new MyFileNotFoundException("key not validate: " + key);
         try {
-            if(!validatekey)  throw new MyFileNotFoundException("key not validate: " + key);
             Claims claims =   Jwts.parser().setSigningKey(DocumentResource.secretKey).parseClaimsJws(key).getBody();
             String url = claims.get(DocumentResource.FILE_KEY).toString();
           
+            // this.setFolderUpload("");
             Path filePath = this.fileStorageLocation.resolve(url).normalize();
             Resource resource = new UrlResource(filePath.toUri());
             if (resource.exists()) {
