@@ -1,5 +1,5 @@
 import { IHeadQuater } from 'app/shared/model//head-quater.model';
-import { INotificationType } from 'app/shared/model//notification-type.model';
+import { IDocumentType } from 'app/shared/model//document-type.model';
 
 export const enum Status {
   EXIST = 'EXIST',
@@ -13,7 +13,7 @@ export interface INotification {
   uRL?: string;
   status?: Status;
   headQuater?: IHeadQuater;
-  notificationType?: INotificationType;
+  documentTypes?: IDocumentType[];
 }
 
 export const defaultValue: Readonly<INotification> = {};

@@ -10,8 +10,8 @@ import { IRootState } from 'app/shared/reducers';
 
 import { IHeadQuater } from 'app/shared/model/head-quater.model';
 import { getEntities as getHeadQuaters } from 'app/entities/head-quater/head-quater.reducer';
-import { INotificationType } from 'app/shared/model/notification-type.model';
-import { getEntities as getNotificationTypes } from 'app/entities/notification-type/notification-type.reducer';
+import { IDocumentType } from 'app/shared/model/document-type.model';
+import { getEntities as getDocumentTypes } from 'app/entities/document-type/document-type.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './notification.reducer';
 import { INotification } from 'app/shared/model/notification.model';
 // tslint:disable-next-line:no-unused-variable
@@ -22,16 +22,16 @@ export interface INotificationUpdateProps extends StateProps, DispatchProps, Rou
 
 export interface INotificationUpdateState {
   isNew: boolean;
+  idsdocumentType: any[];
   headQuaterId: number;
-  notificationTypeId: number;
 }
 
 export class NotificationUpdate extends React.Component<INotificationUpdateProps, INotificationUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
+      idsdocumentType: [],
       headQuaterId: 0,
-      notificationTypeId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -44,7 +44,7 @@ export class NotificationUpdate extends React.Component<INotificationUpdateProps
     }
 
     this.props.getHeadQuaters();
-    this.props.getNotificationTypes();
+    this.props.getDocumentTypes();
   }
 
   saveEntity = (event, errors, values) => {
@@ -52,7 +52,8 @@ export class NotificationUpdate extends React.Component<INotificationUpdateProps
       const { notificationEntity } = this.props;
       const entity = {
         ...notificationEntity,
-        ...values
+        ...values,
+        documentTypes: mapIdList(values.documentTypes)
       };
 
       if (this.state.isNew) {
@@ -69,7 +70,7 @@ export class NotificationUpdate extends React.Component<INotificationUpdateProps
   };
 
   render() {
-    const { notificationEntity, headQuaters, notificationTypes, loading, updating } = this.props;
+    const { notificationEntity, headQuaters, documentTypes, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -141,22 +142,29 @@ export class NotificationUpdate extends React.Component<INotificationUpdateProps
                     {headQuaters
                       ? headQuaters.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.name}
+                            {otherEntity.id}
                           </option>
                         ))
                       : null}
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
-                  <Label for="notificationType.id">
-                    <Translate contentKey="virtualAssistantApp.notification.notificationType">Notification Type</Translate>
+                  <Label for="documentTypes">
+                    <Translate contentKey="virtualAssistantApp.notification.documentType">Document Type</Translate>
                   </Label>
-                  <AvInput id="notification-notificationType" type="select" className="form-control" name="notificationType.id">
+                  <AvInput
+                    id="notification-documentType"
+                    type="select"
+                    multiple
+                    className="form-control"
+                    name="documentTypes"
+                    value={notificationEntity.documentTypes && notificationEntity.documentTypes.map(e => e.id)}
+                  >
                     <option value="" key="0" />
-                    {notificationTypes
-                      ? notificationTypes.map(otherEntity => (
+                    {documentTypes
+                      ? documentTypes.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.content}
+                            {otherEntity.id}
                           </option>
                         ))
                       : null}
@@ -184,7 +192,7 @@ export class NotificationUpdate extends React.Component<INotificationUpdateProps
 
 const mapStateToProps = (storeState: IRootState) => ({
   headQuaters: storeState.headQuater.entities,
-  notificationTypes: storeState.notificationType.entities,
+  documentTypes: storeState.documentType.entities,
   notificationEntity: storeState.notification.entity,
   loading: storeState.notification.loading,
   updating: storeState.notification.updating
@@ -192,7 +200,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 
 const mapDispatchToProps = {
   getHeadQuaters,
-  getNotificationTypes,
+  getDocumentTypes,
   getEntity,
   updateEntity,
   createEntity,

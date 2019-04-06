@@ -31,6 +31,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import app.domain.enumeration.Level;
 /**
  * Test class for the DocumentTypeResource REST controller.
  *
@@ -42,6 +43,9 @@ public class DocumentTypeResourceIntTest {
 
     private static final String DEFAULT_CONTENT = "AAAAAAAAAA";
     private static final String UPDATED_CONTENT = "BBBBBBBBBB";
+
+    private static final Level DEFAULT_LEVEL = Level.LEVEL1;
+    private static final Level UPDATED_LEVEL = Level.LEVEL2;
 
     @Autowired
     private DocumentTypeRepository documentTypeRepository;
@@ -86,7 +90,8 @@ public class DocumentTypeResourceIntTest {
      */
     public static DocumentType createEntity(EntityManager em) {
         DocumentType documentType = new DocumentType()
-            .content(DEFAULT_CONTENT);
+            .content(DEFAULT_CONTENT)
+            .level(DEFAULT_LEVEL);
         return documentType;
     }
 
@@ -111,6 +116,7 @@ public class DocumentTypeResourceIntTest {
         assertThat(documentTypeList).hasSize(databaseSizeBeforeCreate + 1);
         DocumentType testDocumentType = documentTypeList.get(documentTypeList.size() - 1);
         assertThat(testDocumentType.getContent()).isEqualTo(DEFAULT_CONTENT);
+        assertThat(testDocumentType.getLevel()).isEqualTo(DEFAULT_LEVEL);
     }
 
     @Test
@@ -143,7 +149,8 @@ public class DocumentTypeResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(documentType.getId().intValue())))
-            .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())));
+            .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
+            .andExpect(jsonPath("$.[*].level").value(hasItem(DEFAULT_LEVEL.toString())));
     }
     
 
@@ -158,7 +165,8 @@ public class DocumentTypeResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(documentType.getId().intValue()))
-            .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()));
+            .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()))
+            .andExpect(jsonPath("$.level").value(DEFAULT_LEVEL.toString()));
     }
     @Test
     @Transactional
@@ -181,7 +189,8 @@ public class DocumentTypeResourceIntTest {
         // Disconnect from session so that the updates on updatedDocumentType are not directly saved in db
         em.detach(updatedDocumentType);
         updatedDocumentType
-            .content(UPDATED_CONTENT);
+            .content(UPDATED_CONTENT)
+            .level(UPDATED_LEVEL);
 
         restDocumentTypeMockMvc.perform(put("/api/document-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -193,6 +202,7 @@ public class DocumentTypeResourceIntTest {
         assertThat(documentTypeList).hasSize(databaseSizeBeforeUpdate);
         DocumentType testDocumentType = documentTypeList.get(documentTypeList.size() - 1);
         assertThat(testDocumentType.getContent()).isEqualTo(UPDATED_CONTENT);
+        assertThat(testDocumentType.getLevel()).isEqualTo(UPDATED_LEVEL);
     }
 
     @Test

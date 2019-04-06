@@ -1,0 +1,12 @@
+{
+    "virtualAssistantApp": {
+        "Extension" : {
+            "null": "",
+            "DOCX": "DOCX",
+            "PDF": "PDF",
+            "MP4": "MP4",
+            "PPTX": "PPTX",
+            "JPG": "JPG"
+        }
+    }
+}

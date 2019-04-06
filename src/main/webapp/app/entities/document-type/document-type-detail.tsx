@@ -34,6 +34,12 @@ export class DocumentTypeDetail extends React.Component<IDocumentTypeDetailProps
               </span>
             </dt>
             <dd>{documentTypeEntity.content}</dd>
+            <dt>
+              <span id="level">
+                <Translate contentKey="virtualAssistantApp.documentType.level">Level</Translate>
+              </span>
+            </dt>
+            <dd>{documentTypeEntity.level}</dd>
           </dl>
           <Button tag={Link} to="/entity/document-type" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

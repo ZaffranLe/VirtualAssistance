@@ -25,6 +25,9 @@ public class NotificationType implements Serializable {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "jhi_level")
+    private Integer level;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -45,6 +48,19 @@ public class NotificationType implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public NotificationType level(Integer level) {
+        this.level = level;
+        return this;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -73,6 +89,7 @@ public class NotificationType implements Serializable {
         return "NotificationType{" +
             "id=" + getId() +
             ", content='" + getContent() + "'" +
+            ", level=" + getLevel() +
             "}";
     }
 }

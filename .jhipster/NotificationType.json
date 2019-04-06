@@ -4,6 +4,10 @@
         {
             "fieldName": "content",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "level",
+            "fieldType": "Integer"
         }
     ],
     "relationships": [],

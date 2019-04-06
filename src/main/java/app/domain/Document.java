@@ -1,6 +1,5 @@
 package app.domain;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -14,6 +13,8 @@ import java.util.Objects;
 
 import app.domain.enumeration.Status;
 
+import app.domain.enumeration.Extension;
+
 /**
  * A Document.
  */
@@ -23,7 +24,7 @@ import app.domain.enumeration.Status;
 public class Document implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -50,16 +51,20 @@ public class Document implements Serializable {
     @Column(name = "is_shared")
     private Boolean isShared;
 
-    @OneToMany(mappedBy = "document",fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "file_extension")
+    private Extension fileExtension;
+
+    @OneToMany(mappedBy = "document")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<TeacherDocument> documents = new HashSet<>();
+
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "document_document_type",
-               joinColumns = @JoinColumn(name = "document_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "document_type_id", referencedColumnName = "id"))
+               joinColumns = @JoinColumn(name = "documents_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "document_types_id", referencedColumnName = "id"))
     private Set<DocumentType> documentTypes = new HashSet<>();
-
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -161,6 +166,19 @@ public class Document implements Serializable {
         this.isShared = isShared;
     }
 
+    public Extension getFileExtension() {
+        return fileExtension;
+    }
+
+    public Document fileExtension(Extension fileExtension) {
+        this.fileExtension = fileExtension;
+        return this;
+    }
+
+    public void setFileExtension(Extension fileExtension) {
+        this.fileExtension = fileExtension;
+    }
+
     public Set<TeacherDocument> getDocuments() {
         return documents;
     }
@@ -243,6 +261,7 @@ public class Document implements Serializable {
             ", tag='" + getTag() + "'" +
             ", status='" + getStatus() + "'" +
             ", isShared='" + isIsShared() + "'" +
+            ", fileExtension='" + getFileExtension() + "'" +
             "}";
     }
 }

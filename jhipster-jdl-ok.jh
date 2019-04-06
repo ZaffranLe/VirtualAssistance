@@ -32,11 +32,21 @@ entity Document{
     Size Integer,
     Tag String,
     Status Status,
-	isShared Boolean
+	isShared Boolean,
+	fileExtension Extension
+}
+
+enum Extension {
+	DOCX, PDF, MP4, PPTX, JPG
 }
 
 entity DocumentType{
-	Content String
+	Content String,
+	Level Level
+}
+
+enum Level {
+	LEVEL1, LEVEL2, LEVEL3
 }
 
 entity Notification{
@@ -47,7 +57,8 @@ entity Notification{
 }
 
 entity NotificationType{
-	Content String
+	Content String,
+	Level Integer
 }
 
 entity HeadQuater{
@@ -83,6 +94,7 @@ entity FullEvaluate{
 
 relationship ManyToMany {
 	Document{DocumentType} to DocumentType{Document},
+	Notification{DocumentType} to DocumentType{Notification}
 }
 
 relationship OneToMany {
@@ -92,7 +104,6 @@ relationship OneToMany {
 
 relationship ManyToOne {
     Notification{HeadQuater} to HeadQuater,
-    Notification{NotificationType} to NotificationType,
     FullEvaluate{Teacher} to Teacher,
     Answer{FullEvaluate} to FullEvaluate,
     Answer{CriteriaEvaluate} to CriteriaEvaluate,

@@ -7,6 +7,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 import app.domain.enumeration.Status;
@@ -42,9 +44,12 @@ public class Notification implements Serializable {
     @JsonIgnoreProperties("")
     private HeadQuater headQuater;
 
-    @ManyToOne
-    @JsonIgnoreProperties("")
-    private NotificationType notificationType;
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "notification_document_type",
+               joinColumns = @JoinColumn(name = "notifications_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "document_types_id", referencedColumnName = "id"))
+    private Set<DocumentType> documentTypes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -120,17 +125,29 @@ public class Notification implements Serializable {
         this.headQuater = headQuater;
     }
 
-    public NotificationType getNotificationType() {
-        return notificationType;
+    public Set<DocumentType> getDocumentTypes() {
+        return documentTypes;
     }
 
-    public Notification notificationType(NotificationType notificationType) {
-        this.notificationType = notificationType;
+    public Notification documentTypes(Set<DocumentType> documentTypes) {
+        this.documentTypes = documentTypes;
         return this;
     }
 
-    public void setNotificationType(NotificationType notificationType) {
-        this.notificationType = notificationType;
+    public Notification addDocumentType(DocumentType documentType) {
+        this.documentTypes.add(documentType);
+        documentType.getNotifications().add(this);
+        return this;
+    }
+
+    public Notification removeDocumentType(DocumentType documentType) {
+        this.documentTypes.remove(documentType);
+        documentType.getNotifications().remove(this);
+        return this;
+    }
+
+    public void setDocumentTypes(Set<DocumentType> documentTypes) {
+        this.documentTypes = documentTypes;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

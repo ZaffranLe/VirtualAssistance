@@ -92,6 +92,12 @@ export class NotificationTypeUpdate extends React.Component<INotificationTypeUpd
                   </Label>
                   <AvField id="notification-type-content" type="text" name="content" />
                 </AvGroup>
+                <AvGroup>
+                  <Label id="levelLabel" for="level">
+                    <Translate contentKey="virtualAssistantApp.notificationType.level">Level</Translate>
+                  </Label>
+                  <AvField id="notification-type-level" type="number" className="form-control" name="level" />
+                </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/notification-type" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">

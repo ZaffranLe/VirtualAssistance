@@ -23,7 +23,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -38,6 +37,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import app.domain.enumeration.Status;
+import app.domain.enumeration.Extension;
 /**
  * Test class for the DocumentResource REST controller.
  *
@@ -68,12 +68,14 @@ public class DocumentResourceIntTest {
     private static final Boolean DEFAULT_IS_SHARED = false;
     private static final Boolean UPDATED_IS_SHARED = true;
 
+    private static final Extension DEFAULT_FILE_EXTENSION = Extension.DOCX;
+    private static final Extension UPDATED_FILE_EXTENSION = Extension.PDF;
+
     @Autowired
     private DocumentRepository documentRepository;
-
     @Mock
     private DocumentRepository documentRepositoryMock;
-
+    
     @Mock
     private DocumentService documentServiceMock;
 
@@ -92,9 +94,6 @@ public class DocumentResourceIntTest {
     @Autowired
     private EntityManager em;
 
-    @Autowired
-    private Validator validator;
-
     private MockMvc restDocumentMockMvc;
 
     private Document document;
@@ -107,8 +106,7 @@ public class DocumentResourceIntTest {
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
+            .setMessageConverters(jacksonMessageConverter).build();
     }
 
     /**
@@ -125,7 +123,8 @@ public class DocumentResourceIntTest {
             .size(DEFAULT_SIZE)
             .tag(DEFAULT_TAG)
             .status(DEFAULT_STATUS)
-            .isShared(DEFAULT_IS_SHARED);
+            .isShared(DEFAULT_IS_SHARED)
+            .fileExtension(DEFAULT_FILE_EXTENSION);
         return document;
     }
 
@@ -156,6 +155,7 @@ public class DocumentResourceIntTest {
         assertThat(testDocument.getTag()).isEqualTo(DEFAULT_TAG);
         assertThat(testDocument.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testDocument.isIsShared()).isEqualTo(DEFAULT_IS_SHARED);
+        assertThat(testDocument.getFileExtension()).isEqualTo(DEFAULT_FILE_EXTENSION);
     }
 
     @Test
@@ -194,10 +194,10 @@ public class DocumentResourceIntTest {
             .andExpect(jsonPath("$.[*].size").value(hasItem(DEFAULT_SIZE)))
             .andExpect(jsonPath("$.[*].tag").value(hasItem(DEFAULT_TAG.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].isShared").value(hasItem(DEFAULT_IS_SHARED.booleanValue())));
+            .andExpect(jsonPath("$.[*].isShared").value(hasItem(DEFAULT_IS_SHARED.booleanValue())))
+            .andExpect(jsonPath("$.[*].fileExtension").value(hasItem(DEFAULT_FILE_EXTENSION.toString())));
     }
     
-    @SuppressWarnings({"unchecked"})
     public void getAllDocumentsWithEagerRelationshipsIsEnabled() throws Exception {
         DocumentResource documentResource = new DocumentResource(documentServiceMock);
         when(documentServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -214,7 +214,6 @@ public class DocumentResourceIntTest {
         verify(documentServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
-    @SuppressWarnings({"unchecked"})
     public void getAllDocumentsWithEagerRelationshipsIsNotEnabled() throws Exception {
         DocumentResource documentResource = new DocumentResource(documentServiceMock);
             when(documentServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -247,9 +246,9 @@ public class DocumentResourceIntTest {
             .andExpect(jsonPath("$.size").value(DEFAULT_SIZE))
             .andExpect(jsonPath("$.tag").value(DEFAULT_TAG.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
-            .andExpect(jsonPath("$.isShared").value(DEFAULT_IS_SHARED.booleanValue()));
+            .andExpect(jsonPath("$.isShared").value(DEFAULT_IS_SHARED.booleanValue()))
+            .andExpect(jsonPath("$.fileExtension").value(DEFAULT_FILE_EXTENSION.toString()));
     }
-
     @Test
     @Transactional
     public void getNonExistingDocument() throws Exception {
@@ -277,7 +276,8 @@ public class DocumentResourceIntTest {
             .size(UPDATED_SIZE)
             .tag(UPDATED_TAG)
             .status(UPDATED_STATUS)
-            .isShared(UPDATED_IS_SHARED);
+            .isShared(UPDATED_IS_SHARED)
+            .fileExtension(UPDATED_FILE_EXTENSION);
 
         restDocumentMockMvc.perform(put("/api/documents")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -295,6 +295,7 @@ public class DocumentResourceIntTest {
         assertThat(testDocument.getTag()).isEqualTo(UPDATED_TAG);
         assertThat(testDocument.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testDocument.isIsShared()).isEqualTo(UPDATED_IS_SHARED);
+        assertThat(testDocument.getFileExtension()).isEqualTo(UPDATED_FILE_EXTENSION);
     }
 
     @Test
@@ -304,7 +305,7 @@ public class DocumentResourceIntTest {
 
         // Create the Document
 
-        // If the entity doesn't have an ID, it will throw BadRequestAlertException
+        // If the entity doesn't have an ID, it will throw BadRequestAlertException 
         restDocumentMockMvc.perform(put("/api/documents")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(document)))
@@ -323,7 +324,7 @@ public class DocumentResourceIntTest {
 
         int databaseSizeBeforeDelete = documentRepository.findAll().size();
 
-        // Delete the document
+        // Get the document
         restDocumentMockMvc.perform(delete("/api/documents/{id}", document.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());

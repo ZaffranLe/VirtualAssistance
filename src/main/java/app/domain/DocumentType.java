@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
+import app.domain.enumeration.Level;
+
 /**
  * A DocumentType.
  */
@@ -28,10 +30,19 @@ public class DocumentType implements Serializable {
     @Column(name = "content")
     private String content;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "jhi_level")
+    private Level level;
+
     @ManyToMany(mappedBy = "documentTypes")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Document> documents = new HashSet<>();
+
+    @ManyToMany(mappedBy = "documentTypes")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Notification> notifications = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -53,6 +64,19 @@ public class DocumentType implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public DocumentType level(Level level) {
+        this.level = level;
+        return this;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
     }
 
     public Set<Document> getDocuments() {
@@ -78,6 +102,31 @@ public class DocumentType implements Serializable {
 
     public void setDocuments(Set<Document> documents) {
         this.documents = documents;
+    }
+
+    public Set<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public DocumentType notifications(Set<Notification> notifications) {
+        this.notifications = notifications;
+        return this;
+    }
+
+    public DocumentType addNotification(Notification notification) {
+        this.notifications.add(notification);
+        notification.getDocumentTypes().add(this);
+        return this;
+    }
+
+    public DocumentType removeNotification(Notification notification) {
+        this.notifications.remove(notification);
+        notification.getDocumentTypes().remove(this);
+        return this;
+    }
+
+    public void setNotifications(Set<Notification> notifications) {
+        this.notifications = notifications;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -106,6 +155,7 @@ public class DocumentType implements Serializable {
         return "DocumentType{" +
             "id=" + getId() +
             ", content='" + getContent() + "'" +
+            ", level='" + getLevel() + "'" +
             "}";
     }
 }

@@ -36,6 +36,12 @@ export class NotificationTypeDetail extends React.Component<INotificationTypeDet
               </span>
             </dt>
             <dd>{notificationTypeEntity.content}</dd>
+            <dt>
+              <span id="level">
+                <Translate contentKey="virtualAssistantApp.notificationType.level">Level</Translate>
+              </span>
+            </dt>
+            <dd>{notificationTypeEntity.level}</dd>
           </dl>
           <Button tag={Link} to="/entity/notification-type" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
