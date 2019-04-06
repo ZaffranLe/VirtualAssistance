@@ -12,7 +12,7 @@ import { INotificationType } from 'app/shared/model/notification-type.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-export interface INotificationTypeDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface INotificationTypeDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
 export class NotificationTypeDetail extends React.Component<INotificationTypeDetailProps> {
   componentDidMount() {
@@ -36,6 +36,12 @@ export class NotificationTypeDetail extends React.Component<INotificationTypeDet
               </span>
             </dt>
             <dd>{notificationTypeEntity.content}</dd>
+            <dt>
+              <span id="level">
+                <Translate contentKey="virtualAssistantApp.notificationType.level">Level</Translate>
+              </span>
+            </dt>
+            <dd>{notificationTypeEntity.level}</dd>
           </dl>
           <Button tag={Link} to="/entity/notification-type" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}

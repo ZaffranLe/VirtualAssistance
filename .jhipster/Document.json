@@ -29,20 +29,25 @@
         {
             "fieldName": "isShared",
             "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "fileExtension",
+            "fieldType": "Extension",
+            "fieldValues": "DOCX,PDF,MP4,PPTX,JPG"
         }
     ],
     "relationships": [
         {
             "relationshipType": "one-to-many",
+            "relationshipName": "document",
             "otherEntityName": "teacherDocument",
-            "otherEntityRelationshipName": "document",
-            "relationshipName": "document"
+            "otherEntityRelationshipName": "document"
         },
         {
             "relationshipType": "many-to-many",
-            "otherEntityName": "documentType",
             "otherEntityRelationshipName": "document",
             "relationshipName": "documentType",
+            "otherEntityName": "documentType",
             "otherEntityField": "id",
             "ownerSide": true
         }

@@ -10,9 +10,12 @@ import app.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -22,12 +25,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 
 import static app.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -55,8 +60,11 @@ public class NotificationResourceIntTest {
 
     @Autowired
     private NotificationRepository notificationRepository;
-
+    @Mock
+    private NotificationRepository notificationRepositoryMock;
     
+    @Mock
+    private NotificationService notificationServiceMock;
 
     @Autowired
     private NotificationService notificationService;
@@ -165,6 +173,36 @@ public class NotificationResourceIntTest {
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
     
+    public void getAllNotificationsWithEagerRelationshipsIsEnabled() throws Exception {
+        NotificationResource notificationResource = new NotificationResource(notificationServiceMock);
+        when(notificationServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restNotificationMockMvc = MockMvcBuilders.standaloneSetup(notificationResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restNotificationMockMvc.perform(get("/api/notifications?eagerload=true"))
+        .andExpect(status().isOk());
+
+        verify(notificationServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    public void getAllNotificationsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        NotificationResource notificationResource = new NotificationResource(notificationServiceMock);
+            when(notificationServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restNotificationMockMvc = MockMvcBuilders.standaloneSetup(notificationResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restNotificationMockMvc.perform(get("/api/notifications?eagerload=true"))
+        .andExpect(status().isOk());
+
+            verify(notificationServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
 
     @Test
     @Transactional

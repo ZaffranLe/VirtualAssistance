@@ -4,6 +4,11 @@
         {
             "fieldName": "content",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "level",
+            "fieldType": "Level",
+            "fieldValues": "LEVEL1,LEVEL2,LEVEL3"
         }
     ],
     "relationships": [
@@ -11,6 +16,13 @@
             "relationshipType": "many-to-many",
             "relationshipName": "document",
             "otherEntityName": "document",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "documentType"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "notification",
+            "otherEntityName": "notification",
             "ownerSide": false,
             "otherEntityRelationshipName": "documentType"
         }

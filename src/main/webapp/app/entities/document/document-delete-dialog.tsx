@@ -33,7 +33,7 @@ export class DocumentDeleteDialog extends React.Component<IDocumentDeleteDialogP
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="virtualAssistantApp.document.delete.question">
+        <ModalBody>
           <Translate contentKey="virtualAssistantApp.document.delete.question" interpolate={{ id: documentEntity.id }}>
             Are you sure you want to delete this Document?
           </Translate>
@@ -43,7 +43,7 @@ export class DocumentDeleteDialog extends React.Component<IDocumentDeleteDialogP
             <FontAwesomeIcon icon="ban" />&nbsp;
             <Translate contentKey="entity.action.cancel">Cancel</Translate>
           </Button>
-          <Button id="jhi-confirm-delete-document" color="danger" onClick={this.confirmDelete}>
+          <Button color="danger" onClick={this.confirmDelete}>
             <FontAwesomeIcon icon="trash" />&nbsp;
             <Translate contentKey="entity.action.delete">Delete</Translate>
           </Button>

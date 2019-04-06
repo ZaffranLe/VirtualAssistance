@@ -9,7 +9,7 @@ import { IDocumentType } from 'app/shared/model/document-type.model';
 import { IRootState } from 'app/shared/reducers';
 import { getEntity, deleteEntity } from './document-type.reducer';
 
-export interface IDocumentTypeDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IDocumentTypeDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
 export class DocumentTypeDeleteDialog extends React.Component<IDocumentTypeDeleteDialogProps> {
   componentDidMount() {

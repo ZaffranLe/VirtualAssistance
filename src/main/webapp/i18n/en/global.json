@@ -19,6 +19,10 @@
         "answer": "Câu trả lời",
         "fullEvaluate": "Bản đánh giá",
         "criteriaEvaluate": "Tiêu chí đánh giá",
+        "document": "Document",
+        "documentType": "Document Type",
+        "notification": "Notification",
+        "notificationType": "Notification Type",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "components": {

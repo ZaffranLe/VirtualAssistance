@@ -14,11 +14,16 @@
                                  referencedColumnNames="id"
                                  referencedTableName="head_quater"/>
 
-        <addForeignKeyConstraint baseColumnNames="notification_type_id"
-                                 baseTableName="notification"
-                                 constraintName="fk_notification_notification_type_id"
+        <addForeignKeyConstraint baseColumnNames="notifications_id"
+                                 baseTableName="notification_document_type"
+                                 constraintName="fk_notification_document_type_notifications_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="notification_type"/>
-
+                                 referencedTableName="notification"/>
+        <addForeignKeyConstraint baseColumnNames="document_types_id"
+                                 baseTableName="notification_document_type"
+                                 constraintName="fk_notification_document_type_document_types_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="document_type"/>
+        
     </changeSet>
 </databaseChangeLog>

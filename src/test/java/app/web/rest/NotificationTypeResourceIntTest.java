@@ -43,6 +43,9 @@ public class NotificationTypeResourceIntTest {
     private static final String DEFAULT_CONTENT = "AAAAAAAAAA";
     private static final String UPDATED_CONTENT = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_LEVEL = 1;
+    private static final Integer UPDATED_LEVEL = 2;
+
     @Autowired
     private NotificationTypeRepository notificationTypeRepository;
 
@@ -86,7 +89,8 @@ public class NotificationTypeResourceIntTest {
      */
     public static NotificationType createEntity(EntityManager em) {
         NotificationType notificationType = new NotificationType()
-            .content(DEFAULT_CONTENT);
+            .content(DEFAULT_CONTENT)
+            .level(DEFAULT_LEVEL);
         return notificationType;
     }
 
@@ -111,6 +115,7 @@ public class NotificationTypeResourceIntTest {
         assertThat(notificationTypeList).hasSize(databaseSizeBeforeCreate + 1);
         NotificationType testNotificationType = notificationTypeList.get(notificationTypeList.size() - 1);
         assertThat(testNotificationType.getContent()).isEqualTo(DEFAULT_CONTENT);
+        assertThat(testNotificationType.getLevel()).isEqualTo(DEFAULT_LEVEL);
     }
 
     @Test
@@ -143,7 +148,8 @@ public class NotificationTypeResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(notificationType.getId().intValue())))
-            .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())));
+            .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
+            .andExpect(jsonPath("$.[*].level").value(hasItem(DEFAULT_LEVEL)));
     }
     
 
@@ -158,7 +164,8 @@ public class NotificationTypeResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(notificationType.getId().intValue()))
-            .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()));
+            .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()))
+            .andExpect(jsonPath("$.level").value(DEFAULT_LEVEL));
     }
     @Test
     @Transactional
@@ -181,7 +188,8 @@ public class NotificationTypeResourceIntTest {
         // Disconnect from session so that the updates on updatedNotificationType are not directly saved in db
         em.detach(updatedNotificationType);
         updatedNotificationType
-            .content(UPDATED_CONTENT);
+            .content(UPDATED_CONTENT)
+            .level(UPDATED_LEVEL);
 
         restNotificationTypeMockMvc.perform(put("/api/notification-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -193,6 +201,7 @@ public class NotificationTypeResourceIntTest {
         assertThat(notificationTypeList).hasSize(databaseSizeBeforeUpdate);
         NotificationType testNotificationType = notificationTypeList.get(notificationTypeList.size() - 1);
         assertThat(testNotificationType.getContent()).isEqualTo(UPDATED_CONTENT);
+        assertThat(testNotificationType.getLevel()).isEqualTo(UPDATED_LEVEL);
     }
 
     @Test

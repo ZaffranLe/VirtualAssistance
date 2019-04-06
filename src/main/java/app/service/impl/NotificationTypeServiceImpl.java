@@ -3,18 +3,15 @@ package app.service.impl;
 import app.service.NotificationTypeService;
 import app.domain.NotificationType;
 import app.repository.NotificationTypeRepository;
-import app.security.AuthoritiesConstants;
-import app.security.SecurityUtils;
-import app.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.List;
 import java.util.Optional;
-
 /**
  * Service Implementation for managing NotificationType.
  */
@@ -38,13 +35,7 @@ public class NotificationTypeServiceImpl implements NotificationTypeService {
      */
     @Override
     public NotificationType save(NotificationType notificationType) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-            log.debug("Request to save NotificationType : {}", notificationType);
-            return notificationTypeRepository.save(notificationType);
-        } else {
-            throw new BadRequestAlertException("Dont have authorize", null, null);
-        }
-
+        log.debug("Request to save NotificationType : {}", notificationType);        return notificationTypeRepository.save(notificationType);
     }
 
     /**
@@ -58,6 +49,7 @@ public class NotificationTypeServiceImpl implements NotificationTypeService {
         log.debug("Request to get all NotificationTypes");
         return notificationTypeRepository.findAll();
     }
+
 
     /**
      * Get one notificationType by id.
@@ -79,11 +71,7 @@ public class NotificationTypeServiceImpl implements NotificationTypeService {
      */
     @Override
     public void delete(Long id) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-            log.debug("Request to delete NotificationType : {}", id);
-            notificationTypeRepository.deleteById(id);
-        } else {
-            throw new BadRequestAlertException("Dont have authorize", null, null);
-        }
+        log.debug("Request to delete NotificationType : {}", id);
+        notificationTypeRepository.deleteById(id);
     }
 }

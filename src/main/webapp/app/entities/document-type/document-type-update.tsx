@@ -10,17 +10,20 @@ import { IRootState } from 'app/shared/reducers';
 
 import { IDocument } from 'app/shared/model/document.model';
 import { getEntities as getDocuments } from 'app/entities/document/document.reducer';
+import { INotification } from 'app/shared/model/notification.model';
+import { getEntities as getNotifications } from 'app/entities/notification/notification.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './document-type.reducer';
 import { IDocumentType } from 'app/shared/model/document-type.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 
-export interface IDocumentTypeUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IDocumentTypeUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
 export interface IDocumentTypeUpdateState {
   isNew: boolean;
   documentId: number;
+  notificationId: number;
 }
 
 export class DocumentTypeUpdate extends React.Component<IDocumentTypeUpdateProps, IDocumentTypeUpdateState> {
@@ -28,6 +31,7 @@ export class DocumentTypeUpdate extends React.Component<IDocumentTypeUpdateProps
     super(props);
     this.state = {
       documentId: 0,
+      notificationId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -40,6 +44,7 @@ export class DocumentTypeUpdate extends React.Component<IDocumentTypeUpdateProps
     }
 
     this.props.getDocuments();
+    this.props.getNotifications();
   }
 
   saveEntity = (event, errors, values) => {
@@ -64,7 +69,7 @@ export class DocumentTypeUpdate extends React.Component<IDocumentTypeUpdateProps
   };
 
   render() {
-    const { documentTypeEntity, documents, loading, updating } = this.props;
+    const { documentTypeEntity, documents, notifications, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -96,6 +101,28 @@ export class DocumentTypeUpdate extends React.Component<IDocumentTypeUpdateProps
                   </Label>
                   <AvField id="document-type-content" type="text" name="content" />
                 </AvGroup>
+                <AvGroup>
+                  <Label id="levelLabel">
+                    <Translate contentKey="virtualAssistantApp.documentType.level">Level</Translate>
+                  </Label>
+                  <AvInput
+                    id="document-type-level"
+                    type="select"
+                    className="form-control"
+                    name="level"
+                    value={(!isNew && documentTypeEntity.level) || 'LEVEL1'}
+                  >
+                    <option value="LEVEL1">
+                      <Translate contentKey="virtualAssistantApp.Level.LEVEL1" />
+                    </option>
+                    <option value="LEVEL2">
+                      <Translate contentKey="virtualAssistantApp.Level.LEVEL2" />
+                    </option>
+                    <option value="LEVEL3">
+                      <Translate contentKey="virtualAssistantApp.Level.LEVEL3" />
+                    </option>
+                  </AvInput>
+                </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/document-type" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
@@ -106,10 +133,6 @@ export class DocumentTypeUpdate extends React.Component<IDocumentTypeUpdateProps
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
                   <FontAwesomeIcon icon="save" />&nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
-                </Button>
-                <Button color="primary" id="save-entity22" tag={Link} to={`api/downloadFile/jhipster-jdl.png`}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
-                  <Translate contentKey="entity.action.save">Link img</Translate>
                 </Button>
               </AvForm>
             )}
@@ -122,6 +145,7 @@ export class DocumentTypeUpdate extends React.Component<IDocumentTypeUpdateProps
 
 const mapStateToProps = (storeState: IRootState) => ({
   documents: storeState.document.entities,
+  notifications: storeState.notification.entities,
   documentTypeEntity: storeState.documentType.entity,
   loading: storeState.documentType.loading,
   updating: storeState.documentType.updating
@@ -129,6 +153,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 
 const mapDispatchToProps = {
   getDocuments,
+  getNotifications,
   getEntity,
   updateEntity,
   createEntity,

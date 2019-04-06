@@ -14,7 +14,7 @@ import { INotificationType } from 'app/shared/model/notification-type.model';
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 
-export interface INotificationTypeUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface INotificationTypeUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
 export interface INotificationTypeUpdateState {
   isNew: boolean;
@@ -91,6 +91,12 @@ export class NotificationTypeUpdate extends React.Component<INotificationTypeUpd
                     <Translate contentKey="virtualAssistantApp.notificationType.content">Content</Translate>
                   </Label>
                   <AvField id="notification-type-content" type="text" name="content" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="levelLabel" for="level">
+                    <Translate contentKey="virtualAssistantApp.notificationType.level">Level</Translate>
+                  </Label>
+                  <AvField id="notification-type-level" type="number" className="form-control" name="level" />
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/notification-type" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />&nbsp;

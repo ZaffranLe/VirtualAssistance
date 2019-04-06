@@ -3,18 +3,17 @@ package app.service.impl;
 import app.service.NotificationService;
 import app.domain.Notification;
 import app.repository.NotificationRepository;
-import app.security.AuthoritiesConstants;
-import app.security.SecurityUtils;
-import app.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.List;
 import java.util.Optional;
-
 /**
  * Service Implementation for managing Notification.
  */
@@ -38,12 +37,7 @@ public class NotificationServiceImpl implements NotificationService {
      */
     @Override
     public Notification save(Notification notification) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-            log.debug("Request to save Notification : {}", notification);
-            return notificationRepository.save(notification);
-        } else {
-            throw new BadRequestAlertException("Dont have authorize create notification", null, null);
-        }
+        log.debug("Request to save Notification : {}", notification);        return notificationRepository.save(notification);
     }
 
     /**
@@ -55,8 +49,18 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional(readOnly = true)
     public List<Notification> findAll() {
         log.debug("Request to get all Notifications");
-        return notificationRepository.findAll();
+        return notificationRepository.findAllWithEagerRelationships();
     }
+
+    /**
+     * Get all the Notification with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    public Page<Notification> findAllWithEagerRelationships(Pageable pageable) {
+        return notificationRepository.findAllWithEagerRelationships(pageable);
+    }
+    
 
     /**
      * Get one notification by id.
@@ -68,7 +72,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional(readOnly = true)
     public Optional<Notification> findOne(Long id) {
         log.debug("Request to get Notification : {}", id);
-        return notificationRepository.findById(id);
+        return notificationRepository.findOneWithEagerRelationships(id);
     }
 
     /**
@@ -78,10 +82,7 @@ public class NotificationServiceImpl implements NotificationService {
      */
     @Override
     public void delete(Long id) {
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-            log.debug("Request to delete Notification : {}", id);
-            notificationRepository.deleteById(id);
-        }
-        throw new BadRequestAlertException("Dont have authorize delete notification", null, null);
+        log.debug("Request to delete Notification : {}", id);
+        notificationRepository.deleteById(id);
     }
 }

@@ -104,12 +104,11 @@ export const getEntities: ICrudGetAllAction<IDocumentType> = (page, size, sort) 
   payload: axios.get<IDocumentType>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
 });
 
-// tslint:disable-next-line:ter-arrow-body-style
 export const getEntity: ICrudGetAction<IDocumentType> = id => {
+  const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_DOCUMENTTYPE,
-    payload: axios.get<IDocumentType>(apiUrl)
-    // payload: data
+    payload: axios.get<IDocumentType>(requestUrl)
   };
 };
 

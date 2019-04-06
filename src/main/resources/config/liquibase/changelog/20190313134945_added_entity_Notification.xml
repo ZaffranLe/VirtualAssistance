@@ -42,12 +42,19 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="notification_type_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        
+        <createTable tableName="notification_document_type">
+            <column name="document_types_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="notifications_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="notifications_id, document_types_id" tableName="notification_document_type"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

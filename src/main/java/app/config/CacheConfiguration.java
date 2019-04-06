@@ -53,6 +53,8 @@ public class CacheConfiguration {
             cm.createCache(app.domain.Answer.class.getName(), jcacheConfiguration);
             cm.createCache(app.domain.FullEvaluate.class.getName(), jcacheConfiguration);
             cm.createCache(app.domain.CriteriaEvaluate.class.getName(), jcacheConfiguration);
+            cm.createCache(app.domain.DocumentType.class.getName() + ".notifications", jcacheConfiguration);
+            cm.createCache(app.domain.Notification.class.getName() + ".documentTypes", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

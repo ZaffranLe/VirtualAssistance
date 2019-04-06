@@ -2,6 +2,9 @@ package app.service;
 
 import app.domain.Notification;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +28,13 @@ public interface NotificationService {
      */
     List<Notification> findAll();
 
-
+    /**
+     * Get all the Notification with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    Page<Notification> findAllWithEagerRelationships(Pageable pageable);
+    
     /**
      * Get the "id" notification.
      *

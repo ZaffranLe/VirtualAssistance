@@ -27,10 +27,12 @@
             "otherEntityField": "id"
         },
         {
-            "relationshipType": "many-to-one",
-            "relationshipName": "notificationType",
-            "otherEntityName": "notificationType",
-            "otherEntityField": "id"
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "notification",
+            "relationshipName": "documentType",
+            "otherEntityName": "documentType",
+            "otherEntityField": "id",
+            "ownerSide": true
         }
     ],
     "changelogDate": "20190313134945",

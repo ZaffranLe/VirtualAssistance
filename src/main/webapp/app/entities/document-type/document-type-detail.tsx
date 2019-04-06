@@ -12,7 +12,7 @@ import { IDocumentType } from 'app/shared/model/document-type.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-export interface IDocumentTypeDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IDocumentTypeDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
 
 export class DocumentTypeDetail extends React.Component<IDocumentTypeDetailProps> {
   componentDidMount() {
@@ -34,6 +34,12 @@ export class DocumentTypeDetail extends React.Component<IDocumentTypeDetailProps
               </span>
             </dt>
             <dd>{documentTypeEntity.content}</dd>
+            <dt>
+              <span id="level">
+                <Translate contentKey="virtualAssistantApp.documentType.level">Level</Translate>
+              </span>
+            </dt>
+            <dd>{documentTypeEntity.level}</dd>
           </dl>
           <Button tag={Link} to="/entity/document-type" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
