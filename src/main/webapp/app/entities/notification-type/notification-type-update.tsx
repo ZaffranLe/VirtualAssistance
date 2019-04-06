@@ -14,7 +14,7 @@ import { INotificationType } from 'app/shared/model/notification-type.model';
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 
-export interface INotificationTypeUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface INotificationTypeUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export interface INotificationTypeUpdateState {
   isNew: boolean;

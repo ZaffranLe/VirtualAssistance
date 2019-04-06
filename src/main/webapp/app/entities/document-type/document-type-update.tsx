@@ -18,7 +18,7 @@ import { IDocumentType } from 'app/shared/model/document-type.model';
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 
-export interface IDocumentTypeUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IDocumentTypeUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export interface IDocumentTypeUpdateState {
   isNew: boolean;

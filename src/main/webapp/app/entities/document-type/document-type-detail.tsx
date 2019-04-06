@@ -12,7 +12,7 @@ import { IDocumentType } from 'app/shared/model/document-type.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-export interface IDocumentTypeDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IDocumentTypeDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class DocumentTypeDetail extends React.Component<IDocumentTypeDetailProps> {
   componentDidMount() {
