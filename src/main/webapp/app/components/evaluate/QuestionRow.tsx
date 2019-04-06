@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { CustomInput, Card, CardHeader, CardBody, Button, Collapse } from 'reactstrap';
-
+// Import React FilePond
+import { FilePond, registerPlugin } from 'react-filepond';
+// Import FilePond styles
+// tslint:disable-next-line:no-submodule-imports
+import 'filepond/dist/filepond.min.css';
 class QuestionRow extends React.Component<any, any> {
   constructor(props) {
     super(props);
@@ -31,7 +35,12 @@ class QuestionRow extends React.Component<any, any> {
             <Collapse isOpen={this.state.collapse}>
               <CardBody>
                 - <strong>Mức Đạt:</strong> {this.state.criteriaEvaluate.pass} <br />- <strong>Mức Khá:</strong>{' '}
-                {this.state.criteriaEvaluate.good} <br />- <strong>Mức Tốt:</strong> {this.state.criteriaEvaluate.excellent}
+                {this.state.criteriaEvaluate.good} <br />- <strong>Mức Tốt:</strong> {this.state.criteriaEvaluate.excellent} <br />
+                <p>Thêm minh chứng</p> <br />
+                <FilePond
+                  //  ref={this.fileRef}
+                  allowMultiple
+                />
               </CardBody>
             </Collapse>
           </Card>
