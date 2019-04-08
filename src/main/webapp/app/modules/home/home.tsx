@@ -174,33 +174,33 @@ export class Home extends React.Component<any, any> {
                   <CardBody>
                     <Media>
                       <Media left top href="#">
-                        <Media object data-src="holder.js/64x64" alt="Generic placeholder image" />
+                        <Media  src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22620%22%20height%3D%22340%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa20%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa20%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.3%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Generic placeholder image" />
                       </Media>
                       <Media body>
                         <Media heading>
-                          Top aligned media
+                          Thông tư 20 của Bộ Giáo Dục
           </Media>
                         Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
         </Media>
                     </Media>
                     <Media className="mt-1">
                       <Media left middle href="#">
-                        <Media object data-src="holder.js/64x64" alt="Generic placeholder image" />
+                        <Media src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22620%22%20height%3D%22340%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa20%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa20%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.3%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Generic placeholder image" />
                       </Media>
                       <Media body>
                         <Media heading>
-                          Middle aligned media
+                          Thông báo mới nhất về sửa đổi bổ sung
           </Media>
                         Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
         </Media>
                     </Media>
                     <Media className="mt-1">
                       <Media left bottom href="#">
-                        <Media object data-src="holder.js/64x64" alt="Generic placeholder image" />
+                        <Media src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22620%22%20height%3D%22340%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa20%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa20%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.3%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Generic placeholder image" />
                       </Media>
                       <Media body>
                         <Media heading>
-                          Bottom aligned media
+                          Thông báo thi tuyển đầu vào 
           </Media>
                         Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
         </Media>
@@ -209,21 +209,21 @@ export class Home extends React.Component<any, any> {
                 </Card>
 
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="align-center">
                     <h4>Thông báo</h4>
                   </CardHeader>
                   <CardBody>
                     <Table responsive striped className="text-center">
                       <thead className="thead-light">
                         <tr>
-                          <th> Tên tài liệu</th>
-                          <th> Loại</th>
-                          <th> Dung lượng</th>
+                          <th> Tên </th>
+                          <th> Mô tả</th>
+                          
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>adobe.com</td>
+                          
                           <td>
                             <div className="h1 primary">
                               <i className="fa fa-file-word-o " />

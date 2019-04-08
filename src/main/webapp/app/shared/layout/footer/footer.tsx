@@ -7,9 +7,9 @@ const Footer = props => (
   <div className="footer page-content">
     <Row>
       <Col md="12">
-        <Card>
-          <CardHeader>On going product!</CardHeader>
-          <CardBody>
+        <Card className="footer">
+          
+          <CardBody className="footer" >
             <Row className="justify-content-center">
               <Col md="4">
                 Social Media: <a href="https://www.facebook.com/tinhoctre.vn">Facebook</a> <br />
@@ -18,6 +18,12 @@ const Footer = props => (
               <Col md="4">
                 User Guide: <a href="#">Click here</a> <br />
                 Admin Guide: <a href="#">Click here</a>
+              </Col>
+              <Col md="4">
+                Trường đại học giáo dục <br />
+                Địa chỉ: Nhà G7, số 144 Xuân Thủy<br/>
+                Điện thoại: (024) 7301 7123<br/>
+                Email: education@vnu.edu.vn<br/>
               </Col>
             </Row>
           </CardBody>
