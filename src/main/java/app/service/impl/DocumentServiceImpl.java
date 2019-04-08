@@ -118,7 +118,10 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public List<Document> findByCurrentAccount() {
         Teacher teacher = teacherService.findByUserLogin();
-        return documentRepository.findByRole(teacher.getId());
+        if (teacher != null) {
+            return documentRepository.findByRole(teacher.getId());
+        }
+        return documentRepository.findAll();
     }
 
     @Override
