@@ -19,10 +19,6 @@
         "answer": "Câu trả lời",
         "fullEvaluate": "Bản đánh giá",
         "criteriaEvaluate": "Tiêu chí đánh giá",
-        "document": "Document",
-        "documentType": "Document Type",
-        "notification": "Notification",
-        "notificationType": "Notification Type",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "components": {
@@ -69,7 +65,7 @@
       "info": {
         "authenticated": {
           "prefix": "Nếu bạn muốn ",
-          "link": "đăng nhập",
+          "link": "Đăng nhập",
           "suffix":
             ", Bạn có thể thử tài khoản mặc định:<br/>- Quản trị viên (login=\"admin\" and password=\"admin\") <br/>- Người dùng (login=\"user\" and password=\"user\")."
         },

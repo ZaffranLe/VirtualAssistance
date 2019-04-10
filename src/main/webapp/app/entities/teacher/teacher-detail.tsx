@@ -150,14 +150,12 @@ export class TeacherDetail extends React.Component<ITeacherDetailProps, any> {
               <Card>
                 <CardHeader>
                   <Row>
-                    <Col md="6">
+                    <Col md="10">
                       <h2>
-                        <Translate contentKey="virtualAssistantApp.teacher.detail.title">Teacher</Translate> [<b>
-                          {teacherEntity.fullName}
-                        </b>]
+                        Hồ sơ dạy học: [<b>{teacherEntity.fullName}</b>]
                       </h2>
                     </Col>
-                    <Col md="6">
+                    <Col md="2">
                       <Button tag={Link} to="/entity/teacher" replace color="info" className="float-right">
                         <FontAwesomeIcon icon="arrow-left" />{' '}
                         <span className="d-none d-md-inline">

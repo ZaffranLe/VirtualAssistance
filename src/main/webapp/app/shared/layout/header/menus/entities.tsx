@@ -40,24 +40,6 @@ export const EntitiesMenu = ({ isAdmin = false }) => (
       <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.notification" />
     </DropdownItem>
     {isAdmin ? EntitiesMenuAdmin : EntitiesMenuUser}
-    <DropdownItem tag={Link} to="/entity/criteria-evaluate">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.criteriaEvaluate" />
-    </DropdownItem>
-    <DropdownItem tag={Link} to="/entity/criteria-type">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.criteriaType" />
-    </DropdownItem>
-    <DropdownItem tag={Link} to="/entity/document">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.document" />
-    </DropdownItem>
-    <DropdownItem tag={Link} to="/entity/document-type">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.documentType" />
-    </DropdownItem>
-    <DropdownItem tag={Link} to="/entity/notification">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.notification" />
-    </DropdownItem>
-    <DropdownItem tag={Link} to="/entity/notification-type">
-      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.notificationType" />
-    </DropdownItem>
     {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}
   </NavDropdown>
 );
