@@ -22,6 +22,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './teacher.reducer';
+import { getEntities as getDocumentEntities } from '../document/document.reducer';
 import { ITeacher } from 'app/shared/model/teacher.model';
 import surveysData from './SurveysData';
 import sharedFilesData from './SharedFilesData';
@@ -31,16 +32,27 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 export interface ITeacherDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 function FileRow(props) {
-  const file = props.file;
-
+  const document = props.document;
+  const match = props.match;
   return (
-    <tr key={file.id.toString()}>
-      <th scope="row">{file.name}</th>
-      <td>{file.type}</td>
-      <td>{file.size}</td>
+    <tr key={document.id.toString()}>
+      <th scope="row">{document.name}</th>
       <td>
-        <Button color="success">
-          <FontAwesomeIcon icon="cloud-download" /> <span className="d-none d-md-inline">Download</span>
+        {document.documentTypes
+          ? document.documentTypes.map((val, j) => (
+              <span key={j}>
+                {val.content}
+                {j === document.documentTypes.length - 1 ? '' : ', '}
+              </span>
+            ))
+          : null}
+      </td>
+      <td>
+        <Button tag={Link} to={`${match.url}/${document.id}`} color="info" size="sm">
+          <FontAwesomeIcon icon="eye" />{' '}
+          <span className="d-none d-md-inline">
+            <Translate contentKey="entity.action.view">View</Translate>
+          </span>
         </Button>
       </td>
     </tr>
@@ -86,14 +98,13 @@ export class TeacherDetail extends React.Component<ITeacherDetailProps, any> {
   pageSize: number;
   componentDidMount() {
     this.props.getEntity(this.props.match.params.id);
+    this.props.getDocumentEntities();
   }
 
   constructor(props) {
     super(props);
 
     this.pageSize = 4;
-    this.pagesFilesCount = Math.ceil(sharedFilesData.length / this.pageSize);
-    this.pagesSurveysCount = Math.ceil(surveysData.length / this.pageSize);
 
     this.state = {
       currentFilePage: 0,
@@ -137,10 +148,12 @@ export class TeacherDetail extends React.Component<ITeacherDetailProps, any> {
 
   render() {
     const surveyList = surveysData;
-    const fileList = sharedFilesData;
     const { currentFilePage } = this.state;
     const { currentSurveyPage } = this.state;
     const { teacherEntity } = this.props;
+    const { documentList, match } = this.props;
+    this.pagesFilesCount = Math.ceil(documentList.length / this.pageSize);
+    this.pagesSurveysCount = Math.ceil(surveyList.length / this.pageSize);
     const teacherUsedStoragePercent = (teacherEntity.usedStorage / teacherEntity.dataStorage) * 100;
     return (
       <Row>
@@ -308,15 +321,14 @@ export class TeacherDetail extends React.Component<ITeacherDetailProps, any> {
                       <tr>
                         <th> Tên tài liệu</th>
                         <th> Loại</th>
-                        <th> Dung lượng (MB)</th>
                         <th />
                       </tr>
                     </thead>
                     <tbody>
-                      {fileList
-                        .filter(survey => survey.name.toLowerCase().includes(this.state.txtSearchFile))
+                      {documentList
+                        .filter(document => document.name.toLowerCase().includes(this.state.txtSearchFile))
                         .slice(currentFilePage * this.pageSize, (currentFilePage + 1) * this.pageSize)
-                        .map((file, index) => <FileRow key={index} file={file} />)}
+                        .map((document, index) => <FileRow key={index} document={document} match={match} />)}
                     </tbody>
                   </Table>
                   <Pagination>
@@ -392,11 +404,12 @@ export class TeacherDetail extends React.Component<ITeacherDetailProps, any> {
   }
 }
 
-const mapStateToProps = ({ teacher }: IRootState) => ({
-  teacherEntity: teacher.entity
+const mapStateToProps = ({ teacher, document }: IRootState) => ({
+  teacherEntity: teacher.entity,
+  documentList: document.entities
 });
 
-const mapDispatchToProps = { getEntity };
+const mapDispatchToProps = { getEntity, getDocumentEntities };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
