@@ -13,7 +13,7 @@
                     "pattern": "Tên tài khoản chỉ có thể chứa ký tự và số."
                 }
             },
-            "success": "<strong>Đã lưu đăng ký!</strong> Vui lòng kiểm tra email để xác nhận.",
+            "success": "Tạo tài khoản mới thành công!",
             "error": {
                 "fail": "<strong>Đăng ký thất bại!</strong> Vui lòng thử lại sau.",
                 "userexists": "<strong>Tên tài khoản đã tồn tại!</strong> Vui lòng chọn tên khác.",

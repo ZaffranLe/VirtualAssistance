@@ -150,7 +150,7 @@ export class NotificationUpdate extends React.Component<INotificationUpdateProps
                 </AvGroup>
                 <AvGroup>
                   <Label for="documentTypes">
-                    <Translate contentKey="virtualAssistantApp.notification.documentType">Document Type</Translate>
+                    <Translate contentKey="virtualAssistantApp.notification.notificationType">Document Type</Translate>
                   </Label>
                   <AvInput
                     id="notification-documentType"
