@@ -23,17 +23,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './teacher.reducer';
 import { getEntities as getDocumentEntities } from '../document/document.reducer';
+import { getEntities as getFullEvaluateEntities } from '../full-evaluate/full-evaluate.reducer';
 import { ITeacher } from 'app/shared/model/teacher.model';
-import surveysData from './SurveysData';
-import sharedFilesData from './SharedFilesData';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 export interface ITeacherDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
-function FileRow(props) {
+function DocumentRow(props) {
   const document = props.document;
-  const match = props.match;
   return (
     <tr key={document.id.toString()}>
       <th scope="row">{document.name}</th>
@@ -48,7 +46,7 @@ function FileRow(props) {
           : null}
       </td>
       <td>
-        <Button tag={Link} to={`${match.url}/${document.id}`} color="info" size="sm">
+        <Button tag={Link} to={`${'../document'}/${document.id}`} color="info" size="sm">
           <FontAwesomeIcon icon="eye" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.view">View</Translate>
@@ -59,30 +57,38 @@ function FileRow(props) {
   );
 }
 
-function SurveyRow(props) {
-  const survey = props.survey;
+function EvaluateRow(props) {
+  const evaluate = props.evaluate;
 
   return (
-    <tr key={survey.id.toString()}>
-      <th scope="row">{survey.name}</th>
+    <tr key={evaluate.id.toString()}>
+      <th scope="row">{evaluate.description}</th>
       <td>
-        <Badge color={getBadge(survey.result)} pill>
-          {survey.result}
+        <Badge color={getBadge(evaluate.result)} pill>
+          <Translate contentKey={`virtualAssistantApp.ScoreLadder.${evaluate.result}`} />
         </Badge>
+      </td>
+      <td>
+        <Button tag={Link} to={`${'../full-evaluate'}/${evaluate.id}`} color="info" size="sm">
+          <FontAwesomeIcon icon="eye" />{' '}
+          <span className="d-none d-md-inline">
+            <Translate contentKey="entity.action.view">View</Translate>
+          </span>
+        </Button>
       </td>
     </tr>
   );
 }
 
+// tslint:disable-next-line:ter-arrow-body-style
 const getBadge = result => {
-  const foo = 0;
-  return result === 'Tốt'
+  return result === 'EXCELLENT'
     ? 'success'
-    : result === 'Đạt'
+    : result === 'PASS'
       ? 'secondary'
-      : result === 'Khá'
+      : result === 'GOOD'
         ? 'primary'
-        : result === 'Chưa đạt'
+        : result === 'FAIL'
           ? 'danger'
           : 'primary';
 };
@@ -92,13 +98,14 @@ const getColor = progress => {
   return progress < 50 ? 'green text-success' : progress >= 75 ? 'red text-danger' : 'yellow text-warning';
 };
 
-export class TeacherDetail extends React.Component<ITeacherDetailProps, any> {
+export class TeacherDetail extends React.Component<any, any> {
   pagesSurveysCount: number;
   pagesFilesCount: number;
   pageSize: number;
   componentDidMount() {
     this.props.getEntity(this.props.match.params.id);
     this.props.getDocumentEntities();
+    this.props.getFullEvaluateEntities();
   }
 
   constructor(props) {
@@ -147,13 +154,13 @@ export class TeacherDetail extends React.Component<ITeacherDetailProps, any> {
   }
 
   render() {
-    const surveyList = surveysData;
     const { currentFilePage } = this.state;
     const { currentSurveyPage } = this.state;
     const { teacherEntity } = this.props;
-    const { documentList, match } = this.props;
+    const { documentList } = this.props;
+    const { fullEvaluateList } = this.props;
     this.pagesFilesCount = Math.ceil(documentList.length / this.pageSize);
-    this.pagesSurveysCount = Math.ceil(surveyList.length / this.pageSize);
+    this.pagesSurveysCount = Math.ceil(fullEvaluateList.length / this.pageSize);
     const teacherUsedStoragePercent = (teacherEntity.usedStorage / teacherEntity.dataStorage) * 100;
     return (
       <Row>
@@ -328,7 +335,7 @@ export class TeacherDetail extends React.Component<ITeacherDetailProps, any> {
                       {documentList
                         .filter(document => document.name.toLowerCase().includes(this.state.txtSearchFile))
                         .slice(currentFilePage * this.pageSize, (currentFilePage + 1) * this.pageSize)
-                        .map((document, index) => <FileRow key={index} document={document} match={match} />)}
+                        .map((document, index) => <DocumentRow key={index} document={document} />)}
                     </tbody>
                   </Table>
                   <Pagination>
@@ -371,14 +378,19 @@ export class TeacherDetail extends React.Component<ITeacherDetailProps, any> {
                 <CardBody>
                   <Table responsive hover className="text-center">
                     <thead className="thead-light">
-                      <th>Kỳ đánh giá</th>
+                      <th>Bản đánh giá</th>
                       <th>Xếp loại</th>
+                      <th />
                     </thead>
                     <tbody>
-                      {surveyList
-                        .filter(survey => survey.name.toLowerCase().includes(this.state.txtSearchSurvey))
+                      {fullEvaluateList
+                        .filter(
+                          evaluate =>
+                            evaluate.description.toLowerCase().includes(this.state.txtSearchSurvey) &&
+                            evaluate.teacher.id === teacherEntity.id
+                        )
                         .slice(currentSurveyPage * this.pageSize, (currentSurveyPage + 1) * this.pageSize)
-                        .map((survey, index) => <SurveyRow key={index} survey={survey} />)}
+                        .map((evaluate, index) => <EvaluateRow key={index} evaluate={evaluate} />)}
                     </tbody>
                   </Table>
                   <Pagination>
@@ -404,12 +416,13 @@ export class TeacherDetail extends React.Component<ITeacherDetailProps, any> {
   }
 }
 
-const mapStateToProps = ({ teacher, document }: IRootState) => ({
+const mapStateToProps = ({ teacher, document, fullEvaluate }: IRootState) => ({
   teacherEntity: teacher.entity,
-  documentList: document.entities
+  documentList: document.entities,
+  fullEvaluateList: fullEvaluate.entities
 });
 
-const mapDispatchToProps = { getEntity, getDocumentEntities };
+const mapDispatchToProps = { getEntity, getDocumentEntities, getFullEvaluateEntities };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
