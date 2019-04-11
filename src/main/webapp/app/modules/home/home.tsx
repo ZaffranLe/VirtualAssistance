@@ -20,11 +20,13 @@ import {
   CarouselCaption,
   CarouselItem,
   Media,
-  CardImg
+  Button
 } from 'reactstrap';
 
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
+import { getEntities as getNotificationEntities } from '../../entities/notification/notification.reducer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export interface IHomeProp extends StateProps, DispatchProps {}
 
@@ -50,12 +52,12 @@ export class Home extends React.Component<any, any> {
         caption: 'Slide 1'
       },
       {
-        src: 'https://education.vnu.edu.vn/assets/uploads/files/Slider/02c89-img_2530.jpg',
+        src: 'https://education.vnu.edu.vn/assets/uploads/files/440d1-dhgd-thong-bao-tuyen-sinh-2019.jpg',
         altText: 'Slide 2',
         caption: 'Slide 2'
       },
       {
-        src: 'https://education.vnu.edu.vn/assets/uploads/files/Slider/02c89-img_2530.jpg',
+        src: 'https://education.vnu.edu.vn/assets/uploads/files/8c395-dhgd-toa-dam-gvcn-1-.jpg',
         altText: 'Slide 3',
         caption: 'Slide 3'
       }
@@ -122,8 +124,8 @@ export class Home extends React.Component<any, any> {
               </Row>
             )}
           <div className="animated fadeIn">
-            <Row>
-              <Col md="12" xs="12" xl="12">
+            <Row className="justify-content-center">
+              <Col md="10">
                 <Card>
                   <CardBody>
                     <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous}>
@@ -137,65 +139,146 @@ export class Home extends React.Component<any, any> {
               </Col>
             </Row>
             <Row>
-              <Col lg="4">
+              <Col lg="3">
                 <Card>
-                  <Media
-                    alt="Generic placeholder image"
-                    src="https://education.vnu.edu.vn/assets/uploads/files/Slider/02c89-img_2530.jpg"
-                  />
+                  <Media href="https://education.vnu.edu.vn/index.php/WebControl/listnews/15/0">
+                    <Media alt="Generic placeholder image" src="https://education.vnu.edu.vn/assets/Layout/img/banner/1.jpg" />
+                  </Media>
                 </Card>
               </Col>
-              <Col lg="4">
+              <Col lg="3">
                 <Card>
-                  <Media
-                    alt="Generic placeholder image"
-                    src="https://education.vnu.edu.vn/assets/uploads/files/Slider/02c89-img_2530.jpg"
-                  />
+                  <Media href="https://education.vnu.edu.vn/index.php/WebControl/listnews/16/0">
+                    <Media alt="Generic placeholder image" src="https://education.vnu.edu.vn/assets/Layout/img/banner/2.jpg" />
+                  </Media>
                 </Card>
               </Col>
-              <Col lg="4">
+              <Col lg="3">
                 <Card>
-                  <Media
-                    alt="Generic placeholder image"
-                    src="https://education.vnu.edu.vn/assets/uploads/files/Slider/02c89-img_2530.jpg"
-                  />
+                  <Media href="http://danhgiatamly.edu.vn/">
+                    <Media alt="Generic placeholder image" src="https://education.vnu.edu.vn/assets/Layout/img/banner/3.jpg" />
+                  </Media>
+                </Card>
+              </Col>
+              <Col lg="3">
+                <Card>
+                  <Media href="http://hes.vnu.edu.vn/">
+                    <Media alt="Generic placeholder image" src="https://education.vnu.edu.vn/assets/Layout/img/banner/4.jpg" />
+                  </Media>
                 </Card>
               </Col>
             </Row>
-            <Row>
-              <Col lg="12">
-                <Card>
-                  <CardHeader>
-                    <h4>Thông báo mới nhất</h4>
-                  </CardHeader>
-                  <CardImg top width="100%" src="https://education.vnu.edu.vn/assets/uploads/files/Slider/02c89-img_2530.jpg" />
-                  <CardBody>Thông báo gì đấy</CardBody>
-                </Card>
-                <Card>
-                  <CardHeader className="align-center">
-                    <h4>Văn bản pháp quy</h4>
-                  </CardHeader>
-                  <CardBody>
-                    <Table responsive striped className="text-center">
-                      <thead className="thead-light">
-                        <tr>
-                          <th> Tên </th>
-                          <th> Mô tả</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            <div className="h1 primary">
-                              <i className="fa fa-file-word-o " />
-                            </div>
-                          </td>
-                          <td>222</td>
-                        </tr>
-                      </tbody>
-                    </Table>
-                  </CardBody>
-                </Card>
+            <Row className="justify-content-center">
+              <Col lg="8">
+                <Row>
+                  <Col md="12">
+                    <Card>
+                      <CardBody>
+                        <Row>
+                          <Col md="5">
+                            <h1>
+                              <b>Thông báo tuyển sinh Đại học chính quy năm 2019</b>
+                            </h1>{' '}
+                            <br />
+                            Trường Đại học Giáo dục (ĐHGD) - Đại học Quốc gia Hà Nội thông báo tuyển sinh đại học chính quy năm 2019. <br />
+                            <Button color="primary">Xem thêm</Button>
+                          </Col>
+                          <Col md="7">
+                            <Media
+                              className="img-responsive"
+                              src="https://education.vnu.edu.vn/assets/uploads/files/440d1-dhgd-thong-bao-tuyen-sinh-2019.jpg"
+                            />
+                          </Col>
+                        </Row>
+                      </CardBody>
+                    </Card>
+                    <Card>
+                      <CardBody>
+                        <Row>
+                          <Col md="5">
+                            <h1>
+                              <b>Hướng dẫn ghi phiếu đăng ký dự thi và đăng ký xét tuyển đại học</b>
+                            </h1>{' '}
+                            <br />
+                            Từ ngày 01/04 - 20/04/2019, học sinh lớp 12 cả nước sẽ chính thức nộp hồ sơ đăng ký dự thi THPT quốc gia và đăng
+                            ký xét tuyển đại học chính quy năm 2019. <br />
+                            <Button color="primary">Xem thêm</Button>
+                          </Col>
+                          <Col md="7">
+                            <Media
+                              className="img-responsive"
+                              src="https://education.vnu.edu.vn/assets/uploads/files/bd40a-3-phieu-du-thi-thpt.jpg"
+                            />
+                          </Col>
+                        </Row>
+                      </CardBody>
+                    </Card>
+                    <Card>
+                      <CardBody>
+                        <Row>
+                          <Col md="5">
+                            <h1>
+                              <b>Những ứng dụng của khoa học dữ liệu trong giáo dục</b>
+                            </h1>{' '}
+                            <br />
+                            Khoa học dữ liệu là sự kết hợp hài hoà giữa toán học, khoa học tính toán và tri thức chuyên ngành. Trước những
+                            đòi hỏi về sự phát triển của một ngành khoa học mới, ngày 9/4/2018, Khoa Công nghệ Giáo dục – Trường Đại học
+                            Giáo dục – Đại học Quốc gia Hà Nội tổ chức seminar khoa học: “Những ứng dụng của khoa học dữ liệu trong giáo
+                            dục”. <br />
+                            <Button color="primary">Xem thêm</Button>
+                          </Col>
+                          <Col md="7">
+                            <Media className="img-responsive" src="https://education.vnu.edu.vn/assets/uploads/files/5caa2-img_5601.jpg" />
+                          </Col>
+                        </Row>
+                      </CardBody>
+                    </Card>
+                    <Card>
+                      <CardBody>
+                        <Row>
+                          <Col md="5">
+                            <h1>
+                              <b>
+                                Đào tạo, bồi dưỡng đội ngũ giáo viên để dạy môn Khoa học Tự nhiên theo Chương trình Giáo dục phổ thông mới
+                              </b>
+                            </h1>{' '}
+                            <br />
+                            Chiều 5/4/2019, tại Hội trường P. 401, Trường Đại học Giáo dục – ĐHQGHN đã tổ chức Tọa đàm “Đào tạo, bồi dưỡng
+                            giáo viên dạy môn Khoa học Tự nhiên theo Chương trình Giáo dục phổ thông mới”. <br />
+                            <Button color="primary">Xem thêm</Button>
+                          </Col>
+                          <Col md="7">
+                            <Media
+                              className="img-responsive"
+                              src="https://education.vnu.edu.vn/assets/uploads/files/27f63-dhgd-dao-tao-cn-su-pham-khtn.jpg"
+                            />
+                          </Col>
+                        </Row>
+                      </CardBody>
+                    </Card>
+                    <Card>
+                      <CardBody>
+                        <Row>
+                          <Col md="5">
+                            <h1>
+                              <b>ĐHGD: Hơn 300 giáo viên tham gia tập huấn giáo viên chủ nhiệm</b>
+                            </h1>{' '}
+                            <br />
+                            Ngày 4/4/2019 tại Trung tâm Giáo dục Thường xuyên tỉnh Phú Thọ, Trường Đại học Giáo dục – ĐHQGHN phối hợp với Sở
+                            Giáo dục và Đào tạo tỉnh Phú Thọ tổ chức tọa đàm “Giáo viên chủ nhiệm với đổi mới giáo dục phổ thông”. <br />
+                            <Button color="primary">Xem thêm</Button>
+                          </Col>
+                          <Col md="7">
+                            <Media
+                              className="img-responsive"
+                              src="https://education.vnu.edu.vn/assets/uploads/files/8c395-dhgd-toa-dam-gvcn-1-.jpg"
+                            />
+                          </Col>
+                        </Row>
+                      </CardBody>
+                    </Card>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </div>
