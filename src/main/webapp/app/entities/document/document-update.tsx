@@ -105,6 +105,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
       } else {
         this.props.updateEntity(entity);
       }
+      this.handleClose();
     }
   };
 
@@ -233,14 +234,14 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                   <AvInput
                     id="document-documentType"
                     type="select"
-                    multiple
                     className="form-control"
                     name="documentTypes"
-                    value={documentEntity.documentTypes && documentEntity.documentTypes.map(e => e.id)}
+                    multiple
+                    value={documentEntity.documentTypes}
                   >
                     <option value="" key="0" />
                     {documentTypes
-                      ? documentTypes.map(otherEntity => (
+                      ? documentTypes.filter(otherEntity => otherEntity.level === 'LEVEL3').map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
                             {otherEntity.content}
                           </option>
@@ -259,8 +260,9 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                   <FontAwesomeIcon icon="save" />&nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
+                &nbsp;
                 <Button color="primary" id="save-entity22" tag={Link} to={'../../../api/downloadFile/jhipster-jdl.png'}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <FontAwesomeIcon icon="save" />
                   <Translate contentKey="entity.action.save">Link img</Translate>
                 </Button>
               </AvForm>

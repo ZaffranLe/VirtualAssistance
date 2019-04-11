@@ -72,9 +72,7 @@ export class Document extends React.Component<any, any> {
       <div>
         <Row>
           <Col lg={4}>
-            <h2 id="teacher-heading">
-              <Translate contentKey="virtualAssistantApp.document.home.title">Documents</Translate>
-            </h2>
+            <h2 id="teacher-heading">Hồ sơ dạy học cá nhân</h2>
           </Col>
           <Col lg={3}>
             <Input type="text" className="float-right" placeholder="Tìm theo tên tài liệu" onChange={e => this.handleSearchName(e)} />
@@ -194,9 +192,7 @@ export class Document extends React.Component<any, any> {
         </Row>
         <Row>
           <Col md="12">
-            <h2 id="document-heading">
-              <Translate contentKey="virtualAssistantApp.document.home.titlePublic">Documents</Translate>
-            </h2>
+            <h2 id="document-heading">Hồ sơ dạy học công khai</h2>
           </Col>
         </Row>
         <Row>

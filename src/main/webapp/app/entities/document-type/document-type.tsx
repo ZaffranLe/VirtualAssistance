@@ -40,6 +40,7 @@ export class DocumentType extends React.Component<any, any> {
   render() {
     const { documentTypeList, match } = this.props;
     const { currentPage } = this.state;
+    this.pagesCount = Math.ceil(documentTypeList.length / this.pageSize);
     return (
       <div>
         <h2 id="document-type-heading">

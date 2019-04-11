@@ -17,7 +17,8 @@
                 "title": "Thể loại tài liệu"
             },
             "content": "Nội dung",
-            "document": "Tài liệu"
+            "document": "Tài liệu",
+            "level": "Cấp độ"
         }
     }
 }
