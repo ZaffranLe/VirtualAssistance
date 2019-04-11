@@ -55,7 +55,7 @@ public class Document implements Serializable {
     @Column(name = "file_extension")
     private Extension fileExtension;
 
-    @OneToMany(mappedBy = "document")
+    @OneToMany(mappedBy = "document",fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<TeacherDocument> documents = new HashSet<>();
 
