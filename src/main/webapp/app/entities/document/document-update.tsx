@@ -164,6 +164,12 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                   <AvField id="document-description" type="text" name="description" />
                 </AvGroup>
                 <AvGroup>
+                  <Label id="fileExtensionLabel" for="fileExtension">
+                    <Translate contentKey="virtualAssistantApp.document.fileExtension">File Extension</Translate>
+                  </Label>
+                  <AvField id="document-fileExtension" type="text" name="fileExtension" />
+                </AvGroup>
+                <AvGroup>
                   <Label id="uRLLabel" for="uRL">
                     <Translate contentKey="virtualAssistantApp.document.uRL">URL</Translate>
                   </Label>

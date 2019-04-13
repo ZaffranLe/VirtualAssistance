@@ -5,7 +5,7 @@ import { Button, Row, Col, Card, CardImg } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { Document, Page } from 'react-pdf';
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './document.reducer';
 import { IDocument } from 'app/shared/model/document.model';
@@ -14,13 +14,26 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 export interface IDocumentDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
-export class DocumentDetail extends React.Component<IDocumentDetailProps> {
+export class DocumentDetail extends React.Component<any, any> {
   componentDidMount() {
     this.props.getEntity(this.props.match.params.id);
   }
 
+  onDocumentLoadSuccess = ({ numPages }) => {
+    this.setState({ numPages });
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      numPages: null,
+      pageNumber: 1
+    };
+  }
+
   render() {
     const { documentEntity } = this.props;
+    const { pageNumber, numPages } = this.state;
     return (
       <Row className="justify-content-center">
         <Col md="6">
@@ -59,6 +72,12 @@ export class DocumentDetail extends React.Component<IDocumentDetailProps> {
             </dt>
             <dd>{documentEntity.isShared ? 'Chia sẻ' : 'Riêng tư'}</dd>
             <dt>
+              <span id="fileExtension">
+                <Translate contentKey="virtualAssistantApp.document.fileExtension">File Extension</Translate>
+              </span>
+            </dt>
+            <dd>{documentEntity.fileExtension}</dd>
+            <dt>
               <Translate contentKey="virtualAssistantApp.document.documentType">Document Type</Translate>
             </dt>
             <dd>
@@ -85,11 +104,22 @@ export class DocumentDetail extends React.Component<IDocumentDetailProps> {
             </span>
           </Button>
         </Col>
-        <Col md="5">
-          <Card>
-            <CardImg width="100%" src={documentEntity.uRL} />
-            keydoc: {this.props.authenkey}
-          </Card>
+        <Col md="6">
+          {documentEntity.fileExtension === 'JPG' ? (
+            <Card>
+              <CardImg width="100%" src={documentEntity.uRL} />
+              keydoc: {this.props.authenkey}
+            </Card>
+          ) : (
+            <div>
+              <Document file={documentEntity.uRL} onLoadSuccess={this.onDocumentLoadSuccess}>
+                <Page pageNumber={pageNumber} />
+              </Document>
+              <p>
+                Page {pageNumber} of {numPages}
+              </p>
+            </div>
+          )}
         </Col>
       </Row>
     );

@@ -26,7 +26,8 @@
           "status": "Trạng thái",
           "document": "Tài liệu",
           "isShared": "Trạng thái chia sẻ",
-          "documentType": "Thể loại tài liệu"
+          "documentType": "Thể loại tài liệu",
+          "fileExtention": "Đuôi file"
       }
   }
 }
