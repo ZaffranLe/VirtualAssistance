@@ -1,12 +1,9 @@
 package app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.annotation.Nullable;
 import javax.persistence.*;
 
 import java.io.Serializable;
@@ -58,7 +55,7 @@ public class Document implements Serializable {
     @Column(name = "file_extension")
     private Extension fileExtension;
 
-    @OneToMany(mappedBy = "document",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "document")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<TeacherDocument> documents = new HashSet<>();
 

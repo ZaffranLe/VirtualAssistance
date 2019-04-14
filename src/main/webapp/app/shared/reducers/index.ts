@@ -21,14 +21,6 @@ import teacherDocument, {
   TeacherDocumentState
 } from 'app/entities/teacher-document/teacher-document.reducer';
 // prettier-ignore
-import document, {
-  DocumentState
-} from 'app/entities/document/document.reducer';
-// prettier-ignore
-import notification, {
-  NotificationState
-} from 'app/entities/notification/notification.reducer';
-// prettier-ignore
 import notificationType, {
   NotificationTypeState
 } from 'app/entities/notification-type/notification-type.reducer';
@@ -57,6 +49,14 @@ import criteriaEvaluate, {
 import documentType, {
   DocumentTypeState
 } from 'app/entities/document-type/document-type.reducer';
+// prettier-ignore
+import document, {
+  DocumentState
+} from 'app/entities/document/document.reducer';
+// prettier-ignore
+import notification, {
+  NotificationState
+} from 'app/entities/notification/notification.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {

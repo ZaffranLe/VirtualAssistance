@@ -2,8 +2,8 @@
     "virtualAssistantApp": {
         "Status" : {
             "null": "",
-            "EXIST": "TỒN TẠI",
-            "DELETED": "ĐÃ XÓA"
+            "EXIST": "EXIST",
+            "DELETED": "DELETED"
         }
     }
 }

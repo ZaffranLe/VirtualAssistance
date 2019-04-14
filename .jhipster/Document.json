@@ -33,7 +33,7 @@
         {
             "fieldName": "fileExtension",
             "fieldType": "Extension",
-            "fieldValues": "DOCX,PDF,MP4,PPTX,JPG"
+            "fieldValues": "DOCX,PDF,MP4,PPTX,JPG,PNG,DOC,PPT,OTHER"
         }
     ],
     "relationships": [

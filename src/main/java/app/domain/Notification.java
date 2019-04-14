@@ -13,6 +13,8 @@ import java.util.Objects;
 
 import app.domain.enumeration.Status;
 
+import app.domain.enumeration.Extension;
+
 /**
  * A Notification.
  */
@@ -39,6 +41,13 @@ public class Notification implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private Status status;
+
+    @Column(name = "tag")
+    private String tag;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "file_extension")
+    private Extension fileExtension;
 
     @ManyToOne
     @JsonIgnoreProperties("")
@@ -112,6 +121,32 @@ public class Notification implements Serializable {
         this.status = status;
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public Notification tag(String tag) {
+        this.tag = tag;
+        return this;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public Extension getFileExtension() {
+        return fileExtension;
+    }
+
+    public Notification fileExtension(Extension fileExtension) {
+        this.fileExtension = fileExtension;
+        return this;
+    }
+
+    public void setFileExtension(Extension fileExtension) {
+        this.fileExtension = fileExtension;
+    }
+
     public HeadQuater getHeadQuater() {
         return headQuater;
     }
@@ -179,6 +214,8 @@ public class Notification implements Serializable {
             ", description='" + getDescription() + "'" +
             ", uRL='" + getuRL() + "'" +
             ", status='" + getStatus() + "'" +
+            ", tag='" + getTag() + "'" +
+            ", fileExtension='" + getFileExtension() + "'" +
             "}";
     }
 }

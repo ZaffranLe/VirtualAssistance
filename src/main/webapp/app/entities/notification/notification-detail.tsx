@@ -53,6 +53,18 @@ export class NotificationDetail extends React.Component<INotificationDetailProps
             </dt>
             <dd>{notificationEntity.status}</dd>
             <dt>
+              <span id="tag">
+                <Translate contentKey="virtualAssistantApp.notification.tag">Tag</Translate>
+              </span>
+            </dt>
+            <dd>{notificationEntity.tag}</dd>
+            <dt>
+              <span id="fileExtension">
+                <Translate contentKey="virtualAssistantApp.notification.fileExtension">File Extension</Translate>
+              </span>
+            </dt>
+            <dd>{notificationEntity.fileExtension}</dd>
+            <dt>
               <Translate contentKey="virtualAssistantApp.notification.headQuater">Head Quater</Translate>
             </dt>
             <dd>{notificationEntity.headQuater ? notificationEntity.headQuater.id : ''}</dd>

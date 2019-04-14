@@ -37,7 +37,7 @@ entity Document{
 }
 
 enum Extension {
-	DOCX, PDF, MP4, PPTX, JPG
+	DOCX, PDF, MP4, PPTX, JPG, PNG, DOC, PPT, OTHER
 }
 
 entity DocumentType{
@@ -53,12 +53,9 @@ entity Notification{
 	Name String,
     Description String,
     URL String,
-    Status Status
-}
-
-entity NotificationType{
-	Content String,
-	Level Integer
+    Status Status,
+	Tag String,
+	fileExtension Extension
 }
 
 entity HeadQuater{
