@@ -5,13 +5,14 @@ import { Button, Row, Col, Card, CardImg } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Document, Page } from 'react-pdf';
+import PDFReader from 'react-pdf-reader';
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './document.reducer';
 import { IDocument } from 'app/shared/model/document.model';
+// tslint:disable-next-line:no-submodule-imports
+import 'react-pdf-reader/dist/TextLayerBuilder.css';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
-
 export interface IDocumentDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class DocumentDetail extends React.Component<any, any> {
@@ -19,21 +20,8 @@ export class DocumentDetail extends React.Component<any, any> {
     this.props.getEntity(this.props.match.params.id);
   }
 
-  onDocumentLoadSuccess = ({ numPages }) => {
-    this.setState({ numPages });
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      numPages: null,
-      pageNumber: 1
-    };
-  }
-
   render() {
     const { documentEntity } = this.props;
-    const { pageNumber, numPages } = this.state;
     return (
       <Row className="justify-content-center">
         <Col md="6">
@@ -112,12 +100,7 @@ export class DocumentDetail extends React.Component<any, any> {
             </Card>
           ) : (
             <div>
-              <Document file={documentEntity.uRL} onLoadSuccess={this.onDocumentLoadSuccess}>
-                <Page pageNumber={pageNumber} />
-              </Document>
-              <p>
-                Page {pageNumber} of {numPages}
-              </p>
+              <PDFReader file="http://www.africau.edu/images/default/sample.pdf" renderType="svgs" />
             </div>
           )}
         </Col>

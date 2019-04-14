@@ -16,6 +16,12 @@ const EntitiesMenuAdmin = (
     <DropdownItem tag={Link} to="/entity/head-quater">
       <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.headQuater" />
     </DropdownItem>
+    <DropdownItem tag={Link} to="/entity/criteria-type">
+      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.criteriaType" />
+    </DropdownItem>
+    <DropdownItem tag={Link} to="/entity/criteria-evaluate">
+      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.criteriaEvaluate" />
+    </DropdownItem>
   </>
 );
 

@@ -8,9 +8,9 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Menu",
-        "teacher": "Giáo viên",
+        "teacher": "Hồ sơ giáo viên",
         "teacherDocument": "Giáo viên - Tài liệu",
-        "document": "Kho tài liệu",
+        "document": "Hồ sơ dạy học",
         "documentType": "Thể loại tài liệu",
         "notification": "Văn bản",
         "notificationType": "Thể loại văn bản",
