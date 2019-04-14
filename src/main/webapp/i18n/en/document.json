@@ -27,7 +27,7 @@
           "document": "Tài liệu",
           "isShared": "Trạng thái chia sẻ",
           "documentType": "Thể loại tài liệu",
-          "fileExtention": "Đuôi file"
+          "fileExtension": "Định dạng tài liệu"
       }
   }
 }

@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class UploadStoreDocuments {
 
         // getUser
         String fileName = fileStorageService.storeDocumentUploadByUser(file);
-
+        String ext = FilenameUtils.getExtension(fileName);
         String user = SecurityUtils.getCurrentUserLogin()
                 .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
         String fileNameForDB = user+"/"+fileName;
@@ -59,6 +60,7 @@ public class UploadStoreDocuments {
         return  ResponseEntity.ok()
                 .contentType(MediaType.TEXT_PLAIN)
                 .header("url", fileDownloadUri)
+                .header("ext", ext)
                 .body(fileNameForDB);
     }
 
@@ -86,7 +88,7 @@ public class UploadStoreDocuments {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
-    @GetMapping("/opendocument/{key:.+}")
+    @GetMapping("/opendocument/{key}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String key, HttpServletRequest request) {
         // Load file as Resource
         System.out.println("key:"+key);

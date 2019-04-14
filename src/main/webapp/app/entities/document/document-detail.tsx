@@ -5,7 +5,7 @@ import { Button, Row, Col, Card, CardImg } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PDFReader from 'react-pdf-reader';
+import { Document, Page } from 'react-pdf';
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './document.reducer';
 import { IDocument } from 'app/shared/model/document.model';
@@ -20,8 +20,22 @@ export class DocumentDetail extends React.Component<any, any> {
     this.props.getEntity(this.props.match.params.id);
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      numPages: null,
+      pageNumber: 1
+    };
+  }
+
+  onDocumentLoadSuccess = ({ numPages }) => {
+    this.setState({ numPages });
+  };
+
   render() {
     const { documentEntity } = this.props;
+    const { pageNumber, numPages } = this.state;
+    const { authenkey } = this.props;
     return (
       <Row className="justify-content-center">
         <Col md="6">
@@ -93,14 +107,18 @@ export class DocumentDetail extends React.Component<any, any> {
           </Button>
         </Col>
         <Col md="6">
-          {documentEntity.fileExtension === 'JPG' ? (
+          {documentEntity.fileExtension === 'JPG' || documentEntity.fileExtension === 'PNG' ? (
             <Card>
-              <CardImg width="100%" src={documentEntity.uRL} />
-              keydoc: {this.props.authenkey}
+              <CardImg width="100%" src={`api/opendocument/${authenkey}`} />
             </Card>
           ) : (
             <div>
-              <PDFReader file="http://www.africau.edu/images/default/sample.pdf" renderType="svgs" />
+              <Document file={`api/opendocument/${authenkey}`} onLoadSuccess={this.onDocumentLoadSuccess}>
+                <Page pageNumber={pageNumber} />
+              </Document>
+              <p>
+                Page {pageNumber} of {numPages}
+              </p>
             </div>
           )}
         </Col>
