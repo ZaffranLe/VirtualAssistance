@@ -93,7 +93,8 @@ export default (state: DocumentState = initialState, action): DocumentState => {
         // updating: true,
         entity: {
           ...state.entity,
-          uRL: action.uploadFile
+          uRL: action.uploadFile,
+          fileExtension: action.fileExtension
         }
       };
     case SUCCESS(ACTION_TYPES.DELETE_DOCUMENT):
@@ -134,11 +135,17 @@ export const getEntities: ICrudGetAllAction<IDocument> = (page, size, sort) => (
 
 // tslint:disable-next-line:ter-arrow-body-style
 export const getUploadFile = uploadFile => {
+  const ext = uploadFile
+    .split('.')
+    .pop()
+    .toUpperCase();
   return {
     type: ACTION_TYPES.UPLOAD,
     uploadFile,
+    ext,
     payload: {
-      uRL: uploadFile
+      uRL: uploadFile,
+      fileExtension: ext
     }
   };
 };

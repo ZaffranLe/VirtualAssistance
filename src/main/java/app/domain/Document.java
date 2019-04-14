@@ -1,9 +1,12 @@
 package app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 
 import java.io.Serializable;

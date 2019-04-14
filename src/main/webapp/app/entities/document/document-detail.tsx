@@ -34,6 +34,7 @@ export class DocumentDetail extends React.Component<any, any> {
   render() {
     const { documentEntity } = this.props;
     const { pageNumber, numPages } = this.state;
+    const { authenkey } = this.props;
     return (
       <Row className="justify-content-center">
         <Col md="6">
@@ -105,14 +106,13 @@ export class DocumentDetail extends React.Component<any, any> {
           </Button>
         </Col>
         <Col md="6">
-          {documentEntity.fileExtension === 'JPG' ? (
+          {documentEntity.fileExtension === 'JPG' || documentEntity.fileExtension === 'PNG' ? (
             <Card>
-              <CardImg width="100%" src={documentEntity.uRL} />
-              keydoc: {this.props.authenkey}
+              <CardImg width="100%" src={`api/opendocument/${authenkey}`} />
             </Card>
           ) : (
             <div>
-              <Document file={documentEntity.uRL} onLoadSuccess={this.onDocumentLoadSuccess}>
+              <Document file={`api/opendocument/${authenkey}`} onLoadSuccess={this.onDocumentLoadSuccess}>
                 <Page pageNumber={pageNumber} />
               </Document>
               <p>

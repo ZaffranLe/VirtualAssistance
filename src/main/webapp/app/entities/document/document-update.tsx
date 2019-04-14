@@ -95,7 +95,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
       const entity = {
         ...documentEntity,
         ...values,
-        uRL: Storage.session.get('url'),
+        // uRL: Storage.session.get('url'),
         documentTypes: mapIdList(values.documentTypes)
       };
       // console.log('entity ok: ' + JSON.stringify(this.props.uploadFile));
@@ -163,12 +163,12 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                   </Label>
                   <AvField id="document-description" type="text" name="description" />
                 </AvGroup>
-                <AvGroup>
+                {/* <AvGroup>
                   <Label id="fileExtensionLabel" for="fileExtension">
                     <Translate contentKey="virtualAssistantApp.document.fileExtension">File Extension</Translate>
                   </Label>
-                  <AvField id="document-fileExtension" type="text" name="fileExtension" />
-                </AvGroup>
+                  <AvField id="document-fileExtension" type="text" name="fileExtension" readOnly />
+                </AvGroup> */}
                 <AvGroup>
                   <Label id="uRLLabel" for="uRL">
                     <Translate contentKey="virtualAssistantApp.document.uRL">URL</Translate>
@@ -265,11 +265,6 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
                   <FontAwesomeIcon icon="save" />&nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
-                </Button>
-                &nbsp;
-                <Button color="primary" id="save-entity22" tag={Link} to={'../../../api/downloadFile/jhipster-jdl.png'}>
-                  <FontAwesomeIcon icon="save" />
-                  <Translate contentKey="entity.action.save">Link img</Translate>
                 </Button>
               </AvForm>
             )}

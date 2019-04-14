@@ -3,6 +3,7 @@ package app.web.rest;
 import app.domain.Document;
 import app.domain.TeacherDocument;
 import app.domain.User;
+import app.domain.enumeration.Extension;
 import app.domain.enumeration.Role;
 import app.repository.UserRepository;
 import app.web.rest.payload.*;
@@ -17,6 +18,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +74,7 @@ public class DocumentResource {
         if (document.getId() != null) {
             throw new BadRequestAlertException("A new document cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        document.setFileExtension(Extension.getByName( FilenameUtils.getExtension(document.getuRL())));
         Document result = documentService.save(document);
         return ResponseEntity.created(new URI("/api/documents/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
@@ -136,7 +139,9 @@ public class DocumentResource {
         .filter(t -> t.getRole() == Role.OWNER).findFirst().orElseThrow(()-> new InternalServerErrorException("Khong thay tac gia"));;
         User user =    userService.findOneByTeacher(teacherDocument.getTeacher().getId()).orElseThrow(()-> new InternalServerErrorException("Khong thay user tac gia"));
         Date validity = new Date(new Date().getTime() + 3600 * 500);
-
+        // doc.setFileExtension(fileExtension);
+        String ext = FilenameUtils.getExtension(doc.getuRL());
+        doc.setFileExtension(Extension.getByName(ext));
         String headerValue = Jwts.builder().setSubject(doc.getId().toString())
                 .claim(AUTHORITIES_KEY, userLogin)
                 .claim(USER_KEY, user.getLogin())
