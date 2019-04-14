@@ -3,27 +3,27 @@
     "virtualAssistantApp": {
         "notification" : {
             "home": {
-                "title": "Notifications",
-                "createLabel": "Create a new Notification",
-                "createOrEditLabel": "Create or edit a Notification"
+                "title": "Văn bản hành chính",
+                "createLabel": "Tạo văn bản mới",
+                "createOrEditLabel": "Tạo mới hoặc chỉnh sửa văn bản"
             },
-            "created": "A new Notification is created with identifier {{ param }}",
-            "updated": "A Notification is updated with identifier {{ param }}",
-            "deleted": "A Notification is deleted with identifier {{ param }}",
+            "created": "Một văn bản mới vừa được tạo với ID {{ param }}",
+            "updated": "Một văn bản vừa được chỉnh sửa với ID {{ param }}",
+            "deleted": "Một văn bản vừa bị xóa với ID {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Notification {{ id }}?"
+                "question": "Bạn có chắc chắn muốn xóa văn bản với ID {{ id }}?"
             },
             "detail": {
-                "title": "Notification"
+                "title": "Văn bản"
             },
-            "name": "Name",
-            "description": "Description",
-            "uRL": "U RL",
-            "status": "Status",
-            "tag": "Tag",
-            "fileExtension": "File Extension",
-            "headQuater": "Head Quater",
-            "documentType": "Document Type"
+            "name": "Tên",
+            "description": "Mô tả",
+            "uRL": "Đường dẫn",
+            "status": "Trạng thái",
+            "tag": "Thẻ tìm kiếm",
+            "fileExtension": "Định dạng văn bản",
+            "headQuater": "Cơ quan ban hành",
+            "documentType": "Thể loại văn bản"
         }
     }
 }

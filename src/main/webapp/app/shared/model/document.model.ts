@@ -28,6 +28,7 @@ export interface IDocument {
   status?: Status;
   isShared?: boolean;
   fileExtension?: Extension;
+  authenkey?: string;
   documents?: ITeacherDocument[];
   documentTypes?: IDocumentType[];
 }
