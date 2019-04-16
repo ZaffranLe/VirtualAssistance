@@ -138,7 +138,7 @@ public class DocumentResource {
         TeacherDocument teacherDocument = doc.getDocuments().stream()
         .filter(t -> t.getRole() == Role.OWNER).findFirst().orElseThrow(()-> new InternalServerErrorException("Khong thay tac gia"));;
         User user =    userService.findOneByTeacher(teacherDocument.getTeacher().getId()).orElseThrow(()-> new InternalServerErrorException("Khong thay user tac gia"));
-        Date validity = new Date(new Date().getTime() + 3600 * 500);
+        Date validity = new Date(new Date().getTime() + 3600 * 5000);
         // doc.setFileExtension(fileExtension);
         String ext = FilenameUtils.getExtension(doc.getuRL());
         doc.setFileExtension(Extension.getByName(ext));

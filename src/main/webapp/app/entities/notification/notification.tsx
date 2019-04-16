@@ -85,7 +85,7 @@ export class Notification extends React.Component<any, any> {
                   <Translate contentKey="virtualAssistantApp.notification.headQuater">Head Quater</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="virtualAssistantApp.notification.notificationType">Notification Type</Translate>
+                  <Translate contentKey="virtualAssistantApp.notification.documentType">Notification Type</Translate>
                 </th>
                 <th />
               </tr>

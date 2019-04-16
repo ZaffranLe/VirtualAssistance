@@ -138,34 +138,38 @@ export class Home extends React.Component<any, any> {
                 </Card>
               </Col>
             </Row>
-            <Row>
-              <Col lg="3">
-                <Card>
-                  <Media href="https://education.vnu.edu.vn/index.php/WebControl/listnews/15/0">
-                    <Media alt="Generic placeholder image" src="https://education.vnu.edu.vn/assets/Layout/img/banner/1.jpg" />
-                  </Media>
-                </Card>
-              </Col>
-              <Col lg="3">
-                <Card>
-                  <Media href="https://education.vnu.edu.vn/index.php/WebControl/listnews/16/0">
-                    <Media alt="Generic placeholder image" src="https://education.vnu.edu.vn/assets/Layout/img/banner/2.jpg" />
-                  </Media>
-                </Card>
-              </Col>
-              <Col lg="3">
-                <Card>
-                  <Media href="http://danhgiatamly.edu.vn/">
-                    <Media alt="Generic placeholder image" src="https://education.vnu.edu.vn/assets/Layout/img/banner/3.jpg" />
-                  </Media>
-                </Card>
-              </Col>
-              <Col lg="3">
-                <Card>
-                  <Media href="http://hes.vnu.edu.vn/">
-                    <Media alt="Generic placeholder image" src="https://education.vnu.edu.vn/assets/Layout/img/banner/4.jpg" />
-                  </Media>
-                </Card>
+            <Row className="justify-content-center">
+              <Col lg="8">
+                <Row>
+                  <Col lg="3">
+                    <Card>
+                      <Media href="https://education.vnu.edu.vn/index.php/WebControl/listnews/15/0">
+                        <Media alt="Generic placeholder image" src="https://education.vnu.edu.vn/assets/Layout/img/banner/1.jpg" />
+                      </Media>
+                    </Card>
+                  </Col>
+                  <Col lg="3">
+                    <Card>
+                      <Media href="https://education.vnu.edu.vn/index.php/WebControl/listnews/16/0">
+                        <Media alt="Generic placeholder image" src="https://education.vnu.edu.vn/assets/Layout/img/banner/2.jpg" />
+                      </Media>
+                    </Card>
+                  </Col>
+                  <Col lg="3">
+                    <Card>
+                      <Media href="http://danhgiatamly.edu.vn/">
+                        <Media alt="Generic placeholder image" src="https://education.vnu.edu.vn/assets/Layout/img/banner/3.jpg" />
+                      </Media>
+                    </Card>
+                  </Col>
+                  <Col lg="3">
+                    <Card>
+                      <Media href="http://hes.vnu.edu.vn/">
+                        <Media alt="Generic placeholder image" src="https://education.vnu.edu.vn/assets/Layout/img/banner/4.jpg" />
+                      </Media>
+                    </Card>
+                  </Col>
+                </Row>
               </Col>
             </Row>
             <Row className="justify-content-center">
