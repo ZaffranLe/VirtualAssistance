@@ -143,6 +143,52 @@ export class NotificationUpdate extends React.Component<any, any> {
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
+                  <Label id="tagLabel" for="tag">
+                    <Translate contentKey="virtualAssistantApp.notification.tag">Tag</Translate>
+                  </Label>
+                  <AvField id="notification-tag" type="text" name="tag" />
+                </AvGroup>
+                <AvGroup>
+                  <Label id="fileExtensionLabel">
+                    <Translate contentKey="virtualAssistantApp.notification.fileExtension">File Extension</Translate>
+                  </Label>
+                  <AvInput
+                    id="notification-fileExtension"
+                    type="select"
+                    className="form-control"
+                    name="fileExtension"
+                    value={(!isNew && notificationEntity.fileExtension) || 'DOCX'}
+                  >
+                    <option value="DOCX">
+                      <Translate contentKey="virtualAssistantApp.Extension.DOCX" />
+                    </option>
+                    <option value="PDF">
+                      <Translate contentKey="virtualAssistantApp.Extension.PDF" />
+                    </option>
+                    <option value="MP4">
+                      <Translate contentKey="virtualAssistantApp.Extension.MP4" />
+                    </option>
+                    <option value="PPTX">
+                      <Translate contentKey="virtualAssistantApp.Extension.PPTX" />
+                    </option>
+                    <option value="JPG">
+                      <Translate contentKey="virtualAssistantApp.Extension.JPG" />
+                    </option>
+                    <option value="PNG">
+                      <Translate contentKey="virtualAssistantApp.Extension.PNG" />
+                    </option>
+                    <option value="DOC">
+                      <Translate contentKey="virtualAssistantApp.Extension.DOC" />
+                    </option>
+                    <option value="PPT">
+                      <Translate contentKey="virtualAssistantApp.Extension.PPT" />
+                    </option>
+                    <option value="OTHER">
+                      <Translate contentKey="virtualAssistantApp.Extension.OTHER" />
+                    </option>
+                  </AvInput>
+                </AvGroup>
+                <AvGroup>
                   <Label for="headQuater.id">
                     <Translate contentKey="virtualAssistantApp.notification.headQuater">Head Quater</Translate>
                   </Label>
@@ -151,7 +197,7 @@ export class NotificationUpdate extends React.Component<any, any> {
                     {headQuaters
                       ? headQuaters.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.name}
+                            {otherEntity.id}
                           </option>
                         ))
                       : null}
@@ -159,15 +205,9 @@ export class NotificationUpdate extends React.Component<any, any> {
                 </AvGroup>
                 <AvGroup>
                   <Label for="documentTypes">
-                    <Translate contentKey="virtualAssistantApp.document.documentType">Document Type</Translate>
+                    <Translate contentKey="virtualAssistantApp.notification.documentType">Document Type</Translate>
                   </Label>
-                  <AvInput
-                    onChange={e => this.handleChooseType(e)}
-                    id="document-documentType"
-                    type="select"
-                    className="form-control"
-                    name="0"
-                  >
+                  <AvInput id="notification-documentType" type="select" className="form-control" name="0">
                     <option value="" key="0" />
                     {documentTypes
                       ? documentTypes.filter(otherEntity => otherEntity.level === 'LEVEL1').map(otherEntity => (
@@ -180,13 +220,7 @@ export class NotificationUpdate extends React.Component<any, any> {
                 </AvGroup>
                 <AvGroup>
                   <Label for="documentTypes">Môn học</Label>
-                  <AvInput
-                    onChange={e => this.handleChooseType(e)}
-                    id="document-documentType"
-                    type="select"
-                    className="form-control"
-                    name="1"
-                  >
+                  <AvInput id="notification-documentType" type="select" className="form-control" name="1">
                     <option value="" key="0" />
                     {documentTypes
                       ? documentTypes.filter(otherEntity => otherEntity.level === 'LEVEL2').map(otherEntity => (
@@ -199,13 +233,7 @@ export class NotificationUpdate extends React.Component<any, any> {
                 </AvGroup>
                 <AvGroup>
                   <Label for="documentTypes">Nội dung</Label>
-                  <AvInput
-                    onChange={e => this.handleChooseType(e)}
-                    id="document-documentType"
-                    type="select"
-                    className="form-control"
-                    name="2"
-                  >
+                  <AvInput id="notification-documentType" type="select" className="form-control" name="2">
                     <option value="" key="0" />
                     {documentTypes
                       ? documentTypes.filter(otherEntity => otherEntity.level === 'LEVEL3').map(otherEntity => (

@@ -38,6 +38,14 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="tag" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="file_extension" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="head_quater_id" type="bigint">
                 <constraints nullable="true" />
             </column>

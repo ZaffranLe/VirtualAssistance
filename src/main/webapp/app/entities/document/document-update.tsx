@@ -7,6 +7,7 @@ import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validatio
 import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, getBasePath, Storage } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
+
 import { IDocumentType } from 'app/shared/model/document-type.model';
 import { getEntities as getDocumentTypes } from 'app/entities/document-type/document-type.reducer';
 import { getEntity, updateEntity, createEntity, reset, getUploadFile } from './document.reducer';
@@ -29,9 +30,9 @@ import { SERVER_API_URL } from 'app/config/constants';
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 export interface IDocumentUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+
 export interface IDocumentUpdateState {
   isNew: boolean;
-  isShare: boolean;
   idsdocumentType: any[];
 }
 
@@ -40,16 +41,8 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
     super(props);
     this.state = {
       idsdocumentType: [],
-      isShare: false,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
-
-    // this.fileRef = React.createRef();
-    //  const token = 'Bearer ' + tokenLocal;
-
-    //  console.log('token: ' + token);
-
-    // this.setState({ token });
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -58,27 +51,13 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
     }
   }
 
-  handleShare = () => {
-    if (this.state.isShare) {
-      this.setState({ isShare: false });
-    } else {
-      this.setState({ isShare: true });
-    }
-  };
-
   componentDidMount() {
-    // if (this.state.isNew) {
-    //   this.props.reset();
-    // } else {
-    //   this.props.getEntity(this.props.match.params.id);
-    // }
     if (!this.state.isNew) {
       this.props.getEntity(this.props.match.params.id);
     }
 
     this.props.getDocumentTypes();
   }
-
   handleUploadFile = (error, file) => {
     if (error) {
       // console.log('Oh no');
@@ -87,9 +66,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
     //   console.log('File processed', file.serverId);
     this.props.getUploadFile(file.serverId);
   };
-
   saveEntity = (event, errors, values) => {
-    //  console.log(this.fileRef.serverId);
     if (errors.length === 0) {
       const { documentEntity } = this.props;
       const entity = {
@@ -98,7 +75,6 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
         // uRL: Storage.session.get('url'),
         documentTypes: mapIdList(values.documentTypes)
       };
-      // console.log('entity ok: ' + JSON.stringify(this.props.uploadFile));
 
       if (this.state.isNew) {
         this.props.createEntity(entity);
@@ -108,8 +84,6 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
       this.handleClose();
     }
   };
-
-  componentDidUpdate() {}
 
   handleClose = () => {
     this.props.history.push('/entity/document');
@@ -125,9 +99,6 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
     }
 
     const token = 'Bearer ' + tokenLocal;
-
-    // console.log('file: ' + uploadFile);
-    // token = `Bearer ${token}`;
     return (
       <div>
         <Row className="justify-content-center">
@@ -163,12 +134,6 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                   </Label>
                   <AvField id="document-description" type="text" name="description" />
                 </AvGroup>
-                {/* <AvGroup>
-                  <Label id="fileExtensionLabel" for="fileExtension">
-                    <Translate contentKey="virtualAssistantApp.document.fileExtension">File Extension</Translate>
-                  </Label>
-                  <AvField id="document-fileExtension" type="text" name="fileExtension" readOnly />
-                </AvGroup> */}
                 <AvGroup>
                   <Label id="uRLLabel" for="uRL">
                     <Translate contentKey="virtualAssistantApp.document.uRL">URL</Translate>
@@ -191,12 +156,6 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                     }}
                     onprocessfile={this.handleUploadFile}
                   />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="sizeLabel" for="size">
-                    <Translate contentKey="virtualAssistantApp.document.size">Size</Translate>
-                  </Label>
-                  <AvField id="document-size" type="string" className="form-control" name="size" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="tagLabel" for="tag">
@@ -225,13 +184,49 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                 </AvGroup>
                 <AvGroup>
                   <Label id="isSharedLabel" check>
-                    <AvInput id="document-isShared" type="checkbox" className="form-control" name="isShared" onChange={this.handleShare} />
+                    <AvInput id="document-isShared" type="checkbox" className="form-control" name="isShared" />
                     <Translate contentKey="virtualAssistantApp.document.isShared">Is Shared</Translate>
                   </Label>
                 </AvGroup>
                 <AvGroup>
-                  <Label id="shareMembersLabel">Thành viên chia sẻ</Label>
-                  <AvField id="shareMembers" name="shareMembers" disabled={this.state.isShare} placeholder="Thành viên chia sẻ..." />
+                  <Label id="fileExtensionLabel">
+                    <Translate contentKey="virtualAssistantApp.document.fileExtension">File Extension</Translate>
+                  </Label>
+                  <AvInput
+                    id="document-fileExtension"
+                    type="select"
+                    className="form-control"
+                    name="fileExtension"
+                    value={(!isNew && documentEntity.fileExtension) || 'DOCX'}
+                  >
+                    <option value="DOCX">
+                      <Translate contentKey="virtualAssistantApp.Extension.DOCX" />
+                    </option>
+                    <option value="PDF">
+                      <Translate contentKey="virtualAssistantApp.Extension.PDF" />
+                    </option>
+                    <option value="MP4">
+                      <Translate contentKey="virtualAssistantApp.Extension.MP4" />
+                    </option>
+                    <option value="PPTX">
+                      <Translate contentKey="virtualAssistantApp.Extension.PPTX" />
+                    </option>
+                    <option value="JPG">
+                      <Translate contentKey="virtualAssistantApp.Extension.JPG" />
+                    </option>
+                    <option value="PNG">
+                      <Translate contentKey="virtualAssistantApp.Extension.PNG" />
+                    </option>
+                    <option value="DOC">
+                      <Translate contentKey="virtualAssistantApp.Extension.DOC" />
+                    </option>
+                    <option value="PPT">
+                      <Translate contentKey="virtualAssistantApp.Extension.PPT" />
+                    </option>
+                    <option value="OTHER">
+                      <Translate contentKey="virtualAssistantApp.Extension.OTHER" />
+                    </option>
+                  </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label for="documentTypes">
@@ -240,14 +235,14 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                   <AvInput
                     id="document-documentType"
                     type="select"
+                    multiple
                     className="form-control"
                     name="documentTypes"
-                    multiple
-                    value={documentEntity.documentTypes}
+                    value={documentEntity.documentTypes && documentEntity.documentTypes.map(e => e.id)}
                   >
                     <option value="" key="0" />
                     {documentTypes
-                      ? documentTypes.filter(otherEntity => otherEntity.level === 'LEVEL3').map(otherEntity => (
+                      ? documentTypes.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
                             {otherEntity.content}
                           </option>
@@ -276,15 +271,14 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
 }
 
 const mapStateToProps = (storeState: IRootState) => {
-  // console.log('mapToProds: ' + storeState.document.uploadFile);
   Storage.session.set('url', storeState.document.uploadFile);
   return {
+    updateSuccess: storeState.document.updateSuccess,
+    uploadFile: storeState.document.uploadFile,
     documentTypes: storeState.documentType.entities,
     documentEntity: storeState.document.entity,
     loading: storeState.document.loading,
-    updating: storeState.document.updating,
-    updateSuccess: storeState.document.updateSuccess,
-    uploadFile: storeState.document.uploadFile
+    updating: storeState.document.updating
   };
 };
 

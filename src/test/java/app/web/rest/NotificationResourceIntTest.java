@@ -37,6 +37,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import app.domain.enumeration.Status;
+import app.domain.enumeration.Extension;
 /**
  * Test class for the NotificationResource REST controller.
  *
@@ -57,6 +58,12 @@ public class NotificationResourceIntTest {
 
     private static final Status DEFAULT_STATUS = Status.EXIST;
     private static final Status UPDATED_STATUS = Status.DELETED;
+
+    private static final String DEFAULT_TAG = "AAAAAAAAAA";
+    private static final String UPDATED_TAG = "BBBBBBBBBB";
+
+    private static final Extension DEFAULT_FILE_EXTENSION = Extension.DOCX;
+    private static final Extension UPDATED_FILE_EXTENSION = Extension.PDF;
 
     @Autowired
     private NotificationRepository notificationRepository;
@@ -107,7 +114,9 @@ public class NotificationResourceIntTest {
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION)
             .uRL(DEFAULT_U_RL)
-            .status(DEFAULT_STATUS);
+            .status(DEFAULT_STATUS)
+            .tag(DEFAULT_TAG)
+            .fileExtension(DEFAULT_FILE_EXTENSION);
         return notification;
     }
 
@@ -135,6 +144,8 @@ public class NotificationResourceIntTest {
         assertThat(testNotification.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testNotification.getuRL()).isEqualTo(DEFAULT_U_RL);
         assertThat(testNotification.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testNotification.getTag()).isEqualTo(DEFAULT_TAG);
+        assertThat(testNotification.getFileExtension()).isEqualTo(DEFAULT_FILE_EXTENSION);
     }
 
     @Test
@@ -170,7 +181,9 @@ public class NotificationResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].uRL").value(hasItem(DEFAULT_U_RL.toString())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].tag").value(hasItem(DEFAULT_TAG.toString())))
+            .andExpect(jsonPath("$.[*].fileExtension").value(hasItem(DEFAULT_FILE_EXTENSION.toString())));
     }
     
     public void getAllNotificationsWithEagerRelationshipsIsEnabled() throws Exception {
@@ -218,7 +231,9 @@ public class NotificationResourceIntTest {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.uRL").value(DEFAULT_U_RL.toString()))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.tag").value(DEFAULT_TAG.toString()))
+            .andExpect(jsonPath("$.fileExtension").value(DEFAULT_FILE_EXTENSION.toString()));
     }
     @Test
     @Transactional
@@ -244,7 +259,9 @@ public class NotificationResourceIntTest {
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
             .uRL(UPDATED_U_RL)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .tag(UPDATED_TAG)
+            .fileExtension(UPDATED_FILE_EXTENSION);
 
         restNotificationMockMvc.perform(put("/api/notifications")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -259,6 +276,8 @@ public class NotificationResourceIntTest {
         assertThat(testNotification.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testNotification.getuRL()).isEqualTo(UPDATED_U_RL);
         assertThat(testNotification.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testNotification.getTag()).isEqualTo(UPDATED_TAG);
+        assertThat(testNotification.getFileExtension()).isEqualTo(UPDATED_FILE_EXTENSION);
     }
 
     @Test

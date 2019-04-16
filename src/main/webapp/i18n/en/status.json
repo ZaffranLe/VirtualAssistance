@@ -3,7 +3,7 @@
         "Status" : {
             "null": "",
             "EXIST": "TỒN TẠI",
-            "DELETED": "ĐÃ XÓA"
+            "DELETED": "ĐÃ XOÁ"
         }
     }
 }

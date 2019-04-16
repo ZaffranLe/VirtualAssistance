@@ -9,19 +9,16 @@ import { Document, Page } from 'react-pdf';
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './document.reducer';
 import { IDocument } from 'app/shared/model/document.model';
+// tslint:disable-next-line:no-submodule-imports
+import 'react-pdf-reader/dist/TextLayerBuilder.css';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
-
 export interface IDocumentDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class DocumentDetail extends React.Component<any, any> {
   componentDidMount() {
     this.props.getEntity(this.props.match.params.id);
   }
-
-  onDocumentLoadSuccess = ({ numPages }) => {
-    this.setState({ numPages });
-  };
 
   constructor(props) {
     super(props);
@@ -30,6 +27,10 @@ export class DocumentDetail extends React.Component<any, any> {
       pageNumber: 1
     };
   }
+
+  onDocumentLoadSuccess = ({ numPages }) => {
+    this.setState({ numPages });
+  };
 
   render() {
     const { documentEntity } = this.props;

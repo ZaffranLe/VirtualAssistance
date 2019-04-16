@@ -1,33 +1,33 @@
 
 {
-  "virtualAssistantApp": {
-      "document" : {
-          "home": {
-              "title": "Kho tài liệu",
-              "titlePrivate": "Kho tài liệu riêng tư",
-              "titlePublic": "Kho tài liệu công khai",
-              "createLabel": "Tạo tài liệu mới",
-              "createOrEditLabel": "Tạo mới hoặc chỉnh sửa tài liệu"
-          },
-          "created": "Một tài liệu mới vừa được tạo với ID {{ param }}",
-          "updated": "Một tài liệu vừa được chỉnh sửa với ID {{ param }}",
-          "deleted": "Một tài liệu vừa bị xóa với ID {{ param }}",
-          "delete": {
-              "question": "Bạn có chắc chắn muốn xóa tài liệu với ID {{ id }}?"
-          },
-          "detail": {
-              "title": "Tài liệu"
-          },
-          "name": "Tên tài liệu",
-          "description": "Mô tả",
-          "uRL": "Đường dẫn",
-          "size": "Kích thước",
-          "tag": "Tag",
-          "status": "Trạng thái",
-          "document": "Tài liệu",
-          "isShared": "Trạng thái chia sẻ",
-          "documentType": "Thể loại tài liệu",
-          "fileExtension": "Định dạng tài liệu"
-      }
-  }
+    "virtualAssistantApp": {
+        "document" : {
+            "home": {
+                "title": "Kho tài liệu",
+                "titlePrivate": "Kho tài liệu riêng tư",
+                "titlePublic": "Kho tài liệu công khai",
+                "createLabel": "Tạo tài liệu mới",
+                "createOrEditLabel": "Tạo mới hoặc chỉnh sửa tài liệu"
+            },
+            "created": "Một tài liệu mới vừa được tạo với ID {{ param }}",
+            "updated": "Một tài liệu vừa được chỉnh sửa với ID {{ param }}",
+            "deleted": "Một tài liệu vừa bị xóa với ID {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc chắn muốn xóa tài liệu với ID {{ id }}?"
+            },
+            "detail": {
+                "title": "Tài liệu"
+            },
+            "name": "Tên tài liệu",
+            "description": "Mô tả",
+            "uRL": "Đường dẫn",
+            "size": "Kích thước",
+            "tag": "Thẻ tìm kiếm",
+            "status": "Trạng thái",
+            "isShared": "Trạng thái chia sẻ",
+            "fileExtension": "Định dạng tài liệu",
+            "document": "Tài liệu",
+            "documentType": "Thể loại tài liệu"
+        }
+    }
 }

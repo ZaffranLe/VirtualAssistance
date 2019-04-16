@@ -17,6 +17,15 @@
             "fieldName": "status",
             "fieldType": "Status",
             "fieldValues": "EXIST,DELETED"
+        },
+        {
+            "fieldName": "tag",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fileExtension",
+            "fieldType": "Extension",
+            "fieldValues": "DOCX,PDF,MP4,PPTX,JPG,PNG,DOC,PPT,OTHER"
         }
     ],
     "relationships": [

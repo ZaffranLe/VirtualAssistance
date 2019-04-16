@@ -20,8 +20,10 @@
             "description": "Mô tả",
             "uRL": "Đường dẫn",
             "status": "Trạng thái",
+            "tag": "Thẻ tìm kiếm",
+            "fileExtension": "Định dạng văn bản",
             "headQuater": "Cơ quan ban hành",
-            "notificationType": "Thể loại văn bản"
+            "documentType": "Thể loại văn bản"
         }
     }
 }

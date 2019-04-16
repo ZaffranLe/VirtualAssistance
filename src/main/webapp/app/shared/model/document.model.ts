@@ -11,7 +11,11 @@ export const enum Extension {
   PDF = 'PDF',
   MP4 = 'MP4',
   PPTX = 'PPTX',
-  JPG = 'JPG'
+  JPG = 'JPG',
+  PNG = 'PNG',
+  DOC = 'DOC',
+  PPT = 'PPT',
+  OTHER = 'OTHER'
 }
 
 export interface IDocument {
