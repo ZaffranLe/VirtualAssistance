@@ -33,7 +33,7 @@ export class NotificationUpdate extends React.Component<any, any> {
       idsdocumentType: [],
       headQuaterId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id,
-      documentTypes: Array(3).fill(0)
+      documentTypes: Array(3).fill(1)
     };
   }
 
@@ -62,7 +62,7 @@ export class NotificationUpdate extends React.Component<any, any> {
       const entity = {
         ...notificationEntity,
         ...values,
-        documentTypes: mapIdList(values.documentTypes)
+        documentTypes: this.state.documentTypes
       };
 
       if (this.state.isNew) {
@@ -207,7 +207,13 @@ export class NotificationUpdate extends React.Component<any, any> {
                   <Label for="documentTypes">
                     <Translate contentKey="virtualAssistantApp.notification.documentType">Document Type</Translate>
                   </Label>
-                  <AvInput id="notification-documentType" type="select" className="form-control" name="0">
+                  <AvInput
+                    id="notification-documentType"
+                    onChange={e => this.handleChooseType(e)}
+                    type="select"
+                    className="form-control"
+                    name="0"
+                  >
                     <option value="" key="0" />
                     {documentTypes
                       ? documentTypes.filter(otherEntity => otherEntity.level === 'LEVEL1').map(otherEntity => (
@@ -220,7 +226,13 @@ export class NotificationUpdate extends React.Component<any, any> {
                 </AvGroup>
                 <AvGroup>
                   <Label for="documentTypes">Môn học</Label>
-                  <AvInput id="notification-documentType" type="select" className="form-control" name="1">
+                  <AvInput
+                    id="notification-documentType"
+                    onChange={e => this.handleChooseType(e)}
+                    type="select"
+                    className="form-control"
+                    name="1"
+                  >
                     <option value="" key="0" />
                     {documentTypes
                       ? documentTypes.filter(otherEntity => otherEntity.level === 'LEVEL2').map(otherEntity => (
@@ -233,7 +245,13 @@ export class NotificationUpdate extends React.Component<any, any> {
                 </AvGroup>
                 <AvGroup>
                   <Label for="documentTypes">Nội dung</Label>
-                  <AvInput id="notification-documentType" type="select" className="form-control" name="2">
+                  <AvInput
+                    id="notification-documentType"
+                    onChange={e => this.handleChooseType(e)}
+                    type="select"
+                    className="form-control"
+                    name="2"
+                  >
                     <option value="" key="0" />
                     {documentTypes
                       ? documentTypes.filter(otherEntity => otherEntity.level === 'LEVEL3').map(otherEntity => (

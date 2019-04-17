@@ -106,7 +106,7 @@ export class Documents extends React.Component<any, any> {
               <Row>
                 <Col lg={2}>
                   <h4>
-                    <i className="cui-share" /> Hồ sơ dạy học
+                    <i className="cui-share" /> Tài liệu dạy học
                   </h4>
                 </Col>
                 <Col lg={8}>
