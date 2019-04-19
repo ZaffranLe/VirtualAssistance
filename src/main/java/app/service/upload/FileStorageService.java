@@ -205,7 +205,6 @@ public class FileStorageService {
             Claims claims = Jwts.parser().setSigningKey(DocumentResource.secretKey).parseClaimsJws(key).getBody();
             String url = claims.get(DocumentResource.FILE_KEY).toString();
 
-            // this.setFolderUpload("");
             Path filePath = this.fileStorageLocation.resolve(url).normalize();
             Resource resource = new UrlResource(filePath.toUri());
             if (resource.exists()) {
