@@ -12,6 +12,7 @@ import { IDocument } from 'app/shared/model/document.model';
 // tslint:disable-next-line:no-submodule-imports
 import 'react-pdf-reader/dist/TextLayerBuilder.css';
 import FileViewer from 'react-file-viewer';
+import GoogleDocsViewer from 'react-google-docs-viewer';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 export interface IDocumentDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
@@ -115,11 +116,16 @@ export class DocumentDetail extends React.Component<any, any> {
             </Card>
           ) : documentEntity.fileExtension === 'pdf' || documentEntity.fileExtension === 'PDF' ? (
             <Card>
-              <Document file={`api/downloadFile/${documentEntity.uRL}`} onLoadSuccess={this.onDocumentLoadSuccess} />
+              <Document file={`api/downloadFile/${documentEntity.uRL}`} onLoadSuccess={this.onDocumentLoadSuccess}>
+                <Page pageNumber={pageNumber} />
+              </Document>
+              <p>
+                Page {pageNumber} of {numPages}
+              </p>
             </Card>
           ) : (
             <Card>
-              <FileViewer fileType={documentEntity.fileExtension} filePath={`api/downloadFile/${documentEntity.uRL}`} />
+              <FileViewer filePath={`api/downloadFile/${documentEntity.uRL}`} />
             </Card>
           )}
         </Col>
