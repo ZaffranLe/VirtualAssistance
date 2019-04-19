@@ -11,6 +11,7 @@ import { getEntity } from './document.reducer';
 import { IDocument } from 'app/shared/model/document.model';
 // tslint:disable-next-line:no-submodule-imports
 import 'react-pdf-reader/dist/TextLayerBuilder.css';
+import FileViewer from 'react-file-viewer';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 export interface IDocumentDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
@@ -109,17 +110,17 @@ export class DocumentDetail extends React.Component<any, any> {
         <Col md="6">
           {documentEntity.fileExtension === 'JPG' || documentEntity.fileExtension === 'PNG' ? (
             <Card>
-              <CardImg width="100%" src={`api/opendocument/${authenkey}`} />
+              {/* <CardImg width="100%" src={`api/opendocument/${authenkey}`} /> */}
+              <CardImg width="100%" src={`api/downloadFile/${documentEntity.uRL}`} />
+            </Card>
+          ) : documentEntity.fileExtension === 'pdf' || documentEntity.fileExtension === 'PDF' ? (
+            <Card>
+              <Document file={`api/downloadFile/${documentEntity.uRL}`} onLoadSuccess={this.onDocumentLoadSuccess} />
             </Card>
           ) : (
-            <div>
-              <Document file={`api/opendocument/${authenkey}`} onLoadSuccess={this.onDocumentLoadSuccess}>
-                <Page pageNumber={pageNumber} />
-              </Document>
-              <p>
-                Page {pageNumber} of {numPages}
-              </p>
-            </div>
+            <Card>
+              <FileViewer fileType={documentEntity.fileExtension} filePath={`api/downloadFile/${documentEntity.uRL}`} />
+            </Card>
           )}
         </Col>
       </Row>

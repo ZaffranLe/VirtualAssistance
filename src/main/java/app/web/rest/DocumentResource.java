@@ -74,7 +74,7 @@ public class DocumentResource {
         if (document.getId() != null) {
             throw new BadRequestAlertException("A new document cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        document.setFileExtension(Extension.getByName( FilenameUtils.getExtension(document.getuRL())));
+        document.setFileExtension(Extension.getByName(FilenameUtils.getExtension(document.getuRL())));
         Document result = documentService.save(document);
         return ResponseEntity.created(new URI("/api/documents/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);

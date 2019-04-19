@@ -67,9 +67,29 @@ public class UploadStoreDocuments {
     @GetMapping("/downloadFile/{user:.+}/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String user,@PathVariable String fileName, HttpServletRequest request) {
         // Load file as Resource
-        Resource resource = fileStorageService.loadFileAsResourceByUser(user,fileName);
-        
+        Resource resource = fileStorageService.loadFileAsResourceByUser(user,fileName);     
+        // Try to determine file's content type
+        String contentType = null;
+        try {
+            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException ex) {
+            throw new BadRequestAlertException("File not found!!!", "contentType", "contentType");
+        }
 
+        // Fallback to the default content type if type could not be determined
+        if(contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
+    }
+    @GetMapping("/downloadFile/{url}")
+    public ResponseEntity<Resource> downloadFileByUrl(@PathVariable String url, HttpServletRequest request) {
+        // Load file as Resource
+        Resource resource = fileStorageService.loadFileAsResource(url);     
         // Try to determine file's content type
         String contentType = null;
         try {
