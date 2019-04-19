@@ -46,9 +46,10 @@ public class UploadStoreDocuments {
     private FileStorageService fileStorageService;
     @PostMapping("/uploadStoreDocuments")
     public ResponseEntity<String> uploadFile(@RequestParam("filepond") MultipartFile file) {
-
         // getUser
+   
         String fileName = fileStorageService.storeDocumentUploadByUser(file);
+        System.out.println("filename sau upload: "+fileName);
         String ext = FilenameUtils.getExtension(fileName);
         String user = SecurityUtils.getCurrentUserLogin()
                 .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));

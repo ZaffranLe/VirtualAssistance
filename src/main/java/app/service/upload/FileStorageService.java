@@ -21,6 +21,7 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -69,58 +70,70 @@ public class FileStorageService {
         setFolderUpload(user);
         return storeFile(file);
     }
-    /**
-    boolean shouldShowMessages = true;
-            FileInputStream inStream = new FileInputStream(targetLocation.toFile());
-            String filePDF = fileName;
 
-            try {
-                if (fileName.endsWith("doc")) {
-                    filePDF = fileName.replace(".", "_") + ".pdf";
-                    Path targetPDF = this.fileStorageLocation.resolve(filePDF);
-                    FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
-                    converter = new DocToPDFConverter(inStream, outStream, shouldShowMessages, true);
-                    converter.convert();
-                    return filePDF;
-                } else if (fileName.endsWith("docx")) {
-                    filePDF = fileName.replace(".", "_") + ".pdf";
-                    Path targetPDF = this.fileStorageLocation.resolve(filePDF);
-                    FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
-                    converter = new DocxToPDFConverter(inStream, outStream, shouldShowMessages, true);
-                    converter.convert();
-                    return filePDF;
-                } else if (fileName.endsWith("ppt")) {
-                    filePDF = fileName.replace(".", "_") + ".pdf";
-                    Path targetPDF = this.fileStorageLocation.resolve(filePDF);
-                    FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
-                    converter = new PptToPDFConverter(inStream, outStream, shouldShowMessages, true);
-                    converter.convert();
-                    return filePDF;
-                } else if (fileName.endsWith("pptx")) {
-                    filePDF = fileName.replace(".", "_") + ".pdf";
-                    Path targetPDF = this.fileStorageLocation.resolve(filePDF);
-                    FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
-                    converter = new PptxToPDFConverter(inStream, outStream, shouldShowMessages, true);
-                    converter.convert();
-                    return filePDF;
-                } else if (fileName.endsWith("odt")) {
-                    filePDF = fileName.replace(".", "_") + ".pdf";
-                    Path targetPDF = this.fileStorageLocation.resolve(filePDF);
-                    FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
-                    converter = new OdtToPDF(inStream, outStream, shouldShowMessages, true);
-                    converter.convert();
-                    return filePDF;
-                }
-            } catch (Exception e) {
-                // TODO: handle exception
-                throw new FileStorageException("Could not convert file " + filePDF + ". Please try again!", e);
+    private String convertToPDF(Path targetLocation, String fileName) {
+        Converter converter = null;
+        boolean shouldShowMessages = true;
+        FileInputStream inStream= null;
+        try {
+            inStream = new FileInputStream(targetLocation.toFile());
+        } catch (FileNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        String filePDF = fileName;
+
+        try {
+            if (fileName.endsWith("doc")) {
+                filePDF = fileName.replace(".", "_") + ".pdf";
+                Path targetPDF = this.fileStorageLocation.resolve(filePDF);
+                FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
+                converter = new DocToPDFConverter(inStream, outStream, shouldShowMessages, true);
+                converter.convert();
+                return filePDF;
+            } else if (fileName.endsWith("docx")) {
+                filePDF = fileName.replace(".", "_") + ".pdf";
+                Path targetPDF = this.fileStorageLocation.resolve(filePDF);
+                FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
+                converter = new DocxToPDFConverter(inStream, outStream, shouldShowMessages, true);
+                converter.convert();
+                return filePDF;
+            } else if (fileName.endsWith("ppt")) {
+                filePDF = fileName.replace(".", "_") + ".pdf";
+                Path targetPDF = this.fileStorageLocation.resolve(filePDF);
+                FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
+                converter = new PptToPDFConverter(inStream, outStream, shouldShowMessages, true);
+                converter.convert();
+                return filePDF;
+            } else if (fileName.endsWith("pptx")) {
+                filePDF = fileName.replace(".", "_") + ".pdf";
+                Path targetPDF = this.fileStorageLocation.resolve(filePDF);
+                FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
+                converter = new PptxToPDFConverter(inStream, outStream, shouldShowMessages, true);
+                converter.convert();
+                return filePDF;
+            } else if (fileName.endsWith("odt")) {
+                filePDF = fileName.replace(".", "_") + ".pdf";
+                Path targetPDF = this.fileStorageLocation.resolve(filePDF);
+                FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
+                converter = new OdtToPDF(inStream, outStream, shouldShowMessages, true);
+                converter.convert();
+                return filePDF;
             }
-    
-    
-    */
+        } catch (Exception e) {
+            // TODO: handle exception
+          System.out.println("Could not convert file " + filePDF + ". Please try again!!!!");
+          e.printStackTrace();
+          
+
+        }
+
+        return fileName;
+
+    }
 
     public String storeFile(MultipartFile file) {
-        Converter converter = null;
+
         // Normalize file name
         String fileName = FileNameNormal.normal(file.getOriginalFilename());
         System.out.println("ten file: " + fileName);
@@ -137,9 +150,7 @@ public class FileStorageService {
             fileName = new Date().getTime() + "_" + fileName;
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-
-            
-
+            fileName = convertToPDF(targetLocation,fileName);
             return fileName;
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
@@ -149,7 +160,7 @@ public class FileStorageService {
     private boolean checkFileExt(String fileName) {
 
         String fileExt = FilenameUtils.getExtension(fileName);
-        System.out.print("-------------------------------------------------------" + fileExt);
+        System.out.println("-------------------------------------------------------" + fileExt);
         if (fileExt.compareToIgnoreCase("doc") == 0 || fileExt.compareToIgnoreCase("docx") == 0
                 || fileExt.compareToIgnoreCase("ppt") == 0 || fileExt.compareToIgnoreCase("pptx") == 0
                 || fileExt.compareToIgnoreCase("png") == 0 || fileExt.compareToIgnoreCase("jpeg") == 0
