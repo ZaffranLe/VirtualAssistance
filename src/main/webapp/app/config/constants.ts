@@ -5,7 +5,7 @@ const config = {
 export default config;
 
 export const SERVER_API_URL = process.env.SERVER_API_URL;
-
+// export const SERVER_API_URL = 'http://gva.iotpccc.com:8080';
 export const AUTHORITIES = {
   ADMIN: 'ROLE_ADMIN',
   USER: 'ROLE_USER'

@@ -17,6 +17,8 @@ export interface IDocumentProps extends StateProps, DispatchProps, RouteComponen
 export class Document extends React.Component<any, any> {
   pagesCount: number;
   pageSize: number;
+  pagesPriCount: number;
+  pagesPubCount: number;
   componentDidMount() {
     this.props.getEntities();
   }
@@ -67,6 +69,9 @@ export class Document extends React.Component<any, any> {
   render() {
     const { documentList, match } = this.props;
     this.pagesCount = Math.ceil(documentList.length / this.pageSize);
+    const lenghpub = documentList.filter(document => !document.isShared).length;
+    this.pagesPriCount = Math.ceil(lenghpub / this.pageSize);
+    this.pagesPubCount = Math.ceil((documentList.length - lenghpub) / this.pageSize);
     const { currentPrivatePage, currentPublicPage } = this.state;
     return (
       <div>
@@ -117,11 +122,7 @@ export class Document extends React.Component<any, any> {
                 <tbody>
                   {documentList
                     .filter(document => {
-                      if (
-                        document.isShared === false &&
-                        document.name.toLowerCase().includes(this.state.nameSearch) &&
-                        document.tag.toLowerCase().includes(this.state.tagSearch)
-                      ) {
+                      if (document.isShared === false) {
                         return true;
                       }
                       return false;
@@ -178,12 +179,12 @@ export class Document extends React.Component<any, any> {
                 <PaginationItem disabled={currentPrivatePage <= 0}>
                   <PaginationLink previous tag="button" onClick={e => this.handleChangePrivatePage(e, currentPrivatePage - 1)} />
                 </PaginationItem>
-                {[...Array(this.pagesCount)].map((page, i) => (
+                {[...Array(this.pagesPriCount)].map((page, i) => (
                   <PaginationItem active={i === currentPrivatePage} key={i}>
                     <PaginationLink onClick={e => this.handleChangePrivatePage(e, i)}>{i + 1}</PaginationLink>
                   </PaginationItem>
                 ))}
-                <PaginationItem disabled={currentPrivatePage >= this.pagesCount - 1}>
+                <PaginationItem disabled={currentPrivatePage >= this.pagesPriCount - 1}>
                   <PaginationLink next tag="button" onClick={e => this.handleChangePrivatePage(e, currentPrivatePage + 1)} />
                 </PaginationItem>
               </Pagination>
@@ -195,6 +196,7 @@ export class Document extends React.Component<any, any> {
             <h2 id="document-heading">Tài liệu dạy học công khai</h2>
           </Col>
         </Row>
+
         <Row>
           <Col md="12">
             <div className="table-responsive">
@@ -274,12 +276,12 @@ export class Document extends React.Component<any, any> {
                 <PaginationItem disabled={currentPublicPage <= 0}>
                   <PaginationLink previous tag="button" onClick={e => this.handleChangePublicPage(e, currentPublicPage - 1)} />
                 </PaginationItem>
-                {[...Array(this.pagesCount)].map((page, i) => (
+                {[...Array(this.pagesPubCount)].map((page, i) => (
                   <PaginationItem active={i === currentPublicPage} key={i}>
                     <PaginationLink onClick={e => this.handleChangePublicPage(e, i)}>{i + 1}</PaginationLink>
                   </PaginationItem>
                 ))}
-                <PaginationItem disabled={currentPublicPage >= this.pagesCount - 1}>
+                <PaginationItem disabled={currentPublicPage >= this.pagesPubCount - 1}>
                   <PaginationLink next tag="button" onClick={e => this.handleChangePublicPage(e, currentPublicPage + 1)} />
                 </PaginationItem>
               </Pagination>
