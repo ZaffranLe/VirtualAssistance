@@ -59,7 +59,8 @@ export class Documents extends React.Component<any, any> {
     this.state = {
       currentFilePage: 0,
       txtSearchFile: '',
-      documentList: props.documentList
+      documentList: props.documentList,
+      documentTypeList: props.documentTypeList
     };
   }
 
@@ -68,22 +69,6 @@ export class Documents extends React.Component<any, any> {
 
     this.setState({
       currentFilePage: index
-    });
-  }
-
-  handleChangeSurveyPage(e, index) {
-    e.preventDefault();
-
-    this.setState({
-      currentSurveyPage: index
-    });
-  }
-
-  handleSearchSurveyChange(e) {
-    e.preventDefault();
-
-    this.setState({
-      txtSearchSurvey: e.target.value.toLowerCase()
     });
   }
 
@@ -104,18 +89,48 @@ export class Documents extends React.Component<any, any> {
           <Card>
             <CardHeader>
               <Row>
-                <Col lg={2}>
+                <Col lg={3}>
                   <h4>
-                    <i className="cui-share" /> Hồ sơ dạy học
+                    <i className="cui-share" /> Tài liệu dạy học
                   </h4>
                 </Col>
-                <Col lg={8}>
+                <Col lg={3}>
                   <Input
                     type="text"
                     name="txtSearchFile"
                     onChange={e => this.handleSearchFileChange(e)}
                     placeholder="Nhập tên tài liệu cần tìm"
                   />
+                </Col>
+                <Col lg={2}>
+                  <Input type="select" className="form-control">
+                    <option value="" key="0" />
+                    {this.state.documentTypeList.filter(otherEntity => otherEntity.level === 'LEVEL1').map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.content}
+                      </option>
+                    ))}
+                  </Input>
+                </Col>
+                <Col lg={2}>
+                  <Input type="select" className="form-control">
+                    <option value="" key="0" />
+                    {this.state.documentTypeList.filter(otherEntity => otherEntity.level === 'LEVEL2').map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.content}
+                      </option>
+                    ))}
+                  </Input>
+                </Col>
+                <Col lg={2}>
+                  <Input type="select" className="form-control">
+                    <option value="" key="0" />
+                    {this.state.documentTypeList.filter(otherEntity => otherEntity.level === 'LEVEL3').map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.content}
+                      </option>
+                    ))}
+                  </Input>
                 </Col>
               </Row>
             </CardHeader>

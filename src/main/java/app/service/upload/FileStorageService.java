@@ -216,13 +216,12 @@ public class FileStorageService {
             Claims claims = Jwts.parser().setSigningKey(DocumentResource.secretKey).parseClaimsJws(key).getBody();
             String url = claims.get(DocumentResource.FILE_KEY).toString();
 
-            // this.setFolderUpload("");
             Path filePath = this.fileStorageLocation.resolve(url).normalize();
             Resource resource = new UrlResource(filePath.toUri());
             if (resource.exists()) {
                 return resource;
             } else {
-                throw new MyFileNotFoundException("File not found " + url);
+                throw new MyFileNotFoundException("File not found " + filePath.toAbsolutePath());
             }
         } catch (Exception ex) {
             ex.printStackTrace();
