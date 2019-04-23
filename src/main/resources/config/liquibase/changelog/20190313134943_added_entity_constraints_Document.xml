@@ -12,11 +12,13 @@
                                  baseTableName="document_document_type"
                                  constraintName="fk_document_document_type_documents_id"
                                  referencedColumnNames="id"
+                                 onDelete="CASCADE"
                                  referencedTableName="document"/>
         <addForeignKeyConstraint baseColumnNames="document_types_id"
                                  baseTableName="document_document_type"
                                  constraintName="fk_document_document_type_document_types_id"
                                  referencedColumnNames="id"
+                                 onDelete="CASCADE"
                                  referencedTableName="document_type"/>
         
     </changeSet>

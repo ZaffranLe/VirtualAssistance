@@ -17,7 +17,8 @@ export class DocumentDeleteDialog extends React.Component<IDocumentDeleteDialogP
   }
 
   confirmDelete = event => {
-    this.props.deleteEntity(this.props.documentEntity.id);
+    // this.props.deleteEntity(this.props.documentEntity.id);
+    this.props.deleteEntity(this.props.match.params.id);
     this.handleClose(event);
   };
 

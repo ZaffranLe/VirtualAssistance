@@ -24,7 +24,7 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
     @Query(value = "select distinct document from Document document left join fetch document.documentTypes")
     List<Document> findAllWithEagerRelationships();
 
-    @Query("select document from Document document left join fetch document.documentTypes where document.id =:id")
+    @Query("select document from Document document left join document.documentTypes where document.id =:id")
     Optional<Document> findOneWithEagerRelationships(@Param("id") Long id);
 
     @Query(value = "select d from Document d inner join d.documents td where d.isShared = 1 or (d.id = td.document.id and td.teacher.id =:id) ")

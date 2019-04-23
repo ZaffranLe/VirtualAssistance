@@ -12,12 +12,14 @@
                                  baseTableName="teacher_document"
                                  constraintName="fk_teacher_document_teacher_id"
                                  referencedColumnNames="id"
+                                 onDelete="CASCADE"
                                  referencedTableName="teacher"/>
 
         <addForeignKeyConstraint baseColumnNames="document_id"
                                  baseTableName="teacher_document"
                                  constraintName="fk_teacher_document_document_id"
                                  referencedColumnNames="id"
+                                 onDelete="CASCADE"
                                  referencedTableName="document"/>
 
     </changeSet>
