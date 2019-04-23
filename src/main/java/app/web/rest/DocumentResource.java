@@ -75,6 +75,7 @@ public class DocumentResource {
             throw new BadRequestAlertException("A new document cannot already have an ID", ENTITY_NAME, "idexists");
         }
         document.setFileExtension(Extension.getByName(FilenameUtils.getExtension(document.getuRL())));
+
         Document result = documentService.save(document);
         return ResponseEntity.created(new URI("/api/documents/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
@@ -171,6 +172,12 @@ public class DocumentResource {
     }
 
     @GetMapping("/documents-private")
+    public List<Document> getAllDocumentsPrivateOfCurrentAccount(
+            @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+        log.debug("REST request to get all Documents");
+        return documentService.findByPrivateCurrentAccount();
+    }
+    @GetMapping("/documents-byLogin")
     public List<Document> getAllDocumentsOfCurrentAccount(
             @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Documents");

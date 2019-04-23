@@ -34,7 +34,7 @@ public interface DocumentService {
      * @return the list of entities
      */
     Page<Document> findAllWithEagerRelationships(Pageable pageable);
-    
+
     /**
      * Get the "id" document.
      *
@@ -49,14 +49,20 @@ public interface DocumentService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
     /**
      * Find all document of current account
-     * @return 
+     * 
+     * @return
      */
     List<Document> findByCurrentAccount();
+
     /**
      * find all documents that have pubic state
-     * @return 
+     * 
+     * @return
      */
     List<Document> finAllPublic();
+
+    List<Document> findByPrivateCurrentAccount();
 }

@@ -8,6 +8,8 @@ import app.domain.enumeration.Role;
 import app.repository.DocumentRepository;
 import app.repository.TeacherDocumentRepository;
 import app.repository.TeacherRepository;
+import app.security.AuthoritiesConstants;
+import app.security.SecurityUtils;
 import app.service.TeacherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +39,8 @@ public class DocumentServiceImpl implements DocumentService {
 
     private final TeacherRepository teacherRepository;
 
-    public DocumentServiceImpl(DocumentRepository documentRepository, TeacherService teacherService, TeacherDocumentRepository teacherDocumentRepository, TeacherRepository teacherRepository) {
+    public DocumentServiceImpl(DocumentRepository documentRepository, TeacherService teacherService,
+            TeacherDocumentRepository teacherDocumentRepository, TeacherRepository teacherRepository) {
         this.documentRepository = documentRepository;
         this.teacherService = teacherService;
         this.teacherDocumentRepository = teacherDocumentRepository;
@@ -53,7 +56,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public Document save(Document document) {
         log.debug("Request to save Document : {}", document);
-        //get teacher by account 
+        // get teacher by account
         Teacher teacher = teacherService.findByUserLogin();
 
         // create teacher document
@@ -62,10 +65,10 @@ public class DocumentServiceImpl implements DocumentService {
         teacherDocument.setTeacher(teacher);
         teacherDocument.setRole(Role.OWNER);
         teacherDocumentRepository.save(teacherDocument);
-        //add document to teacher
+        // add document to teacher
         teacher.addTeacher(teacherDocument);
         teacherRepository.save(teacher);
-        //add teacher to document
+        // add teacher to document
         document.addDocument(teacherDocument);
         return documentRepository.save(document);
     }
@@ -116,12 +119,30 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<Document> findByCurrentAccount() {
+    public List<Document> findByPrivateCurrentAccount() {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            return documentRepository.findAll();
+        }
         Teacher teacher = teacherService.findByUserLogin();
+        if (teacher != null) {
+            return documentRepository.findPrivateByRole(teacher.getId());
+        }
+        return null;
+    }
+
+    @Override
+    public List<Document> findByCurrentAccount() {
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            return documentRepository.findAll();
+        }
+        Teacher teacher = teacherService.findByUserLogin();
+
         if (teacher != null) {
             return documentRepository.findByRole(teacher.getId());
         }
-        return documentRepository.findAll();
+
+        return null;
+
     }
 
     @Override

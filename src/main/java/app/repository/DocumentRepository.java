@@ -27,7 +27,10 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
     @Query("select document from Document document left join fetch document.documentTypes where document.id =:id")
     Optional<Document> findOneWithEagerRelationships(@Param("id") Long id);
 
-    @Query(value = "select d from Document d inner join TeacherDocument td  where d.isShared =1 or (d.id = td.document.id and td.teacher.id =:id) ")
+    @Query(value = "select d from Document d inner join d.documents td where d.isShared = 1 or (d.id = td.document.id and td.teacher.id =:id) ")
+    List<Document> findPrivateByRole(@Param("id") Long id);
+
+    @Query(value = "select d from Document d inner join d.documents td where  td.teacher.id =:id and td.role='OWNER' ")
     List<Document> findByRole(@Param("id") Long id);
 
     @Query(value = "select d from Document d where d.isShared =1")

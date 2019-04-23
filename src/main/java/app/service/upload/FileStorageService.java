@@ -86,18 +86,20 @@ public class FileStorageService {
         try {
             if (fileName.endsWith("doc")) {
                 filePDF = fileName.replace(".", "_") + ".pdf";
-                Path targetPDF = this.fileStorageLocation.resolve(filePDF);
-                FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
-                converter = new DocToPDFConverter(inStream, outStream, shouldShowMessages, true);
-                converter.convert();
-                return filePDF;
+                // Path targetPDF = this.fileStorageLocation.resolve(filePDF);
+                // FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
+                // converter = new DocToPDFConverter(inStream, outStream, shouldShowMessages, true);
+                // converter.convert();
+                // return filePDF;
+                return fileName;
             } else if (fileName.endsWith("docx")) {
-                filePDF = fileName.replace(".", "_") + ".pdf";
-                Path targetPDF = this.fileStorageLocation.resolve(filePDF);
-                FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
-                converter = new DocxToPDFConverter(inStream, outStream, shouldShowMessages, true);
-                converter.convert();
-                return filePDF;
+                // filePDF = fileName.replace(".", "_") + ".pdf";
+                // Path targetPDF = this.fileStorageLocation.resolve(filePDF);
+                // FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
+                // converter = new DocxToPDFConverter(inStream, outStream, shouldShowMessages, true);
+                // converter.convert();
+                // return filePDF;
+                return fileName;
             } else if (fileName.endsWith("ppt")) {
                 filePDF = fileName.replace(".", "_") + ".pdf";
                 Path targetPDF = this.fileStorageLocation.resolve(filePDF);

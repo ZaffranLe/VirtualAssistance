@@ -22,7 +22,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './teacher.reducer';
-import { getEntities as getDocumentEntities } from '../document/document.reducer';
+import { getPrivateEntities as getDocumentEntities } from '../document/document.reducer';
 import { getEntities as getFullEvaluateEntities } from '../full-evaluate/full-evaluate.reducer';
 import { getEntities as getDocumentTypes } from '../document-type/document-type.reducer';
 import { ITeacher } from 'app/shared/model/teacher.model';

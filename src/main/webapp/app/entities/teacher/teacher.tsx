@@ -112,7 +112,9 @@ export class Teacher extends React.Component<any, any> {
               {teacherList
                 .filter(teacher => {
                   if (
+                    teacher.phone &&
                     teacher.phone.toLowerCase().includes(this.state.phoneSearch) &&
+                    teacher.email &&
                     teacher.email.toLowerCase().includes(this.state.emailSearch)
                   ) {
                     return true;

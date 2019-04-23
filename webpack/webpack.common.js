@@ -99,11 +99,11 @@ module.exports = options => ({
         // If this URL is left empty (""), then it will be relative to the current context.
         // If you use an API server, in `prod` mode, you will need to enable CORS
         // (see the `jhipster.cors` common JHipster property in the `application-*.yml` configurations)
-        //SERVER_API_URL: `'http://localhost:8080/'`
-        SERVER_API_URL: `'http://gva.iotpccc.com:8080/'`
+        SERVER_API_URL: `''`
+        //SERVER_API_URL: `'http://gva.iotpccc.com:8080/'`
       }
     }),
-    new ForkTsCheckerWebpackPlugin({ tslint: true }),
+    new ForkTsCheckerWebpackPlugin({ tslint: true, memoryLimit:4000, workers:ForkTsCheckerWebpackPlugin.ALL_CPUS-1 }),
     new CopyWebpackPlugin([
       { from: './node_modules/swagger-ui/dist/css', to: 'swagger-ui/dist/css' },
       { from: './node_modules/swagger-ui/dist/lib', to: 'swagger-ui/dist/lib' },

@@ -118,9 +118,14 @@ const apiUrl = 'api/documents';
 // Actions
 const apiUrl2 = 'api/documents-private'; // api nay lay danh sach document private
 const apiUrl3 = 'api/documents-public'; // api nay lay danh sach document public
+const apiUrl4 = 'api/documents-byLogin'; // api nay lay danh sach document public
+export const getEntitiesbyLogin: ICrudGetAllAction<IDocument> = (page, size, sort) => ({
+  type: ACTION_TYPES.FETCH_DOCUMENT_LIST,
+  payload: axios.get<IDocument>(`${apiUrl4}?cacheBuster=${new Date().getTime()}`)
+});
 export const getPrivateEntities: ICrudGetAllAction<IDocument> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_DOCUMENT_LIST,
-  payload: axios.get<IDocument>(`${apiUrl2}?cacheBuster=${new Date().getTime()}`)
+  payload: axios.get<IDocument>(`${apiUrl4}?cacheBuster=${new Date().getTime()}`)
 });
 
 export const getPublicEntities: ICrudGetAllAction<IDocument> = (page, size, sort) => ({
