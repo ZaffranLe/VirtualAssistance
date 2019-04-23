@@ -26,7 +26,7 @@ export class DocumentDetail extends React.Component<any, any> {
     super(props);
     this.state = {
       numPages: null,
-      pageNumber: 1
+      pageNumber: 0
     };
   }
 
@@ -48,7 +48,9 @@ export class DocumentDetail extends React.Component<any, any> {
             <dt>
               <span id="name">
                 <Translate contentKey="virtualAssistantApp.document.name">Name</Translate>
-              </span>
+              </span>{' '}
+              &nbsp;
+              <a href={`api/downloadFile/${documentEntity.uRL}`}>Download</a>
             </dt>
             <dd>{documentEntity.name}</dd>
             <dt>
@@ -116,16 +118,19 @@ export class DocumentDetail extends React.Component<any, any> {
             </Card>
           ) : documentEntity.fileExtension === 'pdf' || documentEntity.fileExtension === 'PDF' ? (
             <Card>
-              <Document file={`api/downloadFile/${documentEntity.uRL}`} onLoadSuccess={this.onDocumentLoadSuccess}>
-                <Page pageNumber={pageNumber} />
+              <Document
+                style={{ overflow: 'scroll', height: '500px' }}
+                renderMode="svg"
+                height="500"
+                file={`api/downloadFile/${documentEntity.uRL}`}
+                onLoadSuccess={this.onDocumentLoadSuccess}
+              >
+                {Array.from(new Array(numPages), (el, index) => <Page key={`page_${index + 1}`} pageNumber={index + 1} />)}
               </Document>
-              <p>
-                Page {pageNumber} of {numPages}
-              </p>
             </Card>
           ) : (
             <Card>
-              <FileViewer filePath={`api/downloadFile/${documentEntity.uRL}`} />
+              <FileViewer fileType="docx" filePath={`api/downloadFile/${documentEntity.uRL}`} />
             </Card>
           )}
         </Col>
