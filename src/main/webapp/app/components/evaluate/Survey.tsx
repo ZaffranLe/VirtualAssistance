@@ -109,10 +109,10 @@ class Survey extends React.Component<any, any> {
               <Table bordered responsive className="bg-white text-center">
                 <thead className="bg-primary">
                   <th className="text-left align-middle">Mô tả tiêu chí đánh giá</th>
-                  <th className="align-middle">Chưa đạt</th>
+                  {/* <th className="align-middle">Chưa đạt</th>
                   <th className="align-middle">Đạt</th>
                   <th className="align-middle">Khá</th>
-                  <th className="align-middle">Tốt</th>
+                  <th className="align-middle">Tốt</th> */}
                 </thead>
                 <tbody>
                   {criteriaTypeList.map((criteriaType, index) => [
@@ -129,8 +129,7 @@ class Survey extends React.Component<any, any> {
                       <Alert color={getAlertColor(this.state.result)}>
                         Xếp loại hiện tại: <strong>{this.state.result}</strong>
                       </Alert>
-                    </td>
-                    <td colSpan={4} className="align-middle">
+
                       <Button className="btn-pill" color="primary" onClick={this.handleValidSubmit}>
                         Lưu bản đánh giá
                       </Button>

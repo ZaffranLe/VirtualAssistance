@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { CustomInput, Card, CardHeader, CardBody, Button, Collapse } from 'reactstrap';
+import { CustomInput, Card, CardHeader, CardBody, Button, Collapse, Row, Col, Label, Container } from 'reactstrap';
 // Import React FilePond
 import { FilePond, registerPlugin } from 'react-filepond';
 // Import FilePond styles
 // tslint:disable-next-line:no-submodule-imports
 import 'filepond/dist/filepond.min.css';
+import { width } from '@fortawesome/free-solid-svg-icons/faTachometerAlt';
 class QuestionRow extends React.Component<any, any> {
   constructor(props) {
     super(props);
@@ -29,7 +30,7 @@ class QuestionRow extends React.Component<any, any> {
                 Tiêu chí {this.state.criteriaEvaluate.id}: {this.state.criteriaEvaluate.content}
               </strong>
               <Button color="link" onClick={this.toggle} className="float-right" id={'toggleCollapse' + this.state.criteriaEvaluate.id}>
-                Xem tiêu chí đánh giá
+                Chi tiết và minh chứng
               </Button>
             </CardHeader>
             <Collapse isOpen={this.state.collapse}>
@@ -44,8 +45,53 @@ class QuestionRow extends React.Component<any, any> {
               </CardBody>
             </Collapse>
           </Card>
+          <br />
+          <Container>
+            <Row>
+              <Col md={2}>
+                <CustomInput
+                  type="radio"
+                  id={this.state.criteriaEvaluate.id + 'CD'}
+                  name={this.state.criteriaEvaluate.id}
+                  value={1}
+                  onChange={this.props.onChange}
+                  label="Chưa đạt"
+                />
+              </Col>
+              <Col md={2}>
+                <CustomInput
+                  type="radio"
+                  id={this.state.criteriaEvaluate.id + 'D'}
+                  name={this.state.criteriaEvaluate.id}
+                  value={2}
+                  onChange={this.props.onChange}
+                  label="Đạt"
+                />
+              </Col>
+              <Col md={2}>
+                <CustomInput
+                  type="radio"
+                  id={this.state.criteriaEvaluate.id + 'K'}
+                  name={this.state.criteriaEvaluate.id}
+                  value={3}
+                  onChange={this.props.onChange}
+                  label="Khá"
+                />
+              </Col>
+              <Col md={2}>
+                <CustomInput
+                  type="radio"
+                  id={this.state.criteriaEvaluate.id + 'T'}
+                  name={this.state.criteriaEvaluate.id}
+                  value={4}
+                  onChange={this.props.onChange}
+                  label="Tốt"
+                />
+              </Col>
+            </Row>
+          </Container>
         </td>
-        <td className="align-middle">
+        {/* <td className="align-middle">
           <CustomInput
             type="radio"
             id={this.state.criteriaEvaluate.id + 'CD'}
@@ -53,6 +99,7 @@ class QuestionRow extends React.Component<any, any> {
             value={1}
             onChange={this.props.onChange}
           />
+
         </td>
         <td className="align-middle">
           <CustomInput
@@ -80,7 +127,7 @@ class QuestionRow extends React.Component<any, any> {
             value={4}
             onChange={this.props.onChange}
           />
-        </td>
+        </td> */}
       </tr>
     );
   }
