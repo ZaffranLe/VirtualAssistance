@@ -40,7 +40,7 @@ export class DocumentDetail extends React.Component<any, any> {
     const { authenkey } = this.props;
     return (
       <Row className="justify-content-center">
-        <Col md="6">
+        <Col md="6" sm="12">
           <h2>
             <Translate contentKey="virtualAssistantApp.document.detail.title">Document</Translate> [<b>{documentEntity.id}</b>]
           </h2>
@@ -114,7 +114,7 @@ export class DocumentDetail extends React.Component<any, any> {
             </span>
           </Button>
         </Col>
-        <Col md="6">
+        <Col md="6" sm="12">
           {documentEntity.fileExtension === 'JPG' || documentEntity.fileExtension === 'PNG' ? (
             <Card>
               {/* <CardImg width="100%" src={`api/opendocument/${authenkey}`} /> */}

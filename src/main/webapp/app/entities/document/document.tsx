@@ -110,9 +110,9 @@ export class Document extends React.Component<any, any> {
                     <th>
                       <Translate contentKey="virtualAssistantApp.document.tag">Tag</Translate>
                     </th>
-                    <th>
+                    {/* <th>
                       <Translate contentKey="virtualAssistantApp.document.isShared">Is Shared</Translate>
-                    </th>
+                    </th> */}
                     <th>
                       <Translate contentKey="virtualAssistantApp.document.documentType">Document Type</Translate>
                     </th>
@@ -138,12 +138,14 @@ export class Document extends React.Component<any, any> {
                         <td>{document.name}</td>
                         <td>{document.description}</td>
                         <td>{document.tag}</td>
-                        <td>{document.isShared ? 'Chia sẻ' : 'Riêng tư'}</td>
+                        {/* <td>{document.isShared ? 'Chia sẻ' : 'Riêng tư'}</td> */}
                         <td>
                           {document.documentTypes
                             ? document.documentTypes.map((val, j) => (
                                 <span key={j}>
-                                  <Link to={`document-type/${val.id}`}>{val.content}</Link>
+                                  {/* <Link to={`document-type/${val.id}`}> */}
+                                  {val.content}
+                                  {/* </Link> */}
                                   {j === document.documentTypes.length - 1 ? '' : ', '}
                                 </span>
                               ))
@@ -215,9 +217,9 @@ export class Document extends React.Component<any, any> {
                     <th>
                       <Translate contentKey="virtualAssistantApp.document.tag">Tag</Translate>
                     </th>
-                    <th>
+                    {/* <th>
                       <Translate contentKey="virtualAssistantApp.document.isShared">Is Shared</Translate>
-                    </th>
+                    </th> */}
                     <th>
                       <Translate contentKey="virtualAssistantApp.document.documentType">Document Type</Translate>
                     </th>
@@ -247,12 +249,14 @@ export class Document extends React.Component<any, any> {
                         <td>{document.name}</td>
                         <td>{document.description}</td>
                         <td>{document.tag}</td>
-                        <td>{document.isShared ? 'Chia sẻ' : 'Riêng tư'}</td>
+                        {/* <td>{document.isShared ? 'Chia sẻ' : 'Riêng tư'}</td> */}
                         <td>
                           {document.documentTypes
                             ? document.documentTypes.map((val, j) => (
                                 <span key={j}>
-                                  <Link to={`document-type/${val.id}`}>{val.content}</Link>
+                                  {/* <Link to={`document-type/${val.id}`}> */}
+                                  {val.content}
+                                  {/* </Link> */}
                                   {j === document.documentTypes.length - 1 ? '' : ', '}
                                 </span>
                               ))
