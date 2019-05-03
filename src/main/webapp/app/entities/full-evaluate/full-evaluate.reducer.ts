@@ -99,7 +99,8 @@ export default (state: FullEvaluateState = initialState, action): FullEvaluateSt
   }
 };
 
-const apiUrl = 'api/full-evaluates';
+// const apiUrl = 'api/full-evaluates';
+const apiUrl = 'api/full-evaluates-bylogin';
 const apiUrl1 = 'api/create-full-evaluates';
 
 // Actions
@@ -130,6 +131,13 @@ export const createEntity: ICrudPutAction<IFullEvaluate> = entity => async dispa
 export const handleCreate = (listQuestion, questionResult) => ({
   type: ACTION_TYPES.CREATE_FULLEVALUATE2,
   payload: axios.post(`api/create-full-evaluates/${listQuestion}/${questionResult}`),
+  meta: {
+    successMessage: 'success'
+  }
+});
+export const handleCreateWithName = (listQuestion, questionResult, nameSurvey) => ({
+  type: ACTION_TYPES.CREATE_FULLEVALUATE2,
+  payload: axios.post(`api/create-full-evaluates/${listQuestion}/${questionResult}/${nameSurvey}`),
   meta: {
     successMessage: 'success'
   }

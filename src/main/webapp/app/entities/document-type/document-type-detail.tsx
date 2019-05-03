@@ -47,12 +47,12 @@ export class DocumentTypeDetail extends React.Component<IDocumentTypeDetailProps
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
           </Button>&nbsp;
-          <Button tag={Link} to={`/entity/document-type/${documentTypeEntity.id}/edit`} replace color="primary">
+          {/* <Button tag={Link} to={`/entity/document-type/${documentTypeEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.edit">Edit</Translate>
             </span>
-          </Button>
+          </Button> */}
         </Col>
       </Row>
     );

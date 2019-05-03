@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Row, Col, Table, Form, Button, Alert } from 'reactstrap';
+import { Row, Col, Table, Form, Button, Alert, Input, InputGroup } from 'reactstrap';
 import QuestionRow from './QuestionRow';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCriteriaTypeEntities } from '../../entities/criteria-type/criteria-type.reducer';
 import { getCriteriaEvaluateEntities } from '../../entities/criteria-evaluate/criteria-evaluate.reducer';
 import { IRootState } from 'app/shared/reducers';
-import { handleCreate } from '../../entities/full-evaluate/full-evaluate.reducer';
+import { handleCreate, handleCreateWithName } from '../../entities/full-evaluate/full-evaluate.reducer';
 import { getSession } from 'app/shared/reducers/authentication';
 export interface ICriteriaTypeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 export interface ICriteriaEvaluateProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
@@ -50,7 +50,8 @@ class Survey extends React.Component<any, any> {
     super(props);
     this.state = {
       questionResult: Array(15).fill(1),
-      result: 'Chưa đạt'
+      result: 'Chưa đạt',
+      nameSurvey: ''
     };
   }
 
@@ -64,7 +65,8 @@ class Survey extends React.Component<any, any> {
     });
   }
   handleValidSubmit = () => {
-    handleCreate(this.state.questionResult.toString(), this.state.result);
+    // handleCreate(this.state.questionResult.toString(), this.state.result);
+    handleCreateWithName(this.state.questionResult.toString(), this.state.result, this.state.nameSurvey);
     alert('Đánh giá hoàn thành!');
     window.location.reload();
   };
@@ -97,6 +99,12 @@ class Survey extends React.Component<any, any> {
     return 'Khá';
   }
 
+  updateInputValue(e) {
+    this.setState({
+      nameSurvey: e.target.value
+    });
+  }
+
   render() {
     const { criteriaTypeList, matchType } = this.props;
     const { criteriaEvaluateList, matchEvaluate } = this.props;
@@ -104,6 +112,21 @@ class Survey extends React.Component<any, any> {
     return (
       <div className="animated fadeIn">
         <Form>
+          <Row>
+            <Col lg={{ size: 10, offset: 1 }}>
+              <InputGroup size="lg">
+                <Input
+                  type="text"
+                  name="nameSurvey"
+                  id="nameSurvey"
+                  placeholder="Tên  bản đánh giá"
+                  value={this.state.nameSurvey}
+                  onChange={e => this.updateInputValue(e)}
+                />
+              </InputGroup>
+              <br />
+            </Col>
+          </Row>
           <Row>
             <Col lg={12}>
               <Table bordered responsive className="bg-white text-center">

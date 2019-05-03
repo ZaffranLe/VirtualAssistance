@@ -91,6 +91,12 @@ public class FullEvaluateResource {
         log.debug("REST request to get all FullEvaluates");
         return fullEvaluateService.findAll();
     }
+    @GetMapping("/full-evaluates-bylogin")
+    @Timed
+    public List<FullEvaluate> getAllFullEvaluatesBylogin() {
+        log.debug("REST request to get all FullEvaluates");
+        return fullEvaluateService.findByLogin();
+    }
 
     /**
      * GET /full-evaluates/:id : get the "id" fullEvaluate.
@@ -125,6 +131,13 @@ public class FullEvaluateResource {
     @Timed
     public ResponseEntity<Void> createEvaluate(@PathVariable(name="questionresult") String[] questionresult,@PathVariable(name="result") String finalresult) throws URISyntaxException {
          fullEvaluateService.create( finalresult, questionresult);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).build();
+
+    }
+    @PostMapping("/create-full-evaluates/{questionresult}/{result}/{nameSurvey}")
+    @Timed
+    public ResponseEntity<Void> createEvaluateWithName(@PathVariable(name="questionresult") String[] questionresult,@PathVariable(name="result") String finalresult,@PathVariable(name="nameSurvey") String nameSurvey) throws URISyntaxException {
+         fullEvaluateService.create(finalresult, questionresult,nameSurvey);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).build();
 
     }

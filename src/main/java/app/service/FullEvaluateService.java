@@ -24,6 +24,7 @@ public interface FullEvaluateService {
      * @return the list of entities
      */
     List<FullEvaluate> findAll();
+    List<FullEvaluate> findByLogin();
 
     /**
      * Get the "id" fullEvaluate.
@@ -41,6 +42,7 @@ public interface FullEvaluateService {
     void delete(Long id);
 
     FullEvaluate create(String result, String[] questionresult);
+    FullEvaluate create(String result, String[] questionresult,String nameSurvey);
     
     
 
