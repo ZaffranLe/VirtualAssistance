@@ -124,6 +124,12 @@ export class FullEvaluate extends React.Component<any, any> {
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.view">View</Translate>
                           </span>
+                        </Button>&nbsp;
+                        <Button tag={Link} to={`${match.url}/${fullEvaluate.id}/delete`} color="danger" size="sm">
+                          <FontAwesomeIcon icon="trash" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.delete">Delete</Translate>
+                          </span>
                         </Button>
                       </div>
                     </td>

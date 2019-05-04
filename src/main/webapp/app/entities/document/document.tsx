@@ -15,7 +15,6 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 export interface IDocumentProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export class Document extends React.Component<any, any> {
-  pagesCount: number;
   pageSize: number;
   pagesPriCount: number;
   pagesPubCount: number;
@@ -41,7 +40,7 @@ export class Document extends React.Component<any, any> {
 
   constructor(props) {
     super(props);
-    this.pageSize = 5;
+    this.pageSize = 10;
     this.state = {
       currentPrivatePage: 0,
       currentPublicPage: 0,
@@ -68,10 +67,9 @@ export class Document extends React.Component<any, any> {
 
   render() {
     const { documentList, match } = this.props;
-    this.pagesCount = Math.ceil(documentList.length / this.pageSize);
-    const lenghpub = documentList.filter(document => !document.isShared).length;
-    this.pagesPriCount = Math.ceil(lenghpub / this.pageSize);
-    this.pagesPubCount = Math.ceil((documentList.length - lenghpub) / this.pageSize);
+    const lengthpub = documentList.filter(document => !document.isShared).length;
+    this.pagesPriCount = Math.ceil(lengthpub / this.pageSize);
+    this.pagesPubCount = Math.ceil((documentList.length - lengthpub) / this.pageSize);
     const { currentPrivatePage, currentPublicPage } = this.state;
     return (
       <div>
@@ -195,7 +193,7 @@ export class Document extends React.Component<any, any> {
         </Row>
         <Row>
           <Col md="12">
-            <h2 id="document-heading">Tài liệu dạy học công khai</h2>
+            <h2 id="document-heading">Tài liệu chia sẻ</h2>
           </Col>
         </Row>
 

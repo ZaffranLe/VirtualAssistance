@@ -89,7 +89,7 @@ export class FullEvaluateDetail extends React.Component<any, any> {
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
         </Col>
       </Row>
     );

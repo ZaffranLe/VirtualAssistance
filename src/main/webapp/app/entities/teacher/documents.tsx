@@ -36,7 +36,7 @@ function DocumentRow(props) {
           : null}
       </td>
       <td>
-        <Button tag={Link} to={`${'../document'}/${document.id}`} color="info" size="sm">
+        <Button tag={Link} to={`${'document'}/${document.id}`} color="info" size="sm">
           <FontAwesomeIcon icon="eye" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.view">View</Translate>
