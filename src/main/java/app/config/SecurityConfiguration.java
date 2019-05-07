@@ -104,6 +104,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
             .antMatchers("/api/opendocument/**").permitAll()
             .antMatchers("/api/downloadFile/**").permitAll()
+            .antMatchers("/api/downloadFileProof/**").permitAll()
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/authenticate").permitAll()
             .antMatchers("/api/account/reset-password/init").permitAll()

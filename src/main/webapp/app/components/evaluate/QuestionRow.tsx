@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { CustomInput, Card, CardHeader, CardBody, Button, Collapse, Row, Col, Label, Container } from 'reactstrap';
-// Import React FilePond
+import { Storage } from 'react-jhipster';
 import { FilePond, registerPlugin } from 'react-filepond';
 // Import FilePond styles
 // tslint:disable-next-line:no-submodule-imports
 import 'filepond/dist/filepond.min.css';
 import { width } from '@fortawesome/free-solid-svg-icons/faTachometerAlt';
+import { SERVER_API_URL } from 'app/config/constants';
 class QuestionRow extends React.Component<any, any> {
   constructor(props) {
     super(props);
@@ -19,8 +20,23 @@ class QuestionRow extends React.Component<any, any> {
   toggle() {
     this.setState({ collapse: !this.state.collapse });
   }
+  handleUploadFile = (error, file) => {
+    if (error) {
+      console.log('Oh no');
+      return;
+    }
+    console.log('File processed', file.serverId);
+    this.props.handleUploadFile(file.serverId, this.state.criteriaEvaluate.id);
+  };
 
   render() {
+    let tokenLocal = Storage.local.get('jhi-authenticationToken'); // || Storage.session.get('jhi-authenticationToken');
+    // tslint:disable-next-line:triple-equals
+    if (tokenLocal == undefined) {
+      tokenLocal = Storage.session.get('jhi-authenticationToken');
+    }
+
+    const token = 'Bearer ' + tokenLocal;
     return (
       <tr key={this.state.criteriaEvaluate.id.toString()}>
         <td className="text-left">
@@ -40,7 +56,20 @@ class QuestionRow extends React.Component<any, any> {
                 <p>Thêm minh chứng</p> <br />
                 <FilePond
                   //  ref={this.fileRef}
-                  allowMultiple
+                  allowMultiple={false}
+                  server={{
+                    url: `${SERVER_API_URL}api`,
+                    process: {
+                      url: '/uploadFileEvaluate',
+                      method: 'POST',
+                      withCredentials: true,
+                      headers: {
+                        Authorization: token
+                      },
+                      timeout: 7000
+                    }
+                  }}
+                  onprocessfile={this.handleUploadFile}
                 />
               </CardBody>
             </Collapse>

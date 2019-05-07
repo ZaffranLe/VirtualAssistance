@@ -42,7 +42,7 @@ public interface FullEvaluateService {
     void delete(Long id);
 
     FullEvaluate create(String result, String[] questionresult);
-    FullEvaluate create(String result, String[] questionresult,String nameSurvey);
+    FullEvaluate create(String result, String[] questionresult,String nameSurvey, String[] fileResult);
     
     
 

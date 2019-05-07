@@ -141,7 +141,7 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                   {/* <AvField id="document-uRL" type="text" name="uRL" /> */}
                   <FilePond
                     //  ref={this.fileRef}
-                    allowMultiple
+                    allowMultiple={false}
                     server={{
                       url: `${SERVER_API_URL}api`,
                       process: {

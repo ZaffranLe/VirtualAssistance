@@ -136,8 +136,12 @@ public class FullEvaluateResource {
     }
     @PostMapping("/create-full-evaluates/{questionresult}/{result}/{nameSurvey}")
     @Timed
-    public ResponseEntity<Void> createEvaluateWithName(@PathVariable(name="questionresult") String[] questionresult,@PathVariable(name="result") String finalresult,@PathVariable(name="nameSurvey") String nameSurvey) throws URISyntaxException {
-         fullEvaluateService.create(finalresult, questionresult,nameSurvey);
+    public ResponseEntity<Void> createEvaluateWithName(@PathVariable(name="questionresult") String[] questionresult,
+                                                        @PathVariable(name="result") String finalresult,
+                                                        @PathVariable(name="nameSurvey") String nameSurvey,
+                                                        @RequestParam String[] fileResult) throws URISyntaxException {
+        System.out.println(fileResult);
+        fullEvaluateService.create(finalresult, questionresult,nameSurvey,fileResult);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, null)).build();
 
     }

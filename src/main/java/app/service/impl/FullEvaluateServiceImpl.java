@@ -146,11 +146,10 @@ public class FullEvaluateServiceImpl implements FullEvaluateService {
             answerRepository.save(answer);
 
         }
-
         return fullEvaluateRepository.save(fullEvaluate);
     }
     @Override
-    public FullEvaluate create(String result, String[] questionresult,String nameSurvey) {
+    public FullEvaluate create(String result, String[] questionresult,String nameSurvey,String[] fileResult) {
         System.out.print("alo");
         FullEvaluate fullEvaluate = new FullEvaluate();
         fullEvaluate.setTeacher(teacherService.findByUserLogin());
@@ -175,6 +174,7 @@ public class FullEvaluateServiceImpl implements FullEvaluateService {
             CriteriaEvaluate criteriaEvaluate = criteriavaluateRepository.findOneById(Integer.toUnsignedLong(i+1));
             answer.setCriteriaEvaluate(criteriaEvaluate);
             answer.setFullEvaluate(fullEvaluate);
+            answer.setProof(fileResult[i]);
             switch (questionresult[i]) {
                 case "1":
                     answer.scoreLadder(ScoreLadder.FAIL);

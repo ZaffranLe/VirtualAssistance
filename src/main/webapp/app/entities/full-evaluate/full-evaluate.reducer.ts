@@ -99,15 +99,15 @@ export default (state: FullEvaluateState = initialState, action): FullEvaluateSt
   }
 };
 
-// const apiUrl = 'api/full-evaluates';
-const apiUrl = 'api/full-evaluates-bylogin';
-const apiUrl1 = 'api/create-full-evaluates';
+const apiUrl = 'api/full-evaluates';
+const apiUrl1 = 'api/full-evaluates-bylogin';
+// const apiUrl = 'api/create-full-evaluates';
 
 // Actions
 
 export const getEntities: ICrudGetAllAction<IFullEvaluate> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_FULLEVALUATE_LIST,
-  payload: axios.get<IFullEvaluate>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
+  payload: axios.get<IFullEvaluate>(`${apiUrl1}?cacheBuster=${new Date().getTime()}`)
 });
 
 export const getEntity: ICrudGetAction<IFullEvaluate> = id => {
@@ -135,9 +135,9 @@ export const handleCreate = (listQuestion, questionResult) => ({
     successMessage: 'success'
   }
 });
-export const handleCreateWithName = (listQuestion, questionResult, nameSurvey) => ({
+export const handleCreateWithName = (listQuestion, questionResult, fileResult, nameSurvey) => ({
   type: ACTION_TYPES.CREATE_FULLEVALUATE2,
-  payload: axios.post(`api/create-full-evaluates/${listQuestion}/${questionResult}/${nameSurvey}`),
+  payload: axios.post(`api/create-full-evaluates/${listQuestion}/${questionResult}/${nameSurvey}`, null, { params: { fileResult } }),
   meta: {
     successMessage: 'success'
   }

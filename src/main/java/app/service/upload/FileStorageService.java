@@ -70,6 +70,13 @@ public class FileStorageService {
         setFolderUpload(user);
         return storeFile(file);
     }
+    public String storeFileEvaluateUploadByUser(MultipartFile file) {
+
+        String user = SecurityUtils.getCurrentUserLogin()
+                .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        setFolderUpload(user+"/minhchung");
+        return storeFile(file);
+    }
 
     private String convertToPDF(Path targetLocation, String fileName) {
         Converter converter = null;
@@ -141,6 +148,9 @@ public class FileStorageService {
         System.out.println("ten file: " + fileName);
         // fileName = FileNameNormal.normal(fileName);
         fileName = StringUtils.cleanPath(fileName);
+        if(fileName.length()>6){
+            fileName = fileName.substring(fileName.length()-6);
+        }
         System.out.println("ten file sau cleanPath: " + fileName);
         try {
             // Check if the file's name contains invalid characters

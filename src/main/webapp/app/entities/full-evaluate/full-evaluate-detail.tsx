@@ -31,6 +31,15 @@ export class FullEvaluateDetail extends React.Component<any, any> {
     this.props.getEntity(this.props.match.params.id);
     this.props.getAnswerEntities();
   }
+  download(link) {
+    return (
+      <a href={`api/downloadFileProof/${link}`}>
+        <Button replace color="primary">
+          <FontAwesomeIcon icon="download" /> Download
+        </Button>
+      </a>
+    );
+  }
 
   render() {
     const { fullEvaluateEntity } = this.props;
@@ -64,6 +73,7 @@ export class FullEvaluateDetail extends React.Component<any, any> {
           <Table responsive hover bordered>
             <thead>
               <th>Tiêu chí</th>
+              <th>Minh chứng</th>
               <th>Mức điểm</th>
             </thead>
             <tbody>
@@ -77,6 +87,7 @@ export class FullEvaluateDetail extends React.Component<any, any> {
                 .map((answer, i) => (
                   <tr>
                     <td>{answer.criteriaEvaluate ? answer.criteriaEvaluate.content : ''}</td>
+                    <td>{answer.proof ? this.download(answer.proof) : ''}</td>
                     <td>
                       <Translate contentKey={`virtualAssistantApp.ScoreLadder.${answer.scoreLadder}`} />
                     </td>

@@ -44,6 +44,7 @@ import app.web.rest.errors.InternalServerErrorException;
 public class UploadStoreDocuments {
     @Autowired
     private FileStorageService fileStorageService;
+    
     @PostMapping("/uploadStoreDocuments")
     public ResponseEntity<String> uploadFile(@RequestParam("filepond") MultipartFile file) {
         // getUser
@@ -65,10 +66,54 @@ public class UploadStoreDocuments {
                 .body(fileNameForDB);
     }
 
+    @PostMapping("/uploadFileEvaluate")
+    public ResponseEntity<String> uploadFileEvaluate(@RequestParam("filepond") MultipartFile file) {
+        // getUser
+        String fileName = fileStorageService.storeFileEvaluateUploadByUser(file);
+        System.out.println("filename sau upload: "+fileName);
+        String ext = FilenameUtils.getExtension(fileName);
+        String user = SecurityUtils.getCurrentUserLogin()
+                .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
+        String fileNameForDB = user+"/"+fileName;
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("api/downloadFile/")
+                .path(fileNameForDB)
+                .toUriString();
+        return  ResponseEntity.ok()
+                .contentType(MediaType.TEXT_PLAIN)
+                .header("url", fileDownloadUri)
+                .header("ext", ext)
+                .body(fileNameForDB);
+
+    }
+
     @GetMapping("/downloadFile/{user:.+}/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String user,@PathVariable String fileName, HttpServletRequest request) {
         // Load file as Resource
         Resource resource = fileStorageService.loadFileAsResourceByUser(user,fileName);     
+        // Try to determine file's content type
+        String contentType = null;
+        try {
+            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException ex) {
+            throw new BadRequestAlertException("File not found!!!", "contentType", "contentType");
+        }
+
+        // Fallback to the default content type if type could not be determined
+        if(contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
+    }
+
+    @GetMapping("/downloadFileProof/{user:.+}/{fileName:.+}")
+    public ResponseEntity<Resource> downloadFileEvalute(@PathVariable String user,@PathVariable String fileName, HttpServletRequest request) {
+        // Load file as Resource
+        Resource resource = fileStorageService.loadFileAsResourceByUser(user,"minhchung/"+fileName);     
         // Try to determine file's content type
         String contentType = null;
         try {

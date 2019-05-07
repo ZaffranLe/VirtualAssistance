@@ -44,17 +44,29 @@ class Survey extends React.Component<any, any> {
     this.props.getCriteriaTypeEntities();
     this.props.getCriteriaEvaluateEntities();
     this.props.getSession();
+    // this.handleUploadFile.bind(this);
   }
 
   constructor(props) {
     super(props);
     this.state = {
       questionResult: Array(15).fill(1),
+      fileResult: Array(15).fill(''),
       result: 'Chưa đạt',
       nameSurvey: ''
     };
+    // this.handleUploadFile.bind(this);
   }
 
+  handleUploadFile = (file, id) => {
+    console.log('file::::::' + file);
+    const fileList = this.state.fileResult.slice();
+    fileList[id - 1] = file;
+    console.log(fileList);
+    this.setState({
+      fileResult: fileList
+    });
+  };
   handleChange(e) {
     const resultList = this.state.questionResult.slice();
     resultList[e.target.name - 1] = e.target.value;
@@ -66,9 +78,15 @@ class Survey extends React.Component<any, any> {
   }
   handleValidSubmit = () => {
     // handleCreate(this.state.questionResult.toString(), this.state.result);
-    handleCreateWithName(this.state.questionResult.toString(), this.state.result, this.state.nameSurvey);
+    handleCreateWithName(this.state.questionResult.toString(), this.state.result, this.state.fileResult.toString(), this.state.nameSurvey);
     alert('Đánh giá hoàn thành!');
-    window.location.reload();
+    this.setState({
+      questionResult: Array(15).fill(1),
+      fileResult: Array(15).fill(''),
+      result: 'Chưa đạt',
+      nameSurvey: ''
+    });
+    // window.location.reload();
   };
 
   calculateResult(resultList) {
@@ -143,7 +161,12 @@ class Survey extends React.Component<any, any> {
                     criteriaEvaluateList.map(
                       (criteriaEvaluate, indexEvaluate) =>
                         criteriaEvaluate.criteriaType.id === criteriaType.id && (
-                          <QuestionRow key={indexEvaluate} onChange={e => this.handleChange(e)} criteriaEvaluate={criteriaEvaluate} />
+                          <QuestionRow
+                            handleUploadFile={this.handleUploadFile}
+                            key={indexEvaluate}
+                            onChange={e => this.handleChange(e)}
+                            criteriaEvaluate={criteriaEvaluate}
+                          />
                         )
                     )
                   ])}
