@@ -180,7 +180,7 @@ export class Document extends React.Component<any, any> {
                   <PaginationLink previous tag="button" onClick={e => this.handleChangePrivatePage(e, currentPrivatePage - 1)} />
                 </PaginationItem>
                 {[...Array(this.pagesPriCount)].map((page, i) => (
-                  <PaginationItem active={i === currentPrivatePage} key={i}>
+                  <PaginationItem className="d-none d-sm-block" active={i === currentPrivatePage} key={i}>
                     <PaginationLink onClick={e => this.handleChangePrivatePage(e, i)}>{i + 1}</PaginationLink>
                   </PaginationItem>
                 ))}
@@ -279,7 +279,7 @@ export class Document extends React.Component<any, any> {
                   <PaginationLink previous tag="button" onClick={e => this.handleChangePublicPage(e, currentPublicPage - 1)} />
                 </PaginationItem>
                 {[...Array(this.pagesPubCount)].map((page, i) => (
-                  <PaginationItem active={i === currentPublicPage} key={i}>
+                  <PaginationItem className="d-none d-sm-block" active={i === currentPublicPage} key={i}>
                     <PaginationLink onClick={e => this.handleChangePublicPage(e, i)}>{i + 1}</PaginationLink>
                   </PaginationItem>
                 ))}

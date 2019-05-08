@@ -139,7 +139,7 @@ export class EvaluateResult extends React.Component<any, any> {
                   <PaginationLink previous tag="button" onClick={e => this.handleChangeSurveyPage(e, currentSurveyPage - 1)} />
                 </PaginationItem>
                 {[...Array(this.pagesSurveysCount)].map((page, i) => (
-                  <PaginationItem active={i === currentSurveyPage} key={i}>
+                  <PaginationItem className="d-none d-sm-block" active={i === currentSurveyPage} key={i}>
                     <PaginationLink onClick={e => this.handleChangeSurveyPage(e, i)}>{i + 1}</PaginationLink>
                   </PaginationItem>
                 ))}

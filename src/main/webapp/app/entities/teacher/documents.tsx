@@ -155,7 +155,7 @@ export class Documents extends React.Component<any, any> {
                   <PaginationLink previous tag="button" onClick={e => this.handleChangeFilePage(e, currentFilePage - 1)} />
                 </PaginationItem>
                 {[...Array(this.pagesFilesCount)].map((page, i) => (
-                  <PaginationItem active={i === currentFilePage} key={i}>
+                  <PaginationItem className="d-none d-sm-block" active={i === currentFilePage} key={i}>
                     <PaginationLink onClick={e => this.handleChangeFilePage(e, i)}>{i + 1}</PaginationLink>
                   </PaginationItem>
                 ))}

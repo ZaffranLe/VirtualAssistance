@@ -96,7 +96,7 @@ export class NotificationType extends React.Component<any, any> {
               <PaginationLink previous tag="button" onClick={e => this.handleChangePage(e, currentPage - 1)} />
             </PaginationItem>
             {[...Array(this.pagesCount)].map((page, i) => (
-              <PaginationItem active={i === currentPage} key={i}>
+              <PaginationItem className="d-none d-sm-block" active={i === currentPage} key={i}>
                 <PaginationLink onClick={e => this.handleChangePage(e, i)}>{i + 1}</PaginationLink>
               </PaginationItem>
             ))}
