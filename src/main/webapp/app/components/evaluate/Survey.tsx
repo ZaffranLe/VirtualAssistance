@@ -78,6 +78,10 @@ class Survey extends React.Component<any, any> {
   }
   handleValidSubmit = () => {
     // handleCreate(this.state.questionResult.toString(), this.state.result);
+    if (!this.state.nameSurvey) {
+      alert('Chưa nhập tên bản đánh giá!');
+      return;
+    }
     handleCreateWithName(this.state.questionResult.toString(), this.state.result, this.state.fileResult.toString(), this.state.nameSurvey);
     alert('Đánh giá hoàn thành!');
     this.setState({
@@ -86,7 +90,7 @@ class Survey extends React.Component<any, any> {
       result: 'Chưa đạt',
       nameSurvey: ''
     });
-    // window.location.reload();
+    window.location.reload();
   };
 
   calculateResult(resultList) {

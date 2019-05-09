@@ -109,9 +109,8 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                   <FontAwesomeIcon icon="user" />
                   <span>{translate('global.menu.account.main')} </span>
                 </DropdownToggle>
-                {isAuthenticated ? this.accountMenuItemsAuthenticated() : this.accountMenuItems()} }
+                {isAuthenticated ? this.accountMenuItemsAuthenticated() : this.accountMenuItems()}
               </Dropdown>
-              {/* <AccountMenu isAuthenticated={isAuthenticated} />  */}
             </Nav>
           </Collapse>
         </Navbar>
