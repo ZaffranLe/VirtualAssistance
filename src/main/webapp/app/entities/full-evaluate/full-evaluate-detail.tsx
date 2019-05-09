@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Badge, Table } from 'reactstrap';
+import ResultRow from './resultRow';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -73,7 +74,6 @@ export class FullEvaluateDetail extends React.Component<any, any> {
           <Table responsive hover bordered>
             <thead>
               <th>Tiêu chí</th>
-              <th>Minh chứng</th>
               <th>Mức điểm</th>
             </thead>
             <tbody>
@@ -84,15 +84,7 @@ export class FullEvaluateDetail extends React.Component<any, any> {
                   }
                   return false;
                 })
-                .map((answer, i) => (
-                  <tr>
-                    <td>{answer.criteriaEvaluate ? answer.criteriaEvaluate.content : ''}</td>
-                    <td>{answer.proof ? this.download(answer.proof) : ''}</td>
-                    <td>
-                      <Translate contentKey={`virtualAssistantApp.ScoreLadder.${answer.scoreLadder}`} />
-                    </td>
-                  </tr>
-                ))}
+                .map((answer, i) => <ResultRow answer={answer} key={i} />)}
             </tbody>
           </Table>
           <Button tag={Link} to="/entity/full-evaluate" replace color="info">
