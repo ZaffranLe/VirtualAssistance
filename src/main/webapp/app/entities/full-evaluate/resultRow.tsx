@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Translate, ICrudGetAction } from 'react-jhipster';
-import { CustomInput, Card, CardHeader, CardBody, Button, Collapse, Row, Col, Label, Container } from 'reactstrap';
+import { CustomInput, Card, CardHeader, CardBody, Button, Collapse, Row, Col, Label, Container, CardImg } from 'reactstrap';
 import { SERVER_API_URL } from 'app/config/constants';
 class ResultRow extends React.Component<any, any> {
   constructor(props) {
@@ -20,11 +20,14 @@ class ResultRow extends React.Component<any, any> {
 
   download(link) {
     return (
-      <a href={`api/downloadFileProof/${link}`}>
-        <Button replace color="primary">
-          <FontAwesomeIcon icon="download" /> Download
-        </Button>
-      </a>
+      <>
+        <a href={`api/downloadFileProof/${link}`}>
+          <Button replace color="primary">
+            <FontAwesomeIcon icon="download" /> Download
+          </Button>
+        </a>
+        <CardImg width="100%" src={`api/downloadFileProof/${link}`} />
+      </>
     );
   }
 
