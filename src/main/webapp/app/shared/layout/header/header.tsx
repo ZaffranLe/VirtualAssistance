@@ -1,14 +1,24 @@
 import './header.css';
-
 import React from 'react';
-import { Translate } from 'react-jhipster';
-import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse, NavItem, NavLink } from 'reactstrap';
+import { Translate, translate } from 'react-jhipster';
+import {
+  Navbar,
+  Nav,
+  NavbarToggler,
+  DropdownToggle,
+  DropdownMenu,
+  NavbarBrand,
+  Dropdown,
+  Collapse,
+  NavItem,
+  NavLink,
+  DropdownItem
+} from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { NavLink as Link } from 'react-router-dom';
 import LoadingBar from 'react-redux-loading-bar';
 
-import { Home, Brand } from './header-components';
+import { NavDropdown, Home, Brand } from './header-components';
 import { AdminMenu, EntitiesMenu, AccountMenu, LocaleMenu } from './menus';
 import { ComponentsMenu } from './menus/components';
 
@@ -24,11 +34,13 @@ export interface IHeaderProps {
 
 export interface IHeaderState {
   menuOpen: boolean;
+  menuAccOpen: boolean;
 }
 
 export default class Header extends React.Component<IHeaderProps, IHeaderState> {
   state: IHeaderState = {
-    menuOpen: false
+    menuOpen: false,
+    menuAccOpen: false
   };
 
   handleLocaleChange = event => {
@@ -37,6 +49,9 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
 
   toggleMenu = () => {
     this.setState({ menuOpen: !this.state.menuOpen });
+  };
+  toggleMenuAcc = () => {
+    this.setState({ menuAccOpen: !this.state.menuAccOpen });
   };
 
   render() {
@@ -89,11 +104,44 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                 )}
               {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} />}
               <LocaleMenu currentLocale={currentLocale} onClick={this.handleLocaleChange} />
-              <AccountMenu isAuthenticated={isAuthenticated} />
+              <Dropdown isOpen={this.state.menuAccOpen} nav inNavbar id="account-menu" toggle={this.toggleMenuAcc}>
+                <DropdownToggle nav caret className="d-flex align-items-center">
+                  <FontAwesomeIcon icon="user" />
+                  <span>{translate('global.menu.account.main')} </span>
+                </DropdownToggle>
+                {isAuthenticated ? this.accountMenuItemsAuthenticated() : this.accountMenuItems()}
+              </Dropdown>
             </Nav>
           </Collapse>
         </Navbar>
       </div>
+    );
+  }
+  accountMenuItemsAuthenticated() {
+    return (
+      <DropdownMenu>
+        <DropdownItem tag={Link} to="/account/settings">
+          <FontAwesomeIcon icon="wrench" /> <Translate contentKey="global.menu.account.settings">Settings</Translate>
+        </DropdownItem>
+        <DropdownItem tag={Link} to="/account/password">
+          <FontAwesomeIcon icon="clock" /> <Translate contentKey="global.menu.account.password">Password</Translate>
+        </DropdownItem>
+        <DropdownItem tag={Link} to="/logout">
+          <FontAwesomeIcon icon="sign-out-alt" /> <Translate contentKey="global.menu.account.logout">Sign out</Translate>
+        </DropdownItem>
+      </DropdownMenu>
+    );
+  }
+  accountMenuItems() {
+    return (
+      <DropdownMenu>
+        <DropdownItem id="login-item" tag={Link} to="/login">
+          <FontAwesomeIcon icon="sign-in-alt" /> <Translate contentKey="global.menu.account.login">Sign in</Translate>
+        </DropdownItem>
+        <DropdownItem tag={Link} to="/register">
+          <FontAwesomeIcon icon="sign-in-alt" /> <Translate contentKey="global.menu.account.register">Register</Translate>
+        </DropdownItem>
+      </DropdownMenu>
     );
   }
 }

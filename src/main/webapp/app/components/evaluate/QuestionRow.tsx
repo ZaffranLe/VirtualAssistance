@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { CustomInput, Card, CardHeader, CardBody, Button, Collapse, Row, Col, Label, Container } from 'reactstrap';
 import { Storage } from 'react-jhipster';
 import { FilePond, registerPlugin } from 'react-filepond';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 // Import FilePond styles
 // tslint:disable-next-line:no-submodule-imports
 import 'filepond/dist/filepond.min.css';
-import { width } from '@fortawesome/free-solid-svg-icons/faTachometerAlt';
 import { SERVER_API_URL } from 'app/config/constants';
+registerPlugin(FilePondPluginFileValidateType);
 class QuestionRow extends React.Component<any, any> {
   constructor(props) {
     super(props);
@@ -55,6 +56,7 @@ class QuestionRow extends React.Component<any, any> {
                 {this.state.criteriaEvaluate.good} <br />- <strong>Mức Tốt:</strong> {this.state.criteriaEvaluate.excellent} <br />
                 <p>Thêm minh chứng</p> <br />
                 <FilePond
+                  acceptedFileTypes={['image/png', 'image/jpeg']}
                   //  ref={this.fileRef}
                   allowMultiple={false}
                   server={{
