@@ -141,7 +141,7 @@ class Survey extends React.Component<any, any> {
                   type="text"
                   name="nameSurvey"
                   id="nameSurvey"
-                  placeholder="Tên  bản đánh giá"
+                  placeholder="Tên bản đánh giá"
                   value={this.state.nameSurvey}
                   onChange={e => this.updateInputValue(e)}
                 />
