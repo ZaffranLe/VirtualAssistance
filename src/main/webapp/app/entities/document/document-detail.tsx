@@ -48,7 +48,7 @@ export class DocumentDetail extends React.Component<any, any> {
             <dt>
               <span id="name">
                 <Translate contentKey="virtualAssistantApp.document.name">Name</Translate>
-              </span>{' '}
+              </span>
               &nbsp;
               <a href={`api/downloadFile/${documentEntity.uRL}`}>
                 <Button replace color="primary">
