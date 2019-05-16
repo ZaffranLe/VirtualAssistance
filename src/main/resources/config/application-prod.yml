@@ -29,8 +29,8 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:mysql://localhost:3306/VirtualAssistant?useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
-        password: 
-        # password: giaovienao@123
+        # password: 
+        password: giaovienao@123
         hikari:
             data-source-properties:
                 cachePrepStmts: true
@@ -116,7 +116,7 @@ jhipster:
             report-frequency: 60 # in seconds
     logging:
         logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
-            enabled: false
+            enabled: true
             host: localhost
             port: 5000
             queue-size: 512

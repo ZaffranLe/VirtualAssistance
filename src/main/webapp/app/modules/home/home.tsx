@@ -106,19 +106,19 @@ export class Home extends React.Component<any, any> {
         <Col md="12">
           {account &&
             !account.login && (
-              <Row>
-                <Col md="6">
-                  <Alert color="warning">
-                    <Link to="/login" className="alert-link">
-                      <Translate contentKey="global.messages.info.authenticated.link"> Đăng nhập</Translate>
-                    </Link>
+              <Row className="justify-content-center">
+                <Col md="2">
+                  <Alert color="primary">
+                    <Button tag={Link} className="btn-block" to="/login" color="info">
+                      ĐĂNG NHẬP
+                    </Button>
                   </Alert>
                 </Col>
-                <Col md="6">
-                  <Alert color="warning">
-                    <Link to="/register" className="alert-link">
-                      <Translate contentKey="global.messages.info.register.link">Đăng ký</Translate>
-                    </Link>
+                <Col md="2">
+                  <Alert color="primary">
+                    <Button tag={Link} className="btn-block" to="/register" color="info">
+                      ĐĂNG KÝ
+                    </Button>
                   </Alert>
                 </Col>
               </Row>
@@ -128,19 +128,20 @@ export class Home extends React.Component<any, any> {
               <Col md="12" lg="12">
                 <Card>
                   <CardBody>
-                    <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous}>
+                    {/*      <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous}>
                       <CarouselIndicators items={items} activeIndex={activeIndex} onClick={this.goToIndex} />
                       {slides2}
                       <CarouselControl direction="prev" directionText="Previous" onClick={this.previous} />
                       <CarouselControl direction="next" directionText="Next" onClick={this.next} />
-                    </Carousel>
+                    </Carousel> */}
                   </CardBody>
                 </Card>
               </Col>
             </Row>
             <Row className="justify-content-center">
               <Col lg="11">
-                <Row>
+                {/*
+               <Row>
                   <Col lg="3">
                     <Card>
                       <Media href="https://education.vnu.edu.vn/index.php/WebControl/listnews/15/0">
@@ -186,6 +187,7 @@ export class Home extends React.Component<any, any> {
                     </Card>
                   </Col>
                 </Row>
+              */}
               </Col>
             </Row>
           </div>
