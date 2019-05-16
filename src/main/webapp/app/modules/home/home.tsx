@@ -106,19 +106,19 @@ export class Home extends React.Component<any, any> {
         <Col md="12">
           {account &&
             !account.login && (
-              <Row>
-                <Col md="6">
-                  <Alert color="warning">
-                    <Link to="/login" className="alert-link">
-                      <Translate contentKey="global.messages.info.authenticated.link"> Đăng nhập</Translate>
-                    </Link>
+              <Row className="justify-content-center">
+                <Col md="2">
+                  <Alert color="primary">
+                    <Button tag={Link} className="btn-block" to="/login" color="info">
+                      ĐĂNG NHẬP
+                    </Button>
                   </Alert>
                 </Col>
-                <Col md="6">
-                  <Alert color="warning">
-                    <Link to="/register" className="alert-link">
-                      <Translate contentKey="global.messages.info.register.link">Đăng ký</Translate>
-                    </Link>
+                <Col md="2">
+                  <Alert color="primary">
+                    <Button tag={Link} className="btn-block" to="/register" color="info">
+                      ĐĂNG KÝ
+                    </Button>
                   </Alert>
                 </Col>
               </Row>
