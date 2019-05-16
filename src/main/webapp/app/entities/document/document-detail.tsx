@@ -20,6 +20,7 @@ export interface IDocumentDetailProps extends StateProps, DispatchProps, RouteCo
 export class DocumentDetail extends React.Component<any, any> {
   componentDidMount() {
     this.props.getEntity(this.props.match.params.id);
+    this.handleDownload = this.handleDownload.bind(this);
   }
 
   constructor(props) {
@@ -29,6 +30,20 @@ export class DocumentDetail extends React.Component<any, any> {
       pageNumber: 0
     };
   }
+  handleDownload = link => {
+    window.open(link, '_system');
+
+    window.parent.postMessage(
+      {
+        func: 'parentFunc',
+        message: link
+      },
+      '*'
+    );
+
+    console.log('handle download-------');
+    return false;
+  };
 
   onDocumentLoadSuccess = ({ numPages }) => {
     this.setState({ numPages });
@@ -50,11 +65,14 @@ export class DocumentDetail extends React.Component<any, any> {
                 <Translate contentKey="virtualAssistantApp.document.name">Name</Translate>
               </span>{' '}
               &nbsp;
-              <a href={`api/downloadFile/${documentEntity.uRL}`}>
-                <Button replace color="primary">
-                  <FontAwesomeIcon icon="download" /> Download
-                </Button>
-              </a>
+              <Button
+                color="primary"
+                onClick={() => {
+                  this.handleDownload(`api/downloadFile/${documentEntity.uRL}`);
+                }}
+              >
+                <FontAwesomeIcon icon="download" /> Download
+              </Button>
             </dt>
             <dd>{documentEntity.name}</dd>
             <dt>
