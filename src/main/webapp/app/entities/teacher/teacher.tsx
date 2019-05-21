@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table, Card, CardHeader, CardBody } from 'reactstrap';
+import { Button, Col, Row, Table, Card, CardHeader, CardBody, CardImg } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAllAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -47,10 +47,14 @@ export class Teacher extends React.Component<any, any> {
                       <Card>
                         <CardHeader>
                           <Row>
-                            <Col md="12">
+                            <Col md="8">
                               <h2>
-                                Hồ sơ giáo viên: <br />[<b>{teacher.fullName}</b>]
+                                Hồ sơ giáo viên: <br />
+                                <b>{teacher.fullName}</b>
                               </h2>
+                            </Col>
+                            <Col md="4">
+                              <CardImg width="100%" src={`api/downloadFile/${teacher.avatar}`} />
                             </Col>
                           </Row>
                         </CardHeader>

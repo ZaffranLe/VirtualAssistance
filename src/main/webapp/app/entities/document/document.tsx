@@ -102,12 +102,12 @@ export class Document extends React.Component<any, any> {
                     <th>
                       <Translate contentKey="virtualAssistantApp.document.name">Name</Translate>
                     </th>
-                    <th>
+                    {/* <th>
                       <Translate contentKey="virtualAssistantApp.document.description">Description</Translate>
                     </th>
                     <th>
                       <Translate contentKey="virtualAssistantApp.document.tag">Tag</Translate>
-                    </th>
+                    </th> */}
                     {/* <th>
                       <Translate contentKey="virtualAssistantApp.document.isShared">Is Shared</Translate>
                     </th> */}
@@ -133,9 +133,9 @@ export class Document extends React.Component<any, any> {
                             {document.id}
                           </Button>
                         </td>
-                        <td>{document.name}</td>
-                        <td>{document.description}</td>
-                        <td>{document.tag}</td>
+                        {/* <td>{document.name}</td> */}
+                        {/* <td>{document.description}</td> */}
+                        {/* <td>{document.tag}</td> */}
                         {/* <td>{document.isShared ? 'Chia sẻ' : 'Riêng tư'}</td> */}
                         <td>
                           {document.documentTypes

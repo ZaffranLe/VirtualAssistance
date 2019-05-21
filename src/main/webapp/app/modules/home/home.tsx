@@ -106,7 +106,7 @@ export class Home extends React.Component<any, any> {
         <Col md="12">
           {account &&
             !account.login && (
-              <Row className="justify-content-center">
+              <Row className="justify-content-center align-items-stretch">
                 <Col md="2">
                   <Alert color="primary">
                     <Button tag={Link} className="btn-block" to="/login" color="info">
@@ -128,66 +128,68 @@ export class Home extends React.Component<any, any> {
               <Col md="12" lg="12">
                 <Card>
                   <CardBody>
-                    {/*      <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous}>
-                      <CarouselIndicators items={items} activeIndex={activeIndex} onClick={this.goToIndex} />
-                      {slides2}
-                      <CarouselControl direction="prev" directionText="Previous" onClick={this.previous} />
-                      <CarouselControl direction="next" directionText="Next" onClick={this.next} />
-                    </Carousel> */}
+                    {
+                      <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous}>
+                        <CarouselIndicators items={items} activeIndex={activeIndex} onClick={this.goToIndex} />
+                        {slides2}
+                        <CarouselControl direction="prev" directionText="Previous" onClick={this.previous} />
+                        <CarouselControl direction="next" directionText="Next" onClick={this.next} />
+                      </Carousel>
+                    }
                   </CardBody>
                 </Card>
               </Col>
             </Row>
             <Row className="justify-content-center">
               <Col lg="11">
-                {/*
-               <Row>
-                  <Col lg="3">
-                    <Card>
-                      <Media href="https://education.vnu.edu.vn/index.php/WebControl/listnews/15/0">
-                        <Media
-                          alt="Generic placeholder image"
-                          className="img-responsive"
-                          src="https://education.vnu.edu.vn/assets/Layout/img/banner/1.jpg"
-                        />
-                      </Media>
-                    </Card>
-                  </Col>
-                  <Col lg="3">
-                    <Card>
-                      <Media href="https://education.vnu.edu.vn/index.php/WebControl/listnews/16/0">
-                        <Media
-                          alt="Generic placeholder image"
-                          className="img-responsive"
-                          src="https://education.vnu.edu.vn/assets/Layout/img/banner/2.jpg"
-                        />
-                      </Media>
-                    </Card>
-                  </Col>
-                  <Col lg="3">
-                    <Card>
-                      <Media href="http://danhgiatamly.edu.vn/">
-                        <Media
-                          alt="Generic placeholder image"
-                          className="img-responsive"
-                          src="https://education.vnu.edu.vn/assets/Layout/img/banner/3.jpg"
-                        />
-                      </Media>
-                    </Card>
-                  </Col>
-                  <Col lg="3">
-                    <Card>
-                      <Media href="http://hes.vnu.edu.vn/">
-                        <Media
-                          alt="Generic placeholder image"
-                          className="img-responsive"
-                          src="https://education.vnu.edu.vn/assets/Layout/img/banner/4.jpg"
-                        />
-                      </Media>
-                    </Card>
-                  </Col>
-                </Row>
-              */}
+                {
+                  <Row>
+                    <Col lg="3">
+                      <Card>
+                        <Media href="https://education.vnu.edu.vn/index.php/WebControl/listnews/15/0">
+                          <Media
+                            alt="Generic placeholder image"
+                            className="img-responsive"
+                            src="https://education.vnu.edu.vn/assets/Layout/img/banner/1.jpg"
+                          />
+                        </Media>
+                      </Card>
+                    </Col>
+                    <Col lg="3">
+                      <Card>
+                        <Media href="https://education.vnu.edu.vn/index.php/WebControl/listnews/16/0">
+                          <Media
+                            alt="Generic placeholder image"
+                            className="img-responsive"
+                            src="https://education.vnu.edu.vn/assets/Layout/img/banner/2.jpg"
+                          />
+                        </Media>
+                      </Card>
+                    </Col>
+                    <Col lg="3">
+                      <Card>
+                        <Media href="http://danhgiatamly.edu.vn/">
+                          <Media
+                            alt="Generic placeholder image"
+                            className="img-responsive"
+                            src="https://education.vnu.edu.vn/assets/Layout/img/banner/3.jpg"
+                          />
+                        </Media>
+                      </Card>
+                    </Col>
+                    <Col lg="3">
+                      <Card>
+                        <Media href="http://hes.vnu.edu.vn/">
+                          <Media
+                            alt="Generic placeholder image"
+                            className="img-responsive"
+                            src="https://education.vnu.edu.vn/assets/Layout/img/banner/4.jpg"
+                          />
+                        </Media>
+                      </Card>
+                    </Col>
+                  </Row>
+                }
               </Col>
             </Row>
           </div>
