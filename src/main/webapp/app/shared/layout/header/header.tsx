@@ -74,27 +74,27 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                   <>
                     <NavItem>
                       <NavLink onClick={this.toggleMenu} tag={Link} to="/entity/teacher">
-                        <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.teacher" />
+                        <FontAwesomeIcon icon="user" />&nbsp;<Translate contentKey="global.menu.entities.teacher" />
                       </NavLink>
                     </NavItem>
                     <NavItem>
                       <NavLink onClick={this.toggleMenu} tag={Link} to="/entity/notification">
-                        <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.notification" />
+                        <FontAwesomeIcon icon="bells" />&nbsp;<Translate contentKey="global.menu.entities.notification" />
                       </NavLink>
                     </NavItem>
                     <NavItem>
                       <NavLink onClick={this.toggleMenu} tag={Link} to="/entity/document">
-                        <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.document" />
+                        <FontAwesomeIcon icon="folders" />&nbsp;<Translate contentKey="global.menu.entities.document" />
                       </NavLink>
                     </NavItem>
                     <NavItem>
                       <NavLink onClick={this.toggleMenu} tag={Link} to="/entity/full-evaluate">
-                        <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.fullEvaluate" />
+                        <FontAwesomeIcon icon="file" />&nbsp;<Translate contentKey="global.menu.entities.fullEvaluate" />
                       </NavLink>
                     </NavItem>
                     <NavItem>
                       <NavLink onClick={this.toggleMenu} tag={Link} to="/component/survey">
-                        <FontAwesomeIcon icon="asterisk" />
+                        <FontAwesomeIcon icon="pencil" />
                         <span>
                           <Translate contentKey="global.menu.components.survey">Evaluate</Translate>
                         </span>
