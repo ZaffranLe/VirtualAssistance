@@ -54,7 +54,7 @@ export class Teacher extends React.Component<any, any> {
                               </h2>
                             </Col>
                             <Col md="4">
-                              <CardImg width="100%" src={`api/downloadFile/${documentEntity.uRL}`} />
+                              <CardImg width="100%" src={`api/downloadFile/${teacher.avatar}`} />
                             </Col>
                           </Row>
                         </CardHeader>
