@@ -48,7 +48,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
   };
 
   toggleMenu = () => {
-    // this.setState({ menuOpen: !this.state.menuOpen });
+    this.setState({ menuOpen: !this.state.menuOpen });
   };
   toggleMenuAcc = () => {
     this.setState({ menuAccOpen: !this.state.menuAccOpen });

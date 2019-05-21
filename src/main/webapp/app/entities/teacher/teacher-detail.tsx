@@ -93,7 +93,8 @@ export class TeacherDetail extends React.Component<any, any> {
                   <Row>
                     <Col md="10">
                       <h2>
-                        Hồ sơ giáo viên: <br />[<b>{teacherEntity.fullName}</b>]
+                        Hồ sơ giáo viên: <br />
+                        <b>{teacherEntity.fullName}</b>
                       </h2>
                     </Col>
                     <Col md="2">

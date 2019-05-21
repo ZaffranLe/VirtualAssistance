@@ -174,12 +174,8 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                     name="status"
                     value={(!isNew && documentEntity.status) || 'EXIST'}
                   >
-                    <option value="EXIST">
-                      <Translate contentKey="virtualAssistantApp.Status.EXIST" />
-                    </option>
-                    <option value="DELETED">
-                      <Translate contentKey="virtualAssistantApp.Status.DELETED" />
-                    </option>
+                    <option value="EXIST">EXIST</option>
+                    <option value="DELETED">DELETED</option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
@@ -199,33 +195,15 @@ export class DocumentUpdate extends React.Component<IDocumentUpdateProps, IDocum
                     name="fileExtension"
                     value={(!isNew && documentEntity.fileExtension) || 'DOCX'}
                   >
-                    <option value="DOCX">
-                      <Translate contentKey="virtualAssistantApp.Extension.DOCX" />
-                    </option>
-                    <option value="PDF">
-                      <Translate contentKey="virtualAssistantApp.Extension.PDF" />
-                    </option>
-                    <option value="MP4">
-                      <Translate contentKey="virtualAssistantApp.Extension.MP4" />
-                    </option>
-                    <option value="PPTX">
-                      <Translate contentKey="virtualAssistantApp.Extension.PPTX" />
-                    </option>
-                    <option value="JPG">
-                      <Translate contentKey="virtualAssistantApp.Extension.JPG" />
-                    </option>
-                    <option value="PNG">
-                      <Translate contentKey="virtualAssistantApp.Extension.PNG" />
-                    </option>
-                    <option value="DOC">
-                      <Translate contentKey="virtualAssistantApp.Extension.DOC" />
-                    </option>
-                    <option value="PPT">
-                      <Translate contentKey="virtualAssistantApp.Extension.PPT" />
-                    </option>
-                    <option value="OTHER">
-                      <Translate contentKey="virtualAssistantApp.Extension.OTHER" />
-                    </option>
+                    <option value="DOCX">DOCX</option>
+                    <option value="PDF">PDF</option>
+                    <option value="MP4">MP4</option>
+                    <option value="PPTX">PPTX</option>
+                    <option value="JPG">JPG</option>
+                    <option value="PNG">PNG</option>
+                    <option value="DOC">DOC</option>
+                    <option value="PPT">PPT</option>
+                    <option value="OTHER">OTHER</option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
