@@ -54,9 +54,6 @@ export class NotificationType extends React.Component<any, any> {
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="global.field.id">ID</Translate>
-                </th>
-                <th>
                   <Translate contentKey="virtualAssistantApp.notificationType.content">Content</Translate>
                 </th>
                 <th />
@@ -66,11 +63,11 @@ export class NotificationType extends React.Component<any, any> {
               {notificationTypeList.slice(currentPage * this.pageSize, (currentPage + 1) * this.pageSize).map((notificationType, i) => (
                 <tr key={`entity-${i}`}>
                   <td>
-                    <Button tag={Link} to={`${match.url}/${notificationType.id}`} color="link" size="sm">
-                      {notificationType.id}
-                    </Button>
+                    <Link to={`${match.url}/${notificationType.id}`}>{notificationType.id}</Link>
                   </td>
-                  <td>{notificationType.content}</td>
+                  <td>
+                    <Link to={`${match.url}/${notificationType.id}`}>{notificationType.content}</Link>
+                  </td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${notificationType.id}/edit`} color="primary" size="sm">
