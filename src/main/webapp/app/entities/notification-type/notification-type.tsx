@@ -63,9 +63,6 @@ export class NotificationType extends React.Component<any, any> {
               {notificationTypeList.slice(currentPage * this.pageSize, (currentPage + 1) * this.pageSize).map((notificationType, i) => (
                 <tr key={`entity-${i}`}>
                   <td>
-                    <Link to={`${match.url}/${notificationType.id}`}>{notificationType.id}</Link>
-                  </td>
-                  <td>
                     <Link to={`${match.url}/${notificationType.id}`}>{notificationType.content}</Link>
                   </td>
                   <td className="text-right">
