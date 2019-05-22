@@ -209,52 +209,15 @@ export class NotificationUpdate extends React.Component<any, any> {
                   </Label>
                   <AvInput
                     id="notification-documentType"
-                    onChange={e => this.handleChooseType(e)}
                     type="select"
+                    multiple
                     className="form-control"
-                    name="0"
+                    name="documentTypes"
+                    value={notificationEntity.documentTypes && notificationEntity.documentTypes.map(e => e.id)}
                   >
                     <option value="" key="0" />
                     {documentTypes
-                      ? documentTypes.filter(otherEntity => otherEntity.level === 'LEVEL1').map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.content}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label for="documentTypes">Môn học</Label>
-                  <AvInput
-                    id="notification-documentType"
-                    onChange={e => this.handleChooseType(e)}
-                    type="select"
-                    className="form-control"
-                    name="1"
-                  >
-                    <option value="" key="0" />
-                    {documentTypes
-                      ? documentTypes.filter(otherEntity => otherEntity.level === 'LEVEL2').map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.content}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label for="documentTypes">Nội dung</Label>
-                  <AvInput
-                    id="notification-documentType"
-                    onChange={e => this.handleChooseType(e)}
-                    type="select"
-                    className="form-control"
-                    name="2"
-                  >
-                    <option value="" key="0" />
-                    {documentTypes
-                      ? documentTypes.filter(otherEntity => otherEntity.level === 'LEVEL3').map(otherEntity => (
+                      ? documentTypes.map(otherEntity => (
                           <option value={otherEntity.id} key={otherEntity.id}>
                             {otherEntity.content}
                           </option>
