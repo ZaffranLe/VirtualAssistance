@@ -5,7 +5,7 @@ import { Button, Col, Row, Table, Pagination, PaginationItem, PaginationLink, In
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import './document.css';
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './document.reducer';
 import { IDocument } from 'app/shared/model/document.model';
@@ -97,24 +97,11 @@ export class Document extends React.Component<any, any> {
                 <thead>
                   <tr>
                     <th>
-                      <Translate contentKey="global.field.id">ID</Translate>
-                    </th>
-                    <th>
                       <Translate contentKey="virtualAssistantApp.document.name">Name</Translate>
                     </th>
-                    {/* <th>
-                      <Translate contentKey="virtualAssistantApp.document.description">Description</Translate>
-                    </th>
-                    <th>
-                      <Translate contentKey="virtualAssistantApp.document.tag">Tag</Translate>
-                    </th> */}
-                    {/* <th>
-                      <Translate contentKey="virtualAssistantApp.document.isShared">Is Shared</Translate>
-                    </th> */}
                     <th>
                       <Translate contentKey="virtualAssistantApp.document.documentType">Document Type</Translate>
                     </th>
-                    <th />
                   </tr>
                 </thead>
                 <tbody>
@@ -127,49 +114,23 @@ export class Document extends React.Component<any, any> {
                     })
                     .slice(currentPrivatePage * this.pageSize, (currentPrivatePage + 1) * this.pageSize)
                     .map((document, i) => (
-                      <tr key={`entity-${i}`}>
+                      <tr>
                         <td>
-                          <Button tag={Link} to={`${match.url}/${document.id}`} color="link" size="sm">
-                            {document.id}
-                          </Button>
+                          <Link key={`entity-${i}`} to={`${match.url}/${document.id}`}>
+                            {document.name}
+                          </Link>
                         </td>
-                        {/* <td>{document.name}</td> */}
-                        {/* <td>{document.description}</td> */}
-                        {/* <td>{document.tag}</td> */}
-                        {/* <td>{document.isShared ? 'Chia sẻ' : 'Riêng tư'}</td> */}
                         <td>
-                          {document.documentTypes
-                            ? document.documentTypes.map((val, j) => (
-                                <span key={j}>
-                                  {/* <Link to={`document-type/${val.id}`}> */}
-                                  {val.content}
-                                  {/* </Link> */}
-                                  {j === document.documentTypes.length - 1 ? '' : ', '}
-                                </span>
-                              ))
-                            : null}
-                        </td>
-                        <td className="text-right">
-                          <div className="btn-group flex-btn-group-container">
-                            <Button tag={Link} to={`${match.url}/${document.id}`} color="info" size="sm">
-                              <FontAwesomeIcon icon="eye" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.view">View</Translate>
-                              </span>
-                            </Button>
-                            <Button tag={Link} to={`${match.url}/${document.id}/edit`} color="primary" size="sm">
-                              <FontAwesomeIcon icon="pencil-alt" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.edit">Edit</Translate>
-                              </span>
-                            </Button>
-                            <Button tag={Link} to={`${match.url}/${document.id}/delete`} color="danger" size="sm">
-                              <FontAwesomeIcon icon="trash" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.delete">Delete</Translate>
-                              </span>
-                            </Button>
-                          </div>
+                          <Link key={`entity-${i}`} to={`${match.url}/${document.id}`}>
+                            {document.documentTypes
+                              ? document.documentTypes.map((val, j) => (
+                                  <span key={j}>
+                                    {val.content}
+                                    {j === document.documentTypes.length - 1 ? '' : ', '}
+                                  </span>
+                                ))
+                              : null}
+                          </Link>
                         </td>
                       </tr>
                     ))}
@@ -204,9 +165,6 @@ export class Document extends React.Component<any, any> {
                 <thead>
                   <tr>
                     <th>
-                      <Translate contentKey="global.field.id">ID</Translate>
-                    </th>
-                    <th>
                       <Translate contentKey="virtualAssistantApp.document.name">Name</Translate>
                     </th>
                     <th>
@@ -215,13 +173,9 @@ export class Document extends React.Component<any, any> {
                     <th>
                       <Translate contentKey="virtualAssistantApp.document.tag">Tag</Translate>
                     </th>
-                    {/* <th>
-                      <Translate contentKey="virtualAssistantApp.document.isShared">Is Shared</Translate>
-                    </th> */}
                     <th>
                       <Translate contentKey="virtualAssistantApp.document.documentType">Document Type</Translate>
                     </th>
-                    <th />
                   </tr>
                 </thead>
                 <tbody>
@@ -240,35 +194,31 @@ export class Document extends React.Component<any, any> {
                     .map((document, i) => (
                       <tr key={`entity-${i}`}>
                         <td>
-                          <Button tag={Link} to={`${match.url}/${document.id}`} color="link" size="sm">
-                            {document.id}
-                          </Button>
+                          <Link key={`entity-${i}`} to={`${match.url}/${document.id}`}>
+                            {document.name}
+                          </Link>
                         </td>
-                        <td>{document.name}</td>
-                        <td>{document.description}</td>
-                        <td>{document.tag}</td>
-                        {/* <td>{document.isShared ? 'Chia sẻ' : 'Riêng tư'}</td> */}
                         <td>
-                          {document.documentTypes
-                            ? document.documentTypes.map((val, j) => (
-                                <span key={j}>
-                                  {/* <Link to={`document-type/${val.id}`}> */}
-                                  {val.content}
-                                  {/* </Link> */}
-                                  {j === document.documentTypes.length - 1 ? '' : ', '}
-                                </span>
-                              ))
-                            : null}
+                          <Link key={`entity-${i}`} to={`${match.url}/${document.id}`}>
+                            {document.description}
+                          </Link>
                         </td>
-                        <td className="text-right">
-                          <div className="btn-group flex-btn-group-container">
-                            <Button tag={Link} to={`${match.url}/${document.id}`} color="info" size="sm">
-                              <FontAwesomeIcon icon="eye" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.view">View</Translate>
-                              </span>
-                            </Button>
-                          </div>
+                        <td>
+                          <Link key={`entity-${i}`} to={`${match.url}/${document.id}`}>
+                            {document.tag}
+                          </Link>
+                        </td>
+                        <td>
+                          <Link key={`entity-${i}`} to={`${match.url}/${document.id}`}>
+                            {document.documentTypes
+                              ? document.documentTypes.map((val, j) => (
+                                  <span key={j}>
+                                    {val.content}
+                                    {j === document.documentTypes.length - 1 ? '' : ', '}
+                                  </span>
+                                ))
+                              : null}
+                          </Link>
                         </td>
                       </tr>
                     ))}
