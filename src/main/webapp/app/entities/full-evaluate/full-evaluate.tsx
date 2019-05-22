@@ -78,9 +78,6 @@ export class FullEvaluate extends React.Component<any, any> {
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="global.field.id">ID</Translate>
-                </th>
-                <th>
                   <Translate contentKey="virtualAssistantApp.fullEvaluate.description">Description</Translate>
                 </th>
                 <th>
@@ -104,18 +101,17 @@ export class FullEvaluate extends React.Component<any, any> {
                 .map((fullEvaluate, i) => (
                   <tr key={`entity-${i}`}>
                     <td>
-                      <Button tag={Link} to={`${match.url}/${fullEvaluate.id}`} color="link" size="sm">
-                        {fullEvaluate.id}
-                      </Button>
-                    </td>
-                    <td>{fullEvaluate.description}</td>
-                    <td>
-                      <Badge color={getBadge(fullEvaluate.result)} pill>
-                        <Translate contentKey={`virtualAssistantApp.ScoreLadder.${fullEvaluate.result}`} />
-                      </Badge>
+                      <Link to={`${match.url}/${fullEvaluate.id}`}>{fullEvaluate.description}</Link>
                     </td>
                     <td>
-                      {fullEvaluate.teacher ? <Link to={`teacher/${fullEvaluate.teacher.id}`}>{fullEvaluate.teacher.fullName}</Link> : ''}
+                      <Link to={`${match.url}/${fullEvaluate.id}`}>
+                        <Badge color={getBadge(fullEvaluate.result)} pill>
+                          <Translate contentKey={`virtualAssistantApp.ScoreLadder.${fullEvaluate.result}`} />
+                        </Badge>
+                      </Link>
+                    </td>
+                    <td>
+                      {fullEvaluate.teacher ? <Link to={`${match.url}/${fullEvaluate.id}`}>{fullEvaluate.teacher.fullName}</Link> : ''}
                     </td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">

@@ -5,7 +5,6 @@ import { Button, Col, Row, Table, Pagination, PaginationItem, PaginationLink, In
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './document.css';
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './document.reducer';
 import { IDocument } from 'app/shared/model/document.model';
