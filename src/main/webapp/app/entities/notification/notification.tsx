@@ -73,9 +73,6 @@ export class Notification extends React.Component<any, any> {
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="global.field.id">ID</Translate>
-                </th>
-                <th>
                   <Translate contentKey="virtualAssistantApp.notification.name">Name</Translate>
                 </th>
                 <th>
@@ -102,34 +99,23 @@ export class Notification extends React.Component<any, any> {
                 .map((notification, i) => (
                   <tr key={`entity-${i}`}>
                     <td>
-                      <Button tag={Link} to={`${match.url}/${notification.id}`} color="link" size="sm">
-                        {notification.id}
-                      </Button>
+                      <Link to={`${match.url}/${notification.id}`}>{notification.name}</Link>
                     </td>
-                    <td>{notification.name}</td>
-                    <td>{notification.description}</td>
                     <td>
-                      {notification.headQuater ? (
-                        <Link to={`head-quater/${notification.headQuater.id}`}>{notification.headQuater.name}</Link>
-                      ) : (
-                        ''
-                      )}
+                      <Link to={`${match.url}/${notification.id}`}>{notification.description}</Link>
+                    </td>
+                    <td>
+                      {notification.headQuater ? <Link to={`${match.url}/${notification.id}`}>{notification.headQuater.name}</Link> : ''}
                     </td>
                     <td>
                       {notification.documentType ? (
-                        <Link to={`document-type/${notification.documentType.id}`}>{notification.documentType.content}</Link>
+                        <Link to={`${match.url}/${notification.id}}`}>{notification.documentType.content}</Link>
                       ) : (
                         ''
                       )}
                     </td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
-                        <Button tag={Link} to={`${match.url}/${notification.id}`} color="info" size="sm">
-                          <FontAwesomeIcon icon="eye" />{' '}
-                          <span className="d-none d-md-inline">
-                            <Translate contentKey="entity.action.view">View</Translate>
-                          </span>
-                        </Button>
                         {isAdmin && (
                           <div>
                             <Button tag={Link} to={`${match.url}/${notification.id}/edit`} color="primary" size="sm">
