@@ -124,69 +124,10 @@ export class NotificationUpdate extends React.Component<any, any> {
                   <AvField id="notification-uRL" type="text" name="uRL" />
                 </AvGroup>
                 <AvGroup>
-                  <Label id="statusLabel">
-                    <Translate contentKey="virtualAssistantApp.notification.status">Status</Translate>
-                  </Label>
-                  <AvInput
-                    id="notification-status"
-                    type="select"
-                    className="form-control"
-                    name="status"
-                    value={(!isNew && notificationEntity.status) || 'EXIST'}
-                  >
-                    <option value="EXIST">
-                      <Translate contentKey="virtualAssistantApp.Status.EXIST" />
-                    </option>
-                    <option value="DELETED">
-                      <Translate contentKey="virtualAssistantApp.Status.DELETED" />
-                    </option>
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
                   <Label id="tagLabel" for="tag">
                     <Translate contentKey="virtualAssistantApp.notification.tag">Tag</Translate>
                   </Label>
                   <AvField id="notification-tag" type="text" name="tag" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="fileExtensionLabel">
-                    <Translate contentKey="virtualAssistantApp.notification.fileExtension">File Extension</Translate>
-                  </Label>
-                  <AvInput
-                    id="notification-fileExtension"
-                    type="select"
-                    className="form-control"
-                    name="fileExtension"
-                    value={(!isNew && notificationEntity.fileExtension) || 'DOCX'}
-                  >
-                    <option value="DOCX">
-                      <Translate contentKey="virtualAssistantApp.Extension.DOCX" />
-                    </option>
-                    <option value="PDF">
-                      <Translate contentKey="virtualAssistantApp.Extension.PDF" />
-                    </option>
-                    <option value="MP4">
-                      <Translate contentKey="virtualAssistantApp.Extension.MP4" />
-                    </option>
-                    <option value="PPTX">
-                      <Translate contentKey="virtualAssistantApp.Extension.PPTX" />
-                    </option>
-                    <option value="JPG">
-                      <Translate contentKey="virtualAssistantApp.Extension.JPG" />
-                    </option>
-                    <option value="PNG">
-                      <Translate contentKey="virtualAssistantApp.Extension.PNG" />
-                    </option>
-                    <option value="DOC">
-                      <Translate contentKey="virtualAssistantApp.Extension.DOC" />
-                    </option>
-                    <option value="PPT">
-                      <Translate contentKey="virtualAssistantApp.Extension.PPT" />
-                    </option>
-                    <option value="OTHER">
-                      <Translate contentKey="virtualAssistantApp.Extension.OTHER" />
-                    </option>
-                  </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label for="headQuater.id">
