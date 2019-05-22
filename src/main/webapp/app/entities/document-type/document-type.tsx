@@ -55,9 +55,6 @@ export class DocumentType extends React.Component<any, any> {
             <thead>
               <tr>
                 <th>
-                  <Translate contentKey="global.field.id">ID</Translate>
-                </th>
-                <th>
                   <Translate contentKey="virtualAssistantApp.documentType.content">Content</Translate>
                 </th>
                 <th />
@@ -67,11 +64,8 @@ export class DocumentType extends React.Component<any, any> {
               {documentTypeList.slice(currentPage * this.pageSize, (currentPage + 1) * this.pageSize).map((documentType, i) => (
                 <tr key={`entity-${i}`}>
                   <td>
-                    <Button tag={Link} to={`${match.url}/${documentType.id}`} color="link" size="sm">
-                      {documentType.id}
-                    </Button>
+                    <Link to={`${match.url}/${documentType.id}`}>{documentType.content}</Link>
                   </td>
-                  <td>{documentType.content}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${documentType.id}/edit`} color="primary" size="sm">

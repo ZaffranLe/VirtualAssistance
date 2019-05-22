@@ -66,11 +66,8 @@ export class HeadQuater extends React.Component<any, any> {
               {headQuaterList.slice(currentPage * this.pageSize, (currentPage + 1) * this.pageSize).map((headQuater, i) => (
                 <tr key={`entity-${i}`}>
                   <td>
-                    <Button tag={Link} to={`${match.url}/${headQuater.id}`} color="link" size="sm">
-                      {headQuater.id}
-                    </Button>
+                    <Link to={`${match.url}/${headQuater.id}`}>{headQuater.name}</Link>
                   </td>
-                  <td>{headQuater.name}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${headQuater.id}/edit`} color="primary" size="sm">
