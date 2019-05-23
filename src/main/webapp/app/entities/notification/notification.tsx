@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import { AUTHORITIES } from 'app/config/constants';
 import { IRootState } from 'app/shared/reducers';
-import { getEntities } from './notification.reducer';
+import { getEntities } from '../document/document.reducer';
 import { INotification } from 'app/shared/model/notification.model';
 // tslint:disable-next-line:no-unused-variable
 
@@ -45,7 +45,7 @@ export class Notification extends React.Component<any, any> {
     });
   }
   render() {
-    const { notificationList, match } = this.props;
+    const { documentList, match } = this.props;
     const { isAdmin } = this.props;
     const { currentPage } = this.state;
     return (
@@ -84,55 +84,44 @@ export class Notification extends React.Component<any, any> {
                 <th>
                   <Translate contentKey="virtualAssistantApp.notification.documentType">Notification Type</Translate>
                 </th>
-                <th />
               </tr>
             </thead>
             <tbody>
-              {notificationList
-                .filter(notification => {
-                  if (notification.description.toLowerCase().includes(this.state.nameSearch)) {
+              {documentList
+                .filter(document => {
+                  if (
+                    document.description.toLowerCase().includes(this.state.nameSearch) &&
+                    document.documentTypes.findIndex(ele => ele.content === 'Văn bản pháp quy') !== -1
+                  ) {
                     return true;
                   }
                   return false;
                 })
                 .slice(currentPage * this.pageSize, (currentPage + 1) * this.pageSize)
-                .map((notification, i) => (
+                .map((document, i) => (
                   <tr key={`entity-${i}`}>
                     <td>
-                      <Link to={`${match.url}/${notification.id}`}>{notification.name}</Link>
+                      <Link to={`${match.url}/${document.id}`}>{document.name}</Link>
                     </td>
                     <td>
-                      <Link to={`${match.url}/${notification.id}`}>{notification.description}</Link>
+                      <Link to={`${match.url}/${document.id}`}>{document.description}</Link>
                     </td>
+                    <td>{document.headQuater ? <Link to={`${match.url}/${document.id}`}>{document.headQuater.name}</Link> : ''}</td>
                     <td>
-                      {notification.headQuater ? <Link to={`${match.url}/${notification.id}`}>{notification.headQuater.name}</Link> : ''}
-                    </td>
-                    <td>
-                      {notification.documentType ? (
-                        <Link to={`${match.url}/${notification.id}}`}>{notification.documentType.content}</Link>
+                      {document.documentTypes ? (
+                        <Link key={`entity-${i}`} to={`${match.url}/${document.id}`}>
+                          {document.documentTypes
+                            ? document.documentTypes.map((val, j) => (
+                                <span key={j}>
+                                  {val.content}
+                                  {j === document.documentTypes.length - 1 ? '' : ', '}
+                                </span>
+                              ))
+                            : null}
+                        </Link>
                       ) : (
                         ''
                       )}
-                    </td>
-                    <td className="text-right">
-                      <div className="btn-group flex-btn-group-container">
-                        {isAdmin && (
-                          <div>
-                            <Button tag={Link} to={`${match.url}/${notification.id}/edit`} color="primary" size="sm">
-                              <FontAwesomeIcon icon="pencil-alt" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.edit">Edit</Translate>
-                              </span>
-                            </Button>
-                            <Button tag={Link} to={`${match.url}/${notification.id}/delete`} color="danger" size="sm">
-                              <FontAwesomeIcon icon="trash" />{' '}
-                              <span className="d-none d-md-inline">
-                                <Translate contentKey="entity.action.delete">Delete</Translate>
-                              </span>
-                            </Button>{' '}
-                          </div>
-                        )}
-                      </div>
                     </td>
                   </tr>
                 ))}
@@ -157,8 +146,8 @@ export class Notification extends React.Component<any, any> {
   }
 }
 
-const mapStateToProps = ({ notification, authentication }: IRootState) => ({
-  notificationList: notification.entities,
+const mapStateToProps = ({ document, authentication }: IRootState) => ({
+  documentList: document.entities,
   isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN])
 });
 
