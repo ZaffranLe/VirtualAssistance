@@ -31,6 +31,36 @@ td a {
   display: block;
 }
 
+html {
+  font-size: 10px;
+}
+
+@media (min-width: 544px) {
+  html {
+    font-size: 11.5px;
+  } /*1rem = 16px*/
+}
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {
+  html {
+    font-size: 13px;
+  } /*1rem = 16px*/
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  html {
+    font-size: 14.5px;
+  } /*1rem = 16px*/
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  html {
+    font-size: 16px;
+  } /*1rem = 16px*/
+}
 /* ==========================================================================
 Browser Upgrade Prompt
 ========================================================================== */

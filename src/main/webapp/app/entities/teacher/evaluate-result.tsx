@@ -36,7 +36,7 @@ function EvaluateRow(props) {
         </Badge>
       </td>
       <td>
-        <Button tag={Link} to={`${'../full-evaluate'}/${evaluate.id}`} color="info" size="sm">
+        <Button tag={Link} to={`${'/entity/full-evaluate'}/${evaluate.id}`} color="info" size="sm">
           <FontAwesomeIcon icon="eye" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.view">View</Translate>

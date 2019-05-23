@@ -21,6 +21,7 @@ import LoadingBar from 'react-redux-loading-bar';
 import { NavDropdown, Home, Brand } from './header-components';
 import { AdminMenu, EntitiesMenu, AccountMenu, LocaleMenu } from './menus';
 import { ComponentsMenu } from './menus/components';
+import { faPen, faBell, faUser, faFile, faFolder } from '@fortawesome/free-solid-svg-icons';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -74,27 +75,27 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                   <>
                     <NavItem>
                       <NavLink onClick={this.toggleMenu} tag={Link} to="/entity/teacher">
-                        <FontAwesomeIcon icon="user" />&nbsp;<Translate contentKey="global.menu.entities.teacher" />
+                        <FontAwesomeIcon icon={faUser} />&nbsp;<Translate contentKey="global.menu.entities.teacher" />
                       </NavLink>
                     </NavItem>
                     <NavItem>
                       <NavLink onClick={this.toggleMenu} tag={Link} to="/entity/notification">
-                        <FontAwesomeIcon icon="bells" />&nbsp;<Translate contentKey="global.menu.entities.notification" />
+                        <FontAwesomeIcon icon={faBell} />&nbsp;<Translate contentKey="global.menu.entities.notification" />
                       </NavLink>
                     </NavItem>
                     <NavItem>
                       <NavLink onClick={this.toggleMenu} tag={Link} to="/entity/document">
-                        <FontAwesomeIcon icon="folders" />&nbsp;<Translate contentKey="global.menu.entities.document" />
+                        <FontAwesomeIcon icon={faFolder} />&nbsp;<Translate contentKey="global.menu.entities.document" />
                       </NavLink>
                     </NavItem>
                     <NavItem>
                       <NavLink onClick={this.toggleMenu} tag={Link} to="/entity/full-evaluate">
-                        <FontAwesomeIcon icon="file" />&nbsp;<Translate contentKey="global.menu.entities.fullEvaluate" />
+                        <FontAwesomeIcon icon={faFile} />&nbsp;<Translate contentKey="global.menu.entities.fullEvaluate" />
                       </NavLink>
                     </NavItem>
                     <NavItem>
                       <NavLink onClick={this.toggleMenu} tag={Link} to="/component/survey">
-                        <FontAwesomeIcon icon="pencil" />
+                        <FontAwesomeIcon icon={faPen} />
                         <span>
                           <Translate contentKey="global.menu.components.survey">Evaluate</Translate>
                         </span>
