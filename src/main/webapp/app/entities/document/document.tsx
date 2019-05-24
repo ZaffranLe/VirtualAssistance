@@ -99,6 +99,12 @@ export class Document extends React.Component<any, any> {
                       <Translate contentKey="virtualAssistantApp.document.name">Name</Translate>
                     </th>
                     <th>
+                      <Translate contentKey="virtualAssistantApp.document.description">Description</Translate>
+                    </th>
+                    <th>
+                      <Translate contentKey="virtualAssistantApp.document.tag">Tag</Translate>
+                    </th>
+                    <th>
                       <Translate contentKey="virtualAssistantApp.document.documentType">Document Type</Translate>
                     </th>
                   </tr>
@@ -117,6 +123,16 @@ export class Document extends React.Component<any, any> {
                         <td>
                           <Link key={`entity-${i}`} to={`${match.url}/${document.id}`}>
                             {document.name}
+                          </Link>
+                        </td>
+                        <td>
+                          <Link key={`entity-${i}`} to={`${match.url}/${document.id}`}>
+                            {document.description}
+                          </Link>
+                        </td>
+                        <td>
+                          <Link key={`entity-${i}`} to={`${match.url}/${document.id}`}>
+                            {document.tag}
                           </Link>
                         </td>
                         <td>
