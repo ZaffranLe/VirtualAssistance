@@ -56,7 +56,6 @@ class QuestionRow extends React.Component<any, any> {
                 {this.state.criteriaEvaluate.good} <br />- <strong>Mức Tốt:</strong> {this.state.criteriaEvaluate.excellent} <br />
                 <p>Thêm minh chứng</p> <br />
                 <FilePond
-                  acceptedFileTypes={['image/png', 'image/jpeg']}
                   //  ref={this.fileRef}
                   allowMultiple={false}
                   server={{

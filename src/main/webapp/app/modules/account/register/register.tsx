@@ -3,7 +3,9 @@ import { Translate, translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Row, Col, Alert, Button } from 'reactstrap';
-
+import { FilePond } from 'react-filepond';
+// tslint:disable-next-line:no-submodule-imports
+import 'filepond/dist/filepond.min.css';
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 import { IRootState } from 'app/shared/reducers';
 import { handleRegister, reset } from './register.reducer';
@@ -70,6 +72,10 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
                   minLength: { value: 1, errorMessage: translate('register.messages.validate.login.minlength') },
                   maxLength: { value: 50, errorMessage: translate('register.messages.validate.login.maxlength') }
                 }}
+              />
+              <FilePond
+                //  ref={this.fileRef}
+                allowMultiple={false}
               />
               <AvField
                 name="email"

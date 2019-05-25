@@ -13,7 +13,7 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 export interface ITeacherProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 import { EvaluateResult } from './evaluate-result';
 import { Documents } from './documents';
-import { getPrivateEntities as getDocumentEntities } from '../document/document.reducer';
+import { getEntitiesbyLogin as getDocumentEntities } from '../document/document.reducer';
 import { getEntities as getFullEvaluateEntities } from '../full-evaluate/full-evaluate.reducer';
 import { getEntities as getDocumentTypes } from '../document-type/document-type.reducer';
 export class Teacher extends React.Component<any, any> {
