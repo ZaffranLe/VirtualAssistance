@@ -54,7 +54,14 @@ export class Teacher extends React.Component<any, any> {
                               </h2>
                             </Col>
                             <Col md="4">
-                              <CardImg width="100%" src={`api/downloadFile/${teacher.avatar}`} />
+                              <CardImg
+                                width="100%"
+                                src={
+                                  teacher.avatar
+                                    ? `api/downloadFile/${teacher.avatar}`
+                                    : `https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200`
+                                }
+                              />
                             </Col>
                           </Row>
                         </CardHeader>
@@ -131,6 +138,18 @@ export class Teacher extends React.Component<any, any> {
                                 </td>
                                 <td>
                                   <strong>{teacher.level}</strong>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td colSpan={2}>
+                                  <span id="level">
+                                    <Button tag={Link} to={`${match.url}/${teacher.id}/edit`} color="primary" size="sm">
+                                      <FontAwesomeIcon icon="pencil-alt" />{' '}
+                                      <span className="d-none d-md-inline">
+                                        <Translate contentKey="entity.action.edit">Edit</Translate>
+                                      </span>
+                                    </Button>
+                                  </span>
                                 </td>
                               </tr>
                             </tbody>

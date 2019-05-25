@@ -32,7 +32,7 @@ public class FullEvaluate implements Serializable {
     @Column(name = "result")
     private ScoreLadder result;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties("")
     private Teacher teacher;
 

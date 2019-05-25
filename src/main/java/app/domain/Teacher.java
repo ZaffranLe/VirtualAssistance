@@ -69,7 +69,7 @@ public class Teacher implements Serializable {
     @JoinColumn(unique = true)
     private User user;
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher",fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<TeacherDocument> teachers = new HashSet<>();
 
