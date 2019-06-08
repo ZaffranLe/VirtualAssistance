@@ -16,6 +16,9 @@
     <include file="config/liquibase/changelog/20190313134949_added_entity_Answer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190313134951_added_entity_FullEvaluate.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190317231208_added_entity_CriteriaEvaluate.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190601161538_added_entity_Proofs.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190601161539_added_entity_ProofType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190601161542_added_entity_Forum.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190313134942_added_entity_constraints_TeacherDocument.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190313134943_added_entity_constraints_Document.xml" relativeToChangelogFile="false"/>
@@ -24,5 +27,7 @@
     <include file="config/liquibase/changelog/20190313134951_added_entity_constraints_FullEvaluate.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190317231208_added_entity_constraints_CriteriaEvaluate.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190313134941_added_entity_constraints_Teacher.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190601161538_added_entity_constraints_Proofs.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190601161542_added_entity_constraints_Forum.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

@@ -36,12 +36,14 @@ export interface IHeaderProps {
 export interface IHeaderState {
   menuOpen: boolean;
   menuAccOpen: boolean;
+  menuEvalOpen: boolean;
 }
 
 export default class Header extends React.Component<IHeaderProps, IHeaderState> {
   state: IHeaderState = {
     menuOpen: false,
-    menuAccOpen: false
+    menuAccOpen: false,
+    menuEvalOpen: false
   };
 
   handleLocaleChange = event => {
@@ -53,6 +55,9 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
   };
   toggleMenuAcc = () => {
     this.setState({ menuAccOpen: !this.state.menuAccOpen });
+  };
+  toggleMenuEval = () => {
+    this.setState({ menuEvalOpen: !this.state.menuEvalOpen });
   };
 
   render() {
@@ -89,18 +94,43 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                       </NavLink>
                     </NavItem>
                     <NavItem>
-                      <NavLink onClick={this.toggleMenu} tag={Link} to="/entity/full-evaluate">
-                        <FontAwesomeIcon icon={faFile} />&nbsp;<Translate contentKey="global.menu.entities.fullEvaluate" />
+                      <NavLink onClick={this.toggleMenu} tag={Link} to="/entity/forum">
+                        <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.forum" />
                       </NavLink>
                     </NavItem>
-                    <NavItem>
+                    <Dropdown isOpen={this.state.menuEvalOpen} nav inNavbar id="account-menu" toggle={this.toggleMenuEval}>
+                      <DropdownToggle nav caret className="d-flex align-items-center">
+                        <FontAwesomeIcon icon={faPen} />
+                        <Translate contentKey="global.menu.components.surveymenu">Evaluate</Translate>
+                      </DropdownToggle>
+                      <DropdownMenu>
+                        <DropdownItem id="survey" tag={Link} to="/component/survey">
+                          <FontAwesomeIcon icon={faPen} />
+                          <span>
+                            <Translate contentKey="global.menu.components.survey">Evaluate</Translate>
+                          </span>
+                        </DropdownItem>
+                        <DropdownItem tag={Link} to="/entity/full-evaluate">
+                          <FontAwesomeIcon icon={faFile} />
+                          <span>
+                            <Translate contentKey="global.menu.entities.fullEvaluate" />
+                          </span>
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
+                    {/* <NavItem>
                       <NavLink onClick={this.toggleMenu} tag={Link} to="/component/survey">
                         <FontAwesomeIcon icon={faPen} />
                         <span>
                           <Translate contentKey="global.menu.components.survey">Evaluate</Translate>
                         </span>
                       </NavLink>
-                    </NavItem>
+                      <NavItem>
+                        <NavLink onClick={this.toggleMenu} tag={Link} to="/entity/full-evaluate">
+                          <FontAwesomeIcon icon={faFile} />&nbsp;<Translate contentKey="global.menu.entities.fullEvaluate" />
+                        </NavLink>
+                      </NavItem>
+                    </NavItem> */}
                   </>
                 )}
               {isAuthenticated && isAdmin && <AdminMenu showSwagger={isSwaggerEnabled} />}

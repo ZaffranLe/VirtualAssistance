@@ -15,6 +15,9 @@ import CriteriaType from './criteria-type';
 import Answer from './answer';
 import FullEvaluate from './full-evaluate';
 import CriteriaEvaluate from './criteria-evaluate';
+import Proofs from './proofs';
+import ProofType from './proof-type';
+import Forum from './forum';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
@@ -32,6 +35,9 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}/answer`} component={Answer} />
       <ErrorBoundaryRoute path={`${match.url}/full-evaluate`} component={FullEvaluate} />
       <ErrorBoundaryRoute path={`${match.url}/criteria-evaluate`} component={CriteriaEvaluate} />
+      <ErrorBoundaryRoute path={`${match.url}/proofs`} component={Proofs} />
+      <ErrorBoundaryRoute path={`${match.url}/proof-type`} component={ProofType} />
+      <ErrorBoundaryRoute path={`${match.url}/forum`} component={Forum} />
       {/* jhipster-needle-add-route-path - JHipster will routes here */}
     </Switch>
   </div>

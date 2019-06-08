@@ -72,6 +72,16 @@ entity Answer{
 	Proof String
 }
 
+entity Proofs{
+	name String,
+    url String,
+
+    
+}
+entity ProofType{
+	name String
+}
+
 enum ScoreLadder{
 	FAIL, PASS, GOOD, EXCELLENT
 }
@@ -89,22 +99,35 @@ entity FullEvaluate{
 	Result ScoreLadder
 }
 
+entity Forum{
+	title String,
+    content String,
+    createDay ZonedDateTime,
+    level Integer,
+}
+
 relationship ManyToMany {
 	Document{DocumentType} to DocumentType{Document},
-	Notification{DocumentType} to DocumentType{Notification}
+	Notification{DocumentType} to DocumentType{Notification},
+    Proofs{Answer} to Answer{proffs}
 }
 
 relationship OneToMany {
-	Teacher{Teacher} to TeacherDocument{Teacher}
-    Document{Document} to TeacherDocument{Document}
+	Teacher{Teacher} to TeacherDocument{Teacher},
+    Document{Document} to TeacherDocument{Document},
+    Forum{root} to Forum
+    
+    
 }
 
 relationship ManyToOne {
     Notification{HeadQuater} to HeadQuater,
-    FullEvaluate{Teacher} to Teacher,
+    FullEvaluate{Teacher} to Teacher
     Answer{FullEvaluate} to FullEvaluate,
     Answer{CriteriaEvaluate} to CriteriaEvaluate,
-    CriteriaEvaluate{CriteriaType} to CriteriaType
+    CriteriaEvaluate{CriteriaType} to CriteriaType,
+    Proofs{type} to ProofType,
+    Forum{User} to User
 }
 
 relationship OneToOne {

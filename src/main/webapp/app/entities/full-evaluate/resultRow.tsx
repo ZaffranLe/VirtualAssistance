@@ -26,7 +26,7 @@ class ResultRow extends React.Component<any, any> {
             <FontAwesomeIcon icon="download" /> Download
           </Button>
         </a>
-        <CardImg width="100%" src={`api/downloadFileProof/${link}`} />
+        <CardImg width="50%" src={`api/downloadFileProof/${link}`} />
       </>
     );
   }

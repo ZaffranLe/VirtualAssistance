@@ -7,7 +7,7 @@ import { Translate, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getAnswerEntities } from './answer.reducer';
+import { getEntities } from './answer.reducer';
 import { IAnswer } from 'app/shared/model/answer.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -16,7 +16,7 @@ export interface IAnswerProps extends StateProps, DispatchProps, RouteComponentP
 
 export class Answer extends React.Component<IAnswerProps> {
   componentDidMount() {
-    this.props.getAnswerEntities();
+    this.props.getEntities();
   }
 
   render() {
@@ -109,7 +109,7 @@ const mapStateToProps = ({ answer }: IRootState) => ({
 });
 
 const mapDispatchToProps = {
-  getAnswerEntities
+  getEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

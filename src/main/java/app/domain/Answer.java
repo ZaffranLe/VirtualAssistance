@@ -1,5 +1,6 @@
 package app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -7,6 +8,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 import app.domain.enumeration.ScoreLadder;
@@ -39,6 +42,11 @@ public class Answer implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("")
     private CriteriaEvaluate criteriaEvaluate;
+
+    @ManyToMany(mappedBy = "answers")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Proofs> proffs = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -99,6 +107,31 @@ public class Answer implements Serializable {
 
     public void setCriteriaEvaluate(CriteriaEvaluate criteriaEvaluate) {
         this.criteriaEvaluate = criteriaEvaluate;
+    }
+
+    public Set<Proofs> getProffs() {
+        return proffs;
+    }
+
+    public Answer proffs(Set<Proofs> proofs) {
+        this.proffs = proofs;
+        return this;
+    }
+
+    public Answer addProffs(Proofs proofs) {
+        this.proffs.add(proofs);
+        proofs.getAnswers().add(this);
+        return this;
+    }
+
+    public Answer removeProffs(Proofs proofs) {
+        this.proffs.remove(proofs);
+        proofs.getAnswers().remove(this);
+        return this;
+    }
+
+    public void setProffs(Set<Proofs> proofs) {
+        this.proffs = proofs;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

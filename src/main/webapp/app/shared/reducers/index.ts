@@ -38,9 +38,6 @@ import fullEvaluate, {
   FullEvaluateState
 } from 'app/entities/full-evaluate/full-evaluate.reducer';
 // prettier-ignore
-import answer, {
-  AnswerState
-} from 'app/entities/answer/answer.reducer';
 // prettier-ignore
 import criteriaEvaluate, {
   CriteriaEvaluateState
@@ -57,6 +54,22 @@ import document, {
 import notification, {
   NotificationState
 } from 'app/entities/notification/notification.reducer';
+// prettier-ignore
+import answer, {
+  AnswerState
+} from 'app/entities/answer/answer.reducer';
+// prettier-ignore
+import proofs, {
+  ProofsState
+} from 'app/entities/proofs/proofs.reducer';
+// prettier-ignore
+import proofType, {
+  ProofTypeState
+} from 'app/entities/proof-type/proof-type.reducer';
+// prettier-ignore
+import forum, {
+  ForumState
+} from 'app/entities/forum/forum.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -81,6 +94,9 @@ export interface IRootState {
   readonly answer: AnswerState;
   readonly fullEvaluate: FullEvaluateState;
   readonly criteriaEvaluate: CriteriaEvaluateState;
+  readonly proofs: ProofsState;
+  readonly proofType: ProofTypeState;
+  readonly forum: ForumState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -107,6 +123,9 @@ const rootReducer = combineReducers<IRootState>({
   answer,
   fullEvaluate,
   criteriaEvaluate,
+  proofs,
+  proofType,
+  forum,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });
