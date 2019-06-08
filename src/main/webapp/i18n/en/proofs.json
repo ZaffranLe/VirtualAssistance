@@ -1,0 +1,25 @@
+
+{
+    "virtualAssistantApp": {
+        "proofs" : {
+            "home": {
+                "title": "Proofs",
+                "createLabel": "Create a new Proofs",
+                "createOrEditLabel": "Create or edit a Proofs"
+            },
+            "created": "A new Proofs is created with identifier {{ param }}",
+            "updated": "A Proofs is updated with identifier {{ param }}",
+            "deleted": "A Proofs is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Proofs {{ id }}?"
+            },
+            "detail": {
+                "title": "Proofs"
+            },
+            "name": "Name",
+            "url": "Url",
+            "type": "Type",
+            "answer": "Answer"
+        }
+    }
+}

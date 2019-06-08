@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Proofs.
+    -->
+    <changeSet id="20190601161538-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="type_id"
+                                 baseTableName="proofs"
+                                 constraintName="fk_proofs_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="proof_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="proofs_id"
+                                 baseTableName="proofs_answer"
+                                 constraintName="fk_proofs_answer_proofs_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="proofs"/>
+        <addForeignKeyConstraint baseColumnNames="answers_id"
+                                 baseTableName="proofs_answer"
+                                 constraintName="fk_proofs_answer_answers_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="answer"/>
+        
+    </changeSet>
+</databaseChangeLog>
