@@ -17,7 +17,7 @@ import { IForum } from 'app/shared/model/forum.model';
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+// import 'react-quill/dist/quill.snow.css';
 import value from '*.json';
 
 export interface IForumUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
@@ -72,8 +72,8 @@ export class ForumNewTopic extends React.Component<IForumUpdateProps, IForumUpda
     this.props.history.push('/entity/forum/list');
   };
 
-  handleChangeContent = value => {
-    this.state.content = value;
+  handleChangeContent = (value: string) => {
+    this.setState({ content: value });
   };
   render() {
     const { forumEntity, forums, users, loading, updating } = this.props;

@@ -94,7 +94,7 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                       </NavLink>
                     </NavItem>
                     <NavItem>
-                      <NavLink onClick={this.toggleMenu} tag={Link} to="/entity/forum">
+                      <NavLink onClick={this.toggleMenu} tag={Link} to="/entity/forum/list">
                         <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.forum" />
                       </NavLink>
                     </NavItem>

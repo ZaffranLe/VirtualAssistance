@@ -26,7 +26,7 @@ export class ForumTeacher extends React.Component<IForumProps> {
       <Container>
         <Row>
           <Col>
-            <Button tag={Link} to={`${match.url}/newteacher`} color="danger" size="sm">
+            <Button tag={Link} to={`${match.url}/newteacher`} size="sm" className="btn btn-primary float-right jh-create-entity">
               <FontAwesomeIcon icon="plus" /> <span className="d-none d-md-inline">Tạo chủ đề mới</span>
             </Button>
           </Col>
