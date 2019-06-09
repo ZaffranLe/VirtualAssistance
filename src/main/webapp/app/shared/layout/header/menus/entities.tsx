@@ -26,6 +26,18 @@ export const EntitiesMenu = () => (
     <DropdownItem tag={Link} to="/entity/criteria-evaluate">
       <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.criteriaEvaluate" />
     </DropdownItem>
+    <DropdownItem tag={Link} to="/entity/answer">
+      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.answer" />
+    </DropdownItem>
+    <DropdownItem tag={Link} to="/entity/proofs">
+      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.proofs" />
+    </DropdownItem>
+    <DropdownItem tag={Link} to="/entity/proof-type">
+      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.proofType" />
+    </DropdownItem>
+    <DropdownItem tag={Link} to="/entity/forum">
+      <FontAwesomeIcon icon="asterisk" />&nbsp;<Translate contentKey="global.menu.entities.forum" />
+    </DropdownItem>
     {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}
   </NavDropdown>
 );

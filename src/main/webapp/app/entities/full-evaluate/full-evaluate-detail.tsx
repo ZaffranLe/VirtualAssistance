@@ -6,7 +6,7 @@ import ResultRow from './resultRow';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getAnswerEntities } from '../answer/answer.reducer';
+import { getEntities } from '../answer/answer.reducer';
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './full-evaluate.reducer';
 import { IFullEvaluate } from 'app/shared/model/full-evaluate.model';
@@ -30,7 +30,7 @@ const getBadge = result => {
 export class FullEvaluateDetail extends React.Component<any, any> {
   componentDidMount() {
     this.props.getEntity(this.props.match.params.id);
-    this.props.getAnswerEntities();
+    this.props.getEntities();
   }
   download(link) {
     return (
@@ -104,7 +104,7 @@ const mapStateToProps = ({ fullEvaluate, answer }: IRootState) => ({
   answerList: answer.entities
 });
 
-const mapDispatchToProps = { getEntity, getAnswerEntities };
+const mapDispatchToProps = { getEntity, getEntities };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

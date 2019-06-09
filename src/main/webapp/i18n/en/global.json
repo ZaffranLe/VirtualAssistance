@@ -19,10 +19,15 @@
         "answer": "Câu trả lời",
         "fullEvaluate": "Bản đánh giá",
         "criteriaEvaluate": "Tiêu chí đánh giá",
+        "answer": "Answer",
+        "proofs": "Proofs",
+        "proofType": "Proof Type",
+        "forum": "Forum",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "components": {
-        "survey": "Đánh giá giáo viên theo TT20",
+        "survey": "Đánh giá",
+        "surveymenu": "Đánh giá theo TT20",
         "documents": "Kho tài liệu"
       },
       "account": {

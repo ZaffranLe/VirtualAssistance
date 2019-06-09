@@ -55,6 +55,12 @@ public class CacheConfiguration {
             cm.createCache(app.domain.CriteriaEvaluate.class.getName(), jcacheConfiguration);
             cm.createCache(app.domain.DocumentType.class.getName() + ".notifications", jcacheConfiguration);
             cm.createCache(app.domain.Notification.class.getName() + ".documentTypes", jcacheConfiguration);
+            cm.createCache(app.domain.Answer.class.getName() + ".proffs", jcacheConfiguration);
+            cm.createCache(app.domain.Proofs.class.getName(), jcacheConfiguration);
+            cm.createCache(app.domain.Proofs.class.getName() + ".answers", jcacheConfiguration);
+            cm.createCache(app.domain.ProofType.class.getName(), jcacheConfiguration);
+            cm.createCache(app.domain.Forum.class.getName(), jcacheConfiguration);
+            cm.createCache(app.domain.Forum.class.getName() + ".roots", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

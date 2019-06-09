@@ -23,6 +23,13 @@
             "relationshipName": "criteriaEvaluate",
             "otherEntityName": "criteriaEvaluate",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "proffs",
+            "otherEntityName": "proofs",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "answer"
         }
     ],
     "changelogDate": "20190313134949",

@@ -12,6 +12,8 @@ import { IFullEvaluate } from 'app/shared/model/full-evaluate.model';
 import { getEntities as getFullEvaluates } from 'app/entities/full-evaluate/full-evaluate.reducer';
 import { ICriteriaEvaluate } from 'app/shared/model/criteria-evaluate.model';
 import { getCriteriaEvaluateEntities as getCriteriaEvaluates } from 'app/entities/criteria-evaluate/criteria-evaluate.reducer';
+import { IProofs } from 'app/shared/model/proofs.model';
+import { getEntities as getProofs } from 'app/entities/proofs/proofs.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './answer.reducer';
 import { IAnswer } from 'app/shared/model/answer.model';
 // tslint:disable-next-line:no-unused-variable
@@ -24,6 +26,7 @@ export interface IAnswerUpdateState {
   isNew: boolean;
   fullEvaluateId: number;
   criteriaEvaluateId: number;
+  proffsId: number;
 }
 
 export class AnswerUpdate extends React.Component<IAnswerUpdateProps, IAnswerUpdateState> {
@@ -32,6 +35,7 @@ export class AnswerUpdate extends React.Component<IAnswerUpdateProps, IAnswerUpd
     this.state = {
       fullEvaluateId: 0,
       criteriaEvaluateId: 0,
+      proffsId: 0,
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -45,6 +49,7 @@ export class AnswerUpdate extends React.Component<IAnswerUpdateProps, IAnswerUpd
 
     this.props.getFullEvaluates();
     this.props.getCriteriaEvaluates();
+    this.props.getProofs();
   }
 
   saveEntity = (event, errors, values) => {
@@ -69,7 +74,7 @@ export class AnswerUpdate extends React.Component<IAnswerUpdateProps, IAnswerUpd
   };
 
   render() {
-    const { answerEntity, fullEvaluates, criteriaEvaluates, loading, updating } = this.props;
+    const { answerEntity, fullEvaluates, criteriaEvaluates, proofs, loading, updating } = this.props;
     const { isNew } = this.state;
 
     return (
@@ -179,6 +184,7 @@ export class AnswerUpdate extends React.Component<IAnswerUpdateProps, IAnswerUpd
 const mapStateToProps = (storeState: IRootState) => ({
   fullEvaluates: storeState.fullEvaluate.entities,
   criteriaEvaluates: storeState.criteriaEvaluate.entities,
+  proofs: storeState.proofs.entities,
   answerEntity: storeState.answer.entity,
   loading: storeState.answer.loading,
   updating: storeState.answer.updating
@@ -187,6 +193,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 const mapDispatchToProps = {
   getFullEvaluates,
   getCriteriaEvaluates,
+  getProofs,
   getEntity,
   updateEntity,
   createEntity,
