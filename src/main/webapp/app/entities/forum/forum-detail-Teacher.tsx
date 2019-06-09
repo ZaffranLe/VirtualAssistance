@@ -6,7 +6,7 @@ import { Button, Row, Col, Container, Card, CardHeader, CardTitle, CardBody, Car
 import { Translate, ICrudGetAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+// import 'react-quill/dist/quill.snow.css';
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './forum.reducer';
 import { IForum } from 'app/shared/model/forum.model';
@@ -15,7 +15,11 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 export interface IForumDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
-export class ForumDetailTeacher extends React.Component<IForumDetailProps> {
+export interface IForumDetailState {
+  content: string;
+}
+
+export class ForumDetailTeacher extends React.Component<IForumDetailProps, IForumDetailState> {
   componentDidMount() {
     this.props.getEntity(this.props.match.params.id);
   }
@@ -30,6 +34,7 @@ export class ForumDetailTeacher extends React.Component<IForumDetailProps> {
   handleChange = value => {
     this.setState({ content: value });
   };
+
   render() {
     const { forumEntity } = this.props;
     console.log(forumEntity);
