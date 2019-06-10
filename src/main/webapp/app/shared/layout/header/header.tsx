@@ -55,11 +55,11 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
   };
   toggleMenuAcc = () => {
     this.setState({ menuAccOpen: !this.state.menuAccOpen });
-    this.toggleMenu();
+    // this.toggleMenu();
   };
   toggleMenuEval = () => {
     this.setState({ menuEvalOpen: !this.state.menuEvalOpen });
-    this.toggleMenu();
+    // this.toggleMenu();
   };
 
   render() {
@@ -106,13 +106,13 @@ export default class Header extends React.Component<IHeaderProps, IHeaderState> 
                         <Translate contentKey="global.menu.components.surveymenu">Evaluate</Translate>
                       </DropdownToggle>
                       <DropdownMenu>
-                        <DropdownItem id="survey" tag={Link} to="/component/survey">
+                        <DropdownItem id="survey" tag={Link} to="/component/survey" onClick={this.toggleMenu}>
                           <FontAwesomeIcon icon={faPen} />
                           <span>
                             <Translate contentKey="global.menu.components.survey">Evaluate</Translate>
                           </span>
                         </DropdownItem>
-                        <DropdownItem tag={Link} to="/entity/full-evaluate">
+                        <DropdownItem tag={Link} to="/entity/full-evaluate" onClick={this.toggleMenu}>
                           <FontAwesomeIcon icon={faFile} />
                           <span>
                             <Translate contentKey="global.menu.entities.fullEvaluate" />

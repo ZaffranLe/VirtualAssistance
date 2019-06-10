@@ -23,7 +23,7 @@ export class ForumTeacher extends React.Component<IForumProps> {
   render() {
     const { forumList, match } = this.props;
     return (
-      <Container fluid={true}>
+      <Container fluid>
         <Row>
           <Col>
             <Button
