@@ -85,12 +85,12 @@ export class ForumNewTopic extends React.Component<IForumUpdateProps, IForumUpda
     return (
       <div>
         <Row className="justify-content-center">
-          <Col md="8">
+          <Col md="12">
             <h2 id="virtualAssistantApp.forum.home.createOrEditLabel">Tạo chủ đề mới</h2>
           </Col>
         </Row>
         <Row className="justify-content-center">
-          <Col md="8">
+          <Col md="12">
             {loading ? (
               <p>Loading...</p>
             ) : (

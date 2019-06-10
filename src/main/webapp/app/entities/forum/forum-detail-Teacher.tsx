@@ -53,7 +53,7 @@ export class ForumDetailTeacher extends React.Component<IForumDetailProps, IForu
     // console.log(forumEntity);
     return (
       <Row>
-        <Col md="8">
+        <Col md="12" sm={12}>
           <h2>
             <Translate contentKey="virtualAssistantApp.forum.detail.title">Chủ đề:</Translate> [<b>{forumEntity.title}</b>]
           </h2>
