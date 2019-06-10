@@ -23,7 +23,7 @@ export class ForumTeacher extends React.Component<IForumProps> {
   render() {
     const { forumList, match } = this.props;
     return (
-      <Container>
+      <Container fluid={true}>
         <Row>
           <Col>
             <Button
@@ -39,7 +39,7 @@ export class ForumTeacher extends React.Component<IForumProps> {
           </Col>
         </Row>
         <Row>
-          <Col xs={8}>
+          <Col md={8} sm={12}>
             {forumList.map((forum, i) => (
               <Card className="mb-3">
                 <CardHeader>
@@ -55,7 +55,7 @@ export class ForumTeacher extends React.Component<IForumProps> {
               </Card>
             ))}
           </Col>
-          <Col xs={4}>
+          <Col md={4} sm={12}>
             <Card>
               <CardHeader> Chủ đề mới nhất</CardHeader>
               <CardBody>
