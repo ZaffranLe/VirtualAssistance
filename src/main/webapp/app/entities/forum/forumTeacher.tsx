@@ -10,7 +10,7 @@ import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './forum.reducer';
 import { IForum } from 'app/shared/model/forum.model';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_TIMESTAMP_FORMAT } from 'app/config/constants';
 import renderHTML from 'react-render-html';
 
 export interface IForumProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
@@ -26,7 +26,14 @@ export class ForumTeacher extends React.Component<IForumProps> {
       <Container>
         <Row>
           <Col>
-            <Button tag={Link} to={`${match.url}/newteacher`} size="sm" className="btn btn-primary float-right jh-create-entity">
+            <Button
+              tag={Link}
+              to={`${match.url}/newteacher`}
+              size="lg"
+              className="btn btn-primary float-right jh-create-entity mb-3"
+              replace
+              color="info"
+            >
               <FontAwesomeIcon icon="plus" /> <span className="d-none d-md-inline">Tạo chủ đề mới</span>
             </Button>
           </Col>
@@ -35,7 +42,10 @@ export class ForumTeacher extends React.Component<IForumProps> {
           <Col xs={8}>
             {forumList.map((forum, i) => (
               <Card className="mb-3">
-                <CardHeader> {forum.title}</CardHeader>
+                <CardHeader>
+                  <i color="info">{forum.user.login}</i>: {forum.title}{' '}
+                  <TextFormat value={forum.createDay} type="date" format={APP_TIMESTAMP_FORMAT} />
+                </CardHeader>
                 <CardBody>
                   <CardText>{renderHTML(forum.content)}</CardText>
                   <Button tag={Link} to={`${match.url}/${forum.id}`}>
@@ -47,7 +57,7 @@ export class ForumTeacher extends React.Component<IForumProps> {
           </Col>
           <Col xs={4}>
             <Card>
-              <CardHeader> hearrrrr</CardHeader>
+              <CardHeader> Chủ đề mới nhất</CardHeader>
               <CardBody>
                 <CardTitle>Special Title Treatment</CardTitle>
                 <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
