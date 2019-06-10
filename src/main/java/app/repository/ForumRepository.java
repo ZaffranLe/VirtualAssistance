@@ -23,4 +23,7 @@ public interface ForumRepository extends JpaRepository<Forum, Long> {
     @Query("select forum from Forum forum where forum.forum.id = :idroot")
     List<Forum> findRByRoot(@Param("idroot")Long idroot);
 
+    @Query("select forum from Forum forum order by createDay")
+    List<Forum> findNew();
+
 }

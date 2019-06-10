@@ -47,8 +47,7 @@ public class Forum implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONE)
     private Set<Forum> roots = new HashSet<>();
 
-    @ManyToOne
-    @JsonIgnoreProperties("")
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

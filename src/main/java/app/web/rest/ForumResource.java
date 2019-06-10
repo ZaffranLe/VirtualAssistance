@@ -6,6 +6,7 @@ import app.security.SecurityUtils;
 import app.service.ForumService;
 import app.service.UserService;
 import app.web.rest.errors.BadRequestAlertException;
+import app.web.rest.payload.ForumAnswDTO;
 import app.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -55,18 +56,6 @@ public class ForumResource {
         if (forum.getId() != null) {
             throw new BadRequestAlertException("A new forum cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Forum result = forumService.save(forum);
-        return ResponseEntity.created(new URI("/api/forums/" + result.getId()))
-                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
-    }
-
-    @PostMapping("/forumsnewtopic")
-    @Timed
-    public ResponseEntity<Forum> createForumNewtopic(@RequestBody Forum forum) throws URISyntaxException {
-        log.debug("REST request to save Forum : {}", forum);
-        if (forum.getId() != null) {
-            throw new BadRequestAlertException("A new forum cannot already have an ID", ENTITY_NAME, "idexists");
-        }
         forum.setForum(null);
         forum.setLevel(1);
         forum.setCreateDay(ZonedDateTime.now());
@@ -74,6 +63,30 @@ public class ForumResource {
         Forum result = forumService.save(forum);
         return ResponseEntity.created(new URI("/api/forums/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
+    }
+
+    @PostMapping("/forumsnewtopic")
+    @Timed
+    public ResponseEntity<Forum> createForumNewtopic(@RequestBody ForumAnswDTO forumasw) throws URISyntaxException {
+        log.debug("REST request to save ForumAnsw : {}", forumasw);
+        Forum root = forumService.findOne(forumasw.getIdroot()).get();
+        if (root == null) {
+            throw new BadRequestAlertException("A new forum dont have have an root", ENTITY_NAME, "notroot");
+
+        }
+        Forum forum = new Forum();
+
+        forum.setTitle(forumasw.getTitle());
+        forum.setContent(forumasw.getContent());
+        forum.setForum(root);
+        forum.setLevel(2);
+        forum.setCreateDay(ZonedDateTime.now());
+        forum.setUser(userService.getUserWithAuthorities().get());
+
+        Forum result = forumService.save(forum);
+
+        return ResponseEntity.created(new URI("/api/forums/list/" + forumasw.getIdroot()))
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(root);
     }
 
     /**

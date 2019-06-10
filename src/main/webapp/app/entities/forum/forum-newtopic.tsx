@@ -11,7 +11,7 @@ import { IRootState } from 'app/shared/reducers';
 import { getEntities as getForums } from 'app/entities/forum/forum.reducer';
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { getEntity, updateEntity, createEntityNewtopic, reset } from './forum.reducer';
+import { getEntity, updateEntity, createEntity, reset } from './forum.reducer';
 import { IForum } from 'app/shared/model/forum.model';
 // tslint:disable-next-line:no-unused-variable
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
@@ -40,6 +40,7 @@ export class ForumNewTopic extends React.Component<IForumUpdateProps, IForumUpda
       isNew: !this.props.match.params || !this.props.match.params.id,
       content: ''
     };
+    // this.handleChangeContent = this.handleChangeContent.bind(this);
   }
 
   componentDidMount() {
@@ -63,7 +64,7 @@ export class ForumNewTopic extends React.Component<IForumUpdateProps, IForumUpda
       entity.content = this.state.content;
       entity.createDay = new Date(values.createDay);
       entity.level = 1;
-      this.props.createEntityNewtopic(entity);
+      this.props.createEntity(entity);
       this.handleClose();
     }
   };
@@ -73,7 +74,9 @@ export class ForumNewTopic extends React.Component<IForumUpdateProps, IForumUpda
   };
 
   handleChangeContent = (value: string) => {
+    console.log('vl:' + value);
     this.setState({ content: value });
+    console.log('st:' + this.state.content);
   };
   render() {
     const { forumEntity, forums, users, loading, updating } = this.props;
@@ -102,10 +105,9 @@ export class ForumNewTopic extends React.Component<IForumUpdateProps, IForumUpda
                   <Label id="contentLabel" for="content">
                     <Translate contentKey="virtualAssistantApp.forum.content">Content</Translate>
                   </Label>
-                  <AvField id="forum-content" type="text" name="content" />
                   <ReactQuill value={this.state.content} onChange={this.handleChangeContent} className="mb-3" />
                 </AvGroup>
-                <Button tag={Link} id="cancel-save" to="/entity/forum" replace color="info">
+                <Button tag={Link} id="cancel-save" to="/entity/forum/list" replace color="info">
                   <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
@@ -138,7 +140,7 @@ const mapDispatchToProps = {
   getUsers,
   getEntity,
   updateEntity,
-  createEntityNewtopic,
+  createEntity,
   reset
 };
 
