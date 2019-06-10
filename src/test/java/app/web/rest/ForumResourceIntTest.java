@@ -5,6 +5,7 @@ import app.VirtualAssistantApp;
 import app.domain.Forum;
 import app.repository.ForumRepository;
 import app.service.ForumService;
+import app.service.UserService;
 import app.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -64,6 +65,8 @@ public class ForumResourceIntTest {
 
     @Autowired
     private ForumService forumService;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -84,7 +87,7 @@ public class ForumResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ForumResource forumResource = new ForumResource(forumService);
+        final ForumResource forumResource = new ForumResource(forumService,userService);
         this.restForumMockMvc = MockMvcBuilders.standaloneSetup(forumResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
