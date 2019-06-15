@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Spring Data  repository for the Forum entity.
+ * Spring Data repository for the Forum entity.
  */
 @SuppressWarnings("unused")
 @Repository
@@ -21,7 +21,7 @@ public interface ForumRepository extends JpaRepository<Forum, Long> {
     List<Forum> findByLeVel1();
 
     @Query("select forum from Forum forum where forum.forum.id = :idroot")
-    List<Forum> findRByRoot(@Param("idroot")Long idroot);
+    List<Forum> findRByRoot(@Param("idroot") Long idroot);
 
     @Query("select forum from Forum forum order by createDay")
     List<Forum> findNew();

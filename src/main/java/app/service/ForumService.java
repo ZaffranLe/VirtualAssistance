@@ -25,6 +25,7 @@ public interface ForumService {
      */
     List<Forum> findAll();
 
+    List<Forum> findNew();
 
     /**
      * Get the "id" forum.

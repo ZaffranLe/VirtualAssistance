@@ -6,10 +6,11 @@ import { connect } from 'react-redux';
 import { getCriteriaTypeEntities } from '../../entities/criteria-type/criteria-type.reducer';
 import { getCriteriaEvaluateEntities } from '../../entities/criteria-evaluate/criteria-evaluate.reducer';
 import { IRootState } from 'app/shared/reducers';
-import { handleCreate, handleCreateWithName } from '../../entities/full-evaluate/full-evaluate.reducer';
+import { handleCreate, handleCreateWithName, getEntity } from '../../entities/full-evaluate/full-evaluate.reducer';
 import { getSession } from 'app/shared/reducers/authentication';
 export interface ICriteriaTypeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 export interface ICriteriaEvaluateProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface ISurveyUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 function QuestionGroupHeader(props) {
   const criteriaType = props.criteriaType;
@@ -39,12 +40,15 @@ const getAlertColor = result => {
           : 'primary';
 };
 
-class Survey extends React.Component<any, any> {
+class Survey extends React.Component<ISurveyUpdateProps, any> {
   componentDidMount() {
     this.props.getCriteriaTypeEntities();
     this.props.getCriteriaEvaluateEntities();
     this.props.getSession();
     // this.handleUploadFile.bind(this);
+    if (!this.state.isNew) {
+      this.props.getEntity(this.props.match.params.id);
+    }
   }
 
   constructor(props) {
@@ -53,7 +57,8 @@ class Survey extends React.Component<any, any> {
       questionResult: Array(15).fill(1),
       fileResult: Array(15).fill(''),
       result: 'Chưa đạt',
-      nameSurvey: ''
+      nameSurvey: '',
+      isNew: !this.props.match.params || !this.props.match.params.id
     };
     // this.handleUploadFile.bind(this);
   }
@@ -67,6 +72,7 @@ class Survey extends React.Component<any, any> {
       fileResult: fileList
     });
   };
+
   handleChange(e) {
     const resultList = this.state.questionResult.slice();
     resultList[e.target.name - 1] = e.target.value;
@@ -76,6 +82,7 @@ class Survey extends React.Component<any, any> {
       result: resultExpect
     });
   }
+
   handleValidSubmit = () => {
     // handleCreate(this.state.questionResult.toString(), this.state.result);
     if (!this.state.nameSurvey) {
@@ -128,8 +135,8 @@ class Survey extends React.Component<any, any> {
   }
 
   render() {
-    const { criteriaTypeList, matchType } = this.props;
-    const { criteriaEvaluateList, matchEvaluate } = this.props;
+    const { criteriaTypeList } = this.props;
+    const { criteriaEvaluateList } = this.props;
     const { account } = this.props;
     return (
       <div className="animated fadeIn">
@@ -195,16 +202,18 @@ class Survey extends React.Component<any, any> {
   }
 }
 
-const mapStateToProps = ({ authentication, criteriaType, criteriaEvaluate }: IRootState) => ({
+const mapStateToProps = ({ authentication, criteriaType, criteriaEvaluate, fullEvaluate }: IRootState) => ({
   criteriaTypeList: criteriaType.entities,
   criteriaEvaluateList: criteriaEvaluate.entities,
-  account: authentication.account
+  account: authentication.account,
+  fullEvaluateEntity: fullEvaluate.entity
 });
 
 const mapDispatchToProps = {
   getCriteriaTypeEntities,
   getCriteriaEvaluateEntities,
-  getSession
+  getSession,
+  getEntity
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

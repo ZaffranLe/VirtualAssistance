@@ -111,6 +111,13 @@ export const getEntity: ICrudGetAction<IAnswer> = id => {
     payload: axios.get<IAnswer>(requestUrl)
   };
 };
+export const getEntityByFullEval: ICrudGetAction<IAnswer> = id => {
+  const requestUrl = `${apiUrl}/fulleval/${id}`;
+  return {
+    type: ACTION_TYPES.FETCH_ANSWER_LIST,
+    payload: axios.get<IAnswer>(requestUrl)
+  };
+};
 
 export const createEntity: ICrudPutAction<IAnswer> = entity => async dispatch => {
   const result = await dispatch({

@@ -8,6 +8,7 @@ import { IForum, defaultValue } from 'app/shared/model/forum.model';
 
 export const ACTION_TYPES = {
   FETCH_FORUM_LIST: 'forum/FETCH_FORUM_LIST',
+  FETCH_FORUM_LISTNEW: 'forum/FETCH_FORUM_LISTNEW',
   FETCH_FORUM: 'forum/FETCH_FORUM',
   CREATE_FORUM: 'forum/CREATE_FORUM',
   UPDATE_FORUM: 'forum/UPDATE_FORUM',
@@ -19,6 +20,7 @@ const initialState = {
   loading: false,
   errorMessage: null,
   entities: [] as ReadonlyArray<IForum>,
+  entitiesnew: [] as ReadonlyArray<IForum>,
   entity: defaultValue,
   updating: false,
   updateSuccess: false
@@ -65,6 +67,12 @@ export default (state: ForumState = initialState, action): ForumState => {
         loading: false,
         entities: action.payload.data
       };
+    case SUCCESS(ACTION_TYPES.FETCH_FORUM_LISTNEW):
+      return {
+        ...state,
+        loading: false,
+        entitiesnew: action.payload.data
+      };
     case SUCCESS(ACTION_TYPES.FETCH_FORUM):
       return {
         ...state,
@@ -96,6 +104,7 @@ export default (state: ForumState = initialState, action): ForumState => {
 };
 
 const apiUrl = 'api/forums';
+const apiUrlnew = 'api/forumsnew';
 const apiUrlnewtopic = 'api/forumsnewtopic';
 
 // Actions
@@ -103,6 +112,10 @@ const apiUrlnewtopic = 'api/forumsnewtopic';
 export const getEntities: ICrudGetAllAction<IForum> = (page, size, sort) => ({
   type: ACTION_TYPES.FETCH_FORUM_LIST,
   payload: axios.get<IForum>(`${apiUrl}?cacheBuster=${new Date().getTime()}`)
+});
+export const getNewEntities: ICrudGetAllAction<IForum> = (page, size, sort) => ({
+  type: ACTION_TYPES.FETCH_FORUM_LISTNEW,
+  payload: axios.get<IForum>(`${apiUrlnew}?cacheBuster=${new Date().getTime()}`)
 });
 
 export const getEntity: ICrudGetAction<IForum> = id => {

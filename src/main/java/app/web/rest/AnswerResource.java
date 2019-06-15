@@ -87,6 +87,12 @@ public class AnswerResource {
         log.debug("REST request to get all Answers");
         return answerService.findAll();
     }
+    @GetMapping("/answers/fulleval/{id}")
+    @Timed
+    public List<Answer> getAllAnswersByFullEvalID(@PathVariable Long id) {
+        log.debug("REST request to get all Answers");
+        return answerService.getAnswersByFullEval(id);
+    }
 
     /**
      * GET  /answers/:id : get the "id" answer.
