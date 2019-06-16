@@ -126,6 +126,12 @@ export class FullEvaluate extends React.Component<any, any> {
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.delete">Delete</Translate>
                           </span>
+                        </Button>&nbsp;
+                        <Button tag={Link} to={`../component/survey/${fullEvaluate.id}/edit`} color="danger" size="sm">
+                          <FontAwesomeIcon icon="trash" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.edit">Update</Translate>
+                          </span>
                         </Button>
                       </div>
                     </td>
