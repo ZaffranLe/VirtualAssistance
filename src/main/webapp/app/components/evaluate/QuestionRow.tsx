@@ -3,10 +3,10 @@ import { CustomInput, Card, CardHeader, CardBody, Button, Collapse, Row, Col, La
 import { Storage } from 'react-jhipster';
 import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-// Import FilePond styles
-// tslint:disable-next-line:no-submodule-imports
 import 'filepond/dist/filepond.min.css';
 import { SERVER_API_URL } from 'app/config/constants';
+import { IAnswer, ScoreLadder } from 'app/shared/model/answer.model';
+
 registerPlugin(FilePondPluginFileValidateType);
 class QuestionRow extends React.Component<any, any> {
   constructor(props) {
@@ -83,9 +83,10 @@ class QuestionRow extends React.Component<any, any> {
                   type="radio"
                   id={this.state.criteriaEvaluate.id + 'CD'}
                   name={this.state.criteriaEvaluate.id}
-                  value={1}
+                  value={ScoreLadder.FAIL}
                   onChange={this.props.onChange}
                   label="Chưa đạt"
+                  checked={!this.props.value || this.props.value === ScoreLadder.FAIL}
                 />
               </Col>
               <Col md={2}>
@@ -93,9 +94,10 @@ class QuestionRow extends React.Component<any, any> {
                   type="radio"
                   id={this.state.criteriaEvaluate.id + 'D'}
                   name={this.state.criteriaEvaluate.id}
-                  value={2}
+                  value={ScoreLadder.PASS}
                   onChange={this.props.onChange}
                   label="Đạt"
+                  checked={this.props.value === ScoreLadder.PASS}
                 />
               </Col>
               <Col md={2}>
@@ -103,9 +105,10 @@ class QuestionRow extends React.Component<any, any> {
                   type="radio"
                   id={this.state.criteriaEvaluate.id + 'K'}
                   name={this.state.criteriaEvaluate.id}
-                  value={3}
+                  value={ScoreLadder.GOOD}
                   onChange={this.props.onChange}
                   label="Khá"
+                  selected={this.props.value === ScoreLadder.GOOD}
                 />
               </Col>
               <Col md={2}>
@@ -113,9 +116,10 @@ class QuestionRow extends React.Component<any, any> {
                   type="radio"
                   id={this.state.criteriaEvaluate.id + 'T'}
                   name={this.state.criteriaEvaluate.id}
-                  value={4}
+                  value={ScoreLadder.EXCELLENT}
                   onChange={this.props.onChange}
                   label="Tốt"
+                  checked={this.props.value === ScoreLadder.EXCELLENT}
                 />
               </Col>
             </Row>

@@ -6,10 +6,15 @@ import { connect } from 'react-redux';
 import { getCriteriaTypeEntities } from '../../entities/criteria-type/criteria-type.reducer';
 import { getCriteriaEvaluateEntities } from '../../entities/criteria-evaluate/criteria-evaluate.reducer';
 import { IRootState } from 'app/shared/reducers';
-import { handleCreate, handleCreateWithName } from '../../entities/full-evaluate/full-evaluate.reducer';
+import { handleCreate, handleCreateWithName, getEntity } from '../../entities/full-evaluate/full-evaluate.reducer';
+import { getEntityByFullEval } from '../../entities/answer/answer.reducer';
 import { getSession } from 'app/shared/reducers/authentication';
+import { IAnswer, ScoreLadder } from 'app/shared/model/answer.model';
+import { ICriteriaEvaluate } from 'app/shared/model/criteria-evaluate.model';
+import answer from 'app/entities/answer/answer';
 export interface ICriteriaTypeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 export interface ICriteriaEvaluateProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface ISurveyUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 function QuestionGroupHeader(props) {
   const criteriaType = props.criteriaType;
@@ -39,22 +44,36 @@ const getAlertColor = result => {
           : 'primary';
 };
 
-class Survey extends React.Component<any, any> {
-  componentDidMount() {
-    this.props.getCriteriaTypeEntities();
-    this.props.getCriteriaEvaluateEntities();
-    this.props.getSession();
-    // this.handleUploadFile.bind(this);
-  }
-
+class Survey extends React.Component<ISurveyUpdateProps, any> {
   constructor(props) {
     super(props);
     this.state = {
       questionResult: Array(15).fill(1),
       fileResult: Array(15).fill(''),
       result: 'Chưa đạt',
-      nameSurvey: ''
+      nameSurvey: '',
+      isNew: !this.props.match.params || !this.props.match.params.id
     };
+    // console.
+    // this.handleUploadFile.bind(this);
+    this.props.getSession();
+    this.props.getCriteriaTypeEntities();
+    this.props.getCriteriaEvaluateEntities();
+    if (!this.state.isNew) {
+      this.props.getEntity(this.props.match.params.id);
+      this.props.getEntityByFullEval(this.props.match.params.id);
+      this.setState({
+        questionResult: this.props.answerList.map(a => a.scoreLadder).slice()
+      });
+      const result = this.calculateResult(this.state.questionResult);
+      this.setState({
+        result
+      });
+    }
+  }
+  componentWillMount() {}
+
+  componentDidMount() {
     // this.handleUploadFile.bind(this);
   }
 
@@ -67,6 +86,17 @@ class Survey extends React.Component<any, any> {
       fileResult: fileList
     });
   };
+
+  getValueFromAnsCriteria(id: number) {
+    console.log('id=' + id);
+    const ans = this.props.answerList.find(a => a.criteriaEvaluate.id === id);
+    if (ans) {
+      console.log(JSON.stringify(ans.scoreLadder));
+      return ans.scoreLadder;
+    }
+    return ScoreLadder.FAIL;
+  }
+
   handleChange(e) {
     const resultList = this.state.questionResult.slice();
     resultList[e.target.name - 1] = e.target.value;
@@ -76,6 +106,7 @@ class Survey extends React.Component<any, any> {
       result: resultExpect
     });
   }
+
   handleValidSubmit = () => {
     // handleCreate(this.state.questionResult.toString(), this.state.result);
     if (!this.state.nameSurvey) {
@@ -85,10 +116,10 @@ class Survey extends React.Component<any, any> {
     handleCreateWithName(this.state.questionResult.toString(), this.state.result, this.state.fileResult.toString(), this.state.nameSurvey);
     alert('Đánh giá hoàn thành!');
     this.setState({
-      questionResult: Array(15).fill(1),
+      questionResult: Array(15).fill(ScoreLadder.FAIL),
       fileResult: Array(15).fill(''),
       result: 'Chưa đạt',
-      nameSurvey: ''
+      nameSurvey: 'Ban danh gia moi'
     });
     window.location.reload();
   };
@@ -98,15 +129,12 @@ class Survey extends React.Component<any, any> {
     let kha = 0;
     let tot = 0;
     for (i = 0; i < resultList.length; i++) {
-      // tslint:disable-next-line:triple-equals
-      if (resultList[i] == 1) return 'Chưa đạt';
-      // tslint:disable-next-line:triple-equals
-      resultList[i] == 3 ? kha++ : resultList[i] == 4 && tot++;
+      if (resultList[i] === ScoreLadder.FAIL) return 'Chưa đạt';
+      resultList[i] === ScoreLadder.GOOD ? kha++ : resultList[i] === ScoreLadder.EXCELLENT && tot++;
     }
 
     for (i = 2; i < 7; i++) {
-      // tslint:disable-next-line:triple-equals
-      if (resultList[i] == 2) return 'Đạt';
+      if (resultList[i] === ScoreLadder.PASS) return 'Đạt';
     }
 
     if (kha + tot < 10) return 'Đạt';
@@ -114,7 +142,7 @@ class Survey extends React.Component<any, any> {
     if (tot >= 10) {
       for (i = 2; i < 7; i++) {
         // tslint:disable-next-line:triple-equals
-        if (resultList[i] == 3) return 'Khá';
+        if (resultList[i] === ScoreLadder.GOOD) return 'Khá';
       }
       return 'Tốt';
     }
@@ -128,9 +156,10 @@ class Survey extends React.Component<any, any> {
   }
 
   render() {
-    const { criteriaTypeList, matchType } = this.props;
-    const { criteriaEvaluateList, matchEvaluate } = this.props;
-    const { account } = this.props;
+    const { criteriaTypeList } = this.props;
+    const { fullEvaluateEntity, criteriaEvaluateList } = this.props;
+    const { loadingAns } = this.props;
+    if (loadingAns) return null;
     return (
       <div className="animated fadeIn">
         <Form>
@@ -142,7 +171,7 @@ class Survey extends React.Component<any, any> {
                   name="nameSurvey"
                   id="nameSurvey"
                   placeholder="Tên bản đánh giá"
-                  value={this.state.nameSurvey}
+                  value={this.state.isNew ? this.state.nameSurvey : fullEvaluateEntity.description}
                   onChange={e => this.updateInputValue(e)}
                 />
               </InputGroup>
@@ -170,6 +199,7 @@ class Survey extends React.Component<any, any> {
                             key={indexEvaluate}
                             onChange={e => this.handleChange(e)}
                             criteriaEvaluate={criteriaEvaluate}
+                            value={this.state.isNew ? null : this.getValueFromAnsCriteria(criteriaEvaluate.id)}
                           />
                         )
                     )
@@ -195,16 +225,21 @@ class Survey extends React.Component<any, any> {
   }
 }
 
-const mapStateToProps = ({ authentication, criteriaType, criteriaEvaluate }: IRootState) => ({
+const mapStateToProps = ({ authentication, criteriaType, criteriaEvaluate, fullEvaluate, answer }: IRootState) => ({
   criteriaTypeList: criteriaType.entities,
   criteriaEvaluateList: criteriaEvaluate.entities,
-  account: authentication.account
+  account: authentication.account,
+  fullEvaluateEntity: fullEvaluate.entity,
+  answerList: answer.entities,
+  loadingAns: answer.loading
 });
 
 const mapDispatchToProps = {
   getCriteriaTypeEntities,
   getCriteriaEvaluateEntities,
-  getSession
+  getSession,
+  getEntity,
+  getEntityByFullEval
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

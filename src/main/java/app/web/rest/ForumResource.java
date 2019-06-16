@@ -123,6 +123,12 @@ public class ForumResource {
         log.debug("REST request to get all Forums");
         return forumService.findAll();
     }
+    @GetMapping("/forumsnew")
+    @Timed
+    public List<Forum> getNewForums() {
+        log.debug("REST request to get all Forums");
+        return forumService.findNew();
+    }
 
     /**
      * GET /forums/:id : get the "id" forum.

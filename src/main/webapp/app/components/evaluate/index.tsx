@@ -6,6 +6,7 @@ import Survey from './Survey';
 
 const Routes = ({ match }) => (
   <>
+    <ErrorBoundaryRoute path={`${match.url}/:id/edit`} component={Survey} />
     <ErrorBoundaryRoute path={match.url} component={Survey} />
   </>
 );

@@ -10,6 +10,8 @@ import java.util.Optional;
  */
 public interface AnswerService {
 
+
+    List<Answer>  getAnswersByFullEval(Long id);
     /**
      * Save a answer.
      *

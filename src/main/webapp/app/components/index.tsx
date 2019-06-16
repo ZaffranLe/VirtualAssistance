@@ -14,6 +14,7 @@ const Routes = ({ match }) => (
   <div>
     <Switch>
       {/* prettier-ignore */}
+      <ErrorBoundaryRoute path={`${match.url}/survey/:id/edit`} component={Survey} />
       <ErrorBoundaryRoute path={`${match.url}/survey`} component={Survey} />
       <ErrorBoundaryRoute path={`${match.url}/documents`} component={DocumentStorage} />
       <ErrorBoundaryRoute path={`${match.url}/upload`} component={UploadDocument} />

@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.List;
 import java.util.Optional;
+
 /**
  * Service Implementation for managing Answer.
  */
@@ -35,7 +35,8 @@ public class AnswerServiceImpl implements AnswerService {
      */
     @Override
     public Answer save(Answer answer) {
-        log.debug("Request to save Answer : {}", answer);        return answerRepository.save(answer);
+        log.debug("Request to save Answer : {}", answer);
+        return answerRepository.save(answer);
     }
 
     /**
@@ -50,6 +51,12 @@ public class AnswerServiceImpl implements AnswerService {
         return answerRepository.findAll();
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Answer> getAnswersByFullEval(Long id) {
+        log.debug("Request to get all Answers by FullEval ID");
+        return answerRepository.getAnswersByFullEval(id);
+    }
 
     /**
      * Get one answer by id.

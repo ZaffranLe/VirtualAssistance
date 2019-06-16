@@ -52,6 +52,12 @@ public class ForumServiceImpl implements ForumService {
         log.debug("Request to get all Forums");
         return forumRepository.findByLeVel1();
     }
+    @Override
+    @Transactional(readOnly = true)
+    public List<Forum> findNew() {
+        log.debug("Request to get all Forums");
+        return forumRepository.findNew();
+    }
 
     /**
      * Get one forum by id.

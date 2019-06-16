@@ -6,7 +6,7 @@ import ResultRow from './resultRow';
 // tslint:disable-next-line:no-unused-variable
 import { Translate, ICrudGetAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getEntities } from '../answer/answer.reducer';
+import { getEntityByFullEval } from '../answer/answer.reducer';
 import { IRootState } from 'app/shared/reducers';
 import { getEntity } from './full-evaluate.reducer';
 import { IFullEvaluate } from 'app/shared/model/full-evaluate.model';
@@ -30,7 +30,7 @@ const getBadge = result => {
 export class FullEvaluateDetail extends React.Component<any, any> {
   componentDidMount() {
     this.props.getEntity(this.props.match.params.id);
-    this.props.getEntities();
+    this.props.getEntityByFullEval(this.props.match.params.id);
   }
   download(link) {
     return (
@@ -45,6 +45,7 @@ export class FullEvaluateDetail extends React.Component<any, any> {
   render() {
     const { fullEvaluateEntity } = this.props;
     const { answerList } = this.props;
+    // const { answerList } = fullEvaluateEntity.answers;
     return (
       <Row>
         <Col md="12">
@@ -76,16 +77,7 @@ export class FullEvaluateDetail extends React.Component<any, any> {
               <th>Tiêu chí</th>
               <th>Mức điểm</th>
             </thead>
-            <tbody>
-              {answerList
-                .filter(answer => {
-                  if (answer.fullEvaluate.id === fullEvaluateEntity.id) {
-                    return true;
-                  }
-                  return false;
-                })
-                .map((answer, i) => <ResultRow answer={answer} key={i} />)}
-            </tbody>
+            <tbody>{answerList.map((answer, i) => <ResultRow answer={answer} key={i} />)}</tbody>
           </Table>
           <Button tag={Link} to="/entity/full-evaluate" replace color="info">
             <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -104,7 +96,7 @@ const mapStateToProps = ({ fullEvaluate, answer }: IRootState) => ({
   answerList: answer.entities
 });
 
-const mapDispatchToProps = { getEntity, getEntities };
+const mapDispatchToProps = { getEntity, getEntityByFullEval };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

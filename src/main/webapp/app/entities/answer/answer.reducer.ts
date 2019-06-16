@@ -54,7 +54,7 @@ export default (state: AnswerState = initialState, action): AnswerState => {
     case FAILURE(ACTION_TYPES.DELETE_ANSWER):
       return {
         ...state,
-        loading: false,
+        loading: true,
         updating: false,
         updateSuccess: false,
         errorMessage: action.payload
@@ -110,6 +110,14 @@ export const getEntity: ICrudGetAction<IAnswer> = id => {
     type: ACTION_TYPES.FETCH_ANSWER,
     payload: axios.get<IAnswer>(requestUrl)
   };
+};
+export const getEntityByFullEval: ICrudGetAction<IAnswer> = id => {
+  const requestUrl = `${apiUrl}/fulleval/${id}`;
+  const result = {
+    type: ACTION_TYPES.FETCH_ANSWER_LIST,
+    payload: axios.get(requestUrl)
+  };
+  return result;
 };
 
 export const createEntity: ICrudPutAction<IAnswer> = entity => async dispatch => {

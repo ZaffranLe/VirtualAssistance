@@ -1,4 +1,5 @@
 import { ITeacher } from 'app/shared/model//teacher.model';
+import { IAnswer } from 'app/shared/model//answer.model';
 
 export const enum ScoreLadder {
   FAIL = 'FAIL',
@@ -12,6 +13,7 @@ export interface IFullEvaluate {
   description?: string;
   result?: ScoreLadder;
   teacher?: ITeacher;
+  answers?: IAnswer[];
 }
 
 export const defaultValue: Readonly<IFullEvaluate> = {};

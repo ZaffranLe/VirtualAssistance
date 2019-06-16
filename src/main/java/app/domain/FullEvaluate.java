@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 import app.domain.enumeration.ScoreLadder;
 
@@ -36,7 +37,26 @@ public class FullEvaluate implements Serializable {
     @JsonIgnoreProperties("")
     private Teacher teacher;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // @OneToMany(mappedBy = "full_evaluate", fetch = FetchType.EAGER)
+    // @JsonIgnoreProperties("")
+    // private Set<Answer> answers;
+
+    // /**
+    //  * @return the answers
+    //  */
+    // public Set<Answer> getAnswers() {
+    //     return answers;
+    // }
+
+    // /**
+    //  * @param answers the answers to set
+    //  */
+    // public void setAnswers(Set<Answer> answers) {
+    //     this.answers = answers;
+    // }
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not
+    // remove
     public Long getId() {
         return id;
     }
@@ -83,7 +103,8 @@ public class FullEvaluate implements Serializable {
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and
+    // setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -107,10 +128,7 @@ public class FullEvaluate implements Serializable {
 
     @Override
     public String toString() {
-        return "FullEvaluate{" +
-            "id=" + getId() +
-            ", description='" + getDescription() + "'" +
-            ", result='" + getResult() + "'" +
-            "}";
+        return "FullEvaluate{" + "id=" + getId() + ", description='" + getDescription() + "'" + ", result='"
+                + getResult() + "'" + "}";
     }
 }

@@ -7,7 +7,7 @@ import { Translate, ICrudGetAllAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getEntities } from './forum.reducer';
+import { getEntities, getNewEntities } from './forum.reducer';
 import { IForum } from 'app/shared/model/forum.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_TIMESTAMP_FORMAT } from 'app/config/constants';
@@ -18,10 +18,11 @@ export interface IForumProps extends StateProps, DispatchProps, RouteComponentPr
 export class ForumTeacher extends React.Component<IForumProps> {
   componentDidMount() {
     this.props.getEntities();
+    this.props.getNewEntities();
   }
 
   render() {
-    const { forumList, match } = this.props;
+    const { forumList, match, forumListnew } = this.props;
     return (
       <Container fluid>
         <Row>
@@ -43,7 +44,8 @@ export class ForumTeacher extends React.Component<IForumProps> {
             {forumList.map((forum, i) => (
               <Card className="mb-3">
                 <CardHeader>
-                  <i color="info">{forum.user.login}</i>: {forum.title}{' '}
+                  <i color="info">{forum.user.login}</i>: {forum.title}
+                  {' - '}
                   <TextFormat value={forum.createDay} type="date" format={APP_TIMESTAMP_FORMAT} />
                 </CardHeader>
                 <CardBody>
@@ -65,6 +67,18 @@ export class ForumTeacher extends React.Component<IForumProps> {
               </CardBody>
               {/* <CardFooter>Footer</CardFooter> */}
             </Card>
+            {forumListnew.map((forum, i) => (
+              <Card className="mb-1">
+                <CardHeader>
+                  <i color="info">{forum.user.login}</i>: {forum.title}
+                  {' - '}
+                  <TextFormat value={forum.createDay} type="date" format={APP_TIMESTAMP_FORMAT} />
+                </CardHeader>
+                <CardBody>
+                  <CardText>{renderHTML(forum.content)}</CardText>
+                </CardBody>
+              </Card>
+            ))}
           </Col>
         </Row>
       </Container>
@@ -73,11 +87,13 @@ export class ForumTeacher extends React.Component<IForumProps> {
 }
 
 const mapStateToProps = ({ forum }: IRootState) => ({
-  forumList: forum.entities
+  forumList: forum.entities,
+  forumListnew: forum.entitiesnew
 });
 
 const mapDispatchToProps = {
-  getEntities
+  getEntities,
+  getNewEntities
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
