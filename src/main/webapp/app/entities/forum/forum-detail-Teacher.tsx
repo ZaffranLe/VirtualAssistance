@@ -21,15 +21,14 @@ export interface IForumDetailState {
 }
 
 export class ForumDetailTeacher extends React.Component<IForumDetailProps, IForumDetailState> {
-  componentDidMount() {
-    this.props.getEntity(this.props.match.params.id);
-  }
+  componentDidMount() {}
 
   constructor(props: IForumDetailProps) {
     super(props);
     this.state = {
       content: 'any'
     };
+    this.props.getEntity(this.props.match.params.id);
   }
 
   handleChange = (value: string) => {
@@ -47,9 +46,11 @@ export class ForumDetailTeacher extends React.Component<IForumDetailProps, IForu
     };
     this.props.createEntityNewtopic(entityForum);
     // this.props.history.push('/entity/forum/list/' + forumEntity.id);
+    window.location.reload();
   };
   render() {
-    const { forumEntity } = this.props;
+    const { forumEntity, loading } = this.props;
+    if (loading) return null;
     // console.log(forumEntity);
     return (
       <Row>
@@ -63,7 +64,7 @@ export class ForumDetailTeacher extends React.Component<IForumDetailProps, IForu
               <TextFormat value={forumEntity.createDay} type="date" format={APP_TIMESTAMP_FORMAT} />
             </CardHeader>
             <CardBody>
-              <CardText>{renderHTML(forumEntity.content)}</CardText>
+              <CardText>{forumEntity.content.search('<') === -1 ? forumEntity.content : renderHTML(forumEntity.content)}</CardText>
             </CardBody>
           </Card>
           <hr />
@@ -74,7 +75,7 @@ export class ForumDetailTeacher extends React.Component<IForumDetailProps, IForu
                     {forum.user.login} - {forum.title}- <TextFormat value={forum.createDay} type="date" format={APP_TIMESTAMP_FORMAT} />{' '}
                   </CardHeader>
                   <CardBody>
-                    <CardText>{renderHTML(forum.content)}</CardText>
+                    <CardText>{forum.content.search('<') === -1 ? forum.content : renderHTML(forum.content)}</CardText>
                   </CardBody>
                 </Card>
               ))
@@ -96,7 +97,8 @@ export class ForumDetailTeacher extends React.Component<IForumDetailProps, IForu
 }
 
 const mapStateToProps = ({ forum }: IRootState) => ({
-  forumEntity: forum.entity
+  forumEntity: forum.entity,
+  loading: forum.loading
 });
 
 const mapDispatchToProps = { getEntity, createEntityNewtopic };

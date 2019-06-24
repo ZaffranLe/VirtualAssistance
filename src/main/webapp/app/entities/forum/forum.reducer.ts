@@ -17,7 +17,7 @@ export const ACTION_TYPES = {
 };
 
 const initialState = {
-  loading: false,
+  loading: true,
   errorMessage: null,
   entities: [] as ReadonlyArray<IForum>,
   entitiesnew: [] as ReadonlyArray<IForum>,
