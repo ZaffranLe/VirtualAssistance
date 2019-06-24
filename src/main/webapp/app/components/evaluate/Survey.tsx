@@ -196,7 +196,7 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
       result: 'Chưa đạt',
       nameSurvey: 'Ban danh gia moi'
     });
-    let href = this.state.isNew ? 'entity/full-evaluate' : 'entity/full-evaluate/' + this.props.fullEvaluateEntity.id;
+    const href = this.state.isNew ? 'entity/full-evaluate' : 'entity/full-evaluate/' + this.props.fullEvaluateEntity.id;
     window.location.href = href;
   };
 
