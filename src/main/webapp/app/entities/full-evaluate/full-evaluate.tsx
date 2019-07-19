@@ -45,7 +45,6 @@ export class FullEvaluate extends React.Component<any, any> {
 
   handleSearch(e) {
     e.preventDefault();
-
     this.setState({
       nameSearch: e.target.value.toLowerCase()
     });
@@ -58,6 +57,7 @@ export class FullEvaluate extends React.Component<any, any> {
       currentPage: index
     });
   }
+
   render() {
     const { fullEvaluateList, match } = this.props;
     const { currentPage } = this.state;

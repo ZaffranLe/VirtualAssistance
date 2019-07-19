@@ -8,7 +8,7 @@ import { SERVER_API_URL } from 'app/config/constants';
 import { IAnswer, ScoreLadder } from 'app/shared/model/answer.model';
 
 registerPlugin(FilePondPluginFileValidateType);
-class QuestionRow extends React.Component<any, any> {
+class Proof extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -56,6 +56,7 @@ class QuestionRow extends React.Component<any, any> {
                 {this.state.criteriaEvaluate.good} <br />- <strong>Mức Tốt:</strong> {this.state.criteriaEvaluate.excellent} <br />
                 <p>Thêm minh chứng</p> <br />
                 <FilePond
+                  acceptedFileTypes={['image/png', 'image/jpeg']}
                   //  ref={this.fileRef}
                   allowMultiple={false}
                   server={{
@@ -167,4 +168,4 @@ class QuestionRow extends React.Component<any, any> {
   }
 }
 
-export default QuestionRow;
+export default Proof;

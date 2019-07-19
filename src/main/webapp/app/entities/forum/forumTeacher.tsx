@@ -57,15 +57,9 @@ export class ForumTeacher extends React.Component<IForumProps> {
               </Card>
             ))}
           </Col>
-          <Col md={4} sm={12}>
+          <Col md={4} sm={12} className="mb-1">
             <Card>
-              <CardHeader> Chủ đề mới nhất</CardHeader>
-              <CardBody>
-                <CardTitle>Special Title Treatment</CardTitle>
-                <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                <Button>Go somewhere</Button>
-              </CardBody>
-              {/* <CardFooter>Footer</CardFooter> */}
+              <CardHeader> Bài mới nhất</CardHeader>
             </Card>
             {forumListnew.map((forum, i) => (
               <Card className="mb-1">

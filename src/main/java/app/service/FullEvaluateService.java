@@ -1,5 +1,6 @@
 package app.service;
 
+import app.domain.Answer;
 import app.domain.FullEvaluate;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public interface FullEvaluateService {
      * @return the list of entities
      */
     List<FullEvaluate> findAll();
+
     List<FullEvaluate> findByLogin();
 
     /**
@@ -42,8 +44,10 @@ public interface FullEvaluateService {
     void delete(Long id);
 
     FullEvaluate create(String result, String[] questionresult);
-    FullEvaluate create(String result, String[] questionresult,String nameSurvey, String[] fileResult);
-    
-    
 
+    FullEvaluate create(String result, String[] questionresult, String nameSurvey, String[] fileResult);
+
+    FullEvaluate update(Long id, String result, String name, List<Answer> answers);
+
+    FullEvaluate create(List<Answer> answers, String nameSurvey);
 }

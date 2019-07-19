@@ -11,6 +11,7 @@ import app.repository.CriteriaEvaluateRepository;
 import app.repository.FullEvaluateRepository;
 import app.repository.TeacherRepository;
 import app.security.SecurityUtils;
+import app.service.AnswerService;
 import app.service.CriteriaEvaluateService;
 import app.service.TeacherService;
 import java.time.ZonedDateTime;
@@ -22,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * Service Implementation for managing FullEvaluate.
@@ -29,21 +32,25 @@ import java.util.Optional;
 @Service
 @Transactional
 public class FullEvaluateServiceImpl implements FullEvaluateService {
-    
+
     private final Logger log = LoggerFactory.getLogger(FullEvaluateServiceImpl.class);
-    
+
     private final FullEvaluateRepository fullEvaluateRepository;
     private final TeacherService teacherService;
     private final CriteriaEvaluateRepository criteriavaluateRepository;
     private final AnswerRepository answerRepository;
     TeacherRepository teacherRepository;
-    
-    public FullEvaluateServiceImpl( TeacherRepository teacherRepository, FullEvaluateRepository fullEvaluateRepository, TeacherService teacherService, CriteriaEvaluateRepository criteriavaluateRepository, AnswerRepository answerRepository) {
+    private final AnswerService answerService;
+
+    public FullEvaluateServiceImpl(AnswerService answerService, TeacherRepository teacherRepository,
+            FullEvaluateRepository fullEvaluateRepository, TeacherService teacherService,
+            CriteriaEvaluateRepository criteriavaluateRepository, AnswerRepository answerRepository) {
         this.fullEvaluateRepository = fullEvaluateRepository;
         this.teacherService = teacherService;
         this.criteriavaluateRepository = criteriavaluateRepository;
         this.answerRepository = answerRepository;
         this.teacherRepository = teacherRepository;
+        this.answerService = answerService;
     }
 
     /**
@@ -69,6 +76,7 @@ public class FullEvaluateServiceImpl implements FullEvaluateService {
         log.debug("Request to get all FullEvaluates");
         return fullEvaluateRepository.findAll();
     }
+
     @Override
     @Transactional(readOnly = true)
     public List<FullEvaluate> findByLogin() {
@@ -109,38 +117,38 @@ public class FullEvaluateServiceImpl implements FullEvaluateService {
         fullEvaluate.setTeacher(teacherService.findByUserLogin());
         fullEvaluate.setDescription("Bản đánh giá " + ZonedDateTime.now());
         switch (result) {
-            case "Chưa đạt":
-                fullEvaluate.setResult(ScoreLadder.FAIL);
-                break;
-            case "Đạt":
-                fullEvaluate.setResult(ScoreLadder.PASS);
-                break;
-            case "Khá":
-                fullEvaluate.setResult(ScoreLadder.GOOD);
-                break;
-            case "Tốt":
-                fullEvaluate.setResult(ScoreLadder.EXCELLENT);
-                break;
+        case "Chưa đạt":
+            fullEvaluate.setResult(ScoreLadder.FAIL);
+            break;
+        case "Đạt":
+            fullEvaluate.setResult(ScoreLadder.PASS);
+            break;
+        case "Khá":
+            fullEvaluate.setResult(ScoreLadder.GOOD);
+            break;
+        case "Tốt":
+            fullEvaluate.setResult(ScoreLadder.EXCELLENT);
+            break;
         }
         fullEvaluateRepository.save(fullEvaluate);
         for (int i = 0; i < questionresult.length; i++) {
             Answer answer = new Answer();
-            CriteriaEvaluate criteriaEvaluate = criteriavaluateRepository.findOneById(Integer.toUnsignedLong(i+1));
+            CriteriaEvaluate criteriaEvaluate = criteriavaluateRepository.findOneById(Integer.toUnsignedLong(i + 1));
             answer.setCriteriaEvaluate(criteriaEvaluate);
             answer.setFullEvaluate(fullEvaluate);
             switch (questionresult[i]) {
-                case "1":
-                    answer.scoreLadder(ScoreLadder.FAIL);
-                    break;
-                case "2":
-                    answer.scoreLadder(ScoreLadder.PASS);  
-                    break;
-                case "3":
-                    answer.scoreLadder(ScoreLadder.GOOD);
-                    break;
-                case "4":
-                    answer.scoreLadder(ScoreLadder.EXCELLENT);
-                    break;
+            case "1":
+                answer.scoreLadder(ScoreLadder.FAIL);
+                break;
+            case "2":
+                answer.scoreLadder(ScoreLadder.PASS);
+                break;
+            case "3":
+                answer.scoreLadder(ScoreLadder.GOOD);
+                break;
+            case "4":
+                answer.scoreLadder(ScoreLadder.EXCELLENT);
+                break;
 
             }
             answerRepository.save(answer);
@@ -148,52 +156,168 @@ public class FullEvaluateServiceImpl implements FullEvaluateService {
         }
         return fullEvaluateRepository.save(fullEvaluate);
     }
+
+    public FullEvaluate update(Long id, String result, String name, List<Answer> answers) {
+        FullEvaluate fullEvaluate = fullEvaluateRepository.findById(id).get();
+        Teacher teacher = teacherService.findByUserLogin();
+        if (!fullEvaluate.getTeacher().equals(teacher))
+            return null;
+
+        fullEvaluate.setDescription(name);
+
+        fullEvaluate.setResult(caculateResultFromAnswerList(answers));
+
+        answers.stream().filter(new Predicate<Answer>() {
+            @Override
+            public boolean test(Answer t) {
+                return t.getFullEvaluate().equals(fullEvaluate);
+            }
+        }).forEach(new Consumer<Answer>() {
+            @Override
+            public void accept(Answer t) {
+                answerService.save(t);
+            }
+        });
+
+        return fullEvaluateRepository.saveAndFlush(fullEvaluate);
+
+    }
+
     @Override
-    public FullEvaluate create(String result, String[] questionresult,String nameSurvey,String[] fileResult) {
+    public FullEvaluate create(String result, String[] questionresult, String nameSurvey, String[] fileResult) {
         System.out.print("alo");
         FullEvaluate fullEvaluate = new FullEvaluate();
         fullEvaluate.setTeacher(teacherService.findByUserLogin());
         fullEvaluate.setDescription(nameSurvey);
         switch (result) {
-            case "Chưa đạt":
-                fullEvaluate.setResult(ScoreLadder.FAIL);
-                break;
-            case "Đạt":
-                fullEvaluate.setResult(ScoreLadder.PASS);
-                break;
-            case "Khá":
-                fullEvaluate.setResult(ScoreLadder.GOOD);
-                break;
-            case "Tốt":
-                fullEvaluate.setResult(ScoreLadder.EXCELLENT);
-                break;
+        case "Chưa đạt":
+            fullEvaluate.setResult(ScoreLadder.FAIL);
+            break;
+        case "Đạt":
+            fullEvaluate.setResult(ScoreLadder.PASS);
+            break;
+        case "Khá":
+            fullEvaluate.setResult(ScoreLadder.GOOD);
+            break;
+        case "Tốt":
+            fullEvaluate.setResult(ScoreLadder.EXCELLENT);
+            break;
         }
         fullEvaluateRepository.save(fullEvaluate);
         for (int i = 0; i < questionresult.length; i++) {
             Answer answer = new Answer();
-            CriteriaEvaluate criteriaEvaluate = criteriavaluateRepository.findOneById(Integer.toUnsignedLong(i+1));
+            CriteriaEvaluate criteriaEvaluate = criteriavaluateRepository.findOneById(Integer.toUnsignedLong(i + 1));
             answer.setCriteriaEvaluate(criteriaEvaluate);
             answer.setFullEvaluate(fullEvaluate);
             answer.setProof(fileResult[i]);
             switch (questionresult[i]) {
-                case "1":
-                    answer.scoreLadder(ScoreLadder.FAIL);
-                    break;
-                case "2":
-                    answer.scoreLadder(ScoreLadder.PASS);  
-                    break;
-                case "3":
-                    answer.scoreLadder(ScoreLadder.GOOD);
-                    break;
-                case "4":
-                    answer.scoreLadder(ScoreLadder.EXCELLENT);
-                    break;
-
+            case "1":
+                answer.scoreLadder(ScoreLadder.FAIL);
+                break;
+            case "2":
+                answer.scoreLadder(ScoreLadder.PASS);
+                break;
+            case "3":
+                answer.scoreLadder(ScoreLadder.GOOD);
+                break;
+            case "4":
+                answer.scoreLadder(ScoreLadder.EXCELLENT);
+                break;
             }
             answerRepository.save(answer);
 
         }
 
         return fullEvaluateRepository.save(fullEvaluate);
+    }
+
+    public FullEvaluate create(List<Answer> answers, String nameSurvey) {
+        System.out.print("alo create moi");
+        FullEvaluate fullEvaluate = new FullEvaluate();
+        fullEvaluate.setTeacher(teacherService.findByUserLogin());
+        fullEvaluate.setDescription(nameSurvey);
+        fullEvaluate.setResult(caculateResultFromAnswerList(answers));
+        FullEvaluate fullEvaluateok = fullEvaluateRepository.saveAndFlush(fullEvaluate);
+        answers.forEach(new Consumer<Answer>() {
+            @Override
+            public void accept(Answer t) {
+                t.setFullEvaluate(fullEvaluateok);
+                answerRepository.save(t);
+
+            }
+        });
+        return fullEvaluateok;
+
+    }
+
+    private ScoreLadder caculateResultFromAnswerList(List<Answer> answers) {
+
+        ScoreLadder result = ScoreLadder.FAIL;
+        // const answerFail = answers.stream().findFirst((answer) => answer.scoreLadder
+        // === ScoreLadder.FAIL);
+        boolean answerFail = answers.stream().anyMatch(new Predicate<Answer>() {
+            @Override
+            public boolean test(Answer t) {
+                return t.getScoreLadder() == ScoreLadder.FAIL;
+            }
+        });
+        if (answerFail) {
+            return ScoreLadder.FAIL;
+        }
+        // const PASS = this.state.answerList.find((asw, index) => asw.scoreLadder ===
+        // ScoreLadder.PASS && asw.criteriaEvaluate.id >= 2 && asw.criteriaEvaluate.id <
+        // 7);
+        boolean answerPAss = answers.stream().anyMatch(new Predicate<Answer>() {
+            @Override
+            public boolean test(Answer t) {
+                return t.getScoreLadder() == ScoreLadder.PASS && t.getCriteriaEvaluate().getId() >= 2
+                        && t.getCriteriaEvaluate().getId() < 7;
+            }
+        });
+        if (answerPAss) {
+
+            return ScoreLadder.PASS;
+
+        }
+
+        // const counterEX = this.state.answerList.filter((asw, index) =>
+        // asw.scoreLadder === ScoreLadder.EXCELLENT).length;
+
+        // const counterGOOD = this.state.answerList.filter((asw, index) =>
+        // asw.scoreLadder === ScoreLadder.GOOD).length;
+
+        long countGOOD = answers.stream().filter(new Predicate<Answer>() {
+            @Override
+            public boolean test(Answer t) {
+                return t.getScoreLadder() == ScoreLadder.GOOD;
+            }
+        }).count();
+        long countEX = answers.stream().filter(new Predicate<Answer>() {
+            @Override
+            public boolean test(Answer t) {
+                return t.getScoreLadder() == ScoreLadder.EXCELLENT;
+            }
+        }).count();
+
+        if (countEX + countGOOD < 10)
+            return ScoreLadder.PASS;
+
+        if (countEX > 10) {
+            // const GOODS = this.state.answerList.find((asw, index) => asw.scoreLadder ===
+            // ScoreLadder.GOOD && asw.criteriaEvaluate.id >= 2 && asw.criteriaEvaluate.id <
+            // 7);
+            boolean answerGOOD = answers.stream().anyMatch(new Predicate<Answer>() {
+                @Override
+                public boolean test(Answer t) {
+                    return t.getScoreLadder() == ScoreLadder.GOOD && t.getCriteriaEvaluate().getId() >= 2
+                            && t.getCriteriaEvaluate().getId() < 7;
+                }
+            });
+            if (!answerGOOD) {
+                return ScoreLadder.EXCELLENT;
+            }
+        }
+        return ScoreLadder.GOOD;
+
     }
 }

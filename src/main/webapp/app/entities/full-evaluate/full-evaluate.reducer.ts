@@ -142,6 +142,20 @@ export const handleCreateWithName = (listQuestion, questionResult, fileResult, n
     successMessage: 'success'
   }
 });
+export const handleCreateWithAns = (nameSurvey, answerList) => ({
+  type: ACTION_TYPES.CREATE_FULLEVALUATE2,
+  payload: axios.post(`api/create-full-evaluates-ans/${nameSurvey}`, answerList, null),
+  meta: {
+    successMessage: 'success'
+  }
+});
+export const handleUpdateWithName = (idFullEvaluate, questionResult, nameSurvey, answerList) => ({
+  type: ACTION_TYPES.CREATE_FULLEVALUATE2,
+  payload: axios.put(`api/create-full-evaluates/${idFullEvaluate}/${questionResult}/${nameSurvey}`, answerList, null),
+  meta: {
+    successMessage: 'success'
+  }
+});
 
 export const updateEntity: ICrudPutAction<IFullEvaluate> = entity => async dispatch => {
   const result = await dispatch({

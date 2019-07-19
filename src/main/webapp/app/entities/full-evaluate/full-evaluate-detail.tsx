@@ -27,11 +27,13 @@ const getBadge = result => {
           ? 'danger'
           : 'primary';
 };
+
 export class FullEvaluateDetail extends React.Component<any, any> {
   componentDidMount() {
     this.props.getEntity(this.props.match.params.id);
     this.props.getEntityByFullEval(this.props.match.params.id);
   }
+
   download(link) {
     return (
       <a href={`api/downloadFileProof/${link}`}>
@@ -45,6 +47,7 @@ export class FullEvaluateDetail extends React.Component<any, any> {
   render() {
     const { fullEvaluateEntity } = this.props;
     const { answerList } = this.props;
+    const { match } = this.props;
     // const { answerList } = fullEvaluateEntity.answers;
     return (
       <Row>
@@ -70,6 +73,20 @@ export class FullEvaluateDetail extends React.Component<any, any> {
               <Badge color={getBadge(fullEvaluateEntity.result)} pill>
                 <Translate contentKey={`virtualAssistantApp.ScoreLadder.${fullEvaluateEntity.result}`} />
               </Badge>
+              -
+              <Button tag={Link} to={`../../component/survey/${fullEvaluateEntity.id}/edit`} color="danger" size="sm">
+                <FontAwesomeIcon icon="trash" />{' '}
+                <span className="d-none d-md-inline">
+                  <Translate contentKey="entity.action.edit">Update</Translate>
+                </span>
+              </Button>
+              -
+              <Button tag={Link} to={`${match.url}/delete`} color="danger" size="sm">
+                <FontAwesomeIcon icon="trash" />{' '}
+                <span className="d-none d-md-inline">
+                  <Translate contentKey="entity.action.delete">Delete</Translate>
+                </span>
+              </Button>
             </dd>
           </dl>
           <Table responsive hover bordered>
@@ -99,6 +116,7 @@ const mapStateToProps = ({ fullEvaluate, answer }: IRootState) => ({
 const mapDispatchToProps = { getEntity, getEntityByFullEval };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
+
 type DispatchProps = typeof mapDispatchToProps;
 
 export default connect(

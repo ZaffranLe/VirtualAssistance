@@ -56,7 +56,7 @@ public class ForumServiceImpl implements ForumService {
     @Transactional(readOnly = true)
     public List<Forum> findNew() {
         log.debug("Request to get all Forums");
-        return forumRepository.findNew();
+        return forumRepository.findNew().subList(0, 4);
     }
 
     /**
