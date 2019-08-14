@@ -4,6 +4,8 @@ import app.domain.Answer;
 import app.domain.CriteriaEvaluate;
 import app.service.FullEvaluateService;
 import app.domain.FullEvaluate;
+import app.domain.ProofType;
+import app.domain.Proofs;
 import app.domain.Teacher;
 import app.domain.enumeration.ScoreLadder;
 import app.repository.AnswerRepository;
@@ -12,7 +14,6 @@ import app.repository.FullEvaluateRepository;
 import app.repository.TeacherRepository;
 import app.security.SecurityUtils;
 import app.service.AnswerService;
-import app.service.CriteriaEvaluateService;
 import app.service.TeacherService;
 import java.time.ZonedDateTime;
 import org.slf4j.Logger;
@@ -21,8 +22,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -41,16 +45,21 @@ public class FullEvaluateServiceImpl implements FullEvaluateService {
     private final AnswerRepository answerRepository;
     TeacherRepository teacherRepository;
     private final AnswerService answerService;
+    private final ProofsServiceImpl proofsServiceImpl;
+    private final ProofTypeServiceImpl proofTypeServiceImpl;
 
     public FullEvaluateServiceImpl(AnswerService answerService, TeacherRepository teacherRepository,
             FullEvaluateRepository fullEvaluateRepository, TeacherService teacherService,
-            CriteriaEvaluateRepository criteriavaluateRepository, AnswerRepository answerRepository) {
+            CriteriaEvaluateRepository criteriavaluateRepository, AnswerRepository answerRepository,
+            ProofsServiceImpl proofsServiceImpl, ProofTypeServiceImpl proofTypeServiceImpl) {
         this.fullEvaluateRepository = fullEvaluateRepository;
         this.teacherService = teacherService;
         this.criteriavaluateRepository = criteriavaluateRepository;
         this.answerRepository = answerRepository;
         this.teacherRepository = teacherRepository;
         this.answerService = answerService;
+        this.proofsServiceImpl = proofsServiceImpl;
+        this.proofTypeServiceImpl = proofTypeServiceImpl;
     }
 
     /**
@@ -232,17 +241,59 @@ public class FullEvaluateServiceImpl implements FullEvaluateService {
     }
 
     public FullEvaluate create(List<Answer> answers, String nameSurvey) {
-        System.out.print("alo create moi");
+        System.out.println("alo create moi: pprooofs: ");
         FullEvaluate fullEvaluate = new FullEvaluate();
         fullEvaluate.setTeacher(teacherService.findByUserLogin());
         fullEvaluate.setDescription(nameSurvey);
         fullEvaluate.setResult(caculateResultFromAnswerList(answers));
         FullEvaluate fullEvaluateok = fullEvaluateRepository.saveAndFlush(fullEvaluate);
+        // fullEvaluate.
         answers.forEach(new Consumer<Answer>() {
             @Override
-            public void accept(Answer t) {
-                t.setFullEvaluate(fullEvaluateok);
-                answerRepository.save(t);
+            public void accept(Answer ans) {
+                ans.setFullEvaluate(fullEvaluateok);
+                final Answer ans2 = answerRepository.saveAndFlush(ans);
+                Set<Proofs> proofss = ans.getProffs();
+                Set<Proofs> proofss2 = new HashSet<>();
+                System.out.println("--------pprooofs: " + ans.getProffs().size());
+                proofss.forEach(new Consumer<Proofs>() {
+                    @Override
+                    public void accept(Proofs t) {
+                        System.out.println("--------pprooofssssssss: " + t);
+                        if (t.getId() == null || t.getId() == 0) {
+                            Proofs proofs = new Proofs();
+                            proofs.setName(t.getName());
+                            proofs.setUrl(t.getUrl());
+                            // proofs.addAnswer(ans2);
+                            if (t.getType() != null && t.getType().getId() != null) {
+                                ProofType proofType = proofTypeServiceImpl.findOne(t.getType().getId()).get();
+                                if (proofType != null) {
+                                    proofs.setType(proofType);
+                                }
+                            }
+
+                            System.out.println("saveeeeeeeeeeeeeeeeeeeeee: " + proofs);
+                            Proofs proofsave = proofsServiceImpl.save(proofs);
+                            // Set<Answer> answers = proofsave.getAnswers();
+                            // if (answers == null) {
+                            // proofsave.setAnswers(new HashSet<>());
+                            // }
+                            // proofsave.addAnswer(ans2);
+                            // proofsave = proofsServiceImpl.save(proofsave);
+                            proofss2.add(proofsave);
+                            // ans2.addProffs(proofs);
+                        }
+                    }
+                });
+                for (Proofs t : proofss2) {
+                    Set<Answer> answers = t.getAnswers();
+                    if (answers == null) {
+                        t.setAnswers(new HashSet<>());
+                    }
+                    t.addAnswer(ans2);
+                    proofsServiceImpl.save(t);
+
+                }
 
             }
         });

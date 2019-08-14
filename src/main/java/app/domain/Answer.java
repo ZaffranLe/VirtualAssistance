@@ -44,7 +44,7 @@ public class Answer implements Serializable {
     private CriteriaEvaluate criteriaEvaluate;
 
     @ManyToMany(mappedBy = "answers")
-    @JsonIgnore
+    @JsonIgnoreProperties("")
     @Cache(usage = CacheConcurrencyStrategy.NONE)
     private Set<Proofs> proffs = new HashSet<>();
 

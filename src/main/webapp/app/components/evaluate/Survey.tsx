@@ -20,6 +20,7 @@ import { ICriteriaEvaluate } from 'app/shared/model/criteria-evaluate.model';
 import answer, { Answer } from 'app/entities/answer/answer';
 import teacherDeleteDialog from 'app/entities/teacher/teacher-delete-dialog';
 import { Translate, ICrudGetAllAction } from 'react-jhipster';
+import { getEntities as getProofTypes } from '../../entities/proof-type/proof-type.reducer';
 
 export interface ICriteriaTypeProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 export interface ICriteriaEvaluateProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
@@ -83,6 +84,7 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
     this.props.getSession();
     this.props.getCriteriaTypeEntities();
     this.props.getCriteriaEvaluateEntities();
+    this.props.getProofTypes();
     // this.setStateBefforGetData.bind(this);
     if (!this.state.isNew) {
       // (async () => {
@@ -154,8 +156,10 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
     return ScoreLadder.FAIL;
   }
 
-  handleChange(e) {
+  // handleChange(e) {
+  handleChange = (e, proofList) => {
     console.log('ok ok ' + e.target.name);
+    console.log('ok ok:............ ' + JSON.stringify(proofList));
     // const resultList = this.state.questionResult.slice();
     const answerList = this.state.answerList ? this.state.answerList : this.props.answerList;
     // resultList[e.target.name - 1] = e.target.value;
@@ -163,8 +167,10 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
       const a = answerList.find(a => a.criteriaEvaluate.id === Number(e.target.name));
       if (a) {
         a.scoreLadder = e.target.value;
+        a.proffs = proofList;
       }
     }
+    console.log('ok ok ok:............ ' + JSON.stringify(answerList));
 
     const resultExpect = this.caculateResultFromAnswerList();
 
@@ -173,7 +179,7 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
       result: resultExpect,
       answerList
     });
-  }
+  };
 
   handleValidSubmit = () => {
     // handleCreate(this.state.questionResult.toString(), this.state.result);
@@ -197,7 +203,7 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
       nameSurvey: 'Ban danh gia moi'
     });
     const href = this.state.isNew ? 'entity/full-evaluate' : 'entity/full-evaluate/' + this.props.fullEvaluateEntity.id;
-    window.location.href = href;
+    // window.location.href = href;
   };
 
   caculateResultFromAnswerList() {
@@ -237,7 +243,7 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
   }
 
   render() {
-    const { criteriaTypeList } = this.props;
+    const { criteriaTypeList, proofTypeList } = this.props;
     const { fullEvaluateEntity, criteriaEvaluateList } = this.props;
     const { loadingAns } = this.props;
     // const
@@ -279,9 +285,11 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
                           <QuestionRow
                             handleUploadFile={this.handleUploadFile}
                             key={indexEvaluate}
-                            onChange={e => this.handleChange(e)}
+                            // onChange={e => this.handleChange(e)}
+                            onChange={this.handleChange}
                             criteriaEvaluate={criteriaEvaluate}
                             value={this.getValueFromAnsCriteria(this.state.answerList, criteriaEvaluate.id)}
+                            proofTypeList={proofTypeList}
                           />
                         )
                     )
@@ -297,7 +305,6 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
                           <Translate contentKey={`virtualAssistantApp.ScoreLadder.${this.state.result}`} />
                         </strong>
                       </Alert>
-
                       <Button className="btn-pill" color="primary" onClick={this.handleValidSubmit}>
                         Lưu bản đánh giá
                       </Button>
@@ -313,13 +320,14 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
   }
 }
 
-const mapStateToProps = ({ authentication, criteriaType, criteriaEvaluate, fullEvaluate, answer }: IRootState) => ({
+const mapStateToProps = ({ authentication, criteriaType, criteriaEvaluate, fullEvaluate, answer, proofType }: IRootState) => ({
   criteriaTypeList: criteriaType.entities,
   criteriaEvaluateList: criteriaEvaluate.entities,
   account: authentication.account,
   fullEvaluateEntity: fullEvaluate.entity,
   answerList: answer.entities,
-  loadingAns: answer.loading
+  loadingAns: answer.loading,
+  proofTypeList: proofType.entities
 });
 
 const mapDispatchToProps = {
@@ -328,7 +336,8 @@ const mapDispatchToProps = {
   getSession,
   getEntity,
   getEntityByFullEval,
-  handleCreateWithAns
+  handleCreateWithAns,
+  getProofTypes
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
