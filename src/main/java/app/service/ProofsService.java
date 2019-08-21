@@ -27,6 +27,7 @@ public interface ProofsService {
      * @return the list of entities
      */
     List<Proofs> findAll();
+    List<Proofs> findByAns(Long idans);
 
     /**
      * Get all the Proofs with eager load of many-to-many relationships.

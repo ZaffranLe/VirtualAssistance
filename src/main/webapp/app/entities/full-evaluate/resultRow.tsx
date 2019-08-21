@@ -33,6 +33,7 @@ class ResultRow extends React.Component<any, any> {
 
   render() {
     const answer = this.state.answer;
+    const proofList = answer.proffs;
     return (
       <tr key={this.state.key}>
         <td className="text-left">
@@ -44,7 +45,20 @@ class ResultRow extends React.Component<any, any> {
               </Button>
             </CardHeader>
             <Collapse isOpen={this.state.collapse}>
-              <CardBody>{answer.proof ? this.download(answer.proof) : 'Không có minh chứng'}</CardBody>
+              <CardBody>
+                {/* {answer.proof ? this.download(answer.proof) : 'Không có minh chứng'} */}
+                <Row className="justify-content-center">
+                  {proofList.map((proof, index) => [
+                    <Col md="3 p-1 align-middle" className="m-1" key={index}>
+                      <Row className="justify-content-center align-middle">
+                        <Col md="12">{proof.name}</Col>
+                        <Col md="12">{proof.type.name}</Col>
+                        <Col md="12">{this.download(proof.url)}</Col>
+                      </Row>
+                    </Col>
+                  ])}
+                </Row>
+              </CardBody>
             </Collapse>
           </Card>
         </td>

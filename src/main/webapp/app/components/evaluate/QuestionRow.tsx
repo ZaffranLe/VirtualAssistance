@@ -84,8 +84,7 @@ class QuestionRow extends React.Component<any, any> {
               <CardBody>
                 - <strong>Mức Đạt:</strong> {this.state.criteriaEvaluate.pass} <br />- <strong>Mức Khá:</strong>{' '}
                 {this.state.criteriaEvaluate.good} <br />- <strong>Mức Tốt:</strong> {this.state.criteriaEvaluate.excellent} <br />
-                <Button onClick={this.buttonAddClick}> Thêm minh chứng </Button> <br />
-                <Row>
+                <Row className="justify-content-center">
                   {proofList.map((proof, index) => [
                     <ProofsUpdate
                       key={index}
@@ -94,6 +93,14 @@ class QuestionRow extends React.Component<any, any> {
                       keyy={index}
                     />
                   ])}
+                  <Col md="3 p-1 align-middle" className="m-1">
+                    <Row className="justify-content-center align-middle">
+                      <Col md="8">
+                        {' '}
+                        <Button onClick={this.buttonAddClick}> Thêm minh chứng </Button>
+                      </Col>
+                    </Row>
+                  </Col>
                 </Row>
               </CardBody>
             </Collapse>

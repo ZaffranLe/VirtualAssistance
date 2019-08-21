@@ -27,20 +27,24 @@ export class ProofsUpdate extends React.Component<any, any> {
       idsanswer: [],
       typeId: 0,
       isNew: true,
-      fileid: null
+      fileid: null,
+      isOK: false
     };
   }
 
   componentDidMount() {}
 
   saveEntity = (event, errors, values) => {
-    if (errors.length === 0) {
+    if (this.state.fileid !== null && errors.length === 0) {
       const entity = {
         ...values,
         url: this.state.fileid
       };
       console.log(values);
       this.props.handleSaveProof(this.props.keyy, entity);
+      this.setState({ isOK: true });
+    } else {
+      alert('Thiếu thông tin minh chứng!');
     }
   };
 
@@ -63,31 +67,28 @@ export class ProofsUpdate extends React.Component<any, any> {
     }
     const token = 'Bearer ' + tokenLocal;
     return (
-      <Col md="3">
+      <Col md="3 border border-primary m-1 p-1">
         <Row className="justify-content-center">
-          <Col md="8">Thêm minh chứng mới</Col>
-        </Row>
-        <Row className="justify-content-center">
-          <Col md="8">
-            <AvForm model={{}} onSubmit={this.saveEntity}>
+          <Col md="8" className="justify-content-center">
+            Minh chứng mới
+          </Col>
+          <Col md="12">
+            <AvForm model={{}} onSubmit={this.saveEntity} disabled={this.state.isOK}>
               <AvGroup>
                 <Label id="nameLabel" for="name">
-                  <Translate contentKey="virtualAssistantApp.proofs.name">Name</Translate>
+                  Tên tài liệu
                 </Label>
-                <AvField id="proofs-name" type="text" name="name" disable={!isNew} />
+                <AvField alt="Tên tài liệu" id="proofs-name" type="text" name="name" disable={!isNew} />
               </AvGroup>
-              <AvGroup>
+              {/* <AvGroup>
                 <Label id="urlLabel" for="url">
                   <Translate contentKey="virtualAssistantApp.proofs.url">Url</Translate>
                 </Label>
                 <AvField id="proofs-url" type="text" name="url" />
-              </AvGroup>
+              </AvGroup> */}
               <AvGroup>
-                <Label for="type.id">
-                  <Translate contentKey="virtualAssistantApp.proofs.type">Type</Translate>
-                </Label>
-                <AvInput id="proofs-type" type="select" className="form-control" name="type.id">
-                  <option value="" key="0" />
+                <Label for="type.id">Loại tài liệu</Label>
+                <AvInput id="proofs-type" type="select" className="form-control" name="type.id" disabled={this.state.isOK}>
                   {proofTypeList
                     ? proofTypeList.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
@@ -98,35 +99,33 @@ export class ProofsUpdate extends React.Component<any, any> {
                 </AvInput>
               </AvGroup>
               <AvGroup>
-                <Label for="answers">
-                  <Translate contentKey="virtualAssistantApp.proofs.answer">Answer</Translate>
-                </Label>
+                <FilePond
+                  acceptedFileTypes={['image/png', 'image/jpeg']}
+                  //  ref={this.fileRef}
+                  allowMultiple={false}
+                  server={{
+                    url: `${SERVER_API_URL}api`,
+                    process: {
+                      url: '/uploadFileEvaluate',
+                      method: 'POST',
+                      withCredentials: true,
+                      headers: {
+                        Authorization: token
+                      },
+                      timeout: 7000
+                    }
+                  }}
+                  disabled={this.state.isOK}
+                  onprocessfile={this.handleUploadFile}
+                />
               </AvGroup>
-              <FilePond
-                acceptedFileTypes={['image/png', 'image/jpeg']}
-                //  ref={this.fileRef}
-                allowMultiple={false}
-                server={{
-                  url: `${SERVER_API_URL}api`,
-                  process: {
-                    url: '/uploadFileEvaluate',
-                    method: 'POST',
-                    withCredentials: true,
-                    headers: {
-                      Authorization: token
-                    },
-                    timeout: 7000
-                  }
-                }}
-                onprocessfile={this.handleUploadFile}
-              />
-              <Row>
-                <Button id="cancel-save" replace color="info" type="submit">
+              <Row className="justify-content-center">
+                <Button id="cancel-save" replace color="info" type="submit" disabled={this.state.isOK}>
                   <span className="d-none d-md-inline">Lưu minh chứng</span>
                 </Button>
-                <Button id="cancel-reset" replace color="info">
+                {/* <Button id="cancel-reset" replace color="info">
                   <span className="d-none d-md-inline">Xóa</span>
-                </Button>
+                </Button> */}
               </Row>
             </AvForm>
           </Col>

@@ -31,7 +31,7 @@ public class Proofs implements Serializable {
     @Column(name = "url")
     private String url;
 
-    @ManyToOne(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
     @JsonIgnoreProperties("")
     private ProofType type;
 
