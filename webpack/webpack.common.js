@@ -103,7 +103,7 @@ module.exports = options => ({
         //SERVER_API_URL: `'http://gva.iotpccc.com:8080/'`
       }
     }),
-    new ForkTsCheckerWebpackPlugin({ tslint: true, memoryLimit:4000, workers:ForkTsCheckerWebpackPlugin.ALL_CPUS-1 }),
+    new ForkTsCheckerWebpackPlugin({ tslint: true, memoryLimit:100000, workers:ForkTsCheckerWebpackPlugin.ALL_CPUS-1 }),
     new CopyWebpackPlugin([
       { from: './node_modules/swagger-ui/dist/css', to: 'swagger-ui/dist/css' },
       { from: './node_modules/swagger-ui/dist/lib', to: 'swagger-ui/dist/lib' },

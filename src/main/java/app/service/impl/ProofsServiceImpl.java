@@ -51,6 +51,12 @@ public class ProofsServiceImpl implements ProofsService {
         log.debug("Request to get all Proofs");
         return proofsRepository.findAllWithEagerRelationships();
     }
+    @Override
+    @Transactional(readOnly = true)
+    public List<Proofs> findByAns(Long idans) {
+        log.debug("Request to get all Proofs");
+        return proofsRepository.findAllWithEagerRelationships();
+    }
 
     /**
      * Get all the Proofs with eager load of many-to-many relationships.

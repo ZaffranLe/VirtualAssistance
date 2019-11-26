@@ -15,6 +15,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
-    @Query("select a from Answer a where a.fullEvaluate.id = :id")
+    @Query("select a from Answer a  left join fetch a.proffs where a.fullEvaluate.id = :id")
     List<Answer> getAnswersByFullEval(@Param("id") Long id);
 }

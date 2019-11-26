@@ -61,6 +61,7 @@ export class FullEvaluate extends React.Component<any, any> {
   render() {
     const { fullEvaluateList, match } = this.props;
     const { currentPage } = this.state;
+    this.pagesCount = Math.ceil(fullEvaluateList.length / this.pageSize);
     return (
       <div>
         <Row>

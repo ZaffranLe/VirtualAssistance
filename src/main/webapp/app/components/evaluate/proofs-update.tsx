@@ -4,12 +4,11 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Label } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
+import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction, Storage } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
-
+import { SERVER_API_URL } from 'app/config/constants';
 import { IProofType } from 'app/shared/model/proof-type.model';
-import { getEntities as getProofTypes } from 'app/entities/proof-type/proof-type.reducer';
 import { IAnswer } from 'app/shared/model/answer.model';
 import { getEntities as getAnswers } from 'app/entities/answer/answer.reducer';
 import { getEntity, updateEntity, createEntity, reset } from 'app/entities/proofs/proofs.reducer';
@@ -21,174 +20,119 @@ import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import 'filepond/dist/filepond.min.css';
 
-export interface IProofsUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
-
-export interface IProofsUpdateState {
-  isNew: boolean;
-  idsanswer: any[];
-  typeId: number;
-}
-
-export class ProofsUpdate extends React.Component<IProofsUpdateProps, IProofsUpdateState> {
+export class ProofsUpdate extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
       idsanswer: [],
       typeId: 0,
-      isNew: !this.props.match.params || !this.props.match.params.id
+      isNew: true,
+      fileid: null,
+      isOK: false
     };
   }
 
-  componentDidMount() {
-    if (this.state.isNew) {
-      this.props.reset();
-    } else {
-      this.props.getEntity(this.props.match.params.id);
-    }
-
-    this.props.getProofTypes();
-    this.props.getAnswers();
-  }
+  componentDidMount() {}
 
   saveEntity = (event, errors, values) => {
-    if (errors.length === 0) {
-      const { proofsEntity } = this.props;
+    if (this.state.fileid !== null && errors.length === 0) {
       const entity = {
-        ...proofsEntity,
         ...values,
-        answers: mapIdList(values.answers)
+        url: this.state.fileid
       };
-
-      if (this.state.isNew) {
-        this.props.createEntity(entity);
-      } else {
-        this.props.updateEntity(entity);
-      }
-      this.handleClose();
+      console.log(values);
+      this.props.handleSaveProof(this.props.keyy, entity);
+      this.setState({ isOK: true });
+    } else {
+      alert('Thiếu thông tin minh chứng!');
     }
   };
 
-  handleClose = () => {
-    this.props.history.push('/entity/proofs');
+  handleUploadFile = (error, file) => {
+    if (error) {
+      console.log('Oh no');
+      return;
+    }
+    console.log('File processed', file.serverId);
+    // this.props.handleUploadFile(file.serverId, this.state.criteriaEvaluate.id);
+    this.setState({ fileid: file.serverId });
   };
-
   render() {
-    const { proofsEntity, proofTypes, answers, loading, updating } = this.props;
+    const { proofTypeList } = this.props;
     const { isNew } = this.state;
-
+    let tokenLocal = Storage.local.get('jhi-authenticationToken'); // || Storage.session.get('jhi-authenticationToken');
+    // tslint:disable-next-line:triple-equals
+    if (tokenLocal == undefined) {
+      tokenLocal = Storage.session.get('jhi-authenticationToken');
+    }
+    const token = 'Bearer ' + tokenLocal;
     return (
-      <div>
+      <Col md="3 border border-primary m-1 p-1">
         <Row className="justify-content-center">
-          <Col md="8">
-            <h2 id="virtualAssistantApp.proofs.home.createOrEditLabel">
-              <Translate contentKey="virtualAssistantApp.proofs.home.createOrEditLabel">Create or edit a Proofs</Translate>
-            </h2>
+          <Col md="8" className="justify-content-center">
+            Minh chứng mới
+          </Col>
+          <Col md="12">
+            <AvForm model={{}} onSubmit={this.saveEntity} disabled={this.state.isOK}>
+              <AvGroup>
+                <Label id="nameLabel" for="name">
+                  Tên tài liệu
+                </Label>
+                <AvField alt="Tên tài liệu" id="proofs-name" type="text" name="name" disable={!isNew} />
+              </AvGroup>
+              {/* <AvGroup>
+                <Label id="urlLabel" for="url">
+                  <Translate contentKey="virtualAssistantApp.proofs.url">Url</Translate>
+                </Label>
+                <AvField id="proofs-url" type="text" name="url" />
+              </AvGroup> */}
+              <AvGroup>
+                <Label for="type.id">Loại tài liệu</Label>
+                <AvInput id="proofs-type" type="select" className="form-control" name="type.id" disabled={this.state.isOK}>
+                  {proofTypeList
+                    ? proofTypeList.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.name}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <FilePond
+                  acceptedFileTypes={['image/png', 'image/jpeg']}
+                  //  ref={this.fileRef}
+                  allowMultiple={false}
+                  server={{
+                    url: `${SERVER_API_URL}api`,
+                    process: {
+                      url: '/uploadFileEvaluate',
+                      method: 'POST',
+                      withCredentials: true,
+                      headers: {
+                        Authorization: token
+                      },
+                      timeout: 7000
+                    }
+                  }}
+                  disabled={this.state.isOK}
+                  onprocessfile={this.handleUploadFile}
+                />
+              </AvGroup>
+              <Row className="justify-content-center">
+                <Button id="cancel-save" replace color="info" type="submit" disabled={this.state.isOK}>
+                  <span className="d-none d-md-inline">Lưu minh chứng</span>
+                </Button>
+                {/* <Button id="cancel-reset" replace color="info">
+                  <span className="d-none d-md-inline">Xóa</span>
+                </Button> */}
+              </Row>
+            </AvForm>
           </Col>
         </Row>
-        <Row className="justify-content-center">
-          <Col md="8">
-            {loading ? (
-              <p>Loading...</p>
-            ) : (
-              <AvForm model={isNew ? {} : proofsEntity} onSubmit={this.saveEntity}>
-                {!isNew ? (
-                  <AvGroup>
-                    <Label for="id">
-                      <Translate contentKey="global.field.id">ID</Translate>
-                    </Label>
-                    <AvInput id="proofs-id" type="text" className="form-control" name="id" required readOnly />
-                  </AvGroup>
-                ) : null}
-                <AvGroup>
-                  <Label id="nameLabel" for="name">
-                    <Translate contentKey="virtualAssistantApp.proofs.name">Name</Translate>
-                  </Label>
-                  <AvField id="proofs-name" type="text" name="name" />
-                </AvGroup>
-                <AvGroup>
-                  <Label id="urlLabel" for="url">
-                    <Translate contentKey="virtualAssistantApp.proofs.url">Url</Translate>
-                  </Label>
-                  <AvField id="proofs-url" type="text" name="url" />
-                </AvGroup>
-                <AvGroup>
-                  <Label for="type.id">
-                    <Translate contentKey="virtualAssistantApp.proofs.type">Type</Translate>
-                  </Label>
-                  <AvInput id="proofs-type" type="select" className="form-control" name="type.id">
-                    <option value="" key="0" />
-                    {proofTypes
-                      ? proofTypes.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <AvGroup>
-                  <Label for="answers">
-                    <Translate contentKey="virtualAssistantApp.proofs.answer">Answer</Translate>
-                  </Label>
-                  <AvInput
-                    id="proofs-answer"
-                    type="select"
-                    multiple
-                    className="form-control"
-                    name="answers"
-                    value={proofsEntity.answers && proofsEntity.answers.map(e => e.id)}
-                  >
-                    <option value="" key="0" />
-                    {answers
-                      ? answers.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                      : null}
-                  </AvInput>
-                </AvGroup>
-                <Button tag={Link} id="cancel-save" to="/entity/proofs" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
-                  <span className="d-none d-md-inline">
-                    <Translate contentKey="entity.action.back">Back</Translate>
-                  </span>
-                </Button>
-                &nbsp;
-                <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
-                  <Translate contentKey="entity.action.save">Save</Translate>
-                </Button>
-              </AvForm>
-            )}
-          </Col>
-        </Row>
-      </div>
+      </Col>
     );
   }
 }
 
-const mapStateToProps = (storeState: IRootState) => ({
-  proofTypes: storeState.proofType.entities,
-  answers: storeState.answer.entities,
-  proofsEntity: storeState.proofs.entity,
-  loading: storeState.proofs.loading,
-  updating: storeState.proofs.updating
-});
-
-const mapDispatchToProps = {
-  getProofTypes,
-  getAnswers,
-  getEntity,
-  updateEntity,
-  createEntity,
-  reset
-};
-
-type StateProps = ReturnType<typeof mapStateToProps>;
-type DispatchProps = typeof mapDispatchToProps;
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProofsUpdate);
+export default ProofsUpdate;

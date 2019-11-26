@@ -44,9 +44,9 @@ public class Answer implements Serializable {
     private CriteriaEvaluate criteriaEvaluate;
 
     @ManyToMany(mappedBy = "answers")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONE)
+    // @JsonIgnoreProperties("minhchung")
     private Set<Proofs> proffs = new HashSet<>();
+    // @Cache(usage = CacheConcurrencyStrategy.NONE)
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -109,6 +109,7 @@ public class Answer implements Serializable {
         this.criteriaEvaluate = criteriaEvaluate;
     }
 
+ 
     public Set<Proofs> getProffs() {
         return proffs;
     }

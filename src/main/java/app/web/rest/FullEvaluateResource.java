@@ -158,12 +158,11 @@ public class FullEvaluateResource {
     @Timed
     public ResponseEntity<FullEvaluate> createEvaluateWithAnswer(@PathVariable(name = "nameSurvey") String nameSurvey,
             @RequestBody List<Answer> answerList) throws URISyntaxException {
-        System.out.println(nameSurvey);
+        System.out.println(answerList);
         FullEvaluate fullEvaluate = fullEvaluateService.create(answerList, nameSurvey);
-        return ResponseEntity.created(new URI("/api/full-evaluates/" + fullEvaluate))
+        return ResponseEntity.created(new URI("/api/full-evaluates/"))
                 .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, fullEvaluate.getId().toString()))
                 .body(fullEvaluate);
-
     }
 
     @PutMapping("/create-full-evaluates/{idFullEvaluate}/{result}/{nameSurvey}")

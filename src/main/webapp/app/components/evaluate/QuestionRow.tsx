@@ -6,6 +6,8 @@ import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import 'filepond/dist/filepond.min.css';
 import { SERVER_API_URL } from 'app/config/constants';
 import { IAnswer, ScoreLadder } from 'app/shared/model/answer.model';
+import { IProofs } from 'app/shared/model/proofs.model';
+import { ProofsUpdate } from './proofs-update';
 
 registerPlugin(FilePondPluginFileValidateType);
 class QuestionRow extends React.Component<any, any> {
@@ -14,20 +16,47 @@ class QuestionRow extends React.Component<any, any> {
     this.toggle = this.toggle.bind(this);
     this.state = {
       collapse: false,
-      criteriaEvaluate: props.criteriaEvaluate
+      criteriaEvaluate: props.criteriaEvaluate,
+      proofList: Array<IProofs>()
     };
   }
 
   toggle() {
     this.setState({ collapse: !this.state.collapse });
   }
-  handleUploadFile = (error, file) => {
-    if (error) {
+  handleChange = e => {
+    this.props.onChange(e, this.state.proofList);
+  };
+  handleSaveProof = (index, proof) => {
+    const proofList = this.state.proofList;
+    if (index < 0 || index >= proofList.lenght) {
       console.log('Oh no');
       return;
     }
-    console.log('File processed', file.serverId);
-    this.props.handleUploadFile(file.serverId, this.state.criteriaEvaluate.id);
+    proofList[index] = proof;
+    // proofList = proofList.splice(index, 1, proof);
+    // proofList = proofList.map((key, value) => {
+    //   if (key === index) {
+    //     return proof;
+    //   } else {
+    //     return value;
+    //   }
+    // });
+    // proofList.push({ proof });
+
+    this.setState({ proofList });
+    console.log('yes: ' + index + ' ............ ' + JSON.stringify(proof));
+    console.log('yes yessss:............ ');
+    console.log(proofList);
+  };
+
+  buttonAddClick = () => {
+    const proofList = this.state.proofList;
+    proofList.push({
+      name: 'new proof',
+      url: 'upload'
+    });
+    this.setState({ proofList });
   };
 
   render() {
@@ -36,6 +65,7 @@ class QuestionRow extends React.Component<any, any> {
     if (tokenLocal == undefined) {
       tokenLocal = Storage.session.get('jhi-authenticationToken');
     }
+    const proofList = this.state.proofList;
 
     const token = 'Bearer ' + tokenLocal;
     return (
@@ -54,24 +84,24 @@ class QuestionRow extends React.Component<any, any> {
               <CardBody>
                 - <strong>Mức Đạt:</strong> {this.state.criteriaEvaluate.pass} <br />- <strong>Mức Khá:</strong>{' '}
                 {this.state.criteriaEvaluate.good} <br />- <strong>Mức Tốt:</strong> {this.state.criteriaEvaluate.excellent} <br />
-                <p>Thêm minh chứng</p> <br />
-                <FilePond
-                  //  ref={this.fileRef}
-                  allowMultiple={false}
-                  server={{
-                    url: `${SERVER_API_URL}api`,
-                    process: {
-                      url: '/uploadFileEvaluate',
-                      method: 'POST',
-                      withCredentials: true,
-                      headers: {
-                        Authorization: token
-                      },
-                      timeout: 7000
-                    }
-                  }}
-                  onprocessfile={this.handleUploadFile}
-                />
+                <Row className="justify-content-center">
+                  {proofList.map((proof, index) => [
+                    <ProofsUpdate
+                      key={index}
+                      proofTypeList={this.props.proofTypeList}
+                      handleSaveProof={this.handleSaveProof}
+                      keyy={index}
+                    />
+                  ])}
+                  <Col md="3 p-1 align-middle" className="m-1">
+                    <Row className="justify-content-center align-middle">
+                      <Col md="8">
+                        {' '}
+                        <Button onClick={this.buttonAddClick}> Thêm minh chứng </Button>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
               </CardBody>
             </Collapse>
           </Card>
@@ -84,7 +114,7 @@ class QuestionRow extends React.Component<any, any> {
                   id={this.state.criteriaEvaluate.id + 'CD'}
                   name={this.state.criteriaEvaluate.id}
                   value={ScoreLadder.FAIL}
-                  onChange={this.props.onChange}
+                  onChange={this.handleChange}
                   label="Chưa đạt"
                   checked={!this.props.value || this.props.value === ScoreLadder.FAIL}
                 />
@@ -95,7 +125,7 @@ class QuestionRow extends React.Component<any, any> {
                   id={this.state.criteriaEvaluate.id + 'D'}
                   name={this.state.criteriaEvaluate.id}
                   value={ScoreLadder.PASS}
-                  onChange={this.props.onChange}
+                  onChange={this.handleChange}
                   label="Đạt"
                   checked={this.props.value === ScoreLadder.PASS}
                 />
@@ -106,7 +136,7 @@ class QuestionRow extends React.Component<any, any> {
                   id={this.state.criteriaEvaluate.id + 'K'}
                   name={this.state.criteriaEvaluate.id}
                   value={ScoreLadder.GOOD}
-                  onChange={this.props.onChange}
+                  onChange={this.handleChange}
                   label="Khá"
                   checked={this.props.value === ScoreLadder.GOOD}
                 />
@@ -117,7 +147,7 @@ class QuestionRow extends React.Component<any, any> {
                   id={this.state.criteriaEvaluate.id + 'T'}
                   name={this.state.criteriaEvaluate.id}
                   value={ScoreLadder.EXCELLENT}
-                  onChange={this.props.onChange}
+                  onChange={this.handleChange}
                   label="Tốt"
                   checked={this.props.value === ScoreLadder.EXCELLENT}
                 />
@@ -136,7 +166,7 @@ class QuestionRow extends React.Component<any, any> {
 
         </td>
         <td className="align-middle">
-          <CustomInput
+          <CustomInput 
             type="radio"
             id={this.state.criteriaEvaluate.id + 'D'}
             name={this.state.criteriaEvaluate.id}
