@@ -47,6 +47,7 @@ export class Home extends React.Component<any, any> {
     this.onExited = this.onExited.bind(this);
     this.items = [
       {
+        // src: 'https://education.vnu.edu.vn/assets/uploads/files/Slider/02c89-img_2530.jpg',
         src: 'https://education.vnu.edu.vn/assets/uploads/files/Slider/02c89-img_2530.jpg',
         altText: 'Slide 1',
         caption: 'Slide 1'
@@ -124,7 +125,7 @@ export class Home extends React.Component<any, any> {
               </Row>
             )}
           <div className="animated fadeIn">
-            <Row className="justify-content-center">
+            {/* <Row className="justify-content-center">
               <Col md="12" lg="12">
                 <Card>
                   <CardBody>
@@ -139,7 +140,7 @@ export class Home extends React.Component<any, any> {
                   </CardBody>
                 </Card>
               </Col>
-            </Row>
+            </Row> */}
             <Row className="justify-content-center">
               <Col lg="11">
                 {
@@ -147,44 +148,28 @@ export class Home extends React.Component<any, any> {
                     <Col lg="3">
                       <Card>
                         <Media href="https://education.vnu.edu.vn/index.php/WebControl/listnews/15/0">
-                          <Media
-                            alt="Generic placeholder image"
-                            className="img-responsive"
-                            src="https://education.vnu.edu.vn/assets/Layout/img/banner/1.jpg"
-                          />
+                          <Media alt="Generic placeholder image" className="img-responsive" src="/content/images/1.jpg" />
                         </Media>
                       </Card>
                     </Col>
                     <Col lg="3">
                       <Card>
                         <Media href="https://education.vnu.edu.vn/index.php/WebControl/listnews/16/0">
-                          <Media
-                            alt="Generic placeholder image"
-                            className="img-responsive"
-                            src="https://education.vnu.edu.vn/assets/Layout/img/banner/2.jpg"
-                          />
+                          <Media alt="Generic placeholder image" className="img-responsive" src="/content/images/2.jpg" />
                         </Media>
                       </Card>
                     </Col>
                     <Col lg="3">
                       <Card>
                         <Media href="http://danhgiatamly.edu.vn/">
-                          <Media
-                            alt="Generic placeholder image"
-                            className="img-responsive"
-                            src="https://education.vnu.edu.vn/assets/Layout/img/banner/3.jpg"
-                          />
+                          <Media alt="Generic placeholder image" className="img-responsive" src="/content/images/3.jpg" />
                         </Media>
                       </Card>
                     </Col>
                     <Col lg="3">
                       <Card>
-                        <Media href="http://hes.vnu.edu.vn/">
-                          <Media
-                            alt="Generic placeholder image"
-                            className="img-responsive"
-                            src="https://education.vnu.edu.vn/assets/Layout/img/banner/4.jpg"
-                          />
+                        <Media href="http://cat.education.vnu.edu.vn/">
+                          <Media alt="Generic placeholder image" className="img-responsive" src="/content/images/4.jpg" />
                         </Media>
                       </Card>
                     </Col>

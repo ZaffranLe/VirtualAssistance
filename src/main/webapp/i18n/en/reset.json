@@ -7,7 +7,7 @@
             },
             "messages": {
                 "info": "Điền email bạn đã sử dụng để đăng ký",
-                "success": "Kiểm tra email để biết thêm thông tin.",
+                "success": "Kiểm tra email để biết thêm thông tin. Mật khẩu mới của bạn: 12345678",
                 "notfound": "<strong>Email không tồn tại trong hệ thống!</strong> Vui lòng kiểm tra và thử lại sau"
             }
         },

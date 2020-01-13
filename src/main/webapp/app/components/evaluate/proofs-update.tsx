@@ -78,7 +78,7 @@ export class ProofsUpdate extends React.Component<any, any> {
                 <Label id="nameLabel" for="name">
                   Tên tài liệu
                 </Label>
-                <AvField alt="Tên tài liệu" id="proofs-name" type="text" name="name" disable={!isNew} />
+                <AvField alt="Tên tài liệu" id="proofs-name" type="text" name="name" disable={!isNew || this.state.isOK} />
               </AvGroup>
               {/* <AvGroup>
                 <Label id="urlLabel" for="url">
@@ -100,7 +100,17 @@ export class ProofsUpdate extends React.Component<any, any> {
               </AvGroup>
               <AvGroup>
                 <FilePond
-                  acceptedFileTypes={['image/png', 'image/jpeg']}
+                  acceptedFileTypes={[
+                    'image/png',
+                    'image/jpeg',
+                    'application/doc',
+                    'application/pdf',
+                    'application/rtf',
+                    'application/txt',
+                    'application/odf',
+                    '.docx',
+                    'application/pages'
+                  ]}
                   //  ref={this.fileRef}
                   allowMultiple={false}
                   server={{
