@@ -90,7 +90,8 @@ public class UserService {
         return userRepository.findOneByEmailIgnoreCase(mail)
             .filter(User::getActivated)
             .map(user -> {
-                user.setResetKey(RandomUtil.generateResetKey());
+                // user.setResetKey(RandomUtil.generateResetKey());
+                user.setPassword(passwordEncoder.encode("12345678"));
                 user.setResetDate(Instant.now());
                 this.clearUserCaches(user);
                 return user;

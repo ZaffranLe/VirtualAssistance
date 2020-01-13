@@ -56,7 +56,7 @@ class Proof extends React.Component<any, any> {
                 {this.state.criteriaEvaluate.good} <br />- <strong>Mức Tốt:</strong> {this.state.criteriaEvaluate.excellent} <br />
                 <p>Thêm minh chứng</p> <br />
                 <FilePond
-                  acceptedFileTypes={['image/png', 'image/jpeg']}
+                  acceptedFileTypes={['image/png', 'image/jpeg', 'application/pdf', 'application/doc', 'application/docx']}
                   //  ref={this.fileRef}
                   allowMultiple={false}
                   server={{
