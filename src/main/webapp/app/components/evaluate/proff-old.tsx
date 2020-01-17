@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Translate, ICrudGetAction } from 'react-jhipster';
 import { CustomInput, Card, CardHeader, CardBody, Button, Collapse, Row, Col, Label, Container, CardImg } from 'reactstrap';
 import { SERVER_API_URL } from 'app/config/constants';
-class ResultRow extends React.Component<any, any> {
+class ProffOld extends React.Component<any, any> {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -61,12 +61,9 @@ class ResultRow extends React.Component<any, any> {
             </Collapse>
           </Card>
         </td>
-        <td>
-          <Translate contentKey={`virtualAssistantApp.ScoreLadder.${answer.scoreLadder}`} />
-        </td>
       </tr>
     );
   }
 }
 
-export default ResultRow;
+export default ProffOld;

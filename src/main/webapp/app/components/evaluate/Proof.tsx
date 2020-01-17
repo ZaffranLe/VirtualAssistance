@@ -134,7 +134,6 @@ class Proof extends React.Component<any, any> {
             value={1}
             onChange={this.props.onChange}
           />
-
         </td>
         <td className="align-middle">
           <CustomInput

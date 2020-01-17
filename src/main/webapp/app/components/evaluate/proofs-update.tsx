@@ -28,7 +28,8 @@ export class ProofsUpdate extends React.Component<any, any> {
       typeId: 0,
       isNew: true,
       fileid: null,
-      isOK: false
+      isOK: false,
+      proff: props.proff ? props.proff : null
     };
   }
 
@@ -40,7 +41,7 @@ export class ProofsUpdate extends React.Component<any, any> {
         ...values,
         url: this.state.fileid
       };
-      console.log(values);
+      console.log('save proof: ' + entity);
       this.props.handleSaveProof(this.props.keyy, entity);
       this.setState({ isOK: true });
     } else {
@@ -89,6 +90,9 @@ export class ProofsUpdate extends React.Component<any, any> {
               <AvGroup>
                 <Label for="type.id">Loại tài liệu</Label>
                 <AvInput id="proofs-type" type="select" className="form-control" name="type.id" disabled={this.state.isOK}>
+                  <option key="0" value={0}>
+                    Chọn loại minh chứng
+                  </option>
                   {proofTypeList
                     ? proofTypeList.map(otherEntity => (
                         <option value={otherEntity.id} key={otherEntity.id}>
@@ -131,7 +135,7 @@ export class ProofsUpdate extends React.Component<any, any> {
               </AvGroup>
               <Row className="justify-content-center">
                 <Button id="cancel-save" replace color="info" type="submit" disabled={this.state.isOK}>
-                  <span className="d-none d-md-inline">Lưu minh chứng</span>
+                  <span className="d-none d-md-inline">{this.state.isOK ? 'Đã lưu minh chứng thành công' : 'Lưu minh chứng'}</span>
                 </Button>
                 {/* <Button id="cancel-reset" replace color="info">
                   <span className="d-none d-md-inline">Xóa</span>

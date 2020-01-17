@@ -64,7 +64,13 @@ export class ForumDetailTeacher extends React.Component<IForumDetailProps, IForu
               <TextFormat value={forumEntity.createDay} type="date" format={APP_TIMESTAMP_FORMAT} />
             </CardHeader>
             <CardBody>
-              <CardText>{forumEntity.content.search('<') === -1 ? forumEntity.content : renderHTML(forumEntity.content)}</CardText>
+              <CardText>
+                {forumEntity.content
+                  ? forumEntity.content.search('<') === -1
+                    ? forumEntity.content
+                    : renderHTML(forumEntity.content)
+                  : 'NO CONTENT'}
+              </CardText>
             </CardBody>
           </Card>
           <hr />
@@ -75,7 +81,9 @@ export class ForumDetailTeacher extends React.Component<IForumDetailProps, IForu
                     {forum.user.login} - {forum.title}- <TextFormat value={forum.createDay} type="date" format={APP_TIMESTAMP_FORMAT} />{' '}
                   </CardHeader>
                   <CardBody>
-                    <CardText>{forum.content.search('<') === -1 ? forum.content : renderHTML(forum.content)}</CardText>
+                    <CardText>
+                      {forumEntity.content ? (forum.content.search('<') === -1 ? forum.content : renderHTML(forum.content)) : 'NO CONTENT'}
+                    </CardText>
                   </CardBody>
                 </Card>
               ))
