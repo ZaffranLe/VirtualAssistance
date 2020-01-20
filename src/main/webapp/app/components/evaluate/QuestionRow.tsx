@@ -17,7 +17,9 @@ class QuestionRow extends React.Component<any, any> {
     this.state = {
       collapse: false,
       criteriaEvaluate: props.criteriaEvaluate,
-      proofList: Array<IProofs>()
+      // proofList: Array<IProofs>()
+      proofList: props.proofList ? props.proofList : Array<IProofs>()
+      // proofList: props.proofList ? props.proofList : Array<IProofs>()
     };
   }
 
@@ -91,6 +93,7 @@ class QuestionRow extends React.Component<any, any> {
                       proofTypeList={this.props.proofTypeList}
                       handleSaveProof={this.handleSaveProof}
                       keyy={index}
+                      proof={proof}
                     />
                   ])}
                   <Col md="3 p-1 align-middle" className="m-1">

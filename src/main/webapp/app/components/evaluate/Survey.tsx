@@ -143,17 +143,31 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
   };
 
   getValueFromAnsCriteria(answerList: IAnswer[], id: number) {
+    // console.log('id=' + id);
+    // if (this.state.answerList) {
+    const answerList2 = answerList ? answerList : this.props.answerList;
+    if (answerList2) {
+      const ans = answerList2.find(a => a.criteriaEvaluate.id === id);
+      if (ans) {
+        //   console.log(JSON.stringify(ans.scoreLadder));
+        return ans.scoreLadder;
+      }
+    }
+    return ScoreLadder.FAIL;
+  }
+
+  getProffsFromAnswer(answerList: IAnswer[], id: number) {
     console.log('id=' + id);
     // if (this.state.answerList) {
     const answerList2 = answerList ? answerList : this.props.answerList;
     if (answerList2) {
       const ans = answerList2.find(a => a.criteriaEvaluate.id === id);
       if (ans) {
-        console.log(JSON.stringify(ans.scoreLadder));
-        return ans.scoreLadder;
+        console.log('PROFF: ' + JSON.stringify(ans.proffs));
+        return ans.proffs;
       }
     }
-    return ScoreLadder.FAIL;
+    return null;
   }
 
   // handleChange(e) {
@@ -170,7 +184,8 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
         a.proffs = proofList;
       }
     }
-    console.log('ok ok ok:............ ' + JSON.stringify(answerList));
+
+    // console.log('ok ok ok:............ ' + JSON.stringify(answerList));
 
     const resultExpect = this.caculateResultFromAnswerList();
 
@@ -187,6 +202,7 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
       alert('Chưa nhập tên bản đánh giá!');
       return;
     }
+
     if (this.state.isNew) {
       // handleCreateWithName(this.state.questionResult.toString(), this.state.result, this.state.fileResult.toString(), this.state.nameSurvey);
       handleCreateWithAns(this.state.nameSurvey, this.state.answerList);
@@ -195,15 +211,21 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
       const idFullEvaluate = this.props.fullEvaluateEntity.id;
       handleUpdateWithName(idFullEvaluate, this.state.result, this.state.nameSurvey, answerList);
     }
+
     alert('Đánh giá hoàn thành!');
     this.setState({
       questionResult: Array(15).fill(ScoreLadder.FAIL),
       fileResult: Array(15).fill(''),
-      result: 'Chưa đạt',
+      result: ScoreLadder.FAIL,
       nameSurvey: 'Ban danh gia moi'
     });
-    const href = this.state.isNew ? 'entity/full-evaluate' : 'entity/full-evaluate/' + this.props.fullEvaluateEntity.id;
-    // window.location.href = href;
+    if (!this.state.isNew) {
+      const href = '#/entity/full-evaluate/' + this.props.fullEvaluateEntity.id;
+      window.location.href = href;
+    } else {
+      // window.location.reload();
+      console.log('Save survey doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+    }
   };
 
   caculateResultFromAnswerList() {
@@ -290,6 +312,7 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
                             criteriaEvaluate={criteriaEvaluate}
                             value={this.getValueFromAnsCriteria(this.state.answerList, criteriaEvaluate.id)}
                             proofTypeList={proofTypeList}
+                            proofList={this.getProffsFromAnswer(this.state.answerList, criteriaEvaluate.id)}
                           />
                         )
                     )
