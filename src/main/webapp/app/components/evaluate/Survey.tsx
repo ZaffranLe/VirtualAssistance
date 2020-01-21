@@ -163,7 +163,7 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
     if (answerList2) {
       const ans = answerList2.find(a => a.criteriaEvaluate.id === id);
       if (ans) {
-        console.log('PROFF: ' + JSON.stringify(ans.proffs));
+        //  console.log('PROFF: ' + JSON.stringify(ans.proffs));
         return ans.proffs;
       }
     }
@@ -173,7 +173,7 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
   // handleChange(e) {
   handleChange = (e, proofList) => {
     console.log('ok ok ' + e.target.name);
-    console.log('ok ok:............ ' + JSON.stringify(proofList));
+    // console.log('ok ok:............ ' + JSON.stringify(proofList));
     // const resultList = this.state.questionResult.slice();
     const answerList = this.state.answerList ? this.state.answerList : this.props.answerList;
     // resultList[e.target.name - 1] = e.target.value;

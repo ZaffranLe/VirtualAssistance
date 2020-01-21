@@ -27,9 +27,9 @@ export class ProofsUpdate extends React.Component<any, any> {
       idsanswer: [],
       typeId: 0,
       isNew: true,
-      fileid: null,
+      fileid: this.state.proof != null && this.state.proof.url ? this.state.proof.url : null,
       isOK: false,
-      proff: props.proff ? props.proff : null
+      proof: props.proof ? props.proof : null
     };
   }
 
@@ -66,6 +66,11 @@ export class ProofsUpdate extends React.Component<any, any> {
     if (tokenLocal == undefined) {
       tokenLocal = Storage.session.get('jhi-authenticationToken');
     }
+    const proofName = this.state.proof ? this.state.proof.name : '';
+    const proofTypeId = this.state.proff != null && this.state.proof.type ? this.state.proof.type.id : '0';
+    const file = this.state.proof != null && this.state.proof.url ? `api/downloadFileProof/${this.state.proof.url}` : null;
+    console.log('proffggggggggggggggggggggg');
+    console.log(this.state.proff);
     const token = 'Bearer ' + tokenLocal;
     return (
       <Col md="3 border border-primary m-1 p-1">
@@ -79,7 +84,14 @@ export class ProofsUpdate extends React.Component<any, any> {
                 <Label id="nameLabel" for="name">
                   Tên tài liệu
                 </Label>
-                <AvField alt="Tên tài liệu" id="proofs-name" type="text" name="name" disable={!isNew || this.state.isOK} />
+                <AvField
+                  alt="Tên tài liệu"
+                  id="proofs-name"
+                  type="text"
+                  name="name"
+                  disable={!isNew || this.state.isOK}
+                  value={proofName}
+                />
               </AvGroup>
               {/* <AvGroup>
                 <Label id="urlLabel" for="url">
@@ -95,7 +107,7 @@ export class ProofsUpdate extends React.Component<any, any> {
                   </option>
                   {proofTypeList
                     ? proofTypeList.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
+                        <option value={otherEntity.id} key={otherEntity.id} selected={otherEntity.id === proofTypeId}>
                           {otherEntity.name}
                         </option>
                       ))
@@ -131,6 +143,7 @@ export class ProofsUpdate extends React.Component<any, any> {
                   }}
                   disabled={this.state.isOK}
                   onprocessfile={this.handleUploadFile}
+                  files={file}
                 />
               </AvGroup>
               <Row className="justify-content-center">
