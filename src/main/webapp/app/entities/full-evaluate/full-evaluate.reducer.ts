@@ -9,6 +9,7 @@ import { IFullEvaluate, defaultValue } from 'app/shared/model/full-evaluate.mode
 export const ACTION_TYPES = {
   FETCH_FULLEVALUATE_LIST: 'fullEvaluate/FETCH_FULLEVALUATE_LIST',
   FETCH_FULLEVALUATE: 'fullEvaluate/FETCH_FULLEVALUATE',
+  DOWNLOAD_FULLEVALUATE: 'fullEvaluate/DOWNLOAD_FULLEVALUATE',
   CREATE_FULLEVALUATE: 'fullEvaluate/CREATE_FULLEVALUATE',
   CREATE_FULLEVALUATE2: 'fullEvaluate/CREATE_FULLEVALUATE2',
   UPDATE_FULLEVALUATE: 'fullEvaluate/UPDATE_FULLEVALUATE',
@@ -69,6 +70,7 @@ export default (state: FullEvaluateState = initialState, action): FullEvaluateSt
         entities: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_FULLEVALUATE):
+    case SUCCESS(ACTION_TYPES.DOWNLOAD_FULLEVALUATE):
       return {
         ...state,
         loading: false,
@@ -101,6 +103,7 @@ export default (state: FullEvaluateState = initialState, action): FullEvaluateSt
 
 const apiUrl = 'api/full-evaluates';
 const apiUrl1 = 'api/full-evaluates-bylogin';
+// const apiUrlDownload = 'api/full-eval-download';
 // const apiUrl = 'api/create-full-evaluates';
 
 // Actions
@@ -117,6 +120,13 @@ export const getEntity: ICrudGetAction<IFullEvaluate> = id => {
     payload: axios.get<IFullEvaluate>(requestUrl)
   };
 };
+// export const downloadEntity: ICrudGetAction<IFullEvaluate> = id => {
+//   const requestUrl = `${apiUrlDownload}/${id}`;
+//   return {
+//     type: ACTION_TYPES.DOWNLOAD_FULLEVALUATE,
+//     payload: axios.get<IFullEvaluate>(requestUrl)
+//   };
+// };
 
 export const createEntity: ICrudPutAction<IFullEvaluate> = entity => async dispatch => {
   const result = await dispatch({

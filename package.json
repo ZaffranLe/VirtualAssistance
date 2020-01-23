@@ -20,6 +20,7 @@
     "filepond-plugin-file-validate-type": "^1.2.4",
     "filepond-plugin-image-exif-orientation": "^1.0.6",
     "filepond-plugin-image-preview": "^4.0.5",
+    "js-file-downloader": "^1.1.5",
     "loaders.css": "0.1.2",
     "lodash": "4.17.10",
     "moment": "2.22.2",

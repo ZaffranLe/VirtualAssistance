@@ -54,7 +54,6 @@ public class FileStorageService {
 
     public void setFolderUpload(String name) {
         this.fileStorageLocation = Paths.get("uploads/" + name).toAbsolutePath().normalize();
-
         try {
             Files.createDirectories(this.fileStorageLocation);
         } catch (Exception ex) {
@@ -70,18 +69,19 @@ public class FileStorageService {
         setFolderUpload(user);
         return storeFile(file);
     }
+
     public String storeFileEvaluateUploadByUser(MultipartFile file) {
 
         String user = SecurityUtils.getCurrentUserLogin()
                 .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
-        setFolderUpload(user+"/minhchung");
+        setFolderUpload(user + "/minhchung");
         return storeFile(file);
     }
 
     private String convertToPDF(Path targetLocation, String fileName) {
         Converter converter = null;
         boolean shouldShowMessages = true;
-        FileInputStream inStream= null;
+        FileInputStream inStream = null;
         try {
             inStream = new FileInputStream(targetLocation.toFile());
         } catch (FileNotFoundException e1) {
@@ -95,7 +95,8 @@ public class FileStorageService {
                 filePDF = fileName.replace(".", "_") + ".pdf";
                 // Path targetPDF = this.fileStorageLocation.resolve(filePDF);
                 // FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
-                // converter = new DocToPDFConverter(inStream, outStream, shouldShowMessages, true);
+                // converter = new DocToPDFConverter(inStream, outStream, shouldShowMessages,
+                // true);
                 // converter.convert();
                 // return filePDF;
                 return fileName;
@@ -103,7 +104,8 @@ public class FileStorageService {
                 // filePDF = fileName.replace(".", "_") + ".pdf";
                 // Path targetPDF = this.fileStorageLocation.resolve(filePDF);
                 // FileOutputStream outStream = new FileOutputStream(targetPDF.toFile());
-                // converter = new DocxToPDFConverter(inStream, outStream, shouldShowMessages, true);
+                // converter = new DocxToPDFConverter(inStream, outStream, shouldShowMessages,
+                // true);
                 // converter.convert();
                 // return filePDF;
                 return fileName;
@@ -131,9 +133,8 @@ public class FileStorageService {
             }
         } catch (Exception e) {
             // TODO: handle exception
-          System.out.println("Could not convert file " + filePDF + ". Please try again!!!!");
-          e.printStackTrace();
-          
+            System.out.println("Could not convert file " + filePDF + ". Please try again!!!!");
+            e.printStackTrace();
 
         }
 
@@ -148,8 +149,8 @@ public class FileStorageService {
         System.out.println("ten file: " + fileName);
         // fileName = FileNameNormal.normal(fileName);
         fileName = StringUtils.cleanPath(fileName);
-        if(fileName.length()>6){
-            fileName = fileName.substring(fileName.length()-6);
+        if (fileName.length() > 6) {
+            fileName = fileName.substring(fileName.length() - 6);
         }
         System.out.println("ten file sau cleanPath: " + fileName);
         try {
@@ -162,7 +163,7 @@ public class FileStorageService {
             fileName = new Date().getTime() + "_" + fileName;
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-            fileName = convertToPDF(targetLocation,fileName);
+            fileName = convertToPDF(targetLocation, fileName);
             return fileName;
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);

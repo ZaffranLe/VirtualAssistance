@@ -8,11 +8,14 @@ import app.domain.CriteriaEvaluate;
 import app.domain.CriteriaType;
 import app.domain.FullEvaluate;
 import app.domain.Proofs;
+import app.security.SecurityUtils;
 import app.service.AnswerService;
 import app.service.CriteriaEvaluateService;
 import app.service.CriteriaTypeService;
 import app.service.FullEvaluateService;
+import app.service.upload.exceptions.MyFileNotFoundException;
 import app.web.rest.errors.BadRequestAlertException;
+import app.web.rest.errors.InternalServerErrorException;
 import app.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 
@@ -41,7 +44,14 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STMerge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ResourceBanner;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import afu.org.checkerframework.checker.units.qual.h;
@@ -50,8 +60,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Date;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -59,6 +74,8 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * REST controller for managing FullEvaluate.
@@ -168,7 +185,8 @@ public class FullEvaluateResource {
 
     @GetMapping("/full-eval-download/{id}")
     @Timed
-    public ResponseEntity<FullEvaluate> getFullEvaluateDownload(@PathVariable("id") final Long id) {
+    public ResponseEntity<Resource> getFullEvaluateDownload(@PathVariable("id") final Long id,
+            HttpServletResponse response) {
         log.debug("tao fillllllllllllllllllllllllllllllllllllllllllllllllllllllllll", id);
         final Optional<FullEvaluate> fullEvaluate = fullEvaluateService.findOne(id);
         final FullEvaluate entity = fullEvaluate.get();
@@ -176,7 +194,7 @@ public class FullEvaluateResource {
 
         List<CriteriaEvaluate> criteriaEvaluate = criteriaEvaluateService.findAll();
         List<CriteriaType> criteriaType = criteriaTypeService.findAll();
-
+        StringBuffer bufferNameFile = new StringBuffer();
         final XWPFDocument doc = new XWPFDocument();
         try {
 
@@ -330,14 +348,14 @@ public class FullEvaluateResource {
             manh.setAlignment(ParagraphAlignment.LEFT);
             final XWPFRun manhr = manh.createRun();
             manhr.setText(
-                    "- Điểm mạnh: ................................................................................................................................................................................");
+                    "- Điểm mạnh: ........................................................................................................................................................................");
 
             final XWPFParagraph yeu = doc.createParagraph();
             yeu.setWordWrapped(true);
             yeu.setAlignment(ParagraphAlignment.LEFT);
             final XWPFRun yeur = yeu.createRun();
             yeur.setText(
-                    "- Những vấn đề cần cải thiện: ................................................................................................................................................................................");
+                    "- Những vấn đề cần cải thiện: ...........................................................................................................................................................................");
 
             final XWPFParagraph kehoach = doc.createParagraph();
             kehoach.setAlignment(ParagraphAlignment.BOTH);
@@ -351,21 +369,21 @@ public class FullEvaluateResource {
             muctieu.setAlignment(ParagraphAlignment.LEFT);
             final XWPFRun muctieur = muctieu.createRun();
             muctieur.setText(
-                    "- Mục tiêu: ................................................................................................................................................................................");
+                    "- Mục tiêu: ..........................................................................................................................................................................");
 
             final XWPFParagraph noidungdk = doc.createParagraph();
             noidungdk.setWordWrapped(true);
             noidungdk.setAlignment(ParagraphAlignment.LEFT);
             final XWPFRun noidungdkr = noidungdk.createRun();
             noidungdkr.setText(
-                    "- Nội dung đăng ký học tập, bồi dưỡng (các năng lực cần ưu tiên cải thiện):................................................................................................................................................................................");
+                    "- Nội dung đăng ký học tập, bồi dưỡng (các năng lực cần ưu tiên cải thiện): ............................................................................................................................................................................");
 
             final XWPFParagraph thogian = doc.createParagraph();
             thogian.setWordWrapped(true);
             thogian.setAlignment(ParagraphAlignment.LEFT);
             final XWPFRun thogianr = thogian.createRun();
             thogianr.setText(
-                    "- Thời gian:................................................................................................................................................................................");
+                    "- Thời gian: ...........................................................................................................................................................................");
 
             final XWPFParagraph dieukien = doc.createParagraph();
             dieukien.setWordWrapped(true);
@@ -414,9 +432,25 @@ public class FullEvaluateResource {
 
             //////////////////////////////////////////////////
             OutputStream out = null;///////////////////
+            String user = SecurityUtils.getCurrentUserLogin()
+                    .orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
             try {
-                out = new FileOutputStream("demo11.docx");
+
+                bufferNameFile.append("uploads");
+                bufferNameFile.append("/");
+                bufferNameFile.append(user);
+                bufferNameFile.append("/");
+                bufferNameFile.append("baocao");
+                Path path = Paths.get(bufferNameFile.toString()).toAbsolutePath().normalize();
+                Files.createDirectories(path);
+                bufferNameFile.append("/");
+                bufferNameFile.append(String.valueOf(new Date().getTime()));
+                bufferNameFile.append("_bc.docx");
+                out = new FileOutputStream(bufferNameFile.toString());
                 doc.write(out);
+                // response.getOutputStream();
+                // doc.write(response.getOutputStream());
+
             } catch (final IOException e) {
                 e.printStackTrace();
             } finally {
@@ -429,28 +463,28 @@ public class FullEvaluateResource {
         } finally {
             try {
                 doc.close();
-                   public Resource loadFileAsResourceByUser(String user, String fileName) {
-        try {
-            this.setFolderUpload(user);
-            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
-            if (resource.exists()) {
-                return resource;
-            } else {
-                throw new MyFileNotFoundException("File not found " + fileName);
-            }
-        } catch (MalformedURLException ex) {
-            throw new MyFileNotFoundException("File not found " + fileName, ex);
-        }
-    }
+                try {
+                    Path filePath = Paths.get(bufferNameFile.toString());
+                    Resource resource = new UrlResource(filePath.toUri());
+                    if (resource.exists()) {
+                        return ResponseEntity.ok().contentType(MediaType.parseMediaType("application/octet-stream"))
+                                .header(HttpHeaders.CONTENT_DISPOSITION,
+                                        "attachment; filename=\"" + resource.getFilename() + "\"")
+                                .body(resource);
+
+                    } else {
+                        throw new MyFileNotFoundException("File not found " + bufferNameFile.toString());
+                    }
+                } catch (MalformedURLException ex) {
+                    throw new MyFileNotFoundException("File not found " + bufferNameFile.toString(), ex);
+                }
             } catch (final IOException e) {
                 e.printStackTrace();
             }
         }
-        return ResponseUtil.wrapOrNotFound(fullEvaluate);
+        return null;
     }
 
-    
     /**
      * DELETE /full-evaluates/:id : delete the "id" fullEvaluate.
      *

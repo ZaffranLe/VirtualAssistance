@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table, Badge, Input, Pagination, PaginationLink, PaginationItem } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAllAction } from 'react-jhipster';
+import { Translate, ICrudGetAllAction, Storage } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import Downloader from 'js-file-downloader';
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './full-evaluate.reducer';
 import { IFullEvaluate } from 'app/shared/model/full-evaluate.model';
+import { SERVER_API_URL } from 'app/config/constants';
 // tslint:disable-next-line:no-unused-variable
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
 export interface IFullEvaluateProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -56,6 +56,23 @@ export class FullEvaluate extends React.Component<any, any> {
     this.setState({
       currentPage: index
     });
+  }
+
+  downloadLink(e, id) {
+    e.preventDefault();
+    let tokenLocal = Storage.local.get('jhi-authenticationToken'); // || Storage.session.get('jhi-authenticationToken');
+    // tslint:disable-next-line:triple-equals
+    if (tokenLocal == undefined) {
+      tokenLocal = Storage.session.get('jhi-authenticationToken');
+    }
+    const token = 'Bearer ' + tokenLocal;
+    const download = new Downloader({
+      url: `${SERVER_API_URL}api/full-eval-download/${id}`,
+      headers: [{ name: 'Authorization', value: token }]
+    });
+
+    console.log('download:............... ');
+    console.log(download);
   }
 
   render() {
@@ -116,6 +133,9 @@ export class FullEvaluate extends React.Component<any, any> {
                     </td>
                     <td className="text-right">
                       <div className="btn-group flex-btn-group-container">
+                        <Button tag={Button} color="info" size="sm" onClick={e => this.downloadLink(e, fullEvaluate.id)}>
+                          <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">Download</span>
+                        </Button>&nbsp;
                         <Button tag={Link} to={`${match.url}/${fullEvaluate.id}`} color="info" size="sm">
                           <FontAwesomeIcon icon="eye" />{' '}
                           <span className="d-none d-md-inline">

@@ -91,7 +91,7 @@ class Survey extends React.Component<ISurveyUpdateProps, any> {
       this.props.getEntity(this.props.match.params.id);
       this.props.getEntityByFullEval(this.props.match.params.id);
       // if(!this.props.loadingAns){}
-      setTimeout(this.setStateBefforGetData, 1000);
+      setTimeout(this.setStateBefforGetData, 2000);
       // })();
     } else {
       setTimeout(this.setStateInitBeforGetDate, 1000);

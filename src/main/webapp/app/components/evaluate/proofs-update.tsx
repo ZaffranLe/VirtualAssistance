@@ -27,7 +27,7 @@ export class ProofsUpdate extends React.Component<any, any> {
       idsanswer: [],
       typeId: 0,
       isNew: true,
-      fileid: this.state.proof != null && this.state.proof.url ? this.state.proof.url : null,
+      fileid: props.proof != null && props.proof.url ? props.proof.url : null,
       isOK: false,
       proof: props.proof ? props.proof : null
     };
